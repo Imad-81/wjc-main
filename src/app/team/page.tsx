@@ -38,12 +38,6 @@ const faculty = [
     image: "/images/team/faculty-leadership/ms-nishta-jain.jpeg"
   },
   {
-    name: "Mr. Vasim Hunani",
-    role: "Assistant Manager",
-    subtitle: "Woxsen University",
-    image: "/images/team/faculty-leadership/mr-vasim-hunani.jpeg"
-  },
-  {
     name: "Dr. Hemachandran Kannan",
     role: "Advisor",
     subtitle: "Woxsen University",
@@ -60,12 +54,12 @@ const faculty = [
 const studentLeadership = [
   { name: "Praveena Kiran", role: "President", subtitle: "B.Tech'28", image: "/images/team/student-community/praveena-kiran.jpg" },
   { name: "Harshith Chakravarthy", role: "Vice President", subtitle: "BBA'28", image: "/images/team/student-community/mashetty-harshith-chakravarthy.jpg" },
-  { name: "Neha Suryavanshi", role: "Dept. Head - Media & Promotion", subtitle: "BBA'28", image: "/images/team/student-community/neha-l-suryavanshi.jpg", scale: "scale-[1.8]", hoverScale: "group-hover:scale-[1.6]", position: "object-[70%_180%]" },
+  { name: "Neha Suryavanshi", role: "Dept. Head - Media & Promotion", subtitle: "BBA'28", image: "/images/team/student-community/neha-l-suryavanshi.webp", scale: "scale-[1.2]", hoverScale: "group-hover:scale-[1.3]", position: "object-[20%_160%]" },
   { name: "Mythilee Naigapula", role: "Dept. Head - Digital Services & Records", subtitle: "BBA'28", image: "/images/team/student-community/naigapula-mythilee.jpg" },
-  { name: "Sathyapal Reddy", role: "Dept. Head - Operations & Logistics", subtitle: "BBA'28", image: "/images/team/student-community/sathyapal-reddy.jpg" },
-  { name: "Sahaj Daga", role: "Dept. Head - Outreach & Partnerships", subtitle: "BBA'28", image: "/images/team/student-community/sahaj-daga.jpg" },
-  { name: "Vaishnavi Kaling", role: "Dept. Head - Creative Studio", subtitle: "BBA'28", image: "/images/team/student-community/vaishnavi-kaling.jpg" },
-  { name: "Sreshta Tathiparthi", role: "Dept. Head - Learning & Welfare", subtitle: "BBA'28", image: "/images/team/student-community/sreshta-tathiparthi.jpg" },
+  { name: "Sathyapal Reddy", role: "Dept. Head - Operations & Logistics", subtitle: "BBA'28", image: "/images/team/student-community/sathyapal-reddy.webp", scale: "scale-[1.2]", hoverScale: "group-hover:scale-[1.3]", position: "object-[20%_30%]" },
+  { name: "Sahaj Daga", role: "Dept. Head - Outreach & Partnerships", subtitle: "BBA'28", image: "/images/team/student-community/sahaj-daga.webp", scale: "scale-[1.2]", hoverScale: "group-hover:scale-[1.3]", position: "object-[20%_30%]" },
+  { name: "Vaishnavi Kaling", role: "Dept. Head - Creative Studio", subtitle: "BBA'28", image: "/images/team/student-community/vaishnavi-kaling.webp", scale: "scale-[1.2]", hoverScale: "group-hover:scale-[1.3]", position: "object-[20%_120%]" },
+  { name: "Sreshta Tathiparthi", role: "Dept. Head - Learning & Welfare", subtitle: "BBA'28", image: "/images/team/student-community/sreshta-tathiparthi.webp", scale: "scale-[1.2]", hoverScale: "group-hover:scale-[1.3]", position: "object-[20%_120%]" },
 ];
 
 // Enhanced team member card component with better hover effects

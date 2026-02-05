@@ -18,49 +18,52 @@ export default function Hero() {
   const [titleVisible, setTitleVisible] = useState(false);
   const [showContent, setShowContent] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const heroRef = useRef<HTMLElement>(null)
-  const bgRef = useRef<HTMLDivElement>(null)
+  const heroRef = useRef<HTMLElement>(null);
+  const bgRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Animation timings
-    const logoTimer = setTimeout(() => setLogoVisible(true), 200)
-    const titleTimer = setTimeout(() => setTitleVisible(true), 700)
-    const contentTimer = setTimeout(() => setShowContent(true), 1200)
+    const logoTimer = setTimeout(() => setLogoVisible(true), 200);
+    const titleTimer = setTimeout(() => setTitleVisible(true), 700);
+    const contentTimer = setTimeout(() => setShowContent(true), 1200);
 
     // Background image slideshow
     const imageInterval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % heroImages.length)
-    }, 5000) // Change image every 5 seconds
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % heroImages.length);
+    }, 5000); // Change image every 5 seconds
 
     // Subtle parallax (Scroll)
-    let ticking = false
+    let ticking = false;
 
     const handleScroll = () => {
       if (!ticking) {
         requestAnimationFrame(() => {
-          const scrollY = window.scrollY
+          const scrollY = window.scrollY;
           if (bgRef.current) {
-            bgRef.current.style.transform = `translate3d(0, ${scrollY * 0.3}px, 0)`
+            bgRef.current.style.transform = `translate3d(0, ${scrollY * 0.3}px, 0)`;
           }
-          ticking = false
-        })
-        ticking = true
+          ticking = false;
+        });
+        ticking = true;
       }
-    }
+    };
 
-    window.addEventListener("scroll", handleScroll, { passive: true })
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
-      clearTimeout(logoTimer)
-      clearTimeout(titleTimer)
-      clearTimeout(contentTimer)
-      clearInterval(imageInterval)
-      window.removeEventListener("scroll", handleScroll)
-    }
-  }, [])
+      clearTimeout(logoTimer);
+      clearTimeout(titleTimer);
+      clearTimeout(contentTimer);
+      clearInterval(imageInterval);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
-    <section ref={heroRef} className="relative w-full h-screen overflow-hidden bg-gray-900">
+    <section
+      ref={heroRef}
+      className="relative w-full h-screen overflow-hidden bg-gray-900"
+    >
       {/* Background Image Slideshow with Parallax */}
       <div ref={bgRef} className="absolute inset-0 z-0 will-change-transform">
         {heroImages.map((image, index) => (
@@ -84,6 +87,9 @@ export default function Hero() {
         ))}
       </div>
 
+      {/* Black Overlay for Better Content Visibility */}
+      <div className="absolute inset-0 z-[0.5] bg-black/60 pointer-events-none" />
+
       {/* Glossy "Gel" Overlay Effect */}
       {/* Glossy "Gel" Overlay Effect - Hyper-Gloss */}
       {/* Liquid Glass - High Specular Shine */}
@@ -91,10 +97,6 @@ export default function Hero() {
         {/* 1. Main Surface Reflection (The "Sheen") */}
         {/* Curved arc that makes it look like a rounded glass panel */}
         <div className="absolute -inset-x-[20%] top-0 h-[45vh] bg-linear-to-b from-white/30 via-white/10 to-transparent rounded-b-[100%] mix-blend-overlay" />
-
-
-
-
 
         {/* 4. Diagonal Glare Beam */}
         <div className="absolute top-[-20%] left-[60%] w-[10%] h-[140%] bg-linear-to-r from-transparent via-white/15 to-transparent skew-x-[-35deg] mix-blend-overlay" />
