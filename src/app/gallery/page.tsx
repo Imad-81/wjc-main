@@ -191,7 +191,7 @@ export default function GalleryPage() {
   const rowVirtualizer = useVirtualizer({
     count: rows.length,
     getScrollElement: () => parentRef.current,
-    estimateSize: () => 316, // Estimated row height (300px image + 16px gap)
+    estimateSize: () => columnCount === 2 ? 225 : 316, // Mobile: 300px + 2px gap, Desktop: 300px + 16px gap
     overscan: 5,
   })
 
@@ -271,12 +271,11 @@ export default function GalleryPage() {
                     top: 0,
                     left: 0,
                     width: '100%',
-                    height: `${virtualRow.size}px`,
                     transform: `translateY(${virtualRow.start}px)`,
-                    paddingBottom: '20px',
                   }}
                 >
-                  <div className="grid gap-4" style={{ gridTemplateColumns: `repeat(${columnCount}, 1fr)` }}>
+                  {/* <div className="grid gap-4 mb-0.5 md:mb-5" style={{ gridTemplateColumns: `repeat(${columnCount}, 1fr)` }}> */}
+                  <div className="grid gap-2 md:gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4" >
                     {rowImages.map((image: { src: string; alt: string }, colIndex: number) => {
                       const imageIndex = virtualRow.index * columnCount + colIndex
 
