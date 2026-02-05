@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import Footer from "@/components/sections/footer"
 import PageHeader from "@/components/sections/page-header"
 import { ArrowUpRight } from "lucide-react"
@@ -52,25 +52,48 @@ const testimonials = [
 
 const faqs = [
   {
-    question: "Who can join the Woxsen Japan Centre?",
-    answer: "The centre is open to all Woxsen University students, faculty, and staff. We welcome anyone with an interest in Japanese language and culture.",
+    question: "Who can join the Japanese language course?",
+    answer: "All Woxsen University students are eligible to join the Japanese language course. No prior knowledge of Japanese is required.",
   },
   {
-    question: "Is there a membership fee?",
-    answer: "Basic community membership is free for all Woxsen students. JLPT courses and specialized programs may have separate fees.",
+    question: "How long is the Japanese language course?",
+    answer: "The course duration typically ranges from 8 to 12 weeks, depending on the level and schedule.",
   },
   {
-    question: "Do I need to know Japanese to join?",
-    answer: "Not at all! We welcome complete beginners. Our programs cater to all levels, from absolute beginners to advanced learners.",
+    question: "Will I get a certificate after completing the course?",
+    answer: "Yes, participants receive a certificate upon successful completion of the course.",
   },
   {
-    question: "What events do you organize?",
-    answer: "We host cultural festivals, movie screenings, cooking workshops, calligraphy sessions, tea ceremonies, and networking events with Japanese professionals.",
+    question: "How can I register for the course?",
+    answer: "Registration details will be shared through the Japan Center website and official university communication channels.",
+  },
+  {
+    question: "What JLPT level does the Japanese course cover, and how does it help with jobs?",
+    answer: "The course focuses on JLPT N5 level. Learning Japanese can help students explore internships, entry-level roles, and career opportunities with Japanese companies and Japan-focused organizations.",
   },
 ]
 
 export default function JoinPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
+  const [isVisible, setIsVisible] = useState(false)
+  const sectionRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+        }
+      },
+      { threshold: 0.1 }
+    )
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <main className="w-full">
@@ -227,21 +250,29 @@ export default function JoinPage() {
       </section>
 
       {/* FAQ */}
-      <section className="w-full py-20 px-6 md:px-12 lg:px-20 bg-background">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-16">
+      <section ref={sectionRef} className="w-full py-24 px-6 md:px-12 lg:px-20 bg-background overflow-hidden">
+        <div className="max-w-4xl mx-auto">
+          {/* Header */}
+          <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
             <span className="text-foreground font-sans text-sm tracking-widest font-bold uppercase mb-4 block">
               FAQ
             </span>
-            <h2 className="text-foreground font-serif text-3xl md:text-4xl font-normal tracking-wide">
+            <h2 className="text-foreground font-serif text-4xl md:text-5xl font-normal tracking-wide mb-4">
               Frequently Asked Questions
             </h2>
+            <p className="text-foreground/60 text-lg max-w-xl mx-auto">
+              Everything you need to know about joining our Japanese language program
+            </p>
           </div>
+
+          {/* FAQ Items */}
           <div className="space-y-4">
             {faqs.map((faq, idx) => (
               <div
                 key={idx}
-                className="group relative bg-background rounded-none overflow-hidden border border-foreground/10 hover:border-foreground/30 transition-all duration-300"
+                className={`group relative bg-background rounded-none overflow-hidden border border-foreground/10 hover:border-foreground/30 transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                  }`}
+                style={{ transitionDelay: `${idx * 80}ms` }}
               >
                 {/* Japanese Corner Accents */}
                 <div className="absolute top-2 left-2 w-4 h-4 border-l border-t border-foreground/20 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -256,8 +287,12 @@ export default function JoinPage() {
                     {String(idx + 1).padStart(2, "0")}
                   </span>
 
-                  <span className="flex-1 text-foreground font-semibold">{faq.question}</span>
+                  {/* Question */}
+                  <span className="flex-1 text-foreground font-normal text-sm md:text-lg pr-4">
+                    {faq.question}
+                  </span>
 
+                  {/* Toggle Icon */}
                   <span
                     className={`flex-shrink-0 w-8 h-8 rounded-none border border-foreground/30 text-foreground flex items-center justify-center text-lg transition-transform duration-300 ${openFaq === idx ? "rotate-45 bg-foreground/10" : ""
                       }`}
@@ -266,7 +301,7 @@ export default function JoinPage() {
                   </span>
                 </button>
 
-                {/* Smooth Accordion */}
+                {/* Answer - Smooth Accordion */}
                 <div
                   className={`overflow-hidden transition-all duration-300 ease-in-out ${openFaq === idx ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
                     }`}

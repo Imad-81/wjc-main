@@ -40,7 +40,7 @@ export default function FeaturedAbout() {
           <div className={`transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
             <div className="relative aspect-[4/3] rounded-none overflow-hidden">
               <Image
-                src="/images/others/woxsen-japan-center.png"
+                src="/images/others/woxsen-japan-center.jpg"
                 alt="Japan Centre"
                 fill
                 className="object-cover"
@@ -58,13 +58,13 @@ export default function FeaturedAbout() {
             </h2>
 
             <p className="text-foreground/60 text-base leading-relaxed mb-8">
-              The Woxsen Japan Centre, inaugurated on 2nd April 2025 by Mr. Muneo 
-Takahashi, Consul-General of Japan in Chennai, is a university-led initiative 
-dedicated to fostering intercultural dialogue and strengthening the India–Japan 
-relationship through academic collaboration, cultural exchange, and professional 
-engagement. Based at Woxsen University’s Hyderabad campus, the centre serves 
-as a vibrant platform for exploring Japan’s rich heritage, innovative industries, 
-and contemporary societal advancements
+              The Woxsen Japan Centre, inaugurated on 2nd April 2025 by Mr. Muneo
+              Takahashi, Consul-General of Japan in Chennai, is a university-led initiative
+              dedicated to fostering intercultural dialogue and strengthening the India–Japan
+              relationship through academic collaboration, cultural exchange, and professional
+              engagement. Based at Woxsen University’s Hyderabad campus, the centre serves
+              as a vibrant platform for exploring Japan’s rich heritage, innovative industries,
+              and contemporary societal advancements
             </p>
 
             {/* Stats Row */}

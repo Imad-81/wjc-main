@@ -5,12 +5,12 @@ import Image from "next/image";
 import Navigation from "@/components/navigation";
 
 const heroImages = [
-  "/images/hero/hero1.png",
-  "/images/hero/hero2.png",
-  "/images/hero/hero3.png",
-  "/images/hero/hero4.png",
-  "/images/hero/hero5.png",
-  "/images/hero/hero6.png",
+  "/images/hero/hero1.webp",
+  "/images/hero/hero2.webp",
+  "/images/hero/hero3.webp",
+  "/images/hero/hero4.webp",
+  "/images/hero/hero5.webp",
+  "/images/hero/hero6.webp",
 ];
 
 export default function Hero() {
@@ -60,7 +60,7 @@ export default function Hero() {
   }, [])
 
   return (
-    <section ref={heroRef} className="relative w-full h-screen overflow-hidden">
+    <section ref={heroRef} className="relative w-full h-screen overflow-hidden bg-gray-900">
       {/* Background Image Slideshow with Parallax */}
       <div ref={bgRef} className="absolute inset-0 z-0 will-change-transform">
         {heroImages.map((image, index) => (
@@ -76,6 +76,9 @@ export default function Hero() {
               fill
               className="object-cover scale-110"
               priority={index === 0}
+              loading={index === 0 ? "eager" : "lazy"}
+              quality={85}
+              sizes="100vw"
             />
           </div>
         ))}

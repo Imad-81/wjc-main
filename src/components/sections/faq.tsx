@@ -1,32 +1,37 @@
 "use client"
 
-import { MessageCircle } from "lucide-react"
 import { useState, useEffect, useRef } from "react"
 
 const faqs = [
   {
-    question: "What is the Woxsen Japan Centre?",
+    question: "What are the main objectives of the Japan Center?",
     answer:
-      "The Woxsen Japan Centre is a university-led initiative at Woxsen University that focuses on Japanese language education, cultural engagement, academic exchange, and industry collaboration, strengthening ties between India and Japan.",
+      "The center aims to foster cultural exchange, academic partnerships, language learning, industry collaboration, and global exposure focused on Japan.",
     category: "General",
   },
   {
-    question: "Who can join the Japanese language program?",
+    question: "What kind of events does the Japan Center organize?",
     answer:
-      "The Japanese language program is open to Woxsen University students and members of the university community. No prior knowledge of Japanese is required for beginner-level courses.",
-    category: "Programs",
-  },
-  {
-    question: "What are the benefits of JLPT certification?",
-    answer:
-      "JLPT certification is widely recognised for higher education in Japan, employment with Japanese companies, and international career opportunities. It also strengthens academic and professional profiles globally.",
-    category: "Programs",
-  },
-  {
-    question: "How can I participate in cultural events?",
-    answer:
-      "Students can participate by registering through official Woxsen Japan Centre announcements and campus communications for workshops, events, and cultural activities.",
+      "The center hosts workshops, seminars, guest lectures, cultural events, and Japan-focused industry talks.",
     category: "Events",
+  },
+  {
+    question: "Does the Japan Center collaborate with Japanese companies?",
+    answer:
+      "Yes, the center works to build industry linkages with Japanese organizations for internships, research, and innovation projects.",
+    category: "Industry",
+  },
+  {
+    question: "Where is the Woxsen Japan Center located on campus?",
+    answer:
+      "The Japan Center is located within the Woxsen University campus. Exact location details are available on the Contact page.",
+    category: "General",
+  },
+  {
+    question: "How can I stay updated about Japan Center activities?",
+    answer:
+      "Follow the Japan Center's website announcements and official Woxsen University communication channels.",
+    category: "General",
   },
 ]
 
