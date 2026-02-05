@@ -67,7 +67,7 @@ export default function Navigation() {
     { href: "/join", label: "JOIN US" },
   ]
   return (
-    <nav ref={navRef} className="absolute top-6 right-6 z-[999] md:right-auto md:left-1/2 md:-translate-x-1/2 md:top-8">
+    <nav ref={navRef} className="absolute top-6 right-6 z-999 md:right-auto md:left-1/2 md:-translate-x-1/2 md:top-8">
       {/* Desktop Navigation */}
       <ul className="hidden md:flex gap-10 items-center">
         {navLinks.map((link) => (
@@ -119,7 +119,7 @@ export default function Navigation() {
 
       {/* Mobile Menu - Full Screen */}
       <div
-        className={`fixed inset-0 bg-foreground/98 backdrop-blur-lg z-40 flex flex-col items-center justify-center transition-all duration-500 md:hidden ${isMenuOpen
+        className={`fixed inset-0 bg-foreground/98 backdrop-blur-lg z-998 flex flex-col items-center justify-center transition-all duration-500 md:hidden ${isMenuOpen
           ? "opacity-100 pointer-events-auto"
           : "opacity-0 pointer-events-none"
           }`}
