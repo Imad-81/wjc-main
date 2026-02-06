@@ -34,19 +34,19 @@ const benefits = [
 
 const testimonials = [
   {
-    quote: "Joining the Japan Centre was the best decision of my college life. The cultural events and language classes have been incredible!",
-    name: "Priya Sharma",
-    role: "BBA, 3rd Year",
+    quote: "I feel that these classes have gotten me closer to the unique culture and language of Japan.",
+    name: "Arjun Pal",
+    role: "BCA - 1st year SOT",
   },
   {
-    quote: "The JLPT preparation course helped me pass N4 on my first attempt. The instructors are so supportive and knowledgeable.",
-    name: "Rahul Menon",
-    role: "B.Tech, 2nd Year",
+    quote: "I joined the Japanese course to learn the language, but they soon became the best part of my day. Each session is engaging and helps us learn not just the language, but also the culture in a clear and easy way. I get to learn something new every day without ever feeling overwhelmed.",
+    name: "Sasha Kishore",
+    role: "BSc 1st year",
   },
   {
-    quote: "I've made lifelong friends and learned so much about Japanese culture. The community here is truly welcoming.",
-    name: "Ananya Reddy",
-    role: "MBA, 1st Year",
+    quote: "Japanese classes at woxsen have been the most fun language course I've taken. Maki sensei is very fun, relatable and takes her time helping us learn Japanese. Not only that but we cover alot of aspects and is amazing.",
+    name: "Hassini",
+    role: "BBA 1st year",
   },
 ]
 
