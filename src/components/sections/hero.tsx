@@ -90,17 +90,7 @@ export default function Hero() {
       {/* Black Overlay for Better Content Visibility */}
       <div className="absolute inset-0 z-[0.5] bg-black/60 pointer-events-none" />
 
-      {/* Glossy "Gel" Overlay Effect */}
-      {/* Glossy "Gel" Overlay Effect - Hyper-Gloss */}
-      {/* Liquid Glass - High Specular Shine */}
-      <div className="absolute inset-0 z-1 pointer-events-none">
-        {/* 1. Main Surface Reflection (The "Sheen") */}
-        {/* Curved arc that makes it look like a rounded glass panel */}
-        <div className="absolute -inset-x-[20%] top-0 h-[45vh] bg-linear-to-b from-white/30 via-white/10 to-transparent rounded-b-[100%] mix-blend-overlay" />
-
-        {/* 4. Diagonal Glare Beam */}
-        <div className="absolute top-[-20%] left-[60%] w-[10%] h-[140%] bg-linear-to-r from-transparent via-white/15 to-transparent skew-x-[-35deg] mix-blend-overlay" />
-      </div>
+    
 
       {/* Japanese Watermark - Subtle */}
       <div className="absolute inset-0 z-2 flex items-center justify-center pointer-events-none">

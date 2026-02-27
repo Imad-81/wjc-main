@@ -45,6 +45,16 @@ export default function FeaturedAbout() {
                 fill
                 className="object-cover"
               />
+              {/* Overlay for Names */}
+              <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/80 via-black/40 to-transparent p-6 pt-20">
+                <div className="flex flex-wrap gap-x-6 gap-y-2">
+                  {["Mr. Tetsuya Yamada", "Mr. Brundaban Mishra", "Mr. Daisuke Tanji"].map((name) => (
+                    <span key={name} className="text-white/90 font-sans text-sm md:text-base tracking-wide">
+                      {name}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
 
@@ -58,13 +68,14 @@ export default function FeaturedAbout() {
             </h2>
 
             <p className="text-foreground/60 text-base leading-relaxed mb-8">
-              The Woxsen Japan Centre, inaugurated on 2nd April 2025 by Mr. Muneo
+              {/* The Woxsen Japan Centre, inaugurated on 2nd April 2025 by Mr. Muneo
               Takahashi, Consul-General of Japan in Chennai, is a university-led initiative
               dedicated to fostering intercultural dialogue and strengthening the India–Japan
               relationship through academic collaboration, cultural exchange, and professional
               engagement. Based at Woxsen University’s Hyderabad campus, the centre serves
               as a vibrant platform for exploring Japan’s rich heritage, innovative industries,
-              and contemporary societal advancements
+              and contemporary societal advancements */}
+            The Woxsen Japan Centre is a university-led initiative that aims to promote intercultural understanding and strengthen the India–Japan relationship through academic collaboration, cultural exchange, and professional engagement. The Centre was inaugurated on 2nd April 2025 by Mr. Muneo Takahashi, Consul-General of Japan in Chennai, and established with the active support and guidance of Mr. Tetsuya Yamada of Sanwa Kogyo Holdings Inc. (Japan). Located at Woxsen University’s Hyderabad campus, the Centre serves as a platform for students and faculty to engage with Japan’s culture, industries, and contemporary society.
             </p>
 
             {/* Stats Row */}
