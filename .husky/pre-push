@@ -1,4 +1,3 @@
-
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
@@ -8,7 +7,7 @@ if [ "$HUSKY_SKIP" = "1" ]; then
 fi
 
 user_email=$(git config user.email)
-if [ "$user_email" = "aircwou@users.noreply.github.com" ]; then
+if [ "$user_email" = "ci@your-org.com" ]; then
   exit 0
 fi
 
@@ -26,4 +25,5 @@ for b in $protected_branches; do
   fi
 done
 
+exit 0
 exit 0
