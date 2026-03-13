@@ -12,8 +12,8 @@ Woxsen Japan Center Site
 1. Clone the repo:
 
 ```bash
-git clone https://github.com/aircwou/woxsen-japan-center.git
-cd woxsen-japan-center
+git clone https://github.com/aircwou/woxsen-japan-center-wou.git
+cd woxsen-japan-center-wou
 ```
 
 2. Install dependencies (pnpm recommended):
