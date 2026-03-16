@@ -12,6 +12,62 @@ export interface Event {
 
 export const pastEvents: Event[] = [
     {
+        slug: "kizuna-matsuri",
+        date: "February 27, 2026",
+        category: "FLAGSHIP | CULTURAL",
+        title: "Kizuna Matsuri",
+        description:
+            "The flagship annual event of the Woxsen Japan Centre celebrating Indo-Japanese ties through cultural dialogue, workshops, and performances featuring dignitaries from Japan Foundation, Toshiba, and leading Japanese institutions.",
+        fullDescription: `Kizuna Matsuri stands as the flagship annual event of the Woxsen Japan Centre at Woxsen University, Hyderabad, Telangana, India. Conceived as a platform to celebrate and strengthen Indo–Japanese ties, the festival brings together academic leaders, industry representatives, international delegates, and the university community in a shared space of cultural dialogue and collaboration.
+
+"Kizuna," meaning bond, reflects the spirit of the festival, fostering meaningful connections between India and Japan through education and culture.
+
+The inaugural edition was graced by eminent dignitaries representing leading global institutions and organizations, including:
+• Mr. Koji Sato, Director General, Japan Foundation (New Delhi)
+• Mr. Hiroshi Furuta, CMD, Toshiba (T&D India)
+• Mr. Rama Bhadra, Founder, Na Ra Japan Hub
+• Ms. Chikako Hironaka and Mr. Kazutoshi Tamari, Chukyo University, Japan
+• Mr. Daisuke Tanji, CEO, Indobox Inc.
+• Mr. Tomio Isogai, Advisor, Indobox Inc.
+
+The Woxsen Japan Centre sincerely expresses its gratitude for their gracious presence and participation.
+
+During the inaugural ceremony, Woxsen students presented a brief fashion walk, adding a creative element to the proceedings. This was followed by a display by the School of Art and Design (SOAD), contributing a visual dimension to the celebration.
+
+The program featured presentations by Japanese language students and participants of the Japan Immersion Program, reflecting academic engagement and experiential learning.
+
+The cultural segment included interactive workshops on:
+• Sumi-e painting
+• Ikebana
+• Martial arts
+• Calligraphy
+
+The Cosplay segment added a contemporary dimension, encouraging creative expression across campus.
+
+The cultural showcase brought the spirit of collaboration to life. An Indo–Japanese performance by Mrs. Nalini and her team blended artistic traditions from both nations. This was complemented by a vibrant classical dance performance, adding youthful energy to the celebration. The program also featured an engaging band performance, along with a traditional Japanese dance presentation that offered a glimpse into Japan's rich cultural heritage. The evening was further elevated by a special musical performance by the J-Hind Band, featuring a surprise appearance by Tanji-san, marking a memorable moment of cross-cultural expression.
+
+Kizuna Matsuri brought together delegates, artists, and the university community for a celebration of culture, dialogue, and shared experiences. The event reflected the true meaning of "Kizuna" — bonds built through connection and participation.`,
+        images: [
+            "/images/events/kizuna-matsuri/DSC00027-compressed-compressed-compressed.jpg",
+            "/images/events/kizuna-matsuri/DSC00122-compressed-compressed-compressed.jpg",
+            "/images/events/kizuna-matsuri/DSC00164-compressed-compressed-compressed.jpg",
+            "/images/events/kizuna-matsuri/DSC00181-compressed-compressed-compressed.jpg",
+            "/images/events/kizuna-matsuri/DSC00493-compressed-compressed-compressed.jpg",
+            "/images/events/kizuna-matsuri/DSC00509-compressed-compressed-compressed.jpg",
+            "/images/events/kizuna-matsuri/DSC00575-compressed-compressed-compressed.jpg",
+            "/images/events/kizuna-matsuri/DSC00582-compressed-compressed-compressed.jpg",
+            "/images/events/kizuna-matsuri/DSC09354-compressed-compressed-compressed.jpg",
+            "/images/events/kizuna-matsuri/DSC09428-compressed-compressed-compressed.jpg",
+            "/images/events/kizuna-matsuri/DSC09430-compressed-compressed-compressed.jpg",
+            "/images/events/kizuna-matsuri/DSC09444-compressed-compressed-compressed.jpg",
+            "/images/events/kizuna-matsuri/DSC09500 (1)-compressed-compressed-compressed.jpg",
+            "/images/events/kizuna-matsuri/DSC09647-compressed-compressed-compressed.jpg",
+            "/images/events/kizuna-matsuri/DSC09704-compressed-compressed-compressed.jpg",
+        ],
+        location: "Woxsen University",
+        time: "Full Day Event",
+    },
+    {
         slug: "japanese-cultural-immersion",
         date: "September 11, 2025",
         category: "CULTURAL | ACADEMICS",
