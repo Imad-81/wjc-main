@@ -63,14 +63,8 @@ export async function generateMetadata({
       template: `%s | ${dict.home.metaTitle}`,
     },
     description: dict.home.metaDescription,
-    alternates: {
-      canonical: locale === "en" ? "/" : "/ja",
-      languages: {
-        en: "/",
-        ja: "/ja",
-        "x-default": "/",
-      },
-    },
+    // Canonical/hreflang are deliberately NOT set here — they must be
+    // per-page. See `alternatesFor()` in src/i18n/metadata.ts.
     openGraph: {
       type: "website",
       siteName: dict.home.metaTitle,

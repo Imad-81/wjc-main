@@ -351,8 +351,24 @@ export const en = {
       label: "Apply",
       title: "Claim Your Place",
       body: "Registration is handled through our official forms. Choose the one that matches you and we will be in touch.",
-      student: "Student Registration",
-      faculty: "Faculty & Professional Registration",
+      communityTitle: "Join the Community",
+      communityBody:
+        "Become a member of the Woxsen Japan Centre community and take part in cultural events, workshops, and festivals throughout the year.",
+      communityBenefits: [
+        "Free for all Woxsen students",
+        "Access to cultural events",
+        "Community networking",
+      ],
+      communityCta: "Register Now",
+      courseTitle: "Enrol in the JLPT Course",
+      courseBody:
+        "Structured JLPT preparation at N5 and N4 with qualified instructors, mock examinations, and a curriculum shaped by cultural immersion.",
+      courseBenefits: [
+        "Qualified instructors",
+        "N5 and N4 levels",
+        "Mock exams included",
+      ],
+      courseCta: "Enrol Now",
     },
   },
 

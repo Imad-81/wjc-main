@@ -2,7 +2,9 @@ import Image from "next/image"
 import Link from "next/link"
 import { Check } from "lucide-react"
 
+import type { Metadata } from "next"
 import { getDictionary } from "@/i18n"
+import { alternatesFor } from "@/i18n/metadata"
 import { isLocale, localizePath, type Locale } from "@/i18n/config"
 import { notFound } from "next/navigation"
 
@@ -21,6 +23,16 @@ import {
   KanjiGhost,
   SectionLabel,
 } from "@/components/wjc/primitives"
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params
+  if (!isLocale(locale)) return {}
+  return { alternates: alternatesFor("/", locale) }
+}
 
 export default async function HomePage({
   params,
