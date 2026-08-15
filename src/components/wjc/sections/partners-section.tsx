@@ -1,6 +1,5 @@
 "use client"
 
-import AppImage from "../app-image"
 import { useReveal } from "../use-reveal"
 import { partners } from "@/data/partners"
 import type { Locale } from "@/i18n/config"
@@ -24,7 +23,6 @@ export default function PartnersSection({
       aria-labelledby="partners-heading"
     >
       <div className="max-w-content mx-auto px-8">
-        {/* Header */}
         <div className="mb-16 flex flex-col justify-between gap-8 md:flex-row md:items-end">
           <div>
             <div className="fade-up" style={{ opacity: 0 }}>
@@ -71,7 +69,6 @@ export default function PartnersSection({
           </p>
         </div>
 
-        {/* Partner cards */}
         <div
           className="grid grid-cols-1 md:grid-cols-3"
           style={{ border: "1px solid rgba(35,35,35,0.15)" }}
@@ -79,7 +76,7 @@ export default function PartnersSection({
           {partners.map((partner, index) => (
             <div
               key={partner.id}
-              className="fade-up group flex flex-col"
+              className="fade-up group"
               style={{
                 opacity: 0,
                 transitionDelay: `${index * 0.12}s`,
@@ -98,29 +95,30 @@ export default function PartnersSection({
                 e.currentTarget.style.backgroundColor = "rgba(248,247,244,0.35)"
               }}
             >
-              {/* Real partner logo, replacing the prototype's monogram tile */}
               <div
                 style={{
-                  width: "72px",
+                  width: "56px",
                   height: "56px",
                   border: "1px solid rgba(35,35,35,0.20)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   marginBottom: "28px",
-                  backgroundColor: "#FFFFFF",
-                  padding: "6px",
-                  overflow: "hidden",
+                  backgroundColor: "rgba(35,35,35,0.06)",
                 }}
+                aria-hidden="true"
               >
-                <AppImage
-                  src={partner.logo}
-                  alt={`${partner.name[locale]} logo`}
-                  width={64}
-                  height={44}
-                  className="h-full w-full"
-                  style={{ objectFit: "contain" }}
-                />
+                <span
+                  className="font-serif"
+                  style={{
+                    fontSize: "14px",
+                    fontWeight: 500,
+                    letterSpacing: "0.08em",
+                    color: "#232323",
+                  }}
+                >
+                  {partner.monogram}
+                </span>
               </div>
 
               <h3
@@ -162,63 +160,32 @@ export default function PartnersSection({
                   fontSize: "13px",
                   color: "rgba(35,35,35,0.65)",
                   lineHeight: 1.8,
-                  marginBottom: "20px",
+                  marginBottom: "24px",
                   fontWeight: 300,
                 }}
               >
                 {partner.description[locale]}
               </p>
 
-              {/* Benefit checklist */}
-              <ul style={{ marginBottom: "24px", flex: 1 }}>
-                {partner.benefits[locale].map((benefit) => (
-                  <li
-                    key={benefit}
+              <div className="flex flex-wrap gap-2">
+                {partner.tags[locale].map((tag) => (
+                  <span
+                    key={tag}
                     style={{
-                      display: "flex",
-                      alignItems: "flex-start",
-                      gap: "8px",
-                      fontSize: "13px",
-                      color: "rgba(35,35,35,0.75)",
-                      lineHeight: 1.7,
-                      marginBottom: "6px",
-                      fontWeight: 400,
+                      fontSize: "10px",
+                      letterSpacing: "0.1em",
+                      color: "var(--theme-accent)",
+                      border: "1px solid var(--theme-border-dark)",
+                      padding: "3px 10px",
+                      fontWeight: 500,
+                      textTransform: "uppercase",
+                      backgroundColor: "var(--theme-tag-bg)",
                     }}
                   >
-                    <span
-                      aria-hidden="true"
-                      style={{ color: "var(--theme-accent)", flexShrink: 0 }}
-                    >
-                      ✓
-                    </span>
-                    {benefit}
-                  </li>
+                    {tag}
+                  </span>
                 ))}
-              </ul>
-
-              {/*
-                The Centre has not supplied a public URL for every partner —
-                the link is rendered only where one exists rather than
-                shipping a dead anchor.
-              */}
-              {partner.url && (
-                <a
-                  href={partner.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2"
-                  style={{
-                    fontSize: "12px",
-                    fontWeight: 500,
-                    letterSpacing: "0.06em",
-                    color: "var(--theme-accent)",
-                    textDecoration: "none",
-                  }}
-                >
-                  {dict.common.visitWebsite}
-                  <span aria-hidden="true">→</span>
-                </a>
-              )}
+              </div>
             </div>
           ))}
         </div>

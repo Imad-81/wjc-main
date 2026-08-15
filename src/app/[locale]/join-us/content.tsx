@@ -73,7 +73,6 @@ function HeroJoinUs({ locale, dict }: SectionProps) {
                 textTransform: "uppercase",
               }}
             >
-              {/* "和 · WA COMMUNITY" replaced per HOME.pdf */}
               {dict.joinUs.heroLabel}
             </span>
           </div>
@@ -512,7 +511,7 @@ function MemberStoriesSection({ locale, dict }: SectionProps) {
               color: "var(--theme-accent)",
             }}
           >
-            {dict.home.testimonials.label}
+            {dict.joinUs.memberStories.label}
           </span>
           <h2
             id="member-stories-heading"
@@ -525,10 +524,10 @@ function MemberStoriesSection({ locale, dict }: SectionProps) {
               color: "#232323",
             }}
           >
-            {dict.home.testimonials.title}
+            {dict.joinUs.memberStories.title}
             <br />
             <em style={{ fontStyle: "italic" }}>
-              {dict.home.testimonials.titleEmphasis}
+              {dict.joinUs.memberStories.titleEmphasis}
             </em>
           </h2>
         </div>

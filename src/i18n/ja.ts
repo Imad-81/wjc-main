@@ -63,6 +63,7 @@ export const ja: Dictionary = {
     heroTitleEmphasis: "身近に",
     heroSubtitle:
       "教育、協働、文化交流を通じて、文化をつなぎ、心を動かし、新たな機会を創出します。",
+    heroEyebrow: "ウォクセン大学 · 日本センター",
     heroCtaPrimary: "JLPT を見る",
     heroCtaSecondary: "私たちの歩み",
 
@@ -80,17 +81,25 @@ export const ja: Dictionary = {
     },
 
     stats: {
-      inaugurated: "開設",
-      faculty: "教員",
-      studentLeaders: "学生リーダー",
-      members: "メンバー",
+      partnerInstitutions: "提携機関",
+      studentsEngaged: "参加学生",
+      annualPrograms: "年間プログラム",
+      established: "設立",
     },
 
     about: {
       label: "センターについて",
-      title: "文化をつなぎ、",
-      titleEmphasis: "未来を築く",
-      body: "ウォクセン日本センターは、学術連携、文化交流、専門的な協働を通じて異文化理解を促進し、日印関係を強化することを目指す大学主導の取り組みです。当センターは2025年4月2日、在チェンナイ日本国総領事 Muneo Takahashi 氏をお迎えして開設され、Sanwa Kogyo Holdings Inc.（日本）の Tetsuya Yamada 氏の積極的なご支援とご指導のもとに設立されました。ウォクセン大学ハイデラバード・キャンパスに位置し、学生と教員が日本の文化、産業、現代社会に触れるための拠点となっています。",
+      title: "ふたつの世界を",
+      titleEmphasis: "つなぐ架け橋",
+      body: "ウォクセン日本センターは、日本語教育、文化的な取り組み、学術連携、国際的なパートナーシップを支援し、学生と教員が日本の伝統、価値観、そして現代の実践に触れる機会を創出しています。",
+      body2:
+        "学際的な参加と体験学習を通じて、大学コミュニティのなかに国際的な視野、異文化理解、そして意義ある海外経験を育んでいます。",
+      inlineStats: [
+        { value: "2025", label: "開設" },
+        { value: "3", label: "中核パートナー" },
+        { value: "500+", label: "受講生" },
+        { value: "JLPT", label: "認定" },
+      ],
       cta: "センターについて",
       quote: "共に在り、共に歩む",
       quoteAuthor: "ブルンダバン・ミシュラ博士",
@@ -98,15 +107,29 @@ export const ja: Dictionary = {
     },
 
     partners: {
-      label: "連携",
-      title: "パートナーシップ",
-      subtitle: "戦略的な連携を通じて、インドと日本の架け橋を築きます。",
+      label: "パートナー",
+      title: "戦略的な連携のもとに",
+      subtitle:
+        "日印関係の深化という共通の使命のもとに集まった3つの機関。",
     },
 
     events: {
       label: "イベント・活動",
-      title: "物語が",
-      titleEmphasis: "私たちをつなぐ",
+      title: "文化が",
+      titleEmphasis: "息づく場所",
+    },
+
+    impact: {
+      label: "私たちの成果",
+    },
+
+    membership: {
+      label: "メンバーシップ",
+      title: "意味のある一歩を、ここから",
+      subtitle:
+        "インドと日本の架け橋を築く学生・教員・社会人の輪にご参加ください。",
+      mostPopular: "人気",
+      cta: "センターに参加する",
     },
 
     testimonials: {
@@ -339,13 +362,13 @@ export const ja: Dictionary = {
     metaTitle: "参加する",
     metaDescription:
       "ウォクセン日本センターのコミュニティへ。語学、文化体験、学術の機会、産業界とのつながりが待っています。",
-    heroLabel: "ウォクセン日本センター",
+    heroLabel: "和 · Wa コミュニティ",
     heroTitle: "続いていく何かの、",
     heroTitleEmphasis: "一部になる",
     heroSubtitle:
-      "関心を抱く一人から文化の担い手へ。その歩みへようこそ。一歩一歩が自らの手で積み重ねられ、節目のすべてに深い意味があります。",
+      "Wa コミュニティはクラブではありません。関心を抱く一人から文化の担い手へと進んでいく道のりです。一歩一歩が自らの手で積み重ねられ、評価のすべてに意味があります。",
     heroCtaPrimary: "参加を申し込む",
-    heroCtaSecondary: "もっと見る",
+    heroCtaSecondary: "Wa の歩みを見る",
 
     benefits: {
       label: "得られるもの",
@@ -355,8 +378,14 @@ export const ja: Dictionary = {
         "メンバーシップは単なるイベント参加権ではありません。語学力、文化的知見、学術的機会、そして専門的な強みへと続く体系的な道のりです。",
     },
 
+    memberStories: {
+      label: "メンバーの声",
+      title: "Wa コミュニティから",
+      titleEmphasis: "届いた言葉",
+    },
+
     tiers: {
-      label: "ステップ",
+      label: "Wa のステップ",
       title: "4つの段階、",
       titleEmphasis: "ひとつの道のり",
       subtitle:

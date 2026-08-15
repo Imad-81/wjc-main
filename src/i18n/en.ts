@@ -59,6 +59,7 @@ export const en = {
     heroTitleEmphasis: "Within Reach",
     heroSubtitle:
       "Bridging cultures, inspiring minds, and creating opportunities through education, collaboration, and cultural exchange.",
+    heroEyebrow: "Woxsen University · Japan Centre",
     heroCtaPrimary: "Explore JLPT",
     heroCtaSecondary: "Our Story",
 
@@ -77,17 +78,26 @@ export const en = {
     },
 
     stats: {
-      inaugurated: "Inaugurated",
-      faculty: "Faculty",
-      studentLeaders: "Student Leaders",
-      members: "Members",
+      partnerInstitutions: "Partner Institutions",
+      studentsEngaged: "Students Engaged",
+      annualPrograms: "Annual Programs",
+      established: "Established",
     },
 
     about: {
       label: "About the Centre",
-      title: "Bridging Cultures,",
-      titleEmphasis: "Building Futures",
-      body: "The Woxsen Japan Centre is a university-led initiative that aims to promote intercultural understanding and strengthen the India–Japan relationship through academic collaboration, cultural exchange, and professional engagement. The Centre was inaugurated on 2nd April 2025 by Mr. Muneo Takahashi, Consul-General of Japan in Chennai, and established with the active support and guidance of Mr. Tetsuya Yamada of Sanwa Kogyo Holdings Inc. (Japan). Located at Woxsen University's Hyderabad campus, the Centre serves as a platform for students and faculty to engage with Japan's culture, industries, and contemporary society.",
+      title: "A Bridge Between",
+      titleEmphasis: "Two Worlds",
+      body: "The Woxsen Japan Centre supports Japanese language education, cultural initiatives, academic collaboration, and international partnerships — creating opportunities for students and faculty to engage with Japan's traditions, values, and contemporary practices.",
+      body2:
+        "Through interdisciplinary participation and experiential learning, we foster global awareness, cross-cultural understanding, and meaningful international exposure within the university community.",
+      /** Inline stat row beneath the About copy, as in the prototype. */
+      inlineStats: [
+        { value: "2025", label: "Inaugurated" },
+        { value: "3", label: "Core Partners" },
+        { value: "500+", label: "Students" },
+        { value: "JLPT", label: "Certified" },
+      ],
       cta: "About the Centre",
       quote: "Together we are, Together we will",
       quoteAuthor: "Dr. Brundaban Mishra",
@@ -95,16 +105,29 @@ export const en = {
     },
 
     partners: {
-      label: "Collaborations",
-      title: "Our Partnerships",
+      label: "Our Partners",
+      title: "Built on Strategic Alliances",
       subtitle:
-        "Building bridges between India and Japan through strategic collaborations.",
+        "Three institutions united by a shared commitment to deepening India–Japan relations.",
     },
 
     events: {
       label: "Events & Activities",
-      title: "Where Stories",
-      titleEmphasis: "Unite Us",
+      title: "Where Culture",
+      titleEmphasis: "Comes Alive",
+    },
+
+    impact: {
+      label: "Our Impact",
+    },
+
+    membership: {
+      label: "Membership",
+      title: "Become Part of Something Meaningful",
+      subtitle:
+        "Join students, faculty, and professionals who are building bridges between India and Japan.",
+      mostPopular: "Most Popular",
+      cta: "Join the Centre",
     },
 
     testimonials: {
@@ -338,28 +361,34 @@ export const en = {
     metaTitle: "Join Us",
     metaDescription:
       "Become part of the Woxsen Japan Centre community — language access, cultural immersion, academic pathways, and industry connections.",
-    heroLabel: "Woxsen Japan Centre",
+    heroLabel: "和 · Wa Community",
     heroTitle: "Become Part of",
     heroTitleEmphasis: "Something Lasting",
     heroSubtitle:
-      "Welcome to a journey from curious observer to cultural ambassador. Every step is earned. Every milestone carries deep meaning.",
+      "The Wa Community is not a club. It is a progression — from curious observer to cultural ambassador. Every step is earned. Every recognition is meaningful.",
     heroCtaPrimary: "Claim Your Place",
-    heroCtaSecondary: "Explore more",
+    heroCtaSecondary: "Explore the Wa Journey",
 
     benefits: {
       label: "What You Gain",
       title: "A Community That",
       titleEmphasis: "Opens the World",
       subtitle:
-        "Membership is not just access to events. It is a structured pathway to language proficiency, cultural intelligence, academic opportunity, and professional advantage.",
+        "Membership in the Wa Community is not just access to events. It is a structured pathway to language proficiency, cultural intelligence, academic opportunity, and professional advantage.",
+    },
+
+    memberStories: {
+      label: "Member Stories",
+      title: "Voices from the",
+      titleEmphasis: "Wa Community",
     },
 
     tiers: {
-      label: "The Progression",
+      label: "The Wa Progression",
       title: "Four Levels.",
       titleEmphasis: "One Journey.",
       subtitle:
-        "The community is built on earned recognition. Each level reflects genuine contribution, cultural engagement, and personal growth.",
+        "The Wa Community is built on earned recognition. Each level reflects genuine contribution, cultural engagement, and personal growth.",
       requirement: "Requirement",
       level: "Level",
     },

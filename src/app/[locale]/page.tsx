@@ -8,7 +8,9 @@ import { isLocale, type Locale } from "@/i18n/config"
 import Hero from "@/components/wjc/hero"
 import AboutSection from "@/components/wjc/sections/about-section"
 import PartnersSection from "@/components/wjc/sections/partners-section"
+import StatsSection from "@/components/wjc/sections/stats-section"
 import EventsSection from "@/components/wjc/sections/events-section"
+import CommunitySection from "@/components/wjc/sections/community-section"
 import TestimonialsSection from "@/components/wjc/sections/testimonials-section"
 import FaqSection from "@/components/wjc/sections/faq-section"
 import NewsletterSection from "@/components/wjc/sections/newsletter-section"
@@ -38,14 +40,10 @@ export default async function HomePage({
     <>
       <Hero locale={locale} dict={dict} />
       <AboutSection locale={locale} dict={dict} />
+      <StatsSection locale={locale} dict={dict} />
       <PartnersSection locale={locale} dict={dict} />
       <EventsSection locale={locale} dict={dict} />
-      {/*
-        Two prototype sections are intentionally absent, per HOME.pdf:
-        · "Our Impact" stats band — one of three duplicate stat blocks; the
-          hero bar is the one that survives (§B).
-        · Membership tiers — removed in full (§E).
-      */}
+      <CommunitySection locale={locale} dict={dict} />
       <TestimonialsSection locale={locale} dict={dict} />
       <FaqSection locale={locale} dict={dict} />
       <NewsletterSection locale={locale} dict={dict} />

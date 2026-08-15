@@ -573,16 +573,16 @@ export default function Hero({
     setTimeout(() => setRipples((prev) => prev.filter((r) => r.id !== id)), 1400)
   }, [])
 
-  /**
-   * Hero stats. Per HOME.pdf this is the only stats block on the page — the
-   * prototype's two other instances were removed — and it carries the
-   * odometer count-up.
-   */
+  /** Hero stats bar. Figures reproduced from the approved prototype. */
   const stats = [
-    { icon: "flag", value: "2025", label: dict.home.stats.inaugurated },
-    { icon: "users", value: "7+", label: dict.home.stats.faculty },
-    { icon: "building", value: "18+", label: dict.home.stats.studentLeaders },
-    { icon: "calendar", value: "150+", label: dict.home.stats.members },
+    {
+      icon: "building",
+      value: "12+",
+      label: dict.home.stats.partnerInstitutions,
+    },
+    { icon: "users", value: "300+", label: dict.home.stats.studentsEngaged },
+    { icon: "calendar", value: "08", label: dict.home.stats.annualPrograms },
+    { icon: "flag", value: "2019", label: dict.home.stats.established },
   ]
 
   return (
@@ -700,10 +700,38 @@ export default function Hero({
           }}
         >
           <div style={{ maxWidth: "560px" }}>
-            {/*
-              The prototype's "Woxsen University · Japan Centre" eyebrow was
-              removed at the Centre's request (HOME.pdf §A).
-            */}
+            <div
+              className="fade-up is-visible"
+              style={{
+                marginBottom: "36px",
+                transitionDelay: "0.1s",
+                display: "flex",
+                alignItems: "center",
+                gap: "14px",
+              }}
+            >
+              <div
+                style={{
+                  width: "24px",
+                  height: "1px",
+                  backgroundColor: cfg.accent,
+                  opacity: 0.8,
+                  transition: "background-color 0.7s ease",
+                }}
+              />
+              <span
+                style={{
+                  fontSize: "10px",
+                  letterSpacing: "0.22em",
+                  textTransform: "uppercase",
+                  fontFamily: "var(--font-dm-sans)",
+                  fontWeight: 600,
+                  color: "rgba(255,255,255,0.70)",
+                }}
+              >
+                {dict.home.heroEyebrow}
+              </span>
+            </div>
 
             <h1
               className="fade-up is-visible font-serif"

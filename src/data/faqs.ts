@@ -9,52 +9,62 @@ export interface Faq {
 export const centreFaqs: Faq[] = [
   {
     question: {
-      en: "What are the main objectives of the Japan Centre?",
-      ja: "日本センターの主な目的は何ですか?",
+      en: "Who can join the Woxsen Japan Centre?",
+      ja: "ウォクセン日本センターには誰が参加できますか?",
     },
     answer: {
-      en: "The centre aims to foster cultural exchange, academic partnerships, language learning, industry collaboration, and global exposure focused on Japan.",
-      ja: "当センターは、日本を軸とした文化交流、学術提携、語学学習、産業連携、そして国際経験の機会を促進することを目的としています。",
+      en: "The Centre is open to all Woxsen University students, faculty, staff, and external professionals. We welcome anyone with a genuine interest in Japanese language, culture, or academic and industry collaboration.",
+      ja: "当センターは、ウォクセン大学の学生・教員・職員、そして学外の社会人の方にも開かれています。日本語、日本文化、または学術・産業連携に真摯な関心をお持ちの方をお迎えします。",
     },
   },
   {
     question: {
-      en: "What kind of events does the Japan Centre organize?",
-      ja: "日本センターはどのようなイベントを開催していますか?",
+      en: "What Japanese language levels are offered?",
+      ja: "どの日本語レベルを開講していますか?",
     },
     answer: {
-      en: "The centre hosts workshops, seminars, guest lectures, cultural events, and Japan-focused industry talks.",
-      ja: "ワークショップ、セミナー、ゲスト講演、文化イベント、日本に特化した産業界のトークセッションなどを開催しています。",
+      en: "We currently offer JLPT N5 (beginner) and N4 (elementary) preparation courses led by qualified instructors. We have plans to expand to N3 and beyond based on community demand.",
+      ja: "現在、有資格の講師による JLPT N5（初級）および N4（初中級）の対策講座を開講しています。ご要望に応じて N3 以上への拡充も予定しています。",
     },
   },
   {
     question: {
-      en: "Does the Japan Centre collaborate with Japanese companies?",
-      ja: "日本センターは日本企業と連携していますか?",
+      en: "Are there opportunities to visit Japan?",
+      ja: "日本を訪れる機会はありますか?",
     },
     answer: {
-      en: "Yes, the centre works to build industry linkages with Japanese organizations for internships, research, and innovation projects.",
-      ja: "はい。インターンシップ、研究、イノベーションプロジェクトを通じて、日本の組織との産業連携の構築に取り組んでいます。",
+      en: "Yes. Through our partnerships with Indobox Inc. and Nara Japan Centre, we facilitate student exchanges, internships, and study tours to Japan. These opportunities are announced throughout the academic year.",
+      ja: "はい。インドボックス株式会社および奈良ジャパンセンターとの提携を通じて、学生交換、インターンシップ、日本へのスタディツアーを実施しています。これらの機会は学年を通じてご案内します。",
     },
   },
   {
     question: {
-      en: "Where is the Woxsen Japan Centre located on campus?",
-      ja: "ウォクセン日本センターはキャンパスのどこにありますか?",
+      en: "How often are cultural events held?",
+      ja: "文化行事はどのくらいの頻度で開催されますか?",
     },
     answer: {
-      en: "The Japan Centre is located within the Woxsen University campus. Exact location details are available on the Contact page.",
-      ja: "日本センターはウォクセン大学キャンパス内にあります。正確な所在地はお問い合わせページでご案内しています。",
+      en: "We host monthly cultural events, seasonal festivals aligned with the Japanese calendar, and an annual Indo-Japan Academic Summit. Our programming spans language workshops, film screenings, culinary experiences, and traditional arts.",
+      ja: "毎月の文化行事、日本の暦に合わせた季節の祭り、そして年次の日印学術サミットを開催しています。語学ワークショップ、映画上映、食体験、伝統芸術まで幅広く企画しています。",
     },
   },
   {
     question: {
-      en: "How can I stay updated about Japan Centre activities?",
-      ja: "日本センターの活動情報はどこで確認できますか?",
+      en: "Is membership free for students?",
+      ja: "学生のメンバーシップは無料ですか?",
     },
     answer: {
-      en: "Follow the Japan Centre's website announcements and official Woxsen University communication channels.",
-      ja: "日本センターのウェブサイトのお知らせと、ウォクセン大学の公式連絡チャネルをご確認ください。",
+      en: "Student membership is completely free of charge. Simply register using your Woxsen University email address. There are no hidden fees for language classes, cultural events, or community activities.",
+      ja: "学生メンバーシップは完全に無料です。ウォクセン大学のメールアドレスでご登録いただくだけです。語学クラス、文化行事、コミュニティ活動に追加費用は一切かかりません。",
+    },
+  },
+  {
+    question: {
+      en: "How can Japanese companies collaborate with the Centre?",
+      ja: "日本企業はどのように連携できますか?",
+    },
+    answer: {
+      en: "We warmly welcome industry partnerships, internship programs, and corporate collaborations. Please contact us at japan.centre@woxsen.edu.in with your collaboration proposal. With 1,400+ Japanese companies operating in India, we are positioned to create meaningful connections.",
+      ja: "産業連携、インターンシップ制度、企業との協働を心より歓迎します。ご提案は japan.centre@woxsen.edu.in までお寄せください。インドで事業を展開する1,400社以上の日本企業とのあいだに、意義あるつながりを築いてまいります。",
     },
   },
 ]
