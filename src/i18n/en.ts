@@ -356,15 +356,16 @@ export const en = {
     heroTitle: "Learn Japanese",
     heroTitleEmphasis: "With Excellence",
     heroSubtitle:
-      "Structured JLPT preparation currently offering N5 and N4 levels, taught by certified instructors with a curriculum shaped by cultural immersion and communicative competence. Advanced levels are coming soon.",
+      "Structured JLPT preparation from N5 to N3, taught by certified instructors with a curriculum shaped by cultural immersion and communicative competence.",
     heroCtaPrimary: "View Courses",
     heroCtaSecondary: "Enrol Now",
 
     why: {
       label: "Why Japanese?",
-      title: "Your Gateway to Japan",
+      title: "A Language That",
+      titleEmphasis: "Opens Worlds",
       subtitle:
-        "Where learning extends beyond language into culture, industry, research, and international experiences.",
+        "Japanese is not simply a language. It is a key to one of the world's most sophisticated cultures, one of its most innovative economies, and one of India's most important bilateral relationships.",
     },
 
     levels: {
@@ -372,7 +373,10 @@ export const en = {
       title: "Choose Your Path",
       whatYouLearn: "What You'll Learn",
       details: "Details",
-      cta: "Begin Your Journey",
+      less: "Less",
+      duration: "Duration",
+      schedule: "Schedule",
+      cta: "Begin Your Japanese Journey",
       statusOpen: "Open",
       statusSoon: "Enrolling Soon",
     },
@@ -387,6 +391,26 @@ export const en = {
       label: "FAQs",
       title: "Common",
       titleEmphasis: "Questions",
+    },
+
+    experience: {
+      label: "Class Experience",
+      title: "Learning That",
+      titleEmphasis: "Goes Beyond Grammar",
+      body1:
+        "Our classes are not simply language drills. Each session weaves cultural context into language instruction — so you understand not just how to speak Japanese, but why it is spoken the way it is.",
+      body2:
+        "Small class sizes, experienced instructors, and a curriculum shaped by years of cultural exchange ensure that every student receives the attention and context they need to truly progress.",
+      cta: "Start Speaking Japanese",
+    },
+
+    cta: {
+      label: "Your Journey Starts Here",
+      title: "Every expert was",
+      titleEmphasis: "once a beginner.",
+      body: "Join the next cohort and begin building a skill that opens doors across academia, industry, and culture.",
+      primary: "Enrol Now",
+      secondary: "Talk to Us",
     },
   },
 

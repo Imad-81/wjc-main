@@ -357,15 +357,16 @@ export const ja: Dictionary = {
     heroTitle: "日本語を、",
     heroTitleEmphasis: "確かな指導で",
     heroSubtitle:
-      "現在 N5・N4 レベルを開講している体系的な JLPT 対策講座です。文化体験とコミュニケーション能力を重視したカリキュラムのもと、認定講師が指導します。上級レベルも近日開講予定です。",
+      "N5 から N3 までの体系的な JLPT 対策講座です。文化体験とコミュニケーション能力を重視したカリキュラムのもと、認定講師が指導します。",
     heroCtaPrimary: "講座を見る",
     heroCtaSecondary: "申し込む",
 
     why: {
       label: "なぜ日本語を?",
-      title: "日本への入り口",
+      title: "世界を開く",
+      titleEmphasis: "ひとつの言語",
       subtitle:
-        "学びは言語にとどまらず、文化、産業、研究、そして国際経験へと広がります。",
+        "日本語は単なる言語ではありません。世界有数の洗練された文化、最も革新的な経済のひとつ、そしてインドにとって最も重要な二国間関係のひとつへの鍵です。",
     },
 
     levels: {
@@ -373,7 +374,10 @@ export const ja: Dictionary = {
       title: "自分に合った道を",
       whatYouLearn: "学べること",
       details: "詳細",
-      cta: "はじめの一歩を",
+      less: "閉じる",
+      duration: "期間",
+      schedule: "日程",
+      cta: "日本語学習をはじめる",
       statusOpen: "受付中",
       statusSoon: "近日受付開始",
     },
@@ -388,6 +392,26 @@ export const ja: Dictionary = {
       label: "よくある質問",
       title: "よくある",
       titleEmphasis: "ご質問",
+    },
+
+    experience: {
+      label: "授業の様子",
+      title: "文法を超えた",
+      titleEmphasis: "学びのかたち",
+      body1:
+        "当センターの授業は、単なる語学ドリルではありません。毎回の授業に文化的な背景を織り込むことで、話し方だけでなく「なぜそう話すのか」まで理解できるようになります。",
+      body2:
+        "少人数制、経験豊かな講師陣、そして長年の文化交流に培われたカリキュラムにより、すべての受講生が本当に前進するために必要な指導と背景を得られます。",
+      cta: "日本語を話しはじめる",
+    },
+
+    cta: {
+      label: "旅はここから",
+      title: "どんな達人も、",
+      titleEmphasis: "はじめは初学者でした。",
+      body: "次の期に参加して、学術、産業、そして文化へと扉を開く力を育てはじめませんか。",
+      primary: "申し込む",
+      secondary: "問い合わせる",
     },
   },
 

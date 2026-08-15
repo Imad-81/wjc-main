@@ -8,22 +8,28 @@ export interface JlptLevel {
   tagline: L
   description: L
   outcomes: L<string[]>
+  duration: L
+  schedule: L
+  outcome: L
   status: "open" | "soon"
   /** Accent rule across the top of the card. */
   accent: string
 }
 
 /**
- * Course levels.
+ * Course levels, reproduced from the approved prototype.
  *
- * Duration and schedule were removed at the Centre's request — those details
- * are communicated at enrolment rather than published.
+ * ⚠️ The durations and class schedules below come from the prototype and
+ * have not been confirmed by the Centre — verify before publishing.
  */
 export const jlptLevels: JlptLevel[] = [
   {
     id: "n5",
     code: "JLPT N5",
     numeral: "五",
+    duration: { en: "3 months", ja: "3か月" },
+    schedule: { en: "Mon, Wed, Fri · 6:00–7:30 PM", ja: "月・水・金 18:00–19:30" },
+    outcome: { en: "JLPT N5 Certification Eligible", ja: "JLPT N5 受験資格" },
     title: { en: "Foundation", ja: "基礎" },
     tagline: { en: "Begin the Journey", ja: "はじめの一歩" },
     description: {
@@ -53,6 +59,9 @@ export const jlptLevels: JlptLevel[] = [
     id: "n4",
     code: "JLPT N4",
     numeral: "四",
+    duration: { en: "4 months", ja: "4か月" },
+    schedule: { en: "Tue, Thu · 6:00–8:00 PM + Sat 10:00 AM", ja: "火・木 18:00–20:00 ＋ 土 10:00" },
+    outcome: { en: "JLPT N4 Certification Eligible", ja: "JLPT N4 受験資格" },
     title: { en: "Intermediate", ja: "中級" },
     tagline: { en: "Deepen Your Understanding", ja: "理解を深める" },
     description: {
@@ -82,6 +91,9 @@ export const jlptLevels: JlptLevel[] = [
     id: "n3",
     code: "JLPT N3",
     numeral: "三",
+    duration: { en: "6 months", ja: "6か月" },
+    schedule: { en: "Mon–Fri · 7:00–8:30 PM (Intensive)", ja: "月〜金 19:00–20:30（集中）" },
+    outcome: { en: "JLPT N3 Certification Eligible", ja: "JLPT N3 受験資格" },
     title: { en: "Advanced", ja: "上級" },
     tagline: { en: "Achieve Fluency", ja: "流暢さへ" },
     description: {
