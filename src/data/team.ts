@@ -6,6 +6,15 @@ export interface TeamMember {
   role: L
   subtitle: L
   image: string
+  /**
+   * Shown in the About-page leadership cards on hover.
+   *
+   * Kept to role and institution only. The prototype pairs its invented
+   * staff with invented credentials ("Former JASSO Fellow", "Trained at
+   * Waseda"); attaching claims like that to real, named colleagues would
+   * be fabrication, so these stay to what the Centre has published.
+   */
+  bio?: L
   /** Optional crop overrides for portraits that need manual framing. */
   scale?: string
   hoverScale?: string
@@ -25,6 +34,10 @@ export const faculty: TeamMember[] = [
     role: { en: "Chairperson", ja: "会長" },
     subtitle: { en: "Woxsen University", ja: "ウォクセン大学" },
     image: "/images/team/faculty-leadership/dr-raul-v-rodriguez.webp",
+    bio: {
+      en: "Chairperson of the Woxsen Japan Centre, providing institutional leadership for the Centre's academic and international engagement.",
+      ja: "ウォクセン日本センターの会長として、センターの学術活動と国際連携における組織運営を担っています。",
+    },
   },
   {
     id: "brundaban-mishra",
@@ -32,6 +45,10 @@ export const faculty: TeamMember[] = [
     role: { en: "Director", ja: "所長" },
     subtitle: { en: "Woxsen University", ja: "ウォクセン大学" },
     image: "/images/team/faculty-leadership/dr-brundaban-mishra.jpg",
+    bio: {
+      en: "Director of the Woxsen Japan Centre, leading its language education, cultural programming, and partnerships with Japanese institutions.",
+      ja: "ウォクセン日本センター所長として、語学教育、文化企画、そして日本の機関との提携を統括しています。",
+    },
   },
   {
     id: "priyanka-banik",
@@ -46,6 +63,10 @@ export const faculty: TeamMember[] = [
     role: { en: "Deputy Director", ja: "副所長" },
     subtitle: { en: "Indobox Inc.", ja: "インドボックス株式会社" },
     image: "/images/team/faculty-leadership/mr-daisuke-tanji.jpg",
+    bio: {
+      en: "Deputy Director of the Centre and Chief Executive of Indobox Inc., connecting the Centre's programming with Japanese industry.",
+      ja: "センター副所長、そしてインドボックス株式会社の最高経営責任者として、センターの活動と日本の産業界をつないでいます。",
+    },
   },
   {
     id: "nistha-jain",

@@ -166,31 +166,33 @@ export const en = {
     metaDescription:
       "The Woxsen Japan Centre promotes Japanese language education, cultural exchange, and industry partnerships at Woxsen University.",
     heroLabel: "About the Centre",
-    heroTitle: "Fostering Cross-Cultural",
-    heroTitleEmphasis: "Connections and Understanding",
+    heroTitle: "Where Two Cultures",
+    heroTitleEmphasis: "Find Common Ground",
     heroSubtitle:
       "Established in 2025, the Woxsen Japan Centre is Woxsen University's dedicated platform for advancing Indo-Japanese relations through education, culture, and collaboration.",
 
     story: {
       label: "Our Story",
-      title: "Where Stories",
-      titleEmphasis: "Unite Us",
+      title: "A Centre Built on",
+      titleEmphasis: "Shared Values",
       paragraph1:
-        "The Centre is a dedicated hub at Woxsen University that promotes Japanese language education, cultural exchange, and industry partnerships. India and Japan share a strong relationship built on mutual respect and technological collaboration. Our Centre strengthens this connection by opening new doors for students and faculty to engage with Japan.",
+        "The Woxsen Japan Centre was inaugurated in 2025 as a dedicated institutional space for promoting Japanese language education, cultural exchange, academic collaboration, and industry partnerships within Woxsen University.",
       paragraph2:
-        "We offer structured language classes, cultural events, delegation visits, and formal university partnerships. These programs give our campus community real, hands-on experience with Japan's rich traditions and modern practices. Through these opportunities, we help students and faculty build global awareness and gain valuable international exposure.",
+        "India and Japan share a relationship built on mutual respect, technological collaboration, and a deep appreciation for craft and precision. The Centre exists to deepen this relationship at the academic level — creating pathways for students to engage with Japan's language, traditions, and contemporary practices.",
+      paragraph3:
+        "Through structured language programs, seasonal cultural events, delegation visits, and formal university partnerships, the Centre creates a living bridge between two of Asia's most dynamic academic ecosystems.",
     },
 
     mission: {
-      label: "Our Mission",
-      title: "Bridging Cultures Through Education",
-      body: "To strengthen India–Japan relations at Woxsen University by promoting intercultural understanding through Japanese language education, cultural engagement, academic collaboration, and experiential learning opportunities for students and faculty.",
+      label: "Mission",
+      title: "To Advance Indo-Japanese Relations",
+      body: "To serve as a premier institutional platform that advances Indo-Japanese relations through rigorous language education, authentic cultural exchange, meaningful academic partnerships, and industry collaboration — creating graduates who are genuinely equipped to bridge two of Asia's most significant economies.",
     },
 
     vision: {
-      label: "Our Vision",
-      title: "A Future of Shared Understanding",
-      body: "To establish the Woxsen Japan Centre as a leading platform for Indo-Japanese academic and cultural collaboration, fostering global awareness, cultural literacy, and sustained engagement with Japan.",
+      label: "Vision",
+      title: "The Most Impactful Academic Bridge in South Asia",
+      body: "To become the most respected Indo-Japanese academic centre in South Asia — a place where students, scholars, and institutions come to build lasting connections with Japan, and where Japan comes to understand India's next generation of leaders.",
     },
 
     activities: {
@@ -200,7 +202,8 @@ export const en = {
 
     director: {
       label: "Director's Message",
-      quote: "Together we are, together we will",
+      quote: "The Woxsen Japan Centre is not simply a language school or a cultural club. It is an institutional commitment to one of the most important bilateral relationships of our time. Every student who walks through our doors carries the potential to become a bridge between two great civilizations.",
+      body: "Our work is guided by a simple belief: that genuine cultural understanding — built through language, shared experiences, and human connection — creates partnerships that outlast any formal agreement. We are building that understanding, one student at a time.",
       name: "Dr. Brundaban Mishra",
       role: "Director, Woxsen Japan Centre",
     },
@@ -209,13 +212,25 @@ export const en = {
       label: "The People",
       title: "Leadership & Faculty",
       cta: "Meet the Full Team",
+      collaborationsLabel: "Collaborations",
+      collaborationsTitle: "Partners in",
+      collaborationsTitleEmphasis: "Building Bridges",
+      collaborationsBody:
+        "Our work is strengthened by a network of institutional partners — universities, government bodies, industry organizations, and diplomatic missions — who share our commitment to Indo-Japanese relations.",
     },
 
     timeline: {
       label: "Our Journey",
       title: "Timeline of WJC",
-      comingSoon:
-        "A horizontal journey through the Centre's milestones is being prepared and will appear here shortly.",
+    },
+
+    cta: {
+      label: "Be Part of the Story",
+      title: "The bridge is being built.",
+      titleEmphasis: "Will you help build it?",
+      body: "Join the Woxsen Japan Centre community and become part of a growing movement that connects India and Japan through education, culture, and shared purpose.",
+      primary: "Join the Community",
+      secondary: "Explore Events",
     },
   },
 
