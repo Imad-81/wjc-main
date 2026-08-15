@@ -251,6 +251,30 @@ export const ja: Dictionary = {
     featured: "注目のイベント",
     noEvents: "このカテゴリのイベントはまだありません。",
 
+    filters: {
+      all: "すべて",
+      cultural: "文化",
+      academic: "学術",
+      festival: "祭り",
+    },
+
+    delegations: {
+      label: "訪問団",
+      title: "機関の来訪",
+    },
+
+    upcoming: {
+      label: "これからの予定",
+      title: "今後のイベント",
+      open: "受付中",
+      soon: "近日受付開始",
+    },
+
+    impact: {
+      label: "成果",
+      title: "数字で見る",
+    },
+
     tabs: {
       culture: "文化と祭り",
       cultureBlurb:

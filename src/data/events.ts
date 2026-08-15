@@ -7,6 +7,9 @@ import type { L } from "@/i18n/config"
  */
 export type EventTab = "culture" | "delegations" | "outreach" | "next"
 
+/** Filter chip on the Events page, matching the prototype's chip set. */
+export type EventFilter = "cultural" | "academic" | "festival"
+
 export interface Event {
     slug: string
     /** ISO date, used for sorting and <time datetime>. */
@@ -14,6 +17,7 @@ export interface Event {
     displayDate: L
     category: L
     tab: EventTab
+    filter: EventFilter
     title: L
     description: L
     fullDescription: L
@@ -25,6 +29,7 @@ export interface Event {
 export const pastEvents: Event[] = [
     {
         slug: "kizuna-matsuri",
+        filter: "festival",
         isoDate: "2026-02-27",
         displayDate: { en: "February 27, 2026", ja: "2026年2月27日" },
         category: { en: "FLAGSHIP | CULTURAL", ja: "旗艦行事 | 文化" },
@@ -116,6 +121,7 @@ Kizuna Matsuri brought together delegates, artists, and the university community
     },
     {
         slug: "japanese-cultural-immersion",
+        filter: "cultural",
         isoDate: "2025-09-11",
         displayDate: { en: "September 11, 2025", ja: "2025年9月11日" },
         category: { en: "CULTURAL | ACADEMICS", ja: "文化 | 学術" },
@@ -146,6 +152,7 @@ Kizuna Matsuri brought together delegates, artists, and the university community
     },
     {
         slug: "konnichiwa-woxsen",
+        filter: "cultural",
         isoDate: "2025-09-18",
         displayDate: { en: "September 18, 2025", ja: "2025年9月18日" },
         category: { en: "CULTURAL | COMMUNITY", ja: "文化 | コミュニティ" },
@@ -168,6 +175,7 @@ Kizuna Matsuri brought together delegates, artists, and the university community
     },
     {
         slug: "language-course",
+        filter: "academic",
         isoDate: "2024-09-05",
         displayDate: { en: "September 5, 2024", ja: "2024年9月5日" },
         category: { en: "ACADEMICS | LANGUAGE", ja: "学術 | 語学" },
@@ -200,6 +208,7 @@ Kizuna Matsuri brought together delegates, artists, and the university community
     },
     {
         slug: "woxsen-japan-fest",
+        filter: "festival",
         isoDate: "2025-10-25",
         displayDate: { en: "October 25 & 26, 2025", ja: "2025年10月25日・26日" },
         category: { en: "FESTIVAL | CULTURAL", ja: "祭り | 文化" },
@@ -232,3 +241,6 @@ export function getEventBySlug(slug: string): Event | undefined {
 export function getEventsByTab(tab: EventTab): Event[] {
     return pastEvents.filter((event) => event.tab === tab)
 }
+
+/** Only the filters the Centre's archive actually has events for. */
+export const eventFilters: EventFilter[] = ["cultural", "academic", "festival"]

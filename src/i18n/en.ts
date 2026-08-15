@@ -249,6 +249,30 @@ export const en = {
     featured: "Featured Event",
     noEvents: "No events in this category yet.",
 
+    filters: {
+      all: "All",
+      cultural: "Cultural",
+      academic: "Academic",
+      festival: "Festival",
+    },
+
+    delegations: {
+      label: "Delegations",
+      title: "Institutional Visits",
+    },
+
+    upcoming: {
+      label: "What's Coming",
+      title: "Upcoming Events",
+      open: "Registration Open",
+      soon: "Opening Soon",
+    },
+
+    impact: {
+      label: "Impact",
+      title: "By the Numbers",
+    },
+
     tabs: {
       culture: "Culture & Festivals",
       cultureBlurb:
