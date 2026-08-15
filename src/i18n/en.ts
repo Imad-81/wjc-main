@@ -369,6 +369,26 @@ export const en = {
         "Mock exams included",
       ],
       courseCta: "Enrol Now",
+      benefitsHeading: "Includes",
+    },
+
+    interest: {
+      title: "Express Your Interest",
+      subtitle: "Takes 2 minutes. No commitment required.",
+      selectLabel: "I am interested in",
+      selectPlaceholder: "Select your interest",
+      optionN5: "JLPT N5 — Foundation",
+      optionN4: "JLPT N4 — Intermediate",
+      optionCultural: "Cultural Membership Only",
+      optionBoth: "JLPT + Cultural Membership",
+      cta: "Begin Your Journey",
+      note: "Opens the Centre's official registration form.",
+    },
+
+    faq: {
+      label: "Questions",
+      title: "Before You",
+      titleEmphasis: "Take the Step",
     },
   },
 

@@ -371,6 +371,26 @@ export const ja: Dictionary = {
         "模擬試験を含む",
       ],
       courseCta: "申し込む",
+      benefitsHeading: "含まれるもの",
+    },
+
+    interest: {
+      title: "関心をお寄せください",
+      subtitle: "所要時間は2分。お申し込みの義務はありません。",
+      selectLabel: "ご関心のある内容",
+      selectPlaceholder: "選択してください",
+      optionN5: "JLPT N5 — 基礎",
+      optionN4: "JLPT N4 — 中級",
+      optionCultural: "文化メンバーシップのみ",
+      optionBoth: "JLPT ＋ 文化メンバーシップ",
+      cta: "はじめの一歩を",
+      note: "センターの公式登録フォームが開きます。",
+    },
+
+    faq: {
+      label: "ご質問",
+      title: "一歩を踏み出す",
+      titleEmphasis: "その前に",
     },
   },
 

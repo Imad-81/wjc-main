@@ -71,6 +71,7 @@ export interface Tier {
   name: string
   title: L
   description: L
+  benefits: L<string[]>
   requirement: L
 }
 
@@ -88,6 +89,20 @@ export const tiers: Tier[] = [
       en: "Your first step in. Attend events, explore the Centre, and discover what Japanese culture means to you.",
       ja: "最初の一歩です。イベントに参加し、センターを訪れ、日本文化が自分にとって何を意味するのかを見つけていきます。",
     },
+    benefits: {
+      en: [
+        "Access to all public events and festivals",
+        "Monthly Centre newsletter",
+        "Welcome kit with cultural introduction materials",
+        "Access to the Centre's Japanese library",
+      ],
+      ja: [
+        "すべての公開行事・祭りへの参加",
+        "月刊ニュースレターの配信",
+        "文化紹介資料を含むウェルカムキット",
+        "センターの日本語ライブラリの利用",
+      ],
+    },
     requirement: {
       en: "Open enrolment — no prerequisites",
       ja: "登録は自由 — 条件はありません",
@@ -101,6 +116,22 @@ export const tiers: Tier[] = [
     description: {
       en: "You have attended events, engaged with the community, and demonstrated genuine curiosity.",
       ja: "イベントに参加し、コミュニティと関わり、確かな好奇心を示してきた方です。",
+    },
+    benefits: {
+      en: [
+        "All Kansatsu benefits",
+        "Priority registration for workshops and masterclasses",
+        "Community digital badge — Nakama",
+        "Invitation to cultural dinners and screenings",
+        "Peer study group access",
+      ],
+      ja: [
+        "観察者の特典すべて",
+        "ワークショップ・特別講座の優先登録",
+        "コミュニティ デジタルバッジ「仲間」",
+        "文化交流ディナー・上映会へのご招待",
+        "学習グループへの参加",
+      ],
     },
     requirement: {
       en: "Attend 3+ events · Complete N5 enrolment",
@@ -116,6 +147,22 @@ export const tiers: Tier[] = [
       en: "You have grown through the community and now guide others. Your experience and dedication are recognised.",
       ja: "コミュニティの中で成長し、今は他の人を導く立場にあります。その経験と献身が認められています。",
     },
+    benefits: {
+      en: [
+        "All Nakama benefits",
+        "Volunteer leadership opportunities at events",
+        "Community digital certificate — Senpai",
+        "Mentorship access with faculty",
+        "Featured in the Centre's annual report",
+      ],
+      ja: [
+        "仲間の特典すべて",
+        "行事運営でのリーダーシップの機会",
+        "コミュニティ デジタル修了証「先輩」",
+        "教員によるメンタリング",
+        "センター年次報告書での紹介",
+      ],
+    },
     requirement: {
       en: "Complete N5 or N4 · Volunteer at 2+ events",
       ja: "N5 または N4 修了 · イベント2回以上の運営参加",
@@ -129,6 +176,24 @@ export const tiers: Tier[] = [
     description: {
       en: "The highest recognition. You represent the Centre, mentor new members, and carry the spirit of Indo-Japanese exchange forward.",
       ja: "最高位の評価です。センターを代表し、新しいメンバーを導き、日印交流の精神を次へとつないでいきます。",
+    },
+    benefits: {
+      en: [
+        "All Senpai benefits",
+        "Official Woxsen Japan Centre Ambassador title",
+        "Letter of recommendation for study abroad applications",
+        "Direct access to Japanese partner networks",
+        "Lifetime community membership",
+        "Invitation to the annual Indo-Japan summit",
+      ],
+      ja: [
+        "先輩の特典すべて",
+        "ウォクセン日本センター公式アンバサダーの称号",
+        "留学出願のための推薦状",
+        "日本の提携ネットワークへの直接アクセス",
+        "生涯コミュニティメンバーシップ",
+        "年次日印サミットへのご招待",
+      ],
     },
     requirement: {
       en: "Advanced proficiency · Lead a community initiative",
@@ -146,10 +211,10 @@ export interface JoinStep {
 export const joinSteps: JoinStep[] = [
   {
     number: "01",
-    title: { en: "Fill the Form", ja: "フォームに記入" },
+    title: { en: "Express Interest", ja: "関心をお寄せください" },
     description: {
-      en: "Complete our quick registration form with your details and interests.",
-      ja: "簡単な登録フォームに、ご自身の情報と関心のある分野をご記入ください。",
+      en: "Complete our quick registration form with your details and what draws you to Japanese culture.",
+      ja: "簡単な登録フォームに、ご自身の情報と日本文化に惹かれた理由をご記入ください。",
     },
   },
   {
@@ -162,10 +227,18 @@ export const joinSteps: JoinStep[] = [
   },
   {
     number: "03",
-    title: { en: "Start Exploring", ja: "活動をはじめる" },
+    title: { en: "Choose Your Path", ja: "進む道を選ぶ" },
     description: {
-      en: "Access events, courses, and connect with our vibrant community.",
-      ja: "イベントや講座に参加し、活気あるコミュニティとつながりましょう。",
+      en: "Select your starting point — JLPT enrolment, cultural membership, or both. Our team will guide you to the right fit.",
+      ja: "JLPT 受講、文化メンバーシップ、またはその両方から出発点をお選びください。担当チームが最適な形をご案内します。",
+    },
+  },
+  {
+    number: "04",
+    title: { en: "Begin Your Journey", ja: "はじめの一歩を" },
+    description: {
+      en: "Receive your welcome kit, join the community channels, and attend your first event or class.",
+      ja: "ウェルカムキットを受け取り、コミュニティのチャネルに参加し、最初の行事や授業にご出席ください。",
     },
   },
 ]

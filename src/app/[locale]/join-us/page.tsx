@@ -12,9 +12,12 @@ import {
   tiers,
 } from "@/data/membership"
 import { testimonials } from "@/data/testimonials"
+import { joinFaqs } from "@/data/faqs"
 
 import PageHeader from "@/components/wjc/page-header"
 import FadeUp from "@/components/wjc/fade-up"
+import Accordion from "@/components/wjc/accordion"
+import InterestPanel from "./interest-panel"
 import { ButtonLink, KanjiGhost, SectionLabel } from "@/components/wjc/primitives"
 
 export async function generateMetadata({
@@ -170,9 +173,29 @@ export default async function JoinUsPage({
                   {tier.title[locale]}
                 </p>
 
-                <p className="mt-5 flex-1 text-sm leading-relaxed text-[var(--warm-text-muted)]">
+                <p className="mt-5 text-sm leading-relaxed text-[var(--warm-text-muted)]">
                   {tier.description[locale]}
                 </p>
+
+                <div className="mt-6 flex-1">
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-[var(--warm-text-muted)]">
+                    {dict.joinUs.apply.benefitsHeading}
+                  </p>
+                  <ul className="mt-3 space-y-2">
+                    {tier.benefits[locale].map((benefit) => (
+                      <li
+                        key={benefit}
+                        className="flex items-start gap-2.5 text-[13px] leading-relaxed text-[var(--warm-text)]"
+                      >
+                        <Check
+                          aria-hidden="true"
+                          className="mt-0.5 size-3.5 shrink-0 text-[var(--theme-accent)]"
+                        />
+                        {benefit}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
 
                 <div className="mt-7 border-t border-[var(--warm-border)] pt-5">
                   <p className="text-[10px] uppercase tracking-[0.2em] text-[var(--warm-text-muted)]">
@@ -245,11 +268,11 @@ export default async function JoinUsPage({
             </h2>
           </FadeUp>
 
-          <ol className="mt-14 grid gap-px border border-[var(--warm-border)] bg-[var(--warm-border)] md:grid-cols-3">
+          <ol className="mt-14 grid gap-px border border-[var(--warm-border)] bg-[var(--warm-border)] sm:grid-cols-2 lg:grid-cols-4">
             {joinSteps.map((step, index) => (
               <FadeUp
                 key={step.number}
-                delay={((index % 3) + 1) as 1 | 2 | 3}
+                delay={((index % 4) + 1) as 1 | 2 | 3 | 4}
                 as="li"
                 className="bg-[var(--section-paper)] p-8"
               >
@@ -353,6 +376,36 @@ export default async function JoinUsPage({
               </FadeUp>
             ))}
           </div>
+
+          <FadeUp delay={2} className="mt-14">
+            <InterestPanel dict={dict} />
+          </FadeUp>
+        </div>
+      </section>
+
+      {/* ── FAQ ───────────────────────────────────────────────────────── */}
+      <section className="section-bg-alt relative overflow-hidden py-24 md:py-32">
+        <KanjiGhost char="問" className="-right-6 bottom-0" />
+
+        <div className="max-w-content relative mx-auto grid gap-12 px-6 md:px-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+          <FadeUp>
+            <SectionLabel>{dict.joinUs.faq.label}</SectionLabel>
+            <h2 className="mt-5 font-serif text-4xl leading-[1.12] text-[var(--theme-ivory)] md:text-5xl">
+              {dict.joinUs.faq.title}
+              <span className="block italic">
+                {dict.joinUs.faq.titleEmphasis}
+              </span>
+            </h2>
+          </FadeUp>
+
+          <FadeUp delay={1}>
+            <Accordion
+              items={joinFaqs.map((faq) => ({
+                question: faq.question[locale],
+                answer: faq.answer[locale],
+              }))}
+            />
+          </FadeUp>
         </div>
       </section>
     </>

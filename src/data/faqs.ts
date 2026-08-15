@@ -59,6 +59,66 @@ export const centreFaqs: Faq[] = [
   },
 ]
 
+/**
+ * Join Us FAQ.
+ *
+ * Mirrors the prototype's question set, minus its JASSO-scholarship item —
+ * JASSO was removed from the Centre's partner list, so claiming a
+ * scholarship pathway through them would be inaccurate.
+ */
+export const joinFaqs: Faq[] = [
+  {
+    question: {
+      en: "Is community membership free?",
+      ja: "コミュニティのメンバーシップは無料ですか?",
+    },
+    answer: {
+      en: "Yes. Membership is completely free for all Woxsen University students. Simply register using your Woxsen email address — there are no fees for cultural events or community activities.",
+      ja: "はい。ウォクセン大学の学生の方は完全に無料です。ウォクセンのメールアドレスでご登録いただくだけで、文化行事やコミュニティ活動に費用はかかりません。",
+    },
+  },
+  {
+    question: {
+      en: "Do I need any prior knowledge of Japanese to join?",
+      ja: "参加するのに日本語の知識は必要ですか?",
+    },
+    answer: {
+      en: "No. Most members begin with no Japanese at all. The N5 course starts from hiragana and katakana, and cultural events are open to everyone regardless of language level.",
+      ja: "いいえ。ほとんどの方が日本語の知識ゼロから始めています。N5 講座はひらがな・カタカナから始まり、文化行事は語学レベルを問わずどなたでもご参加いただけます。",
+    },
+  },
+  {
+    question: {
+      en: "Can students from other universities join?",
+      ja: "他大学の学生も参加できますか?",
+    },
+    answer: {
+      en: "Membership and course enrolment are currently open to Woxsen University students, faculty, and staff. If you are outside the university and would like to collaborate, please write to us at japan.centre@woxsen.edu.in.",
+      ja: "メンバーシップと講座の受講は、現在ウォクセン大学の学生・教職員を対象としています。学外の方で連携をご希望の場合は、japan.centre@woxsen.edu.in までご連絡ください。",
+    },
+  },
+  {
+    question: {
+      en: "How long does it take to reach Ambassador level?",
+      ja: "アンバサダーになるにはどのくらいかかりますか?",
+    },
+    answer: {
+      en: "There is no fixed timeline. Progression is based on contribution rather than time served — attending events, completing course levels, and taking on volunteer leadership. Most members who engage consistently move up each academic year.",
+      ja: "決まった期間はありません。在籍期間ではなく貢献に基づいて進みます。行事への参加、講座レベルの修了、運営でのリーダーシップが評価の対象です。継続的に関わる方の多くは、学年ごとに次の段階へ進んでいます。",
+    },
+  },
+  {
+    question: {
+      en: "Are there any time commitments for membership?",
+      ja: "メンバーシップに時間的な制約はありますか?",
+    },
+    answer: {
+      en: "None at the entry level — you are welcome to attend as much or as little as you like. Higher levels of recognition do carry participation expectations, but those are entirely opt-in.",
+      ja: "入門段階では一切ありません。ご都合に合わせて自由にご参加いただけます。上位の段階には参加の目安がありますが、そちらは完全に任意です。",
+    },
+  },
+]
+
 /** JLPT page FAQ — about the language course specifically. */
 export const jlptFaqs: Faq[] = [
   {
