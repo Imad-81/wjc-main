@@ -309,23 +309,41 @@ export const ja: Dictionary = {
     heroSubtitle:
       "ウォクセン日本センターを日々支えている教員、文化コーディネーター、学生リーダーのチームです。",
 
+    director: {
+      label: "運営",
+      title: "所長",
+    },
+
     faculty: {
       label: "教員",
-      title: "教員・運営体制",
+      title: "講師陣",
     },
 
     students: {
-      label: "学生コミュニティ",
+      label: "Wa コミュニティ",
       title: "学生",
       titleEmphasis: "リーダーシップ",
-      body: "意欲ある学生リーダーたちが積極的に活動を牽引し、包容力ある環境を育み、当センターのミッションとビジョンを実現しています。",
+      body: "Wa コミュニティは学生が主体です。ここに紹介するのは、献身、文化への好奇心、そしてコミュニティへの貢献によってその立場を築いてきたメンバーです。",
+    },
+
+    structure: {
+      label: "組織",
+      title: "私たちの",
+      titleEmphasis: "組織体制",
+      director: "所長",
+      faculty: "教員",
+      facultyValue: "語学 · 文化 · 学術",
+      community: "コミュニティ運営",
+      communityValue: "大使 · 先輩 · 仲間",
+      members: "学生メンバー",
+      membersValue: "観察者 — 登録自由",
     },
 
     cta: {
       label: "チームに加わる",
       title: "意味のある一歩を、",
       titleEmphasis: "ここから",
-      body: "ウォクセン日本センターでは、学生と教員が集い、日本語、日本文化、そして日印のつながりを探究しています。学び、交流、国際的な視野を育む活気あるキャンパスコミュニティにぜひご参加ください。",
+      body: "Wa コミュニティは今も広がり続けています。学生の方も、教職員の方も、文化に関心をお持ちの方も、ここにはあなたの居場所があります。",
       primary: "参加を申し込む",
       secondary: "WJC について知る",
     },

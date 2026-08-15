@@ -308,23 +308,41 @@ export const en = {
     heroSubtitle:
       "A dedicated team of faculty, cultural coordinators, and student leaders who bring the Woxsen Japan Centre to life every day.",
 
+    director: {
+      label: "Leadership",
+      title: "Director",
+    },
+
     faculty: {
       label: "Faculty",
-      title: "Faculty & Leadership",
+      title: "Our Instructors",
     },
 
     students: {
-      label: "Our Student Community",
+      label: "Wa Community",
       title: "Student",
       titleEmphasis: "Leadership",
-      body: "Dynamic Student leaders actively drive engagement, foster inclusivity, and fulfill our Centre's mission & vision.",
+      body: "The Wa Community is student-led. These are the members who have earned their place through dedication, cultural curiosity, and service to the community.",
+    },
+
+    structure: {
+      label: "Structure",
+      title: "How We're",
+      titleEmphasis: "Organized",
+      director: "Director",
+      faculty: "Faculty",
+      facultyValue: "Language · Cultural · Academic",
+      community: "Community Leadership",
+      communityValue: "Taishi · Senpai · Nakama",
+      members: "Student Members",
+      membersValue: "Kansatsu — Open Enrollment",
     },
 
     cta: {
       label: "Join the Team",
       title: "Become Part of",
       titleEmphasis: "Something Meaningful",
-      body: "At the Woxsen Japan Centre, students and faculty come together to explore Japanese language, culture, and Indo-Japanese connections. Join a vibrant campus community that encourages learning, exchange, and international perspective.",
+      body: "The Wa Community is always growing. Whether you're a student, faculty member, or cultural enthusiast — there's a place for you here.",
       primary: "Claim Your Place",
       secondary: "Learn About WJC",
     },
