@@ -399,14 +399,24 @@ export const ja: Dictionary = {
     interest: {
       title: "関心をお寄せください",
       subtitle: "所要時間は2分。お申し込みの義務はありません。",
+      nameLabel: "お名前",
+      namePlaceholder: "お名前をご記入ください",
+      emailLabel: "メールアドレス",
       selectLabel: "ご関心のある内容",
       selectPlaceholder: "選択してください",
       optionN5: "JLPT N5 — 基礎",
       optionN4: "JLPT N4 — 中級",
       optionCultural: "文化メンバーシップのみ",
       optionBoth: "JLPT ＋ 文化メンバーシップ",
+      messageLabel: "日本文化のどのような点に惹かれましたか?",
+      messagePlaceholder: "簡単にお聞かせください...",
+      optional: "任意",
       cta: "はじめの一歩を",
       note: "センターの公式登録フォームが開きます。",
+      thanksTitle: "お問い合わせありがとうございます",
+      thanksBody:
+        "ご入力内容を記載したメールソフトが開きます。送信いただければ、48時間以内に担当よりオリエンテーションのご案内を差し上げます。",
+      completeRegistration: "登録を完了する",
     },
 
     faq: {

@@ -67,6 +67,8 @@ export const membershipBenefits: Benefit[] = [
 
 export interface Tier {
   kanji: string
+  /** Accent colour for the tier card, from the approved design. */
+  color: string
   level: number
   name: string
   title: L
@@ -84,6 +86,7 @@ export const tiers: Tier[] = [
     kanji: "観",
     level: 1,
     name: "Kansatsu",
+    color: "#8A9E8B",
     title: { en: "Observer", ja: "観察者" },
     description: {
       en: "Your first step in. Attend events, explore the Centre, and discover what Japanese culture means to you.",
@@ -112,6 +115,7 @@ export const tiers: Tier[] = [
     kanji: "仲",
     level: 2,
     name: "Nakama",
+    color: "#B8956A",
     title: { en: "Core Member", ja: "中核メンバー" },
     description: {
       en: "You have attended events, engaged with the community, and demonstrated genuine curiosity.",
@@ -142,6 +146,7 @@ export const tiers: Tier[] = [
     kanji: "先",
     level: 3,
     name: "Senpai",
+    color: "#A63A2B",
     title: { en: "Senior Member", ja: "上級メンバー" },
     description: {
       en: "You have grown through the community and now guide others. Your experience and dedication are recognised.",
@@ -172,6 +177,7 @@ export const tiers: Tier[] = [
     kanji: "大",
     level: 4,
     name: "Taishi",
+    color: "#C9A84C",
     title: { en: "Ambassador", ja: "アンバサダー" },
     description: {
       en: "The highest recognition. You represent the Centre, mentor new members, and carry the spirit of Indo-Japanese exchange forward.",

@@ -398,14 +398,24 @@ export const en = {
     interest: {
       title: "Express Your Interest",
       subtitle: "Takes 2 minutes. No commitment required.",
+      nameLabel: "Full Name",
+      namePlaceholder: "Your full name",
+      emailLabel: "Email Address",
       selectLabel: "I am interested in",
       selectPlaceholder: "Select your interest",
       optionN5: "JLPT N5 — Foundation",
       optionN4: "JLPT N4 — Intermediate",
       optionCultural: "Cultural Membership Only",
       optionBoth: "JLPT + Cultural Membership",
+      messageLabel: "What draws you to Japanese culture?",
+      messagePlaceholder: "Tell us briefly...",
+      optional: "Optional",
       cta: "Begin Your Journey",
       note: "Opens the Centre's official registration form.",
+      thanksTitle: "Thank you for reaching out",
+      thanksBody:
+        "Your email app will open with your details ready to send. Our team will reply within 48 hours with orientation details.",
+      completeRegistration: "Complete Registration",
     },
 
     faq: {
