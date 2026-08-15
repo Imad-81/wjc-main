@@ -28,8 +28,8 @@ export default function Footer({
       links: [
         { label: "JLPT N5", href: L("/jlpt") },
         { label: "JLPT N4", href: L("/jlpt") },
-        { label: dict.footer.culturalExchange, href: L("/events") },
-        { label: dict.footer.academic, href: L("/about") },
+        { label: dict.footer.culturalExchange, href: L("/programs") },
+        { label: dict.footer.academic, href: L("/programs") },
       ],
     },
     {

@@ -47,6 +47,7 @@ export default function Navigation({
     { label: dict.nav.gallery, href: "/gallery" },
     { label: dict.nav.team, href: "/team" },
     { label: dict.nav.jlpt, href: "/jlpt" },
+    { label: dict.nav.programs, href: "/programs" },
     { label: dict.nav.joinUs, href: "/join-us" },
   ]
 

@@ -19,6 +19,7 @@ export const ja: Dictionary = {
     gallery: "ギャラリー",
     team: "チーム",
     jlpt: "日本語能力試験",
+    programs: "プログラム",
     joinUs: "参加する",
     openMenu: "メニューを開く",
     closeMenu: "メニューを閉じる",
@@ -534,6 +535,26 @@ export const ja: Dictionary = {
       title: "一歩を踏み出す",
       titleEmphasis: "その前に",
     },
+  },
+
+  programs: {
+    metaTitle: "プログラム",
+    metaDescription:
+      "ウォクセン日本センターの日本語講座、文化交流、学術提携、産業連携の各プログラムをご紹介します。",
+    heroLabel: "提供する内容",
+    heroTitle: "扉をひらく",
+    heroTitleEmphasis: "プログラム",
+    heroSubtitle:
+      "はじめてのひらがなから、日本企業でのキャリアまで。学生、教員、社会人のための体系的な道のりです。",
+    listLabel: "プログラム一覧",
+    listTitle: "自分に合った道を",
+    duration: "期間",
+    schedule: "日程",
+    eligibility: "対象",
+    curriculum: "カリキュラム",
+    outcomes: "到達目標",
+    featured: "注目",
+    cta: "このプログラムについて問い合わせる",
   },
 
   legal: {

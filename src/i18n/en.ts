@@ -15,6 +15,7 @@ export const en = {
     gallery: "Gallery",
     team: "Team",
     jlpt: "JLPT",
+    programs: "Programs",
     joinUs: "Join Us",
     openMenu: "Open menu",
     closeMenu: "Close menu",
@@ -533,6 +534,26 @@ export const en = {
       title: "Before You",
       titleEmphasis: "Take the Step",
     },
+  },
+
+  programs: {
+    metaTitle: "Programs",
+    metaDescription:
+      "Japanese language courses, cultural exchange, academic partnership, and industry collaboration programmes at the Woxsen Japan Centre.",
+    heroLabel: "What We Offer",
+    heroTitle: "Programs That",
+    heroTitleEmphasis: "Open Doors",
+    heroSubtitle:
+      "From first hiragana to a career with a Japanese firm — structured pathways for students, faculty, and professionals.",
+    listLabel: "Our Programs",
+    listTitle: "Choose Your Path",
+    duration: "Duration",
+    schedule: "Schedule",
+    eligibility: "Eligibility",
+    curriculum: "Curriculum",
+    outcomes: "Outcomes",
+    featured: "Featured",
+    cta: "Enquire About This Program",
   },
 
   legal: {
