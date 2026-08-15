@@ -66,6 +66,19 @@ export const ja: Dictionary = {
     heroCtaPrimary: "JLPT を見る",
     heroCtaSecondary: "私たちの歩み",
 
+    heroTaglines: {
+      original:
+        "教育、協働、文化交流を通じて、文化をつなぎ、心を動かし、新たな機会を創出します。",
+      natsu:
+        "祭り、学び、そして彩り豊かな文化体験を通じて、日本の夏の伝統を祝います。",
+      tanabata:
+        "星に託された願い、夢、そしてつながり。天と地が出会う場所へ。",
+      setsubun:
+        "新たに始めるための儀式。過ぎた年を送り、季節ごとに福を迎え入れます。",
+      hikari:
+        "灯りが心を導き、知識と文化、そして居場所への道を照らします。",
+    },
+
     stats: {
       inaugurated: "開設",
       faculty: "教員",
@@ -114,7 +127,16 @@ export const ja: Dictionary = {
       title: "日本センター",
       titleEmphasis: "だより",
       body: "イベント、文化プログラム、JLPT の申込時期、日印協働の機会について毎月お届けします。",
-      cta: "センターに問い合わせる",
+      cta: "登録する",
+    },
+
+    finalCta: {
+      label: "はじめの一歩を",
+      title: "日本は、思っているより",
+      titleEmphasis: "ずっと近い。",
+      body: "言語、文化、そして協働を通じて日本との確かなつながりを築く、数百人の学生・教員・社会人の輪に加わりませんか。",
+      primary: "コミュニティに参加",
+      secondary: "JLPT に申し込む",
     },
   },
 

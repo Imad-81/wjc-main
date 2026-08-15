@@ -317,6 +317,9 @@
   .text-ivory {
     color: var(--theme-ivory);
   }
+  .text-gold {
+    color: var(--theme-gold);
+  }
   .bg-theme {
     background-color: var(--theme-bg);
   }
@@ -344,9 +347,76 @@
     transition: border-color 0.7s ease;
   }
 
+  .hairline-v {
+    width: 1px;
+    background: var(--theme-border-light);
+  }
+
+  .hairline-h {
+    height: 1px;
+    background: var(--theme-border-light);
+  }
+
   .hairline-h-dark {
     height: 1px;
     background: var(--theme-border-dark);
+  }
+
+  .stat-number {
+    color: var(--theme-stat-number);
+    transition: color 0.7s ease;
+  }
+
+  .stat-label {
+    color: var(--theme-stat-label);
+    transition: color 0.7s ease;
+  }
+
+  .timeline-line {
+    background-color: var(--theme-timeline-line);
+    transition: background-color 0.7s ease;
+  }
+
+  .wjc-input {
+    background: var(--theme-form-bg);
+    border: 1px solid var(--theme-form-border);
+    color: var(--theme-text);
+    transition:
+      border-color 0.3s ease,
+      background 0.7s ease;
+  }
+
+  .wjc-input:focus {
+    outline: none;
+    border-color: var(--theme-form-focus);
+    box-shadow: 0 0 0 3px var(--theme-form-focus);
+  }
+
+  .wjc-tag {
+    background: var(--theme-tag-bg);
+    color: var(--theme-tag-text);
+    transition:
+      background 0.7s ease,
+      color 0.7s ease;
+  }
+
+  .wjc-divider {
+    background-color: var(--theme-divider);
+    transition: background-color 0.7s ease;
+  }
+
+  .partner-cell {
+    background: var(--theme-partner-bg);
+    transition: background 0.3s ease;
+  }
+
+  .partner-cell:hover {
+    background: var(--theme-partner-hover);
+  }
+
+  .newsletter-bg {
+    background-color: var(--theme-newsletter-bg);
+    transition: background-color 0.7s ease;
   }
 
   /* Cross-fade applied while switching seasonal themes. */
@@ -545,6 +615,13 @@
       border-color 0.7s ease;
   }
 
+  .faq-item {
+    border-bottom: 1px solid var(--theme-faq-border);
+    transition:
+      border-color 0.3s ease,
+      background-color 0.3s ease;
+  }
+
   .faq-item.active {
     border-bottom-color: var(--theme-accent);
     background-color: var(--theme-faq-active);
@@ -569,9 +646,12 @@
     transform 0.72s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* !important is required: sections set inline `opacity: 0` on .fade-up so the
+   element is hidden before hydration, and an inline style would otherwise
+   beat this rule and leave the content permanently invisible. */
 .fade-up.is-visible {
-  opacity: 1;
-  transform: translateY(0);
+  opacity: 1 !important;
+  transform: translateY(0) !important;
 }
 
 .fade-up-delay-1 {
@@ -588,6 +668,61 @@
 }
 .fade-up-delay-5 {
   transition-delay: 0.5s;
+}
+
+/* Hero: pulsing scroll cue and click ripples. */
+@keyframes wjcScrollPulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scaleY(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+@keyframes wjcWaterRipple {
+  0% {
+    width: 6px;
+    height: 6px;
+    opacity: 0.9;
+  }
+  100% {
+    width: 130px;
+    height: 130px;
+    opacity: 0;
+  }
+}
+
+@keyframes wjcFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.scroll-loader-line {
+  width: 1px;
+  height: 0;
+  background: linear-gradient(to bottom, var(--theme-accent), transparent);
+  animation: wjcScrollLine 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes wjcScrollLine {
+  from {
+    height: 0;
+    opacity: 0;
+  }
+  to {
+    height: 60px;
+    opacity: 1;
+  }
 }
 
 /* Shoji-screen slide used by the mobile nav panel. */
@@ -699,10 +834,11 @@
    ========================================================================== */
 
 @media (prefers-reduced-motion: reduce) {
+  /* Same inline-style override problem as .is-visible — see above. */
   .fade-up {
-    opacity: 1;
-    transform: none;
-    transition: none;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 
   .loading-screen,

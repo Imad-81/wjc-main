@@ -62,6 +62,20 @@ export const en = {
     heroCtaPrimary: "Explore JLPT",
     heroCtaSecondary: "Our Story",
 
+    /** Per-season hero taglines, keyed by season id. */
+    heroTaglines: {
+      original:
+        "Bridging cultures, inspiring minds, and creating opportunities through education, collaboration, and cultural exchange.",
+      natsu:
+        "Celebrating Japanese summer traditions through festivals, learning, and vibrant cultural experiences.",
+      tanabata:
+        "Wishes, dreams, and connections written to the stars — where the celestial meets the earthly.",
+      setsubun:
+        "Rituals of renewal — driving away the past and welcoming good fortune with every passing season.",
+      hikari:
+        "Where lights guide the heart and illuminate the path toward knowledge, culture, and belonging.",
+    },
+
     stats: {
       inaugurated: "Inaugurated",
       faculty: "Faculty",
@@ -111,7 +125,16 @@ export const en = {
       title: "The Japan Centre",
       titleEmphasis: "Dispatch",
       body: "Monthly updates on events, cultural programs, JLPT enrolment windows, and opportunities for Indo-Japanese collaboration.",
-      cta: "Email the Centre",
+      cta: "Subscribe",
+    },
+
+    finalCta: {
+      label: "Begin Your Journey",
+      title: "Japan is closer than",
+      titleEmphasis: "you think.",
+      body: "Join hundreds of students, faculty, and professionals building meaningful connections with Japan — through language, culture, and collaboration.",
+      primary: "Join the Community",
+      secondary: "Enrol in JLPT",
     },
   },
 
