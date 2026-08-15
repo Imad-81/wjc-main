@@ -1,26 +1,17 @@
 "use client"
 
-import Image from "next/image"
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react"
-import { useWindowVirtualizer } from "@tanstack/react-virtual"
-import { ChevronLeft, ChevronRight, X } from "lucide-react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 
-import { galleryImages } from "@/data/gallery"
+import AppImage from "@/components/wjc/app-image"
+import { useReveal } from "@/components/wjc/use-reveal"
+import {
+  galleryCategories,
+  galleryImages,
+  type GalleryCategory,
+} from "@/data/gallery"
 import type { Locale } from "@/i18n/config"
 import type { Dictionary } from "@/i18n/types"
 
-const GAP = 16
-
-/**
- * Virtualised photo grid.
- *
- * Uses the *window* virtualizer rather than an element scroller: the page
- * scrolls the document body, so there is no inner scroll container to
- * measure against.
- *
- * The Centre asked for the category sub-tabs to be removed, so this is a
- * single unfiltered set.
- */
 export default function GalleryGrid({
   locale,
   dict,
@@ -28,201 +19,326 @@ export default function GalleryGrid({
   locale: Locale
   dict: Dictionary
 }) {
-  const listRef = useRef<HTMLDivElement>(null)
-  const [columns, setColumns] = useState(4)
-  const [offset, setOffset] = useState(0)
-  const [selected, setSelected] = useState<number | null>(null)
+  const sectionRef = useReveal<HTMLElement>(60, 0.05)
+  const [active, setActive] = useState<"all" | GalleryCategory>("all")
+  const [lightbox, setLightbox] = useState<number | null>(null)
 
-  // Responsive column count.
-  useEffect(() => {
-    const update = () => {
-      const w = window.innerWidth
-      setColumns(w < 640 ? 2 : w < 1024 ? 3 : 4)
-    }
-    update()
-    window.addEventListener("resize", update)
-    return () => window.removeEventListener("resize", update)
-  }, [])
-
-  // The virtualizer needs the grid's offset from the top of the document.
-  useLayoutEffect(() => {
-    const update = () => {
-      if (listRef.current) {
-        setOffset(listRef.current.getBoundingClientRect().top + window.scrollY)
-      }
-    }
-    update()
-    window.addEventListener("resize", update)
-    return () => window.removeEventListener("resize", update)
-  }, [columns])
-
-  const rowCount = Math.ceil(galleryImages.length / columns)
-
-  // Square-ish cells: row height tracks the column width.
-  const estimateRowHeight = useCallback(() => {
-    const width = listRef.current?.offsetWidth ?? 1200
-    const cell = (width - GAP * (columns - 1)) / columns
-    return cell + GAP
-  }, [columns])
-
-  const virtualizer = useWindowVirtualizer({
-    count: rowCount,
-    estimateSize: estimateRowHeight,
-    overscan: 3,
-    scrollMargin: offset,
-  })
-
-  const close = useCallback(() => setSelected(null), [])
-  const previous = useCallback(
+  const filtered = useMemo(
     () =>
-      setSelected((i) =>
-        i === null ? null : i === 0 ? galleryImages.length - 1 : i - 1,
+      active === "all"
+        ? galleryImages
+        : galleryImages.filter((item) => item.category === active),
+    [active],
+  )
+
+  const close = useCallback(() => setLightbox(null), [])
+  const prev = useCallback(
+    () =>
+      setLightbox((i) =>
+        i === null ? null : i === 0 ? filtered.length - 1 : i - 1,
       ),
-    [],
+    [filtered.length],
   )
   const next = useCallback(
     () =>
-      setSelected((i) =>
-        i === null ? null : i === galleryImages.length - 1 ? 0 : i + 1,
+      setLightbox((i) =>
+        i === null ? null : i === filtered.length - 1 ? 0 : i + 1,
       ),
-    [],
+    [filtered.length],
   )
 
-  // Lightbox keyboard controls + scroll lock.
   useEffect(() => {
-    if (selected === null) return
-
-    const onKeyDown = (e: KeyboardEvent) => {
+    if (lightbox === null) return
+    const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") close()
-      if (e.key === "ArrowLeft") previous()
+      if (e.key === "ArrowLeft") prev()
       if (e.key === "ArrowRight") next()
     }
-
-    const previousOverflow = document.body.style.overflow
+    const previous = document.body.style.overflow
     document.body.style.overflow = "hidden"
-    window.addEventListener("keydown", onKeyDown)
-
+    window.addEventListener("keydown", onKey)
     return () => {
-      document.body.style.overflow = previousOverflow
-      window.removeEventListener("keydown", onKeyDown)
+      document.body.style.overflow = previous
+      window.removeEventListener("keydown", onKey)
     }
-  }, [selected, close, previous, next])
+  }, [lightbox, close, prev, next])
+
+  const current = lightbox !== null ? filtered[lightbox] : null
 
   return (
     <>
-      <p className="mb-8 font-mono text-[11px] tracking-[0.2em] text-[var(--theme-muted-text)]">
-        {galleryImages.length} {dict.gallery.imageCount}
-      </p>
-
-      <div
-        ref={listRef}
-        style={{ height: virtualizer.getTotalSize(), position: "relative" }}
+      <section
+        ref={sectionRef}
+        style={{ backgroundColor: "#F8F7F4", padding: "80px 0 140px" }}
+        aria-labelledby="gallery-heading"
       >
-        {virtualizer.getVirtualItems().map((row) => {
-          const start = row.index * columns
-          const items = galleryImages.slice(start, start + columns)
+        <div className="max-w-content mx-auto px-8">
+          <h2 id="gallery-heading" className="sr-only">
+            {dict.gallery.metaTitle}
+          </h2>
 
-          return (
-            <div
-              key={row.key}
-              data-index={row.index}
-              ref={virtualizer.measureElement}
+          {/* Category filters */}
+          <div
+            className="fade-up mb-16 flex flex-wrap gap-2"
+            style={{ opacity: 0 }}
+          >
+            {galleryCategories.map((cat) => {
+              const isActive = active === cat.id
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => {
+                    setActive(cat.id)
+                    setLightbox(null)
+                  }}
+                  aria-pressed={isActive}
+                  style={{
+                    padding: "8px 20px",
+                    fontSize: "12px",
+                    fontWeight: 500,
+                    letterSpacing: "0.06em",
+                    textTransform: "uppercase",
+                    border: "1px solid",
+                    borderColor: isActive
+                      ? "var(--theme-accent)"
+                      : "rgba(35,35,35,0.15)",
+                    color: isActive ? "var(--theme-accent)" : "#5B5B5B",
+                    backgroundColor: isActive
+                      ? "var(--theme-tag-bg)"
+                      : "transparent",
+                    cursor: "pointer",
+                    transition: "all 0.2s ease",
+                  }}
+                >
+                  {cat.label[locale]}
+                </button>
+              )
+            })}
+            <span
+              className="font-mono"
               style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
-                transform: `translateY(${row.start - virtualizer.options.scrollMargin}px)`,
+                marginLeft: "auto",
+                fontSize: "12px",
+                color: "#5B5B5B",
+                alignSelf: "center",
               }}
             >
+              {filtered.length} {dict.gallery.imageCount}
+            </span>
+          </div>
+
+          {/* Masonry grid */}
+          <div className="masonry-gallery" role="list">
+            {filtered.map((item, i) => (
               <div
-                className="grid"
+                key={item.id}
+                className="fade-up masonry-item"
                 style={{
-                  gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
-                  gap: GAP,
-                  paddingBottom: GAP,
+                  opacity: 0,
+                  transitionDelay: `${(i % 6) * 0.06}s`,
+                  breakInside: "avoid",
+                  marginBottom: "16px",
+                  position: "relative",
+                  overflow: "hidden",
+                  cursor: "pointer",
                 }}
+                onClick={() => setLightbox(i)}
+                role="listitem"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault()
+                    setLightbox(i)
+                  }
+                }}
+                aria-label={`${item.title[locale]} — ${item.date[locale]}`}
               >
-                {items.map((image, i) => {
-                  const index = start + i
-                  return (
-                    <button
-                      key={image.src}
-                      type="button"
-                      onClick={() => setSelected(index)}
-                      className="image-hover-zoom group relative aspect-square overflow-hidden bg-[var(--section-beige)]"
-                    >
-                      <Image
-                        src={image.src}
-                        alt={image.alt[locale]}
-                        fill
-                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                        loading="lazy"
-                        quality={72}
-                        className="object-cover"
-                      />
-                      <span
-                        aria-hidden="true"
-                        className="pointer-events-none absolute inset-0 bg-[rgba(20,18,16,0.35)] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                      />
-                    </button>
-                  )
-                })}
+                <div
+                  className="image-hover-zoom"
+                  style={{
+                    aspectRatio:
+                      item.span === "tall"
+                        ? "3/4"
+                        : item.span === "wide"
+                          ? "16/9"
+                          : "4/3",
+                    overflow: "hidden",
+                  }}
+                >
+                  <AppImage
+                    src={item.src}
+                    alt={item.alt[locale]}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    quality={72}
+                    className="object-cover"
+                  />
+                </div>
+
+                <div
+                  className="gallery-overlay"
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    background:
+                      "linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 50%)",
+                    opacity: 0,
+                    transition: "opacity 0.35s ease",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "flex-end",
+                    padding: "20px",
+                  }}
+                >
+                  <div
+                    style={{
+                      fontSize: "10px",
+                      letterSpacing: "0.12em",
+                      textTransform: "uppercase",
+                      color: "var(--theme-accent)",
+                      marginBottom: "4px",
+                    }}
+                  >
+                    {item.date[locale]}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: "14px",
+                      fontWeight: 500,
+                      color: "#F7F5F0",
+                      lineHeight: 1.3,
+                    }}
+                  >
+                    {item.title[locale]}
+                  </div>
+                </div>
               </div>
-            </div>
-          )
-        })}
-      </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Lightbox */}
-      {selected !== null && (
+      {current && (
         <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 100,
+            backgroundColor: "rgba(0,0,0,0.95)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+          onClick={close}
           role="dialog"
           aria-modal="true"
-          aria-label={galleryImages[selected].alt[locale]}
-          className="fixed inset-0 z-[90] flex items-center justify-center bg-[rgba(20,18,16,0.96)] p-4"
+          aria-label={current.title[locale]}
         >
           <button
-            type="button"
             onClick={close}
             aria-label={dict.gallery.close}
-            className="absolute right-5 top-5 text-[var(--theme-ivory)] transition-colors hover:text-[var(--theme-accent)]"
+            style={{
+              position: "absolute",
+              top: "24px",
+              right: "24px",
+              background: "none",
+              border: "none",
+              color: "rgba(247,245,240,0.6)",
+              fontSize: "28px",
+              cursor: "pointer",
+              lineHeight: 1,
+              padding: "8px",
+            }}
           >
-            <X aria-hidden="true" className="size-6" />
+            ×
           </button>
 
           <button
-            type="button"
-            onClick={previous}
+            onClick={(e) => {
+              e.stopPropagation()
+              prev()
+            }}
             aria-label={dict.gallery.previous}
-            className="absolute left-4 text-[var(--theme-ivory)] transition-colors hover:text-[var(--theme-accent)] md:left-8"
+            style={{
+              position: "absolute",
+              left: "24px",
+              background: "none",
+              border: "none",
+              color: "rgba(247,245,240,0.6)",
+              fontSize: "32px",
+              cursor: "pointer",
+              padding: "8px",
+            }}
           >
-            <ChevronLeft aria-hidden="true" className="size-8" />
+            ‹
           </button>
 
-          <div className="relative h-[80vh] w-full max-w-5xl">
-            <Image
-              src={galleryImages[selected].src}
-              alt={galleryImages[selected].alt[locale]}
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              position: "relative",
+              width: "90vw",
+              maxWidth: "1100px",
+              height: "80vh",
+            }}
+          >
+            <AppImage
+              src={current.src}
+              alt={current.alt[locale]}
               fill
-              sizes="100vw"
+              sizes="90vw"
               quality={88}
               className="object-contain"
+              style={{ objectFit: "contain" }}
             />
           </div>
 
           <button
-            type="button"
-            onClick={next}
+            onClick={(e) => {
+              e.stopPropagation()
+              next()
+            }}
             aria-label={dict.gallery.next}
-            className="absolute right-4 text-[var(--theme-ivory)] transition-colors hover:text-[var(--theme-accent)] md:right-8"
+            style={{
+              position: "absolute",
+              right: "24px",
+              background: "none",
+              border: "none",
+              color: "rgba(247,245,240,0.6)",
+              fontSize: "32px",
+              cursor: "pointer",
+              padding: "8px",
+            }}
           >
-            <ChevronRight aria-hidden="true" className="size-8" />
+            ›
           </button>
 
-          <p className="absolute bottom-6 font-mono text-[11px] tracking-[0.2em] text-[var(--theme-muted-text)]">
-            {selected + 1} / {galleryImages.length}
-          </p>
+          <div
+            style={{
+              position: "absolute",
+              bottom: "28px",
+              textAlign: "center",
+              width: "100%",
+              pointerEvents: "none",
+            }}
+          >
+            <div
+              style={{
+                fontSize: "14px",
+                color: "#F7F5F0",
+                marginBottom: "4px",
+              }}
+            >
+              {current.title[locale]}
+            </div>
+            <div
+              className="font-mono"
+              style={{ fontSize: "11px", color: "rgba(247,245,240,0.45)" }}
+            >
+              {lightbox !== null ? lightbox + 1 : 0} / {filtered.length}
+            </div>
+          </div>
         </div>
       )}
     </>

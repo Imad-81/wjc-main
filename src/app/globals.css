@@ -632,6 +632,29 @@
   .max-w-content {
     max-width: 1440px;
   }
+
+  /* Masonry gallery — CSS columns, reveal caption on hover/focus. */
+  .masonry-gallery {
+    column-count: 1;
+    column-gap: 16px;
+  }
+
+  @media (min-width: 640px) {
+    .masonry-gallery {
+      column-count: 2;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .masonry-gallery {
+      column-count: 3;
+    }
+  }
+
+  .masonry-item:hover .gallery-overlay,
+  .masonry-item:focus-visible .gallery-overlay {
+    opacity: 1;
+  }
 }
 
 /* ==========================================================================
