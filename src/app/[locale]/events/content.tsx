@@ -5,10 +5,12 @@ import { useMemo, useState } from "react"
 
 import AppImage from "@/components/wjc/app-image"
 import { useReveal } from "@/components/wjc/use-reveal"
-import { eventFilters, pastEvents, type EventFilter } from "@/data/events"
+import { pastEvents } from "@/data/events"
 import { delegations, eventStats, upcomingEvents } from "@/data/events-extra"
 import { localizePath, type Locale } from "@/i18n/config"
 import type { Dictionary } from "@/i18n/types"
+
+type ActiveTab = "culture" | "delegations" | "outreach" | "next"
 
 interface SectionProps {
   locale: Locale
@@ -102,92 +104,111 @@ function HeroEvents({ locale, dict }: SectionProps) {
   )
 }
 
-function PastEventsSection({ locale, dict }: SectionProps) {
+function TabsSection({ locale, dict }: SectionProps) {
   const ref = useReveal<HTMLElement>(80, 0.05)
-  const [active, setActive] = useState<"all" | EventFilter>("all")
+  const [active, setActive] = useState<ActiveTab>("culture")
 
-  const filtered = useMemo(
-    () =>
-      active === "all"
-        ? pastEvents
-        : pastEvents.filter((e) => e.filter === active),
-    [active],
+  const cultureEvents = useMemo(
+    () => pastEvents.filter((e) => e.tab === "culture"),
+    [],
+  )
+  const outreachEvents = useMemo(
+    () => pastEvents.filter((e) => e.tab === "outreach"),
+    [],
   )
 
-  const [featured, ...rest] = filtered
+  const TABS: { id: ActiveTab; label: string; blurb: string }[] = [
+    {
+      id: "culture",
+      label: dict.events.tabs.culture,
+      blurb: dict.events.tabs.cultureBlurb,
+    },
+    {
+      id: "delegations",
+      label: dict.events.tabs.delegations,
+      blurb: dict.events.tabs.delegationsBlurb,
+    },
+    {
+      id: "outreach",
+      label: dict.events.tabs.outreach,
+      blurb: dict.events.tabs.outreachBlurb,
+    },
+    {
+      id: "next",
+      label: dict.events.tabs.next,
+      blurb: dict.events.tabs.nextBlurb,
+    },
+  ]
+
+  const [featured, ...rest] = cultureEvents
 
   return (
     <section
       ref={ref}
       style={{ backgroundColor: "#F8F7F4", padding: "120px 0" }}
-      aria-labelledby="past-events-heading"
+      aria-labelledby="events-tabs-heading"
     >
       <div className="max-w-content mx-auto px-8">
-        <div className="mb-16 flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
-          <div>
-            <div className="fade-up" style={{ opacity: 0 }}>
-              <span
-                className="section-label"
+        {/* ── Tab bar ── */}
+        <div
+          className="fade-up mb-6 flex flex-wrap gap-0"
+          style={{
+            opacity: 0,
+            borderBottom: "1px solid rgba(35,35,35,0.12)",
+          }}
+        >
+          {TABS.map((tab) => {
+            const isActive = active === tab.id
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActive(tab.id)}
+                aria-pressed={isActive}
                 style={{
-                  display: "block",
-                  marginBottom: "20px",
-                  color: "var(--theme-accent)",
+                  padding: "14px 28px",
+                  fontSize: "12px",
+                  fontWeight: 600,
+                  letterSpacing: "0.07em",
+                  textTransform: "uppercase",
+                  border: "none",
+                  borderBottom: isActive
+                    ? "2px solid var(--theme-accent)"
+                    : "2px solid transparent",
+                  color: isActive ? "var(--theme-accent)" : "#5B5B5B",
+                  backgroundColor: "transparent",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                  marginBottom: "-1px",
                 }}
               >
-                {dict.events.pastLabel}
-              </span>
-            </div>
-            <h2
-              id="past-events-heading"
-              className="fade-up font-serif"
-              style={{
-                fontSize: "clamp(32px, 3.5vw, 48px)",
-                fontWeight: 300,
-                lineHeight: 1.1,
-                letterSpacing: "-0.01em",
-                color: "#232323",
-                opacity: 0,
-              }}
-            >
-              {dict.events.pastTitle}
-            </h2>
-          </div>
-
-          {/* Only filters the archive actually has events for. */}
-          <div className="fade-up flex flex-wrap gap-2" style={{ opacity: 0 }}>
-            {(["all", ...eventFilters] as const).map((cat) => {
-              const isActive = active === cat
-              return (
-                <button
-                  key={cat}
-                  onClick={() => setActive(cat)}
-                  aria-pressed={isActive}
-                  style={{
-                    padding: "8px 20px",
-                    fontSize: "12px",
-                    fontWeight: 500,
-                    letterSpacing: "0.06em",
-                    textTransform: "uppercase",
-                    border: "1px solid",
-                    borderColor: isActive
-                      ? "var(--theme-accent)"
-                      : "rgba(35,35,35,0.18)",
-                    color: isActive ? "var(--theme-accent)" : "#5B5B5B",
-                    backgroundColor: isActive
-                      ? "var(--theme-tag-bg)"
-                      : "transparent",
-                    cursor: "pointer",
-                    transition: "all 0.2s ease",
-                  }}
-                >
-                  {dict.events.filters[cat]}
-                </button>
-              )
-            })}
-          </div>
+                {tab.label}
+              </button>
+            )
+          })}
         </div>
 
-        {featured && (
+        {/* ── Tab blurb ── */}
+        <div
+          className="fade-up mb-16"
+          style={{ opacity: 0 }}
+        >
+          <p
+            style={{
+              fontSize: "15px",
+              color: "#5B5B5B",
+              fontWeight: 300,
+              lineHeight: 1.75,
+              maxWidth: "560px",
+            }}
+          >
+            {TABS.find((t) => t.id === active)?.blurb}
+          </p>
+        </div>
+
+        {/* ── Culture & Festivals tab ── */}
+        {active === "culture" && (
+          <>
+            {featured && (
           <div className="fade-up mb-8" style={{ opacity: 0 }}>
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
               <Link
@@ -397,20 +418,209 @@ function PastEventsSection({ locale, dict }: SectionProps) {
               </div>
             </Link>
           ))}
-        </div>
+          </div>
+          </>)}
+
+        {/* ── Delegations & Visits tab ── */}
+        {active === "delegations" && (
+          <div className="flex flex-col">
+            {delegations.map((d, i) => (
+              <div
+                key={d.org.en}
+                className="fade-up grid grid-cols-1 gap-8 lg:grid-cols-12"
+                style={{
+                  opacity: 0,
+                  transitionDelay: `${i * 0.1}s`,
+                  padding: "36px 0",
+                  borderTop: "1px solid rgba(35,35,35,0.10)",
+                  borderBottom:
+                    i === delegations.length - 1
+                      ? "1px solid rgba(35,35,35,0.10)"
+                      : "none",
+                }}
+              >
+                <div className="lg:col-span-3">
+                  <div
+                    className="font-serif"
+                    style={{
+                      fontSize: "22px",
+                      fontWeight: 400,
+                      color: "#232323",
+                      marginBottom: "4px",
+                    }}
+                  >
+                    {d.org[locale]}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: "12px",
+                      color: "#5B5B5B",
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    {d.fullName[locale]}
+                  </div>
+                </div>
+                <div className="lg:col-span-2">
+                  <div
+                    className="font-mono"
+                    style={{
+                      fontSize: "12px",
+                      color: "var(--theme-accent)",
+                      letterSpacing: "0.06em",
+                    }}
+                  >
+                    {d.date[locale]}
+                  </div>
+                </div>
+                <div className="lg:col-span-4">
+                  <div
+                    style={{
+                      fontSize: "14px",
+                      color: "#5B5B5B",
+                      lineHeight: 1.7,
+                      fontWeight: 300,
+                    }}
+                  >
+                    {d.purpose[locale]}
+                  </div>
+                </div>
+                <div className="lg:col-span-3">
+                  <div
+                    style={{
+                      fontSize: "13px",
+                      color: "#8A8A8A",
+                      lineHeight: 1.7,
+                      fontWeight: 300,
+                      fontStyle: "italic",
+                    }}
+                  >
+                    {d.outcome[locale]}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* ── Outreach Initiatives tab ── */}
+        {active === "outreach" && (
+          outreachEvents.length > 0 ? (
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {outreachEvents.map((event, i) => (
+                <Link
+                  key={event.slug}
+                  href={localizePath(`/events/${event.slug}`, locale)}
+                  className="fade-up"
+                  style={{
+                    opacity: 0,
+                    transitionDelay: `${i * 0.08}s`,
+                    border: "1px solid rgba(35,35,35,0.12)",
+                    overflow: "hidden",
+                    backgroundColor: "rgba(248,247,244,0.50)",
+                    textDecoration: "none",
+                    display: "block",
+                  }}
+                >
+                  <div
+                    className="image-hover-zoom"
+                    style={{ position: "relative", aspectRatio: "16/9", overflow: "hidden" }}
+                  >
+                    <AppImage
+                      src={event.images[0]}
+                      alt={event.title[locale]}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="object-cover"
+                    />
+                  </div>
+                  <div style={{ padding: "28px" }}>
+                    <div style={{ fontSize: "10px", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--theme-accent)", marginBottom: "12px" }}>
+                      {event.category[locale]} · {event.displayDate[locale]}
+                    </div>
+                    <h3 className="font-serif" style={{ fontSize: "20px", fontWeight: 400, lineHeight: 1.3, marginBottom: "12px", color: "#232323" }}>
+                      {event.title[locale]}
+                    </h3>
+                    <p style={{ fontSize: "13px", lineHeight: 1.7, fontWeight: 300, color: "#5B5B5B" }}>
+                      {event.description[locale]}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <p style={{ fontSize: "15px", color: "#5B5B5B", fontWeight: 300, fontStyle: "italic" }}>
+              {dict.events.noEvents}
+            </p>
+          )
+        )}
+
+        {/* ── What's Next tab ── */}
+        {active === "next" && (
+          <div
+            className="grid grid-cols-1 gap-px md:grid-cols-2"
+            style={{ border: "1px solid rgba(35,35,35,0.12)" }}
+          >
+            {upcomingEvents.map((event, i) => (
+              <div
+                key={event.title.en}
+                className="fade-up"
+                style={{
+                  opacity: 0,
+                  transitionDelay: `${i * 0.08}s`,
+                  padding: "40px 36px",
+                  border: "1px solid rgba(35,35,35,0.12)",
+                  backgroundColor: "rgba(248,247,244,0.45)",
+                }}
+              >
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px", gap: "12px" }}>
+                  <span style={{ fontSize: "10px", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--theme-accent)" }}>
+                    {event.category[locale]}
+                  </span>
+                  <span className="font-mono" style={{ fontSize: "11px", color: "#5B5B5B" }}>
+                    {event.date[locale]}
+                  </span>
+                </div>
+                <h3 className="font-serif" style={{ fontSize: "22px", fontWeight: 400, lineHeight: 1.3, marginBottom: "12px", color: "#232323" }}>
+                  {event.title[locale]}
+                </h3>
+                <p style={{ fontSize: "14px", lineHeight: 1.75, fontWeight: 300, color: "#5B5B5B", marginBottom: "20px" }}>
+                  {event.description[locale]}
+                </p>
+                <span
+                  style={{
+                    display: "inline-block",
+                    fontSize: "10px",
+                    letterSpacing: "0.1em",
+                    textTransform: "uppercase",
+                    padding: "5px 14px",
+                    border: "1px solid",
+                    borderColor: event.registrationOpen ? "var(--theme-accent)" : "rgba(35,35,35,0.2)",
+                    color: event.registrationOpen ? "var(--theme-accent)" : "#5B5B5B",
+                  }}
+                >
+                  {event.registrationOpen ? dict.events.upcoming.open : dict.events.upcoming.soon}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   )
 }
 
-function DelegationsSection({ locale, dict }: SectionProps) {
-  const ref = useReveal<HTMLElement>(100, 0.1)
+function _REMOVED_DelegationsSection() { return null }
+function _REMOVED_UpcomingSection() { return null }
+
+function ImpactNumbers({ locale, dict }: SectionProps) {
+  const ref = useReveal<HTMLElement>(100, 0.2)
 
   return (
     <section
       ref={ref}
-      style={{ backgroundColor: "#232323", padding: "140px 0" }}
-      aria-labelledby="delegations-heading"
+      style={{ backgroundColor: "#232323", padding: "120px 0" }}
+      aria-labelledby="impact-numbers-heading"
     >
       <div className="max-w-content mx-auto px-8">
         <div className="mb-16">
@@ -662,7 +872,7 @@ function UpcomingSection({ locale, dict }: SectionProps) {
   )
 }
 
-function ImpactNumbers({ locale, dict }: SectionProps) {
+function ImpactNumbers_IMPL({ locale, dict }: SectionProps) {
   const ref = useReveal<HTMLElement>(100, 0.2)
 
   return (
@@ -859,10 +1069,8 @@ export default function EventsContent({ locale, dict }: SectionProps) {
   return (
     <>
       <HeroEvents locale={locale} dict={dict} />
-      <PastEventsSection locale={locale} dict={dict} />
-      <DelegationsSection locale={locale} dict={dict} />
-      <UpcomingSection locale={locale} dict={dict} />
-      <ImpactNumbers locale={locale} dict={dict} />
+      <TabsSection locale={locale} dict={dict} />
+      <ImpactNumbers_IMPL locale={locale} dict={dict} />
       <EventsCta locale={locale} dict={dict} />
     </>
   )

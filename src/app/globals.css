@@ -179,12 +179,11 @@
 /* ========================================================================== */
 
 @theme inline {
-  --font-family-sans: var(--font-dm-sans), "DM Sans", ui-sans-serif, system-ui,
+  --font-sans: var(--font-dm-sans), "DM Sans", ui-sans-serif, system-ui,
     sans-serif;
-  --font-family-serif: var(--font-cormorant), "Cormorant Garamond", Georgia,
-    serif;
-  --font-family-mono: var(--font-dm-mono), "DM Mono", ui-monospace, monospace;
-  --font-family-jp: var(--font-noto-serif-jp), "Noto Serif JP", serif;
+  --font-serif: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-mono: var(--font-dm-mono), "DM Mono", ui-monospace, monospace;
+  --font-jp: var(--font-noto-serif-jp), "Noto Serif JP", serif;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -264,16 +263,8 @@
 @layer components {
   /* ---- Typography helpers ---------------------------------------------- */
 
-  .font-serif {
-    font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
-  }
-
   .font-jp {
     font-family: var(--font-noto-serif-jp), "Noto Serif JP", serif;
-  }
-
-  .font-mono {
-    font-family: var(--font-dm-mono), "DM Mono", ui-monospace, monospace;
   }
 
   /* The small uppercase eyebrow that opens nearly every section. */
@@ -693,6 +684,248 @@
   transition-delay: 0.5s;
 }
 
+/* ==========================================================================
+   風鈴 — hanging character chimes in the hero, between the backdrop and the
+   gate. The gate PNG's transparent archway is what makes them visible.
+   ========================================================================== */
+
+/* ==========================================================================
+   Hero parallax. The gate layer and the chime host share --wjc-gate-shift so
+   the strands stay registered inside the archway at any scroll position; the
+   backdrop drifts at its own slower rate.
+   ========================================================================== */
+
+/* 100vh is unstable on mobile — it jumps as the browser chrome shows and
+   hides, which made the hero resize mid-scroll and rebuilt the chimes each
+   time. svh is the settled height. */
+.wjc-hero {
+  height: 100vh;
+  height: 100svh;
+  min-height: 640px;
+}
+
+@media (min-width: 721px) {
+  .wjc-hero {
+    min-height: 720px;
+  }
+}
+
+/* Hero content box. The stats bar is absolutely pinned to the bottom, so the
+   content has to reserve exactly as much room as the bar actually occupies —
+   on mobile the bar wraps to 2x2 and is roughly twice as tall, which is what
+   was overlapping the copy. */
+.wjc-hero-content {
+  padding: 96px 24px 240px;
+}
+
+.wjc-hero-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media (min-width: 721px) {
+  .wjc-hero-content {
+    padding: 72px 130px 110px 0;
+  }
+  .wjc-hero-inner {
+    padding: 0 52px;
+  }
+}
+
+/* Stats bar — 2x2 on mobile, single row from tablet up. */
+.wjc-hero-stats {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.wjc-hero-stat {
+  height: 76px;
+  padding: 0 10px;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+  transition: border-color 0.7s ease;
+}
+
+/* The seasonal switcher floats bottom-right over this bar on mobile; keep
+   the last cell's text clear of it. */
+.wjc-hero-stat:last-child {
+  padding-right: 60px;
+}
+
+/* Right-hand column and bottom row have no neighbour to divide from. */
+.wjc-hero-stat:nth-child(2n) {
+  border-right: none;
+}
+.wjc-hero-stat:nth-last-child(-n + 2) {
+  border-bottom: none;
+}
+
+@media (min-width: 721px) {
+  .wjc-hero-stats {
+    padding: 0 52px;
+  }
+  .wjc-hero-stat {
+    height: 84px;
+    padding: 0 18px;
+    border-bottom: none;
+  }
+  .wjc-hero-stat:nth-child(2n) {
+    border-right: 1px solid;
+  }
+  .wjc-hero-stat:last-child {
+    border-right: none;
+    padding-right: 18px;
+  }
+}
+
+.wjc-parallax-bg {
+  transform: translate3d(0, var(--wjc-bg-shift, 0px), 0);
+  will-change: transform;
+  transition: transform 80ms linear;
+}
+
+/* Near plate. Inset from the top so the gate roof clears the navigation, and
+   contained rather than cropped so the whole gate reads. */
+.wjc-gate-layer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 84px;
+  bottom: 0;
+  transform: translate3d(0, var(--wjc-gate-shift, 0px), 0);
+  will-change: transform;
+  transition: transform 80ms linear;
+}
+
+@media (max-width: 720px) {
+  .wjc-gate-layer {
+    top: 64px;
+  }
+  /* Contain leaves the gate as a thin strip on a tall portrait screen.
+     Cover keeps it filling the frame with the archway centred. */
+  .wjc-gate-layer .wjc-hero-plate-front {
+    object-fit: cover !important;
+    object-position: center 62% !important;
+  }
+}
+
+/* Hero plates fade in on paint. Gating this on an <img> onLoad handler is
+   unreliable — an image already cached when React hydrates never fires it,
+   which leaves the hero blank. */
+.wjc-hero-plate {
+  animation: wjcPlateIn 0.9s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.wjc-hero-plate-front {
+  animation-delay: 0.12s;
+}
+
+@keyframes wjcPlateIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Spans the hero so the cover maths matches the plates. Transparent to
+   pointers — only the archway stage inside it is interactive. */
+.wjc-chime-host {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 84px;
+  bottom: 0;
+  z-index: 1;
+  pointer-events: none;
+  transform: translate3d(0, var(--wjc-gate-shift, 0px), 0);
+  will-change: transform;
+}
+
+/* The archway renders about 80px wide on a phone: the glyphs are illegible
+   and there is nothing meaningful to sweep. Cheaper and calmer to drop the
+   layer than to ship a broken version of it. */
+@media (max-width: 720px) {
+  .wjc-chime-host {
+    display: none;
+  }
+}
+
+/* Clipped to the gate's archway; JS sizes and places it. */
+.wjc-chime-stage {
+  position: absolute;
+  cursor: crosshair;
+  overflow: hidden;
+  pointer-events: auto;
+  /* Let vertical swipes scroll the page; only horizontal movement drives the
+     chimes. Without this the stage ate scroll gestures on touch devices. */
+  touch-action: pan-y;
+  /* Contain layout/paint so glyph writes never invalidate the whole hero. */
+  contain: layout paint;
+}
+
+.wjc-chime-glow {
+  display: none;
+}
+
+.wjc-strand {
+  position: absolute;
+  transform-origin: 50% 0;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-family: var(--font-noto-sans-jp), "Noto Sans JP", sans-serif;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  will-change: transform;
+  pointer-events: none;
+}
+
+.wjc-strand .wjc-string {
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    rgba(238, 48, 42, 0.6),
+    transparent
+  );
+}
+
+.wjc-strand b {
+  display: inline-block;
+  font-weight: 600;
+  transform-origin: 50% 50%;
+  color: #EE302A;
+  text-shadow: none;
+}
+
+/* The clapper — a small weight at the foot of each strand. */
+.wjc-tail {
+  display: block;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #EE302A;
+  opacity: 0.6;
+}
+
+.wjc-chime-ring {
+  position: absolute;
+  border: 1px solid #EE302A;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
 /* Hero: pulsing scroll cue and click ripples. */
 @keyframes wjcScrollPulse {
   0%,
@@ -879,5 +1112,15 @@
   .btn-lift:hover,
   .wjc-card:hover {
     transform: none;
+  }
+}
+
+/* The seasonal switcher is pinned bottom-right; on mobile the hero stats bar
+   is two rows tall and was sitting underneath it. */
+@media (max-width: 720px) {
+  [aria-label="Seasonal theme switcher"],
+  [aria-label="季節のテーマ切り替え"] {
+    bottom: 1rem;
+    right: 1rem;
   }
 }

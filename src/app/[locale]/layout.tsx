@@ -1,7 +1,7 @@
 import type { ReactNode } from "react"
 import type { Metadata, Viewport } from "next"
 import { notFound } from "next/navigation"
-import { Cormorant_Garamond, DM_Mono, DM_Sans, Noto_Serif_JP } from "next/font/google"
+import { Cormorant_Garamond, DM_Mono, DM_Sans, Noto_Sans_JP, Noto_Serif_JP } from "next/font/google"
 
 import { LOCALES, isLocale, type Locale } from "@/i18n/config"
 import { getDictionary } from "@/i18n"
@@ -30,6 +30,13 @@ const notoSerifJp = Noto_Serif_JP({
   subsets: ["latin"],
   variable: "--font-noto-serif-jp",
   weight: ["300", "400", "500"],
+  display: "swap",
+})
+
+const notoSansJp = Noto_Sans_JP({
+  subsets: ["latin"],
+  variable: "--font-noto-sans-jp",
+  weight: ["300", "400", "500", "700"],
   display: "swap",
 })
 
@@ -100,7 +107,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={`${dmSans.variable} ${cormorant.variable} ${notoSerifJp.variable} ${dmMono.variable}`}
+      className={`${dmSans.variable} ${cormorant.variable} ${notoSerifJp.variable} ${notoSansJp.variable} ${dmMono.variable}`}
       suppressHydrationWarning
     >
       <head>

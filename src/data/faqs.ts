@@ -129,63 +129,57 @@ export const joinFaqs: Faq[] = [
   },
 ]
 
-/** JLPT page FAQ — reproduced from the approved prototype. */
+/** JLPT page FAQ. */
 export const jlptFaqs: Faq[] = [
   {
     question: {
-      en: "Do I need any prior knowledge of Japanese to enroll?",
-      ja: "申し込みに日本語の予備知識は必要ですか?",
+      en: "Who can join the Japanese language course?",
+      ja: "日本語コースに参加できるのは誰ですか?",
     },
     answer: {
-      en: "No prior knowledge is required for the N5 (Foundation) course. For N4 and N3, a placement assessment will help determine the right starting point.",
-      ja: "N5（基礎）講座に予備知識は必要ありません。N4・N3 については、プレースメント評価により適切な開始レベルを判断します。",
+      en: "All Woxsen University students are eligible to join the Japanese language course. No prior knowledge of Japanese is required.",
+      ja: "ウォクセン大学の学生はどなたでも日本語コースに参加できます。日本語の事前知識は必要ありません。",
     },
   },
   {
     question: {
-      en: "When are the JLPT examinations held?",
-      ja: "JLPT はいつ実施されますか?",
+      en: "How long is the Japanese language course?",
+      ja: "日本語コースの期間はどのくらいですか?",
     },
     answer: {
-      en: "The JLPT is conducted twice a year — in July and December. Our courses are structured to align with these examination dates.",
-      ja: "JLPT は年2回、7月と12月に実施されます。当講座はこの試験日程に合わせて構成されています。",
-    },
-  },
-  {
-    question: { en: "What is the class size?", ja: "1クラスの人数は?" },
-    answer: {
-      en: "We maintain small class sizes of 15–20 students to ensure personalized attention and meaningful interaction in every session.",
-      ja: "毎回の授業でひとりひとりに目が行き届き、意味のあるやりとりができるよう、15〜20名の少人数制を保っています。",
+      en: "The course duration typically ranges from 8 to 12 weeks, depending on the level and schedule.",
+      ja: "コースの期間は、レベルやスケジュールによって異なりますが、通常8〜12週間です。",
     },
   },
   {
     question: {
-      en: "Are the courses available online?",
-      ja: "オンラインでの受講は可能ですか?",
+      en: "Will I get a certificate after completing the course?",
+      ja: "コース修了後に証明書はもらえますか?",
     },
     answer: {
-      en: "Currently, courses are conducted in-person at Woxsen University. Hybrid options are being explored for future batches.",
-      ja: "現在、講座はウォクセン大学での対面形式で実施しています。今後の期についてはハイブリッド形式も検討中です。",
+      en: "Yes, participants receive a certificate upon successful completion of the course.",
+      ja: "はい、コースを修了した参加者には修了証書が授与されます。",
     },
   },
   {
     question: {
-      en: "What materials are provided?",
-      ja: "教材は提供されますか?",
+      en: "How can I register for the course?",
+      ja: "コースへの登録方法を教えてください。",
     },
     answer: {
-      en: "All enrolled students receive course materials, practice workbooks, and access to the Centre's Japanese language library.",
-      ja: "受講生の皆さまには、教材、演習用ワークブック、そしてセンターの日本語ライブラリの利用をご提供します。",
+      en: "Registration details will be shared through the Japan Center website and official university communication channels.",
+      ja: "登録の詳細は、ジャパンセンターのウェブサイトおよび大学の公式連絡チャンネルを通じてお知らせします。",
     },
   },
   {
     question: {
-      en: "Can I enroll if I'm not a Woxsen student?",
-      ja: "ウォクセンの学生でなくても受講できますか?",
+      en: "What JLPT level does the Japanese course cover, and how does it help with jobs?",
+      ja: "日本語コースはどのJLPTレベルをカバーしていますか?また、就職にどう役立ちますか?",
     },
     answer: {
-      en: "Currently, JLPT courses are open to Woxsen University students. External enrollment options are being considered for future batches.",
-      ja: "現在、JLPT 講座はウォクセン大学の学生を対象としています。学外の方の受講については今後の期で検討しています。",
+      en: "The course focuses on JLPT N5 level. Learning Japanese can help students explore internships, entry-level roles, and career opportunities with Japanese companies and Japan-focused organizations.",
+      ja: "コースはJLPT N5レベルに焦点を当てています。日本語を学ぶことで、インターンシップ、エントリーレベルの職、および日本企業や日本関連組織でのキャリア機会を探るのに役立ちます。",
     },
   },
 ]
+

@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useEffect, useState, type CSSProperties } from "react"
@@ -47,7 +48,6 @@ export default function Navigation({
     { label: dict.nav.gallery, href: "/gallery" },
     { label: dict.nav.team, href: "/team" },
     { label: dict.nav.jlpt, href: "/jlpt" },
-    { label: dict.nav.programs, href: "/programs" },
     { label: dict.nav.joinUs, href: "/join-us" },
   ]
 
@@ -90,37 +90,23 @@ export default function Navigation({
             style={{
               display: "flex",
               alignItems: "center",
-              gap: "12px",
+              gap: "6px",
               textDecoration: "none",
               flexShrink: 0,
             }}
             aria-label={`${dict.footer.tagline} — ${dict.nav.home}`}
           >
-            <div
+            <Image
+              src="/wjc-logo.png"
+              alt="Woxsen Japan Centre logo"
+              width={44}
+              height={44}
               style={{
-                width: "34px",
-                height: "34px",
-                borderRadius: "50%",
-                border: `1.5px solid ${accent}`,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                objectFit: "contain",
                 flexShrink: 0,
-                transition: "border-color 0.7s ease",
               }}
-              aria-hidden="true"
-            >
-              <div
-                style={{
-                  width: "16px",
-                  height: "16px",
-                  borderRadius: "50%",
-                  border: `1px solid ${accent}`,
-                  opacity: 0.4,
-                  transition: "border-color 0.7s ease",
-                }}
-              />
-            </div>
+              priority
+            />
             <div style={{ display: "flex", flexDirection: "column", lineHeight: 1 }}>
               <span
                 style={{

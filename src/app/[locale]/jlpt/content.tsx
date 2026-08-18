@@ -381,46 +381,7 @@ function CoursesSection({ locale, dict }: SectionProps) {
                   {course.tagline[locale]}
                 </p>
 
-                <div style={{ display: "flex", gap: "24px", marginBottom: "24px" }}>
-                  <div>
-                    <div
-                      style={{
-                        fontSize: "10px",
-                        letterSpacing: "0.1em",
-                        textTransform: "uppercase",
-                        color: "rgba(247,245,240,0.3)",
-                        marginBottom: "4px",
-                      }}
-                    >
-                      {dict.jlpt.levels.duration}
-                    </div>
-                    <div
-                      className="font-mono"
-                      style={{ fontSize: "13px", color: "rgba(247,245,240,0.7)" }}
-                    >
-                      {course.duration[locale]}
-                    </div>
-                  </div>
-                  <div>
-                    <div
-                      style={{
-                        fontSize: "10px",
-                        letterSpacing: "0.1em",
-                        textTransform: "uppercase",
-                        color: "rgba(247,245,240,0.3)",
-                        marginBottom: "4px",
-                      }}
-                    >
-                      {dict.jlpt.levels.schedule}
-                    </div>
-                    <div
-                      className="font-mono"
-                      style={{ fontSize: "12px", color: "rgba(247,245,240,0.7)" }}
-                    >
-                      {course.schedule[locale]}
-                    </div>
-                  </div>
-                </div>
+
 
                 <p
                   style={{

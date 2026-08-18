@@ -5,7 +5,8 @@ import { useState } from "react"
 
 import AppImage from "@/components/wjc/app-image"
 import { useReveal } from "@/components/wjc/use-reveal"
-import { coreActivities, collaborations, timeline } from "@/data/about"
+import { coreActivities } from "@/data/about"
+import { partners } from "@/data/partners"
 import { leadershipPreview } from "@/data/team"
 import { localizePath, type Locale } from "@/i18n/config"
 import type { Dictionary } from "@/i18n/types"
@@ -665,387 +666,229 @@ function LeadershipSection({ locale, dict }: SectionProps) {
   )
 }
 
-function CollaborationsSection({ locale, dict }: SectionProps) {
+
+
+function OurPartnersSection({ locale, dict }: SectionProps) {
   const ref = useReveal<HTMLElement>(80, 0.1)
-  const [active, setActive] = useState<number | null>(null)
 
   return (
     <section
       ref={ref}
       className="theme-transition"
-      style={{ backgroundColor: "#C9AE84", padding: "140px 0" }}
-      aria-labelledby="collaborations-heading"
+      style={{ backgroundColor: "#C9AE84", padding: "120px 0" }}
+      aria-labelledby="about-partners-heading"
     >
       <div className="max-w-content mx-auto px-8">
-        <div className="mb-16 grid grid-cols-1 gap-16 lg:grid-cols-12">
-          <div className="lg:col-span-5">
+        <div className="mb-16 flex flex-col justify-between gap-8 md:flex-row md:items-end">
+          <div>
             <div className="fade-up" style={{ opacity: 0 }}>
               <span
                 className="section-label"
                 style={{
+                  display: "block",
+                  marginBottom: "16px",
                   color: "#232323",
                   opacity: 0.65,
-                  display: "block",
-                  marginBottom: "20px",
                 }}
               >
-                {dict.about.people.collaborationsLabel}
+                {dict.about.partners.label}
               </span>
             </div>
             <h2
-              id="collaborations-heading"
+              id="about-partners-heading"
               className="fade-up font-serif"
               style={{
-                fontSize: "clamp(28px, 3vw, 40px)",
-                fontWeight: 300,
+                fontSize: "clamp(32px, 3.5vw, 48px)",
+                fontWeight: 400,
                 lineHeight: 1.15,
+                letterSpacing: "0.01em",
                 color: "#232323",
                 opacity: 0,
               }}
             >
-              {dict.about.people.collaborationsTitle}
-              <br />
-              <em style={{ fontStyle: "italic" }}>
-                {dict.about.people.collaborationsTitleEmphasis}
-              </em>
+              {dict.about.partners.title}
             </h2>
           </div>
-          <div className="lg:col-span-7 lg:pt-12">
-            <p
-              className="fade-up"
-              style={{
-                fontSize: "16px",
-                lineHeight: 1.85,
-                color: "rgba(35,35,35,0.65)",
-                fontWeight: 300,
-                opacity: 0,
-              }}
-            >
-              {dict.about.people.collaborationsBody}
-            </p>
-          </div>
-        </div>
 
-        <div
-          className="grid grid-cols-1 gap-px md:grid-cols-2 lg:grid-cols-3"
-          style={{ border: "1px solid rgba(35,35,35,0.15)" }}
-        >
-          {collaborations.map((collab, i) => (
-            <div
-              key={collab.initial}
-              className="fade-up"
-              style={{
-                opacity: 0,
-                transitionDelay: `${i * 0.07}s`,
-                padding: "40px 36px",
-                border: "1px solid rgba(35,35,35,0.15)",
-                backgroundColor:
-                  active === i
-                    ? "rgba(248,247,244,0.45)"
-                    : "rgba(248,247,244,0.25)",
-                transition: "background-color 0.3s ease",
-              }}
-              onMouseEnter={() => setActive(i)}
-              onMouseLeave={() => setActive(null)}
-            >
-              <div
-                className="font-serif font-jp"
-                style={{
-                  fontSize: "40px",
-                  fontWeight: 300,
-                  color: "var(--theme-accent)",
-                  marginBottom: "20px",
-                  lineHeight: 1,
-                }}
-                aria-hidden="true"
-              >
-                {collab.initial}
-              </div>
-              <div
-                style={{
-                  fontSize: "15px",
-                  fontWeight: 600,
-                  color: "#232323",
-                  marginBottom: "4px",
-                }}
-              >
-                {collab.name[locale]}
-              </div>
-              <div
-                style={{
-                  fontSize: "11px",
-                  color: "var(--theme-accent)",
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
-                  marginBottom: "16px",
-                }}
-              >
-                {collab.type[locale]} · {collab.country[locale]}
-              </div>
-              <p
-                style={{
-                  fontSize: "13px",
-                  lineHeight: 1.7,
-                  color: "rgba(35,35,35,0.60)",
-                  fontWeight: 300,
-                }}
-              >
-                {collab.description[locale]}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-function TimelineSection({ locale, dict }: SectionProps) {
-  const ref = useReveal<HTMLElement>(80, 0.1)
-
-  return (
-    <section
-      ref={ref}
-      style={{
-        backgroundColor: "#F8F7F4",
-        padding: "140px 0",
-        borderTop: "1px solid rgba(35,35,35,0.08)",
-      }}
-      aria-labelledby="timeline-heading"
-    >
-      <div className="max-w-content mx-auto px-8">
-        <div className="mb-16">
-          <div className="fade-up" style={{ opacity: 0 }}>
-            <span
-              className="section-label"
-              style={{
-                display: "block",
-                marginBottom: "20px",
-                color: "var(--theme-accent)",
-              }}
-            >
-              {dict.about.timeline.label}
-            </span>
-          </div>
-          <h2
-            id="timeline-heading"
-            className="fade-up font-serif"
+          <p
+            className="fade-up"
             style={{
-              fontSize: "clamp(32px, 3.5vw, 48px)",
+              fontSize: "15px",
+              lineHeight: 1.7,
+              maxWidth: "360px",
               fontWeight: 300,
-              lineHeight: 1.1,
-              letterSpacing: "-0.01em",
-              color: "#232323",
+              color: "rgba(35,35,35,0.70)",
               opacity: 0,
             }}
           >
-            {dict.about.timeline.title}
-          </h2>
+            {dict.about.partners.subtitle}
+          </p>
         </div>
 
-        <div style={{ position: "relative" }}>
-          {/* Centre rail (desktop only) */}
-          <div
-            className="hidden md:block"
-            style={{
-              position: "absolute",
-              left: "50%",
-              top: 0,
-              bottom: 0,
-              width: "1px",
-              backgroundColor: "rgba(35,35,35,0.12)",
-            }}
-            aria-hidden="true"
-          />
+        <div
+          className="grid grid-cols-1 gap-px md:grid-cols-3"
+          style={{ border: "1px solid rgba(35,35,35,0.15)" }}
+        >
+          {partners.map((partner, index) => (
+            <div
+              key={partner.id}
+              className="fade-up group"
+              style={{
+                opacity: 0,
+                transitionDelay: `${index * 0.12}s`,
+                padding: "48px 40px",
+                borderRight:
+                  index < partners.length - 1
+                    ? "1px solid rgba(35,35,35,0.15)"
+                    : "none",
+                transition: "background-color 0.3s ease",
+                backgroundColor: "rgba(248,247,244,0.35)",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = "rgba(248,247,244,0.65)"
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = "rgba(248,247,244,0.35)"
+              }}
+            >
+              <div
+                style={{
+                  width: "120px",
+                  height: "64px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginBottom: "28px",
+                  backgroundColor: "#FFFFFF",
+                  border: "1px solid rgba(35,35,35,0.10)",
+                  borderRadius: "4px",
+                  padding: "10px 14px",
+                  overflow: "hidden",
+                }}
+                aria-hidden="true"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={partner.logo}
+                  alt={`${partner.monogram} logo`}
+                  style={{
+                    maxWidth: "100%",
+                    maxHeight: "100%",
+                    objectFit: "contain",
+                    display: "block",
+                  }}
+                />
+              </div>
 
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            {timeline.map((item, i) => {
-              const left = i % 2 === 0
-              const entry = (
-                <>
+              <h3
+                className="font-serif"
+                style={{
+                  fontSize: "22px",
+                  fontWeight: 400,
+                  lineHeight: 1.2,
+                  marginBottom: "6px",
+                  letterSpacing: "0.01em",
+                  color: "#232323",
+                }}
+              >
+                {partner.name[locale]}
+              </h3>
+              <p
+                style={{
+                  fontSize: "12px",
+                  color: "rgba(35,35,35,0.55)",
+                  letterSpacing: "0.08em",
+                  marginBottom: "20px",
+                  fontWeight: 400,
+                }}
+              >
+                {partner.location[locale]}
+              </p>
+
+              <div
+                style={{
+                  height: "1px",
+                  backgroundColor: "rgba(35,35,35,0.12)",
+                  marginBottom: "20px",
+                }}
+                aria-hidden="true"
+              />
+
+              <p
+                style={{
+                  fontSize: "13.5px",
+                  color: "rgba(35,35,35,0.75)",
+                  lineHeight: 1.75,
+                  marginBottom: "20px",
+                  fontWeight: 300,
+                }}
+              >
+                {partner.description[locale]}
+              </p>
+
+              {/* Highlights checklist */}
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "8px",
+                  marginBottom: "24px",
+                }}
+              >
+                {partner.highlights[locale].map((point) => (
                   <div
+                    key={point}
+                    style={{
+                      display: "flex",
+                      alignItems: "flex-start",
+                      gap: "8px",
+                      fontSize: "13px",
+                      color: "#232323",
+                      fontWeight: 400,
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    <span
+                      style={{
+                        color: "var(--theme-accent)",
+                        fontWeight: 700,
+                        lineHeight: 1.3,
+                        flexShrink: 0,
+                      }}
+                      aria-hidden="true"
+                    >
+                      ✓
+                    </span>
+                    <span>{point}</span>
+                  </div>
+                ))}
+              </div>
+
+              {partner.url && (
+                <div>
+                  <a
+                    href={partner.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     style={{
                       fontSize: "12px",
-                      color: "var(--theme-accent)",
-                      letterSpacing: "0.1em",
+                      fontWeight: 600,
+                      letterSpacing: "0.08em",
                       textTransform: "uppercase",
-                      marginBottom: "8px",
-                      fontFamily: "var(--font-dm-mono)",
-                    }}
-                  >
-                    {item.year[locale]}
-                  </div>
-                  <h3
-                    className="font-serif"
-                    style={{
-                      fontSize: "22px",
-                      fontWeight: 400,
-                      color: "#232323",
-                      marginBottom: "10px",
-                    }}
-                  >
-                    {item.title[locale]}
-                  </h3>
-                  <p
-                    style={{
-                      fontSize: "14px",
-                      lineHeight: 1.7,
-                      color: "#5B5B5B",
-                      fontWeight: 300,
-                    }}
-                  >
-                    {item.description[locale]}
-                  </p>
-                </>
-              )
-
-              return (
-                <div
-                  key={item.title.en}
-                  className="fade-up"
-                  style={{
-                    opacity: 0,
-                    transitionDelay: `${i * 0.08}s`,
-                    padding: "40px 0",
-                    borderBottom:
-                      i < timeline.length - 1
-                        ? "1px solid rgba(35,35,35,0.10)"
-                        : "none",
-                  }}
-                >
-                  {/* Desktop: alternating zigzag around the centre rail */}
-                  <div
-                    className="hidden md:grid"
-                    style={{
-                      gridTemplateColumns: "1fr 48px 1fr",
+                      color: "var(--theme-accent)",
+                      textDecoration: "none",
+                      display: "inline-flex",
                       alignItems: "center",
+                      gap: "6px",
+                      transition: "gap 0.2s ease",
                     }}
                   >
-                    {left ? (
-                      <>
-                        <div style={{ paddingRight: "48px", textAlign: "right" }}>
-                          {entry}
-                        </div>
-                        <div style={{ display: "flex", justifyContent: "center" }}>
-                          <span className="timeline-node" style={{ borderColor: "#F8F7F4" }} />
-                        </div>
-                        <div />
-                      </>
-                    ) : (
-                      <>
-                        <div />
-                        <div style={{ display: "flex", justifyContent: "center" }}>
-                          <span className="timeline-node" style={{ borderColor: "#F8F7F4" }} />
-                        </div>
-                        <div style={{ paddingLeft: "48px" }}>{entry}</div>
-                      </>
-                    )}
-                  </div>
-
-                  {/* Mobile: single column */}
-                  <div className="md:hidden">{entry}</div>
+                    {locale === "ja" ? "ウェブサイトを見る" : "Visit Website"} →
+                  </a>
                 </div>
-              )
-            })}
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-function AboutCta({ locale, dict }: SectionProps) {
-  const ref = useReveal<HTMLElement>(100, 0.2)
-
-  return (
-    <section
-      ref={ref}
-      style={{ backgroundColor: "var(--theme-dark)", padding: "140px 0" }}
-      aria-labelledby="about-cta-heading"
-    >
-      <div className="max-w-content mx-auto px-8 text-center">
-        <div className="fade-up" style={{ opacity: 0 }}>
-          <span
-            className="section-label"
-            style={{
-              color: "var(--theme-accent)",
-              display: "block",
-              marginBottom: "24px",
-            }}
-          >
-            {dict.about.cta.label}
-          </span>
-        </div>
-        <h2
-          id="about-cta-heading"
-          className="fade-up font-serif"
-          style={{
-            fontSize: "clamp(36px, 4.5vw, 64px)",
-            fontWeight: 300,
-            lineHeight: 1.05,
-            color: "var(--theme-ivory)",
-            letterSpacing: "-0.015em",
-            marginBottom: "28px",
-            opacity: 0,
-          }}
-        >
-          {dict.about.cta.title}
-          <br />
-          <em style={{ fontStyle: "italic" }}>
-            {dict.about.cta.titleEmphasis}
-          </em>
-        </h2>
-        <p
-          className="fade-up"
-          style={{
-            fontSize: "17px",
-            lineHeight: 1.75,
-            color: "rgba(247,245,240,0.5)",
-            maxWidth: "480px",
-            margin: "0 auto 48px",
-            fontWeight: 300,
-            opacity: 0,
-          }}
-        >
-          {dict.about.cta.body}
-        </p>
-        <div
-          className="fade-up flex flex-wrap justify-center gap-4"
-          style={{ opacity: 0 }}
-        >
-          <Link
-            href={localizePath("/join-us", locale)}
-            className="btn-lift inline-flex items-center gap-2"
-            style={{
-              backgroundColor: "var(--theme-accent)",
-              color: "var(--theme-ivory)",
-              padding: "16px 48px",
-              fontSize: "12px",
-              fontWeight: 600,
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              textDecoration: "none",
-            }}
-          >
-            {dict.about.cta.primary}
-          </Link>
-          <Link
-            href={localizePath("/events", locale)}
-            className="btn-lift inline-flex items-center gap-2"
-            style={{
-              border: "1px solid rgba(247,245,240,0.2)",
-              color: "var(--theme-ivory)",
-              padding: "16px 48px",
-              fontSize: "12px",
-              fontWeight: 500,
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              backgroundColor: "transparent",
-              textDecoration: "none",
-            }}
-          >
-            {dict.about.cta.secondary}
-          </Link>
+              )}
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -1061,9 +904,7 @@ export default function AboutContent({ locale, dict }: SectionProps) {
       <CoreActivitiesSection locale={locale} dict={dict} />
       <DirectorMessage locale={locale} dict={dict} />
       <LeadershipSection locale={locale} dict={dict} />
-      <CollaborationsSection locale={locale} dict={dict} />
-      <TimelineSection locale={locale} dict={dict} />
-      <AboutCta locale={locale} dict={dict} />
+      <OurPartnersSection locale={locale} dict={dict} />
     </>
   )
 }

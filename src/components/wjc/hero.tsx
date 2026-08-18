@@ -15,6 +15,7 @@ import { localizePath, type Locale } from "@/i18n/config"
 import type { Dictionary } from "@/i18n/types"
 import type { SeasonId } from "@/lib/themes"
 import { useTheme } from "./theme-provider"
+import FurinChimes from "./furin-chimes"
 
 type ParticleType = "none" | "fireflies" | "lanterns" | "sparks" | "seeds"
 
@@ -525,7 +526,7 @@ function ParticleSystem({ type, color }: { type: ParticleType; color: string }) 
   return (
     <canvas
       ref={canvasRef}
-      className="pointer-events-none absolute inset-0 z-10"
+      className="pointer-events-none absolute inset-0 z-[4]"
       style={{ width: "100%", height: "100%" }}
       aria-hidden="true"
     />
@@ -546,11 +547,65 @@ export default function Hero({
   const sectionRef = useRef<HTMLElement>(null)
   const rippleIdRef = useRef(0)
   const [ripples, setRipples] = useState<{ id: number; x: number; y: number }[]>([])
-  const [imgLoaded, setImgLoaded] = useState(false)
 
+  /**
+   * Scroll parallax. The distant plate drifts slowly, the gate faster, which
+   * separates them in depth as the hero leaves the viewport.
+   *
+   * The offset eases toward the scroll position rather than tracking it
+   * exactly — snapping straight to scrollY reads as juddery, especially on
+   * trackpads that emit bursts of small deltas. The loop parks itself once
+   * it has caught up so idle scrolling costs nothing.
+   *
+   * Written as CSS variables rather than inline transforms so the chime host
+   * can share the gate's exact offset — the strands are clipped to the gate's
+   * archway and must move with it.
+   */
   useEffect(() => {
-    setImgLoaded(false)
-  }, [seasonId])
+    const section = sectionRef.current
+    if (!section) return
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+
+    let raf = 0
+    let current = 0
+    let target = 0
+
+    const apply = (v: number) => {
+      section.style.setProperty("--wjc-bg-shift", `${(v * 0.14).toFixed(2)}px`)
+      section.style.setProperty("--wjc-gate-shift", `${(v * 0.34).toFixed(2)}px`)
+    }
+
+    const step = () => {
+      // Slower lerp = silkier glide; no overshoot.
+      current += (target - current) * 0.07
+      apply(current)
+      if (Math.abs(target - current) > 0.05) {
+        raf = requestAnimationFrame(step)
+      } else {
+        apply(target)
+        current = target
+        raf = 0
+      }
+    }
+
+    const onScroll = () => {
+      const h = section.offsetHeight || 1
+      target = Math.min(1, Math.max(0, window.scrollY / h)) * h
+      if (!raf) raf = requestAnimationFrame(step)
+    }
+
+    onScroll()
+    current = target
+    apply(current)
+
+    window.addEventListener("scroll", onScroll, { passive: true })
+    window.addEventListener("resize", onScroll)
+    return () => {
+      if (raf) cancelAnimationFrame(raf)
+      window.removeEventListener("scroll", onScroll)
+      window.removeEventListener("resize", onScroll)
+    }
+  }, [])
 
   useEffect(() => {
     const el = scrollRef.current
@@ -588,48 +643,77 @@ export default function Hero({
   return (
     <section
       ref={sectionRef}
-      className="relative w-full overflow-hidden"
-      style={{ height: "100vh", minHeight: "720px", cursor: "crosshair" }}
+      className="wjc-hero relative w-full overflow-hidden"
+      style={{ cursor: "crosshair" }}
       aria-label={dict.home.metaTitle}
       onClick={handleClick}
     >
-      {/* Background */}
-      <div className="absolute inset-0 z-0">
-        {/* eslint-disable-next-line @next/next/no-img-element -- cross-fading
-            between five season images; next/image adds no benefit here and
-            complicates the opacity transition. */}
+      {/* Backdrop — the distant plate, so it parallaxes least. */}
+      <div className="wjc-parallax-bg absolute inset-0 z-0">
+        {/* eslint-disable-next-line @next/next/no-img-element -- paired with
+            the gate layer below; both need identical object-fit behaviour to
+            stay in register, which next/image complicates. */}
         <img
-          src={season.hero}
+          className="wjc-hero-plate"
+          src="/images/hero-banner/hero-banner-bg.webp"
           alt={
             locale === "ja"
-              ? "ウォクセン日本センターの中庭 — 季節ごとの表情"
-              : "Woxsen Japan Centre architectural courtyard — the same location across all seasonal themes"
+              ? "山々に囲まれた寺院の境内"
+              : "Temple courtyard set among mist-covered mountains"
           }
-          onLoad={() => setImgLoaded(true)}
           style={{
             position: "absolute",
             inset: 0,
             width: "100%",
             height: "100%",
             objectFit: "cover",
-            objectPosition: "center 38%",
-            opacity: imgLoaded ? 1 : 0,
-            transition: "opacity 0.9s cubic-bezier(0.4,0,0.2,1)",
+            objectPosition: "center 45%",
           }}
         />
-        <div
-          className="absolute inset-0"
-          style={{ background: cfg.overlay }}
-          aria-hidden="true"
+      </div>
+
+      {/*
+        風鈴 — the chimes hang between the backdrop and the gate, clipped to
+        the gate's archway. The chime host and the gate plate share one
+        parallax offset so the strands stay registered inside the doorway
+        however far the page has scrolled.
+      */}
+      <FurinChimes
+        accent={cfg.accent}
+        highlight={cfg.particleColor}
+      />
+
+      {/* Gate — the near plate. Contained rather than cropped, and inset from
+          the top, so the roof clears the navigation. Transparent to pointers
+          so the chimes stay reachable through the archway. */}
+      <div className="wjc-gate-layer pointer-events-none z-[2]" aria-hidden="true">
+        {/* eslint-disable-next-line @next/next/no-img-element -- see above */}
+        <img
+          className="wjc-hero-plate wjc-hero-plate-front"
+          src="/images/hero-banner/hero-banner-front.webp"
+          alt=""
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "contain",
+            objectPosition: "center bottom",
+          }}
         />
+      </div>
+
+      {/* Depth grading, above both plates — the scrim has to clear the gate,
+          not sit under it, or the headline loses the contrast fight. */}
+      <div className="pointer-events-none absolute inset-0 z-[3]" aria-hidden="true">
+        <div className="absolute inset-0" style={{ background: cfg.overlay }} />
         <div
           className="absolute bottom-0 left-0 right-0"
           style={{
-            height: "220px",
+            height: "260px",
             background:
-              "linear-gradient(to top, rgba(0,0,0,0.80) 0%, transparent 100%)",
+              "linear-gradient(to top, rgba(0,0,0,0.86) 0%, transparent 100%)",
           }}
-          aria-hidden="true"
         />
         <div
           className="absolute inset-0"
@@ -637,7 +721,6 @@ export default function Hero({
             background:
               "radial-gradient(ellipse at 70% 50%, transparent 40%, rgba(0,0,0,0.35) 100%)",
           }}
-          aria-hidden="true"
         />
       </div>
 
@@ -684,59 +767,20 @@ export default function Hero({
 
       {/* Content */}
       <div
-        className="relative z-20 flex h-full flex-col justify-center"
-        style={{
-          paddingTop: "72px",
-          paddingBottom: "110px",
-          paddingRight: "130px",
-        }}
+        // Transparent to pointers so the chimes behind the gate stay
+        // reachable; the inner block takes events back for its own links.
+        className="wjc-hero-content pointer-events-none relative z-20 flex h-full flex-col justify-center"
       >
         <div
-          style={{
-            maxWidth: "1440px",
-            margin: "0 auto",
-            padding: "0 52px",
-            width: "100%",
-          }}
+          className="wjc-hero-inner"
         >
-          <div style={{ maxWidth: "560px" }}>
-            <div
-              className="fade-up is-visible"
-              style={{
-                marginBottom: "36px",
-                transitionDelay: "0.1s",
-                display: "flex",
-                alignItems: "center",
-                gap: "14px",
-              }}
-            >
-              <div
-                style={{
-                  width: "24px",
-                  height: "1px",
-                  backgroundColor: cfg.accent,
-                  opacity: 0.8,
-                  transition: "background-color 0.7s ease",
-                }}
-              />
-              <span
-                style={{
-                  fontSize: "10px",
-                  letterSpacing: "0.22em",
-                  textTransform: "uppercase",
-                  fontFamily: "var(--font-dm-sans)",
-                  fontWeight: 600,
-                  color: "rgba(255,255,255,0.70)",
-                }}
-              >
-                {dict.home.heroEyebrow}
-              </span>
-            </div>
+          <div className="pointer-events-auto" style={{ maxWidth: "560px" }}>
+
 
             <h1
               className="fade-up is-visible font-serif"
               style={{
-                fontSize: "clamp(44px, 5vw, 68px)",
+                fontSize: "clamp(32px, 5.4vw, 68px)",
                 fontWeight: 300,
                 lineHeight: 1.06,
                 letterSpacing: "-0.018em",
@@ -750,7 +794,7 @@ export default function Hero({
             <h1
               className="fade-up is-visible font-serif"
               style={{
-                fontSize: "clamp(44px, 5vw, 68px)",
+                fontSize: "clamp(32px, 5.4vw, 68px)",
                 fontWeight: 300,
                 lineHeight: 1.06,
                 letterSpacing: "-0.018em",
@@ -852,81 +896,12 @@ export default function Hero({
         </div>
       </div>
 
-      {/* Stats bar */}
-      <div
-        className="absolute bottom-0 left-0 right-0 z-20"
-        style={{
-          backgroundColor: cfg.statsBarBg,
-          borderTop: `1px solid ${cfg.statsBarBorder}`,
-          backdropFilter: "blur(24px)",
-          WebkitBackdropFilter: "blur(24px)",
-          transition: "background-color 0.7s ease, border-color 0.7s ease",
-        }}
-      >
-        <div
-          className="grid grid-cols-2 md:grid-cols-4"
-          style={{
-            maxWidth: "1440px",
-            margin: "0 auto",
-            padding: "0 52px",
-          }}
-        >
-          {stats.map((stat, i) => (
-            <div
-              key={stat.label}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "14px",
-                padding: "0 18px",
-                height: "84px",
-                borderRight:
-                  i < stats.length - 1
-                    ? `1px solid ${cfg.statsBarBorder}`
-                    : "none",
-                transition: "border-color 0.7s ease",
-              }}
-            >
-              <div style={{ flexShrink: 0, opacity: 0.8 }}>
-                <StatIcon type={stat.icon} color={cfg.accent} />
-              </div>
-              <div>
-                <div
-                  className="font-serif"
-                  style={{
-                    fontSize: "21px",
-                    fontWeight: 400,
-                    color: cfg.statsText,
-                    lineHeight: 1.1,
-                    letterSpacing: "-0.01em",
-                    transition: "color 0.7s ease",
-                  }}
-                >
-                  <CountUp end={stat.value} duration={1800} />
-                </div>
-                <div
-                  style={{
-                    fontSize: "10px",
-                    color: cfg.statsLabel,
-                    letterSpacing: "0.07em",
-                    fontFamily: "var(--font-dm-sans)",
-                    fontWeight: 400,
-                    marginTop: "2px",
-                    transition: "color 0.7s ease",
-                  }}
-                >
-                  {stat.label}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+
 
       {/* Scroll cue */}
       <div
         ref={scrollRef}
-        className="absolute z-20 hidden lg:block"
+        className="pointer-events-none absolute z-20 hidden lg:block"
         style={{
           bottom: "100px",
           right: "150px",

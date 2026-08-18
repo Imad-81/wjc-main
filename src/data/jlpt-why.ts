@@ -6,44 +6,50 @@ export interface WhyPillar {
   description: L
 }
 
-/** "A Language That Opens Worlds" — reproduced from the approved prototype. */
+/** "Your Gateway to Japan" — four pillars of the Why Japanese? section. */
 export const whyJapanese: WhyPillar[] = [
   {
-    kanji: "業",
-    title: {
-      en: "1,400+ Japanese Companies in India",
-      ja: "インドに1,400社以上の日本企業",
-    },
-    description: {
-      en: "Japanese companies operating across India actively seek professionals with Japanese language proficiency — creating a significant career advantage.",
-      ja: "インド各地で事業を展開する日本企業は、日本語能力を持つ人材を積極的に求めており、大きなキャリアの強みとなります。",
-    },
-  },
-  {
     kanji: "学",
-    title: { en: "Study Abroad Opportunities", ja: "留学の機会" },
+    title: {
+      en: "Academics & Opportunities",
+      ja: "学術と機会",
+    },
     description: {
-      en: "JLPT certification opens doors to scholarship programs, exchange universities, and academic institutions across Japan.",
-      ja: "JLPT の認定は、奨学金プログラム、交換留学先の大学、日本各地の教育機関への扉を開きます。",
+      en: "Develop Japanese language proficiency through structured JLPT courses while opening pathways to immersion programs, academic collaborations, and international learning experiences.",
+      ja: "体系的なJLPT講座を通じて日本語力を高め、語学研修プログラム、学術連携、そして国際的な学びの場への道を切り開きます。",
     },
   },
   {
     kanji: "文",
-    title: { en: "Cultural Depth", ja: "文化の深み" },
+    title: {
+      en: "Cultural Depth",
+      ja: "文化の深み",
+    },
     description: {
-      en: "Japanese is the gateway to one of the world's richest cultural traditions — literature, cinema, design, philosophy, and cuisine.",
-      ja: "日本語は、文学、映画、デザイン、哲学、そして食文化という世界有数の豊かな伝統への入り口です。",
+      en: "Experience Japan through festivals, workshops, film screenings, language cafés, traditional arts, and cultural celebrations that bring learning beyond textbooks.",
+      ja: "祭り、ワークショップ、映画上映、言語カフェ、伝統芸術、文化イベントを通じて、教科書を超えた日本を体験します。",
     },
   },
   {
-    kanji: "外",
+    kanji: "絆",
     title: {
-      en: "Diplomatic & Research Careers",
-      ja: "外交・研究のキャリア",
+      en: "Global Connections",
+      ja: "グローバルなつながり",
     },
     description: {
-      en: "Indo-Japanese relations are growing. Language proficiency is a critical asset for careers in diplomacy, research, and international affairs.",
-      ja: "日印関係は深まり続けています。語学力は、外交、研究、国際関係の分野で決定的な強みとなります。",
+      en: "Connect with Japanese universities, industry leaders, academic partners, and fellow learners through collaborations, guest lectures, immersion programs, and international initiatives.",
+      ja: "共同研究、特別講義、語学研修、国際的な取り組みを通じて、日本の大学、企業、学術パートナー、仲間の学習者とつながります。",
+    },
+  },
+  {
+    kanji: "和",
+    title: {
+      en: "Beyond the Language",
+      ja: "言語を超えて",
+    },
+    description: {
+      en: "Learning Japanese offers more than communication skills — it provides insight into one of the world's most innovative societies while fostering cross-cultural understanding, academic collaboration, and global perspectives.",
+      ja: "日本語を学ぶことはコミュニケーション能力以上のものをもたらします。世界最先端の社会への洞察を深め、異文化理解、学術連携、グローバルな視野を育みます。",
     },
   },
 ]

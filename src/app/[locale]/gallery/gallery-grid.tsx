@@ -77,55 +77,7 @@ export default function GalleryGrid({
             {dict.gallery.metaTitle}
           </h2>
 
-          {/* Category filters */}
-          <div
-            className="fade-up mb-16 flex flex-wrap gap-2"
-            style={{ opacity: 0 }}
-          >
-            {galleryCategories.map((cat) => {
-              const isActive = active === cat.id
-              return (
-                <button
-                  key={cat.id}
-                  onClick={() => {
-                    setActive(cat.id)
-                    setLightbox(null)
-                  }}
-                  aria-pressed={isActive}
-                  style={{
-                    padding: "8px 20px",
-                    fontSize: "12px",
-                    fontWeight: 500,
-                    letterSpacing: "0.06em",
-                    textTransform: "uppercase",
-                    border: "1px solid",
-                    borderColor: isActive
-                      ? "var(--theme-accent)"
-                      : "rgba(35,35,35,0.15)",
-                    color: isActive ? "var(--theme-accent)" : "#5B5B5B",
-                    backgroundColor: isActive
-                      ? "var(--theme-tag-bg)"
-                      : "transparent",
-                    cursor: "pointer",
-                    transition: "all 0.2s ease",
-                  }}
-                >
-                  {cat.label[locale]}
-                </button>
-              )
-            })}
-            <span
-              className="font-mono"
-              style={{
-                marginLeft: "auto",
-                fontSize: "12px",
-                color: "#5B5B5B",
-                alignSelf: "center",
-              }}
-            >
-              {filtered.length} {dict.gallery.imageCount}
-            </span>
-          </div>
+
 
           {/* Masonry grid */}
           <div className="masonry-gallery" role="list">

@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import Link from "next/link"
 import { localizePath, type Locale } from "@/i18n/config"
 import type { Dictionary } from "@/i18n/types"
@@ -13,42 +14,12 @@ export default function Footer({
 }) {
   const L = (path: string) => localizePath(path, locale)
 
-  const columns = [
-    {
-      heading: dict.footer.explore,
-      links: [
-        { label: dict.nav.about, href: L("/about") },
-        { label: dict.nav.events, href: L("/events") },
-        { label: dict.nav.gallery, href: L("/gallery") },
-        { label: dict.nav.team, href: L("/team") },
-      ],
-    },
-    {
-      heading: dict.footer.programs,
-      links: [
-        { label: "JLPT N5", href: L("/jlpt") },
-        { label: "JLPT N4", href: L("/jlpt") },
-        { label: dict.footer.culturalExchange, href: L("/programs") },
-        { label: dict.footer.academic, href: L("/programs") },
-      ],
-    },
-    {
-      heading: dict.footer.community,
-      links: [
-        { label: dict.nav.joinUs, href: L("/join-us") },
-        { label: dict.footer.newsletter, href: `${L("/")}#newsletter` },
-        { label: dict.nav.gallery, href: L("/gallery") },
-      ],
-    },
-    {
-      heading: dict.footer.connect,
-      links: [
-        { label: dict.footer.contact, href: `mailto:${dict.common.email}` },
-        { label: dict.footer.partnerships, href: L("/about") },
-        { label: dict.footer.delegations, href: L("/events") },
-        { label: dict.footer.jlptEnroll, href: L("/jlpt") },
-      ],
-    },
+  const quickLinks = [
+    { label: locale === "ja" ? "当センターについて" : "About Us", href: L("/about") },
+    { label: locale === "ja" ? "イベント" : "Events", href: L("/events") },
+    { label: locale === "ja" ? "チーム" : "Team", href: L("/team") },
+    { label: locale === "ja" ? "JLPT プログラム" : "JLPT Program", href: L("/jlpt") },
+    { label: locale === "ja" ? "参加する" : "Join Us", href: L("/join-us") },
   ]
 
   return (
@@ -82,35 +53,17 @@ export default function Footer({
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  gap: "12px",
+                  gap: "10px",
                   marginBottom: "16px",
                 }}
               >
-                <div
-                  style={{
-                    width: "38px",
-                    height: "38px",
-                    borderRadius: "50%",
-                    border: "1.5px solid var(--theme-accent)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    flexShrink: 0,
-                    transition: "border-color 0.7s ease",
-                  }}
-                  aria-hidden="true"
-                >
-                  <div
-                    style={{
-                      width: "18px",
-                      height: "18px",
-                      borderRadius: "50%",
-                      border: "1px solid var(--theme-accent)",
-                      opacity: 0.4,
-                      transition: "border-color 0.7s ease",
-                    }}
-                  />
-                </div>
+                <Image
+                  src="/wjc-logo.png"
+                  alt="Woxsen Japan Centre logo"
+                  width={52}
+                  height={52}
+                  style={{ objectFit: "contain", flexShrink: 0 }}
+                />
                 <div>
                   <p
                     className="font-serif"
@@ -198,69 +151,115 @@ export default function Footer({
             </div>
           </div>
 
-          {/* Links */}
-          <div className="grid grid-cols-2 gap-10 md:grid-cols-4">
-            {columns.map((col) => (
-              <div key={col.heading}>
-                <p
-                  className="section-label"
+          {/* Quick Links */}
+          <div className="flex flex-col">
+            <p
+              className="section-label"
+              style={{
+                color: "var(--theme-muted-text)",
+                opacity: 0.5,
+                marginBottom: "18px",
+              }}
+            >
+              {dict.footer.quickLinks}
+            </p>
+            <div className="flex flex-col gap-3">
+              {quickLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
                   style={{
+                    fontSize: "14px",
                     color: "var(--theme-muted-text)",
-                    opacity: 0.5,
-                    marginBottom: "18px",
+                    fontWeight: 400,
+                    textDecoration: "none",
+                    transition: "color 0.25s ease",
                   }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.color = "var(--theme-ivory)")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.color = "var(--theme-muted-text)")
+                  }
                 >
-                  {col.heading}
-                </p>
-                <div className="flex flex-col gap-3">
-                  {col.links.map((l) =>
-                    l.href.startsWith("mailto:") ? (
-                      <a
-                        key={`${col.heading}-${l.label}`}
-                        href={l.href}
-                        style={{
-                          fontSize: "14px",
-                          color: "var(--theme-muted-text)",
-                          fontWeight: 400,
-                          textDecoration: "none",
-                          transition: "color 0.25s ease",
-                        }}
-                        onMouseEnter={(e) =>
-                          (e.currentTarget.style.color = "var(--theme-ivory)")
-                        }
-                        onMouseLeave={(e) =>
-                          (e.currentTarget.style.color =
-                            "var(--theme-muted-text)")
-                        }
-                      >
-                        {l.label}
-                      </a>
-                    ) : (
-                      <Link
-                        key={`${col.heading}-${l.label}`}
-                        href={l.href}
-                        style={{
-                          fontSize: "14px",
-                          color: "var(--theme-muted-text)",
-                          fontWeight: 400,
-                          textDecoration: "none",
-                          transition: "color 0.25s ease",
-                        }}
-                        onMouseEnter={(e) =>
-                          (e.currentTarget.style.color = "var(--theme-ivory)")
-                        }
-                        onMouseLeave={(e) =>
-                          (e.currentTarget.style.color =
-                            "var(--theme-muted-text)")
-                        }
-                      >
-                        {l.label}
-                      </Link>
-                    ),
-                  )}
-                </div>
-              </div>
-            ))}
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Our Partners */}
+          <div className="flex flex-col">
+            <p
+              className="section-label"
+              style={{
+                color: "var(--theme-muted-text)",
+                opacity: 0.5,
+                marginBottom: "18px",
+              }}
+            >
+              {locale === "ja" ? "パートナー機関" : "Our Partners"}
+            </p>
+            <div className="flex flex-wrap items-center gap-3">
+              {[
+                {
+                  name: "Woxsen University",
+                  logo: "/images/logos/woxsen.jpg",
+                  href: "https://woxsen.edu.in",
+                },
+                {
+                  name: "Indobox Inc.",
+                  logo: "/images/logos/indobox.webp",
+                  href: "https://indobox.co.jp",
+                },
+                {
+                  name: "Nara Japan Hub",
+                  logo: "/images/logos/nara-japan.png",
+                  href: "https://narajapanhub.com/",
+                },
+              ].map((p) => (
+                <a
+                  key={p.name}
+                  href={p.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    width: "110px",
+                    height: "52px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    backgroundColor: "#FFFFFF",
+                    border: "1px solid rgba(255,255,255,0.12)",
+                    borderRadius: "4px",
+                    padding: "8px 12px",
+                    transition: "transform 0.25s ease, border-color 0.25s ease",
+                    overflow: "hidden",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = "translateY(-2px)"
+                    e.currentTarget.style.borderColor = "var(--theme-accent)"
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = "translateY(0)"
+                    e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)"
+                  }}
+                  aria-label={p.name}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={p.logo}
+                    alt={p.name}
+                    style={{
+                      maxWidth: "100%",
+                      maxHeight: "100%",
+                      objectFit: "contain",
+                      display: "block",
+                    }}
+                  />
+                </a>
+              ))}
+            </div>
           </div>
         </div>
 

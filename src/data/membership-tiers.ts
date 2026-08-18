@@ -102,23 +102,23 @@ export const impactStats: ImpactStat[] = [
   },
   {
     prefix: "",
-    value: 500,
+    value: 7,
     suffix: "+",
     label: { en: "Community Members", ja: "コミュニティメンバー" },
   },
   {
     prefix: "",
-    value: 3,
+    value: 18,
     suffix: "",
-    label: { en: "Strategic Partners", ja: "戦略的パートナー" },
+   label: { en: "Student Leaders", ja: "学生リーダー" },
   },
   {
-    prefix: "¥",
-    value: 5,
-    suffix: "T",
-    label: {
-      en: "India-Japan Investment Target",
-      ja: "日印投資目標",
-    },
+    prefix: "",
+    value: 150,
+    suffix: "+",
+   label: {
+  en: "Members",
+  ja: "メンバー",
+},
   },
 ]

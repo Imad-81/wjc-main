@@ -10,7 +10,6 @@ import AboutSection from "@/components/wjc/sections/about-section"
 import PartnersSection from "@/components/wjc/sections/partners-section"
 import StatsSection from "@/components/wjc/sections/stats-section"
 import EventsSection from "@/components/wjc/sections/events-section"
-import CommunitySection from "@/components/wjc/sections/community-section"
 import TestimonialsSection from "@/components/wjc/sections/testimonials-section"
 import FaqSection from "@/components/wjc/sections/faq-section"
 import NewsletterSection from "@/components/wjc/sections/newsletter-section"
@@ -43,7 +42,6 @@ export default async function HomePage({
       <StatsSection locale={locale} dict={dict} />
       <PartnersSection locale={locale} dict={dict} />
       <EventsSection locale={locale} dict={dict} />
-      <CommunitySection locale={locale} dict={dict} />
       <TestimonialsSection locale={locale} dict={dict} />
       <FaqSection locale={locale} dict={dict} />
       <NewsletterSection locale={locale} dict={dict} />

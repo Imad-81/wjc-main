@@ -97,28 +97,31 @@ export default function PartnersSection({
             >
               <div
                 style={{
-                  width: "56px",
-                  height: "56px",
-                  border: "1px solid rgba(35,35,35,0.20)",
+                  width: "120px",
+                  height: "64px",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   marginBottom: "28px",
-                  backgroundColor: "rgba(35,35,35,0.06)",
+                  backgroundColor: "#FFFFFF",
+                  border: "1px solid rgba(35,35,35,0.10)",
+                  borderRadius: "4px",
+                  padding: "10px 14px",
+                  overflow: "hidden",
                 }}
                 aria-hidden="true"
               >
-                <span
-                  className="font-serif"
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={partner.logo}
+                  alt={`${partner.monogram} logo`}
                   style={{
-                    fontSize: "14px",
-                    fontWeight: 500,
-                    letterSpacing: "0.08em",
-                    color: "#232323",
+                    maxWidth: "100%",
+                    maxHeight: "100%",
+                    objectFit: "contain",
+                    display: "block",
                   }}
-                >
-                  {partner.monogram}
-                </span>
+                />
               </div>
 
               <h3
@@ -157,35 +160,78 @@ export default function PartnersSection({
 
               <p
                 style={{
-                  fontSize: "13px",
-                  color: "rgba(35,35,35,0.65)",
-                  lineHeight: 1.8,
-                  marginBottom: "24px",
+                  fontSize: "13.5px",
+                  color: "rgba(35,35,35,0.75)",
+                  lineHeight: 1.75,
+                  marginBottom: "20px",
                   fontWeight: 300,
                 }}
               >
                 {partner.description[locale]}
               </p>
 
-              <div className="flex flex-wrap gap-2">
-                {partner.tags[locale].map((tag) => (
-                  <span
-                    key={tag}
+              {/* Highlights checklist */}
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "8px",
+                  marginBottom: "24px",
+                }}
+              >
+                {partner.highlights[locale].map((point) => (
+                  <div
+                    key={point}
                     style={{
-                      fontSize: "10px",
-                      letterSpacing: "0.1em",
-                      color: "var(--theme-accent)",
-                      border: "1px solid var(--theme-border-dark)",
-                      padding: "3px 10px",
-                      fontWeight: 500,
-                      textTransform: "uppercase",
-                      backgroundColor: "var(--theme-tag-bg)",
+                      display: "flex",
+                      alignItems: "flex-start",
+                      gap: "8px",
+                      fontSize: "13px",
+                      color: "#232323",
+                      fontWeight: 400,
+                      lineHeight: 1.5,
                     }}
                   >
-                    {tag}
-                  </span>
+                    <span
+                      style={{
+                        color: "var(--theme-accent)",
+                        fontWeight: 700,
+                        lineHeight: 1.3,
+                        flexShrink: 0,
+                      }}
+                      aria-hidden="true"
+                    >
+                      ✓
+                    </span>
+                    <span>{point}</span>
+                  </div>
                 ))}
               </div>
+
+              {/* Visit Website link */}
+              {partner.url && (
+                <div>
+                  <a
+                    href={partner.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      fontSize: "12px",
+                      fontWeight: 600,
+                      letterSpacing: "0.08em",
+                      textTransform: "uppercase",
+                      color: "var(--theme-accent)",
+                      textDecoration: "none",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "6px",
+                      transition: "gap 0.2s ease",
+                    }}
+                  >
+                    {locale === "ja" ? "ウェブサイトを見る" : "Visit Website"} →
+                  </a>
+                </div>
+              )}
             </div>
           ))}
         </div>

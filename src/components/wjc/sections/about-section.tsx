@@ -27,21 +27,6 @@ export default function AboutSection({
         <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2 lg:gap-24">
           {/* Left — text */}
           <div>
-            <div
-              className="fade-up select-none font-serif"
-              style={{
-                fontSize: "clamp(80px, 10vw, 130px)",
-                fontWeight: 300,
-                lineHeight: 1,
-                color: "rgba(35,35,35,0.06)",
-                marginBottom: "-24px",
-                letterSpacing: "-0.04em",
-                opacity: 0,
-              }}
-              aria-hidden="true"
-            >
-              01
-            </div>
 
             <div className="fade-up" style={{ opacity: 0 }}>
               <span
@@ -104,42 +89,7 @@ export default function AboutSection({
               {dict.home.about.body2}
             </p>
 
-            {/* Inline stat row */}
-            <div
-              className="fade-up mb-10 flex flex-wrap gap-8"
-              style={{
-                paddingTop: "28px",
-                borderTop: "1px solid rgba(35,35,35,0.12)",
-                opacity: 0,
-              }}
-            >
-              {dict.home.about.inlineStats.map((stat) => (
-                <div key={stat.label}>
-                  <p
-                    className="font-serif"
-                    style={{
-                      fontSize: "24px",
-                      fontWeight: 500,
-                      lineHeight: 1,
-                      color: "#232323",
-                    }}
-                  >
-                    {stat.value}
-                  </p>
-                  <p
-                    style={{
-                      fontSize: "12px",
-                      letterSpacing: "0.1em",
-                      marginTop: "4px",
-                      fontWeight: 400,
-                      color: "#5B5B5B",
-                    }}
-                  >
-                    {stat.label}
-                  </p>
-                </div>
-              ))}
-            </div>
+
 
             <div className="fade-up" style={{ opacity: 0 }}>
               <Link
