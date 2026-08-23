@@ -1,0 +1,400 @@
+- generic [active] [ref=f4e1]:
+  - banner [ref=f4e2]:
+    - generic [ref=f4e3]:
+      - link "Essence of Japan, Within Reach. — Home" [ref=f4e4] [cursor=pointer]:
+        - /url: /
+        - generic [ref=f4e7]:
+          - generic [ref=f4e8]: Woxsen
+          - generic [ref=f4e9]: JAPAN CENTRE
+      - navigation "Primary" [ref=f4e10]:
+        - link "Home" [ref=f4e11] [cursor=pointer]:
+          - /url: /
+        - link "About Us" [ref=f4e12] [cursor=pointer]:
+          - /url: /about
+        - link "Events" [ref=f4e13] [cursor=pointer]:
+          - /url: /events
+        - link "Gallery" [ref=f4e14] [cursor=pointer]:
+          - /url: /gallery
+        - link "Team" [ref=f4e15] [cursor=pointer]:
+          - /url: /team
+        - link "JLPT" [ref=f4e16] [cursor=pointer]:
+          - /url: /jlpt
+        - link "Programs" [ref=f4e17] [cursor=pointer]:
+          - /url: /programs
+        - link "Join Us" [ref=f4e18] [cursor=pointer]:
+          - /url: /join-us
+      - link "日本語に切り替える" [ref=f4e20] [cursor=pointer]:
+        - /url: /ja
+        - generic [ref=f4e21]: 日本語
+  - main [ref=f4e25]:
+    - region "Woxsen Japan Centre" [ref=f4e26]:
+      - img "Temple courtyard set among mist-covered mountains" [ref=f4e28]
+      - generic [ref=f4e29]:
+        - button "Chime off" [ref=f4e30] [cursor=pointer]
+        - button "Send a gust" [ref=f4e31] [cursor=pointer]
+      - generic:
+        - generic:
+          - generic: 和
+          - generic: 敬
+          - generic: 清
+          - generic: 寂
+          - generic: WJC
+        - generic: 絆
+      - generic [ref=f4e32]:
+        - generic [ref=f4e33]: Woxsen University · Japan Centre
+        - heading "Essence of Japan," [level=1] [ref=f4e36]
+        - heading "Within Reach" [level=1] [ref=f4e37]
+        - paragraph [ref=f4e39]: Bridging cultures, inspiring minds, and creating opportunities through education, collaboration, and cultural exchange.
+        - generic [ref=f4e40]:
+          - link "Explore JLPT" [ref=f4e41] [cursor=pointer]:
+            - /url: /jlpt
+          - link "Our Story" [ref=f4e44] [cursor=pointer]:
+            - /url: /about
+      - generic [ref=f4e46]:
+        - generic [ref=f4e51]:
+          - generic [ref=f4e52]: 0+
+          - generic [ref=f4e54]: Partner Institutions
+        - generic [ref=f4e59]:
+          - generic [ref=f4e60]: 0+
+          - generic [ref=f4e62]: Students Engaged
+        - generic [ref=f4e67]:
+          - generic [ref=f4e68]: "0"
+          - generic [ref=f4e69]: Annual Programs
+        - generic [ref=f4e74]:
+          - generic [ref=f4e75]: "0"
+          - generic [ref=f4e76]: Established
+      - generic: Scroll
+    - region [ref=f4e77]:
+      - generic [ref=f4e79]:
+        - generic [ref=f4e80]:
+          - generic [ref=f4e81]: "01"
+          - generic [ref=f4e82]: About the Centre
+          - heading "A Bridge Between Two Worlds" [level=2] [ref=f4e84]: A Bridge BetweenTwo Worlds
+          - paragraph [ref=f4e85]: The Woxsen Japan Centre supports Japanese language education, cultural initiatives, academic collaboration, and international partnerships — creating opportunities for students and faculty to engage with Japan's traditions, values, and contemporary practices.
+          - paragraph [ref=f4e86]: Through interdisciplinary participation and experiential learning, we foster global awareness, cross-cultural understanding, and meaningful international exposure within the university community.
+          - generic [ref=f4e87]:
+            - generic [ref=f4e88]:
+              - paragraph [ref=f4e89]: "2025"
+              - paragraph [ref=f4e90]: Inaugurated
+            - generic [ref=f4e91]:
+              - paragraph [ref=f4e92]: "3"
+              - paragraph [ref=f4e93]: Core Partners
+            - generic [ref=f4e94]:
+              - paragraph [ref=f4e95]: 500+
+              - paragraph [ref=f4e96]: Students
+            - generic [ref=f4e97]:
+              - paragraph [ref=f4e98]: JLPT
+              - paragraph [ref=f4e99]: Certified
+          - link "About the Centre →" [ref=f4e101] [cursor=pointer]:
+            - /url: /about
+            - text: About the Centre
+            - generic [ref=f4e102]: →
+        - generic "Images from the Woxsen Japan Centre" [ref=f4e103]:
+          - generic [ref=f4e104]:
+            - img "Kizuna Matsuri at the Woxsen Japan Centre" [ref=f4e106]
+            - generic [ref=f4e107]:
+              - img "Konnichiwa Woxsen student community launch" [ref=f4e109]
+              - generic [ref=f4e110]:
+                - paragraph [ref=f4e111]: “Together we are, Together we will”
+                - paragraph [ref=f4e112]: Dr. Brundaban MishraDirector, WJC
+    - region "Our Impact" [ref=f4e113]:
+      - generic [ref=f4e114]:
+        - generic [ref=f4e115]: Our Impact
+        - generic [ref=f4e116]:
+          - generic [ref=f4e117]:
+            - paragraph [ref=f4e118]: "0"
+            - paragraph [ref=f4e119]: Year Established
+          - generic [ref=f4e121]:
+            - paragraph [ref=f4e122]: 0+
+            - paragraph [ref=f4e123]: Community Members
+          - generic [ref=f4e125]:
+            - paragraph [ref=f4e126]: "0"
+            - paragraph [ref=f4e127]: Strategic Partners
+          - generic [ref=f4e129]:
+            - paragraph [ref=f4e130]: ¥0T
+            - paragraph [ref=f4e131]: India-Japan Investment Target
+    - region [ref=f4e132]:
+      - generic [ref=f4e133]:
+        - generic [ref=f4e134]:
+          - generic [ref=f4e135]:
+            - generic [ref=f4e136]: Our Partners
+            - heading "Built on Strategic Alliances" [level=2] [ref=f4e138]
+          - paragraph [ref=f4e139]: Three institutions united by a shared commitment to deepening India–Japan relations.
+        - generic [ref=f4e140]:
+          - generic [ref=f4e141]:
+            - generic [ref=f4e142]: WU
+            - heading "Woxsen University" [level=3] [ref=f4e144]
+            - paragraph [ref=f4e145]: Hyderabad, India
+            - paragraph [ref=f4e147]: Academic Framework & Leadership · Global Engagement Programs · Interdisciplinary Learning
+            - generic [ref=f4e148]:
+              - generic [ref=f4e149]: Academic
+              - generic [ref=f4e150]: Leadership
+              - generic [ref=f4e151]: Research
+          - generic [ref=f4e152]:
+            - generic [ref=f4e153]: IB
+            - heading "Indobox Inc." [level=3] [ref=f4e155]
+            - paragraph [ref=f4e156]: Hyderabad, India
+            - paragraph [ref=f4e158]: Language Immersion Sessions · Career Guidance & Mentorship · Cultural Experiences
+            - generic [ref=f4e159]:
+              - generic [ref=f4e160]: Language
+              - generic [ref=f4e161]: Career
+              - generic [ref=f4e162]: Culture
+          - generic [ref=f4e163]:
+            - generic [ref=f4e164]: NJC
+            - heading "Nara Japan Centre" [level=3] [ref=f4e166]
+            - paragraph [ref=f4e167]: Nara, Japan
+            - paragraph [ref=f4e169]: Cultural Collaborations · Academic Exchanges · Long-term Relationship Building
+            - generic [ref=f4e170]:
+              - generic [ref=f4e171]: Cultural
+              - generic [ref=f4e172]: Exchange
+              - generic [ref=f4e173]: Partnership
+    - region [ref=f4e174]:
+      - generic [ref=f4e176]:
+        - generic [ref=f4e177]:
+          - generic [ref=f4e178]:
+            - generic [ref=f4e179]: Events & Activities
+            - heading "Where Culture Comes Alive" [level=2] [ref=f4e181]: Where CultureComes Alive
+          - link "All Events →" [ref=f4e183] [cursor=pointer]:
+            - /url: /events
+        - generic [ref=f4e184]:
+          - article [ref=f4e185]:
+            - generic [ref=f4e186]:
+              - generic [ref=f4e187]:
+                - paragraph [ref=f4e188]: FEB 2026
+                - paragraph [ref=f4e189]: "27"
+              - generic [ref=f4e190]: FLAGSHIP
+            - heading "Kizuna Matsuri" [level=3] [ref=f4e192]
+            - paragraph [ref=f4e193]: The flagship annual event of the Woxsen Japan Centre celebrating Indo-Japanese ties through cultural dialogue, workshops, and performances featuring dignitaries from Japan Foundation, Toshiba, and leading Japanese institutions.
+            - link "View Details — Kizuna Matsuri" [ref=f4e194] [cursor=pointer]:
+              - /url: /events/kizuna-matsuri
+              - text: View Details →
+          - article [ref=f4e195]:
+            - generic [ref=f4e196]:
+              - generic [ref=f4e197]:
+                - paragraph [ref=f4e198]: OCT 2025
+                - paragraph [ref=f4e199]: "25"
+              - generic [ref=f4e200]: FESTIVAL
+            - heading "Woxsen Japan Fest" [level=3] [ref=f4e202]
+            - paragraph [ref=f4e203]: Woxsen Japan Centre at the 30th Hyderabad Japan Festival, connecting with dignitaries from Japan Foundation, JETRO, and the Consulate General of Japan.
+            - link "View Details — Woxsen Japan Fest" [ref=f4e204] [cursor=pointer]:
+              - /url: /events/woxsen-japan-fest
+              - text: View Details →
+          - article [ref=f4e205]:
+            - generic [ref=f4e206]:
+              - generic [ref=f4e207]:
+                - paragraph [ref=f4e208]: SEP 2025
+                - paragraph [ref=f4e209]: "18"
+              - generic [ref=f4e210]: CULTURAL
+            - heading "Konnichiwa Woxsen" [level=3] [ref=f4e212]
+            - paragraph [ref=f4e213]: A vibrant celebration marking the launch of the Woxsen Japan Centre's Student Community with traditional crafts, Origami, Chopstick Challenge, and interactive gaming zones.
+            - link "View Details — Konnichiwa Woxsen" [ref=f4e214] [cursor=pointer]:
+              - /url: /events/konnichiwa-woxsen
+              - text: View Details →
+    - region [ref=f4e216]:
+      - generic [ref=f4e217]:
+        - generic [ref=f4e218]:
+          - generic [ref=f4e219]: Membership
+          - heading "Become Part of Something Meaningful" [level=2] [ref=f4e221]
+          - paragraph [ref=f4e222]: Join students, faculty, and professionals who are building bridges between India and Japan.
+        - generic [ref=f4e223]:
+          - generic [ref=f4e224]:
+            - generic [ref=f4e225]: Most Popular
+            - generic [ref=f4e226]:
+              - paragraph [ref=f4e227]: For enrolled students
+              - heading "Student Member" [level=3] [ref=f4e228]
+              - generic [ref=f4e229]:
+                - paragraph [ref=f4e230]: Free
+                - paragraph [ref=f4e231]: No cost, ever
+            - list [ref=f4e232]:
+              - listitem [ref=f4e233]: Japanese language classes access
+              - listitem [ref=f4e235]: Cultural events & festivals
+              - listitem [ref=f4e237]: Monthly newsletter
+              - listitem [ref=f4e239]: JLPT study groups
+            - link "Join the Centre" [ref=f4e241] [cursor=pointer]:
+              - /url: /join-us
+          - generic [ref=f4e242]:
+            - generic [ref=f4e243]:
+              - paragraph [ref=f4e244]: For educators & researchers
+              - heading "Faculty Member" [level=3] [ref=f4e245]
+              - generic [ref=f4e246]:
+                - paragraph [ref=f4e247]: Free
+                - paragraph [ref=f4e248]: Institutional membership
+            - list [ref=f4e249]:
+              - listitem [ref=f4e250]: Research collaboration network
+              - listitem [ref=f4e252]: Academic exchange programs
+              - listitem [ref=f4e254]: Faculty workshops & seminars
+              - listitem [ref=f4e256]: Publication opportunities
+            - link "Join the Centre" [ref=f4e258] [cursor=pointer]:
+              - /url: /join-us
+          - generic [ref=f4e259]:
+            - generic [ref=f4e260]:
+              - paragraph [ref=f4e261]: For industry professionals
+              - heading "Professional Member" [level=3] [ref=f4e262]
+              - generic [ref=f4e263]:
+                - paragraph [ref=f4e264]: ₹2,000
+                - paragraph [ref=f4e265]: Per year
+            - list [ref=f4e266]:
+              - listitem [ref=f4e267]: Industry networking events
+              - listitem [ref=f4e269]: Japan business insights
+              - listitem [ref=f4e271]: Exclusive delegation meets
+              - listitem [ref=f4e273]: Corporate partnership access
+            - link "Join the Centre" [ref=f4e275] [cursor=pointer]:
+              - /url: /join-us
+    - region [ref=f4e276]:
+      - generic [ref=f4e277]:
+        - generic [ref=f4e278]:
+          - generic [ref=f4e279]: Testimonials
+          - heading "Voices from Our Community" [level=2] [ref=f4e281]
+        - generic [ref=f4e282]:
+          - article [ref=f4e283]:
+            - paragraph [ref=f4e284]: “
+            - blockquote [ref=f4e285]:
+              - paragraph [ref=f4e286]: I feel that these classes have gotten me closer to the unique culture and language of Japan.
+              - generic [ref=f4e288]:
+                - paragraph [ref=f4e289]: Arjun Pal
+                - paragraph [ref=f4e290]: BCA — SOT
+          - article [ref=f4e291]:
+            - paragraph [ref=f4e292]: “
+            - blockquote [ref=f4e293]:
+              - paragraph [ref=f4e294]: I joined the Japanese course to learn the language, but they soon became the best part of my day. Each session is engaging and helps us learn not just the language, but also the culture in a clear and easy way. I get to learn something new every day without ever feeling overwhelmed.
+              - generic [ref=f4e296]:
+                - paragraph [ref=f4e297]: Sasha Kishore
+                - paragraph [ref=f4e298]: BSc
+          - article [ref=f4e299]:
+            - paragraph [ref=f4e300]: “
+            - blockquote [ref=f4e301]:
+              - paragraph [ref=f4e302]: Japanese classes at Woxsen have been the most fun language course I've taken. Maki sensei is very fun, relatable and takes her time helping us learn Japanese. Not only that but we cover a lot of aspects and is amazing.
+              - generic [ref=f4e304]:
+                - paragraph [ref=f4e305]: Hassini
+                - paragraph [ref=f4e306]: BBA, SOB
+    - region [ref=f4e307]:
+      - generic [ref=f4e309]:
+        - generic [ref=f4e310]:
+          - generic [ref=f4e311]: FAQ
+          - heading "Frequently Asked Questions" [level=2] [ref=f4e313]
+          - paragraph [ref=f4e314]: Everything you need to know about the Woxsen Japan Centre and how to get involved.
+          - link "japan.centre@woxsen.edu.in →" [ref=f4e316] [cursor=pointer]:
+            - /url: mailto:japan.centre@woxsen.edu.in
+        - generic [ref=f4e318]:
+          - generic [ref=f4e319]:
+            - heading [level=3] [ref=f4e320]:
+              - button "Who can join the Woxsen Japan Centre?" [ref=f4e321] [cursor=pointer]
+            - region "Who can join the Woxsen Japan Centre?":
+              - paragraph [ref=f4e325]: The Centre is open to all Woxsen University students, faculty, staff, and external professionals. We welcome anyone with a genuine interest in Japanese language, culture, or academic and industry collaboration.
+          - generic [ref=f4e326]:
+            - heading [level=3] [ref=f4e327]:
+              - button "What Japanese language levels are offered?" [ref=f4e328] [cursor=pointer]
+            - region "What Japanese language levels are offered?":
+              - paragraph [ref=f4e332]: We currently offer JLPT N5 (beginner) and N4 (elementary) preparation courses led by qualified instructors. We have plans to expand to N3 and beyond based on community demand.
+          - generic [ref=f4e333]:
+            - heading [level=3] [ref=f4e334]:
+              - button "Are there opportunities to visit Japan?" [ref=f4e335] [cursor=pointer]
+            - region "Are there opportunities to visit Japan?":
+              - paragraph [ref=f4e339]: Yes. Through our partnerships with Indobox Inc. and Nara Japan Centre, we facilitate student exchanges, internships, and study tours to Japan. These opportunities are announced throughout the academic year.
+          - generic [ref=f4e340]:
+            - heading [level=3] [ref=f4e341]:
+              - button "How often are cultural events held?" [ref=f4e342] [cursor=pointer]
+            - region "How often are cultural events held?":
+              - paragraph [ref=f4e346]: We host monthly cultural events, seasonal festivals aligned with the Japanese calendar, and an annual Indo-Japan Academic Summit. Our programming spans language workshops, film screenings, culinary experiences, and traditional arts.
+          - generic [ref=f4e347]:
+            - heading [level=3] [ref=f4e348]:
+              - button "Is membership free for students?" [ref=f4e349] [cursor=pointer]
+            - region "Is membership free for students?":
+              - paragraph [ref=f4e353]: Student membership is completely free of charge. Simply register using your Woxsen University email address. There are no hidden fees for language classes, cultural events, or community activities.
+          - generic [ref=f4e354]:
+            - heading [level=3] [ref=f4e355]:
+              - button "How can Japanese companies collaborate with the Centre?" [ref=f4e356] [cursor=pointer]
+            - region "How can Japanese companies collaborate with the Centre?":
+              - paragraph [ref=f4e360]: We warmly welcome industry partnerships, internship programs, and corporate collaborations. Please contact us at japan.centre@woxsen.edu.in with your collaboration proposal. With 1,400+ Japanese companies operating in India, we are positioned to create meaningful connections.
+    - region [ref=f4e361]:
+      - generic [ref=f4e363]:
+        - generic [ref=f4e364]:
+          - generic [ref=f4e365]: Stay Connected
+          - heading "The Japan Centre Dispatch" [level=2] [ref=f4e367]: The Japan CentreDispatch
+          - paragraph [ref=f4e368]: Monthly updates on events, cultural programs, JLPT enrolment windows, and opportunities for Indo-Japanese collaboration.
+        - generic [ref=f4e370]:
+          - generic [ref=f4e371]:
+            - generic [ref=f4e372]: Email Address
+            - textbox "Email Address" [ref=f4e373]:
+              - /placeholder: your@email.com
+          - button "Subscribe" [ref=f4e374] [cursor=pointer]
+    - region "Begin Your Journey" [ref=f4e375]:
+      - img "A Woxsen Japan Centre gathering" [ref=f4e378]
+      - generic [ref=f4e380]:
+        - generic [ref=f4e381]: Begin Your Journey
+        - heading [level=2] [ref=f4e383]:
+          - text: Japan is closer than
+          - emphasis [ref=f4e384]: you think.
+        - paragraph [ref=f4e385]: Join hundreds of students, faculty, and professionals building meaningful connections with Japan — through language, culture, and collaboration.
+        - generic [ref=f4e386]:
+          - link "Join the Community" [ref=f4e387] [cursor=pointer]:
+            - /url: /join-us
+          - link "Enrol in JLPT" [ref=f4e388] [cursor=pointer]:
+            - /url: /jlpt
+  - contentinfo [ref=f4e389]:
+    - generic [ref=f4e391]:
+      - generic [ref=f4e392]:
+        - generic [ref=f4e393]:
+          - generic [ref=f4e394]:
+            - generic [ref=f4e398]:
+              - paragraph [ref=f4e399]: WJC
+              - paragraph [ref=f4e400]: ウォクセン日本センター
+            - paragraph [ref=f4e401]: Essence of Japan, Within Reach.Woxsen University, Hyderabad.
+          - generic [ref=f4e403]:
+            - link "japan.centre@woxsen.edu.in" [ref=f4e404] [cursor=pointer]:
+              - /url: mailto:japan.centre@woxsen.edu.in
+            - paragraph [ref=f4e405]: Woxsen University, Hyderabad, Telangana 502345
+        - generic [ref=f4e406]:
+          - generic [ref=f4e407]:
+            - paragraph [ref=f4e408]: Explore
+            - generic [ref=f4e409]:
+              - link "About Us" [ref=f4e410] [cursor=pointer]:
+                - /url: /about
+              - link "Events" [ref=f4e411] [cursor=pointer]:
+                - /url: /events
+              - link "Gallery" [ref=f4e412] [cursor=pointer]:
+                - /url: /gallery
+              - link "Team" [ref=f4e413] [cursor=pointer]:
+                - /url: /team
+          - generic [ref=f4e414]:
+            - paragraph [ref=f4e415]: Programs
+            - generic [ref=f4e416]:
+              - link "JLPT N5" [ref=f4e417] [cursor=pointer]:
+                - /url: /jlpt
+              - link "JLPT N4" [ref=f4e418] [cursor=pointer]:
+                - /url: /jlpt
+              - link "Cultural Exchange" [ref=f4e419] [cursor=pointer]:
+                - /url: /programs
+              - link "Academic" [ref=f4e420] [cursor=pointer]:
+                - /url: /programs
+          - generic [ref=f4e421]:
+            - paragraph [ref=f4e422]: Community
+            - generic [ref=f4e423]:
+              - link "Join Us" [ref=f4e424] [cursor=pointer]:
+                - /url: /join-us
+              - link "Newsletter" [ref=f4e425] [cursor=pointer]:
+                - /url: /#newsletter
+              - link "Gallery" [ref=f4e426] [cursor=pointer]:
+                - /url: /gallery
+          - generic [ref=f4e427]:
+            - paragraph [ref=f4e428]: Connect
+            - generic [ref=f4e429]:
+              - link "Contact" [ref=f4e430] [cursor=pointer]:
+                - /url: mailto:japan.centre@woxsen.edu.in
+              - link "Partnerships" [ref=f4e431] [cursor=pointer]:
+                - /url: /about
+              - link "Delegations" [ref=f4e432] [cursor=pointer]:
+                - /url: /events
+              - link "JLPT Enrol" [ref=f4e433] [cursor=pointer]:
+                - /url: /jlpt
+      - generic [ref=f4e434]:
+        - paragraph [ref=f4e435]: © 2026 Woxsen Japan Centre. All rights reserved.
+        - generic [ref=f4e436]:
+          - link "Privacy" [ref=f4e437] [cursor=pointer]:
+            - /url: /privacy
+          - link "Terms" [ref=f4e438] [cursor=pointer]:
+            - /url: /terms
+          - generic [ref=f4e439]: 和敬清寂
+  - region "Seasonal theme switcher" [ref=f4e440]:
+    - button "Open theme switcher" [ref=f4e441] [cursor=pointer]:
+      - generic [ref=f4e442]: 絆

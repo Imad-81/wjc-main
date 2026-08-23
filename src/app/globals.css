@@ -1,115 +1,189 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
-
-@font-face {
-  font-family: "Aspekta Variable";
-  font-weight: 100 900;
-  font-display: swap;
-  font-style: normal;
-  src: url("/fonts/aspekta/variable/AspektaVF.woff2") format("woff2");
-}
+/* ==========================================================================
+   Woxsen Japan Centre — design tokens
+   Palette: paper #F8F7F4 · charcoal #232323 · vermilion #A63A2B · wood #C9AE84
+   Corners are square by design (--radius: 0px).
+   ========================================================================== */
 
 :root {
-  /* Charcoal/Black Theme with Red Accent */
-  /* Off-white background */
-  --background: oklch(0.96 0.005 90);
-  /* #F5F5F3 approx */
-  /* Deep charcoal for text/primary */
-  --foreground: oklch(0.18 0.01 260);
-  /* #1A1A1F approx */
+  --background: #f8f7f4;
+  --foreground: #232323;
+  --primary: #a63a2b;
+  --primary-foreground: #f8f7f4;
+  --secondary: #c9ae84;
+  --secondary-foreground: #232323;
+  --accent: #a63a2b;
+  --accent-foreground: #f8f7f4;
+  --muted: #e8e2d7;
+  --muted-foreground: #5b5b5b;
+  --card: #f8f7f4;
+  --card-foreground: #232323;
+  --popover: #f8f7f4;
+  --popover-foreground: #232323;
+  --destructive: #a63a2b;
+  --destructive-foreground: #f8f7f4;
+  --border: rgba(35, 35, 35, 0.1);
+  --input: #e8e2d7;
+  --ring: #a63a2b;
+  --radius: 0px;
 
-  --card: oklch(0.98 0 0);
-  --card-foreground: oklch(0.18 0.01 260);
-  --popover: oklch(0.98 0 0);
-  --popover-foreground: oklch(0.18 0.01 260);
+  /* Section palette — the five surfaces every page is built from */
+  --section-paper: #f8f7f4;
+  --section-beige: #e8e2d7;
+  --section-wood: #c9ae84;
+  --section-charcoal: #232323;
+  --section-charcoal-alt: #1a1a1a;
 
-  --primary: oklch(0.18 0.01 260);
-  --primary-foreground: oklch(0.985 0 0);
+  /* Text on light surfaces */
+  --warm-text: #232323;
+  --warm-text-muted: #5b5b5b;
+  --warm-border: rgba(35, 35, 35, 0.1);
+  --warm-border-strong: rgba(35, 35, 35, 0.18);
+  --wood-text: #232323;
+  --wood-text-muted: rgba(35, 35, 35, 0.65);
+  --wood-border: rgba(35, 35, 35, 0.15);
 
-  /* Charcoal Secondary */
-  --secondary: oklch(0.35 0.01 260);
-  /* #3A3A42 approx */
-  --secondary-foreground: oklch(0.985 0 0);
-
-  /* Light muted - subtle gray */
-  --muted: oklch(0.93 0.005 90);
-  --muted-foreground: oklch(0.45 0 0);
-
-  /* Deep Red Accent - for emphasis only */
-  --accent: oklch(0.5 0.2 25);
-  /* #B22222 approx - deep crimson red */
-  --accent-foreground: oklch(0.985 0 0);
-
-  --destructive: oklch(0.5 0.2 25);
-  --destructive-foreground: oklch(0.985 0 0);
-
-  /* Darker borders for charcoal theme */
-  --border: oklch(0.85 0 0);
-  --input: oklch(0.9 0 0);
-  --ring: oklch(0.18 0.01 260);
-  --chart-1: oklch(0.5 0.2 25);
-  --chart-2: oklch(0.35 0.01 260);
-  --chart-3: oklch(0.45 0 0);
-  --chart-4: oklch(0.55 0.05 260);
-  --chart-5: oklch(0.65 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.15 0.01 260);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.5 0.2 25);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.22 0.01 260);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.25 0.01 260);
-  --sidebar-ring: oklch(0.5 0.2 25);
-
-  /* Glassmorphism variables */
-  --glass-bg: rgba(26, 26, 31, 0.6);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-shadow: rgba(0, 0, 0, 0.3);
+  /* ---- Seasonal theme layer: "Original" (default) ----
+     Every themed surface reads from these. Overridden wholesale by
+     .theme-natsu / .theme-tanabata / .theme-setsubun / .theme-hikari below. */
+  --theme-bg: #232323;
+  --theme-text: #f8f7f4;
+  --theme-accent: #a63a2b;
+  --theme-accent-hover: #8b2e1f;
+  --theme-gold: #c9ae84;
+  --theme-dark: #232323;
+  --theme-dark-alt: #1a1a1a;
+  --theme-surface: rgba(35, 35, 35, 0.88);
+  --theme-surface-dark: rgba(20, 20, 20, 0.96);
+  --theme-surface-card: rgba(35, 35, 35, 0.72);
+  --theme-border-light: rgba(248, 247, 244, 0.08);
+  --theme-border-dark: rgba(166, 58, 43, 0.2);
+  --theme-muted-text: rgba(248, 247, 244, 0.5);
+  --theme-ivory: #f8f7f4;
+  --theme-glass-bg: rgba(35, 35, 35, 0.72);
+  --theme-glass-border: rgba(166, 58, 43, 0.22);
+  --theme-btn-primary-bg: #a63a2b;
+  --theme-btn-primary-text: #f8f7f4;
+  --theme-btn-outline-border: rgba(248, 247, 244, 0.25);
+  --theme-btn-outline-text: #f8f7f4;
+  --theme-section-bg: #232323;
+  --theme-section-alt: #1a1a1a;
+  --theme-card-bg: rgba(232, 226, 215, 0.6);
+  --theme-card-border: rgba(35, 35, 35, 0.1);
+  --theme-stat-number: #f8f7f4;
+  --theme-stat-label: rgba(248, 247, 244, 0.55);
+  --theme-nav-active: #a63a2b;
+  --theme-footer-bg: #1a1a1a;
+  --theme-particle-color: #a63a2b;
+  --theme-hero-overlay: rgba(20, 18, 16, 0.88);
+  --theme-timeline-line: rgba(166, 58, 43, 0.25);
+  --theme-faq-border: rgba(248, 247, 244, 0.12);
+  --theme-faq-active: rgba(166, 58, 43, 0.12);
+  --theme-form-bg: rgba(232, 226, 215, 0.4);
+  --theme-form-border: rgba(35, 35, 35, 0.15);
+  --theme-form-focus: rgba(166, 58, 43, 0.4);
+  --theme-partner-bg: rgba(232, 226, 215, 0.4);
+  --theme-partner-hover: rgba(201, 174, 132, 0.25);
+  --theme-newsletter-bg: rgba(35, 35, 35, 0.95);
+  --theme-tag-bg: rgba(166, 58, 43, 0.1);
+  --theme-tag-text: #a63a2b;
+  --theme-divider: rgba(248, 247, 244, 0.06);
+  --theme-shoji-bg: rgba(20, 18, 16, 0.52);
+  --theme-shoji-border: rgba(166, 58, 43, 0.3);
 }
 
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.145 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.145 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.985 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.65 0.18 60);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.269 0 0);
-  --input: oklch(0.269 0 0);
-  --ring: oklch(0.439 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.269 0 0);
-  --sidebar-ring: oklch(0.439 0 0);
+/* ==========================================================================
+   Seasonal themes — applied as a class on <html> by ThemeProvider.
+   Must follow :root; equal specificity means source order decides.
+   ========================================================================== */
+
+/* 夏祭り — Natsu Matsuri (summer festival: lantern orange) */
+.theme-natsu {
+  --theme-accent: #e46c2b;
+  --theme-accent-hover: #c45a1a;
+  --theme-gold: #f0a050;
+  --theme-border-dark: rgba(228, 108, 43, 0.22);
+  --theme-glass-border: rgba(228, 108, 43, 0.25);
+  --theme-btn-primary-bg: #e46c2b;
+  --theme-nav-active: #e46c2b;
+  --theme-particle-color: #f0a050;
+  --theme-timeline-line: rgba(228, 108, 43, 0.25);
+  --theme-faq-active: rgba(228, 108, 43, 0.12);
+  --theme-form-focus: rgba(228, 108, 43, 0.4);
+  --theme-partner-hover: rgba(228, 108, 43, 0.12);
+  --theme-tag-bg: rgba(228, 108, 43, 0.1);
+  --theme-tag-text: #e46c2b;
+  --theme-shoji-border: rgba(228, 108, 43, 0.3);
 }
+
+/* 七夕 — Tanabata (star festival: indigo) */
+.theme-tanabata {
+  --theme-accent: #5a4fcf;
+  --theme-accent-hover: #4840b0;
+  --theme-gold: #b8a8ff;
+  --theme-border-dark: rgba(90, 79, 207, 0.22);
+  --theme-glass-border: rgba(90, 79, 207, 0.25);
+  --theme-btn-primary-bg: #5a4fcf;
+  --theme-nav-active: #5a4fcf;
+  --theme-particle-color: #b8a8ff;
+  --theme-timeline-line: rgba(90, 79, 207, 0.25);
+  --theme-faq-active: rgba(90, 79, 207, 0.12);
+  --theme-form-focus: rgba(90, 79, 207, 0.4);
+  --theme-partner-hover: rgba(90, 79, 207, 0.1);
+  --theme-tag-bg: rgba(90, 79, 207, 0.1);
+  --theme-tag-text: #5a4fcf;
+  --theme-shoji-border: rgba(90, 79, 207, 0.3);
+}
+
+/* 節分 — Setsubun (bean-throwing: deep vermilion) */
+.theme-setsubun {
+  --theme-accent: #a63a2b;
+  --theme-accent-hover: #8b2e1f;
+  --theme-gold: #c9ae84;
+  --theme-border-dark: rgba(166, 58, 43, 0.22);
+  --theme-glass-border: rgba(166, 58, 43, 0.25);
+  --theme-btn-primary-bg: #a63a2b;
+  --theme-nav-active: #a63a2b;
+  --theme-particle-color: #c9ae84;
+  --theme-timeline-line: rgba(166, 58, 43, 0.25);
+  --theme-faq-active: rgba(166, 58, 43, 0.12);
+  --theme-form-focus: rgba(166, 58, 43, 0.4);
+  --theme-partner-hover: rgba(166, 58, 43, 0.1);
+  --theme-tag-bg: rgba(166, 58, 43, 0.1);
+  --theme-tag-text: #a63a2b;
+  --theme-shoji-border: rgba(166, 58, 43, 0.3);
+}
+
+/* 光祭り — Hikari Matsuri (festival of light: gold) */
+.theme-hikari {
+  --theme-accent: #d4a94d;
+  --theme-accent-hover: #b8901a;
+  --theme-gold: #f0c36b;
+  --theme-border-dark: rgba(212, 169, 77, 0.22);
+  --theme-glass-border: rgba(212, 169, 77, 0.25);
+  --theme-btn-primary-bg: #d4a94d;
+  --theme-btn-primary-text: #232323; /* gold needs dark text for contrast */
+  --theme-nav-active: #d4a94d;
+  --theme-particle-color: #f0c36b;
+  --theme-timeline-line: rgba(212, 169, 77, 0.25);
+  --theme-faq-active: rgba(212, 169, 77, 0.12);
+  --theme-form-focus: rgba(212, 169, 77, 0.4);
+  --theme-partner-hover: rgba(212, 169, 77, 0.12);
+  --theme-tag-bg: rgba(212, 169, 77, 0.1);
+  --theme-tag-text: #d4a94d;
+  --theme-shoji-border: rgba(212, 169, 77, 0.3);
+}
+
+/* ========================================================================== */
 
 @theme inline {
-  --font-family-sans:
-    "Aspekta Variable", var(--font-sans-jp), ui-sans-serif, system-ui,
+  --font-sans: var(--font-dm-sans), "DM Sans", ui-sans-serif, system-ui,
     sans-serif;
-  --font-family-serif: var(--font-serif), "Playfair Display", Georgia, serif;
+  --font-serif: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-mono: var(--font-dm-mono), "DM Mono", ui-monospace, monospace;
+  --font-jp: var(--font-noto-serif-jp), "Noto Serif JP", serif;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -130,29 +204,33 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
+
+  /* Seasonal-aware colors, usable as bg-theme-accent / text-theme-ivory etc. */
+  --color-theme-bg: var(--theme-bg);
+  --color-theme-text: var(--theme-text);
+  --color-theme-accent: var(--theme-accent);
+  --color-theme-gold: var(--theme-gold);
+  --color-theme-ivory: var(--theme-ivory);
+  --color-theme-muted: var(--theme-muted-text);
+  --color-theme-dark: var(--theme-dark);
+  --color-theme-dark-alt: var(--theme-dark-alt);
+
+  /* Named section surfaces */
+  --color-paper: var(--section-paper);
+  --color-beige: var(--section-beige);
+  --color-wood: var(--section-wood);
+  --color-charcoal: var(--section-charcoal);
+  --color-charcoal-alt: var(--section-charcoal-alt);
+
+  --radius-sm: var(--radius);
+  --radius-md: var(--radius);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
+  --radius-xl: var(--radius);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
-    @apply scroll-smooth;
   }
 
   html {
@@ -160,80 +238,55 @@
   }
 
   body {
-    @apply bg-background text-foreground;
-    font-family:
-      "Aspekta Variable", var(--font-sans-jp), ui-sans-serif, system-ui,
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-dm-sans), "DM Sans", ui-sans-serif, system-ui,
       sans-serif;
-  }
-
-  body.body-texture {
-    background-image: url("/abc-texture.avif");
-    background-attachment: fixed;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
   }
 
   h1,
   h2,
   h3,
   h4 {
-    font-family: var(--font-serif), "Playfair Display", Georgia, serif;
-    @apply font-normal tracking-wide;
+    font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+    font-weight: 400;
+    letter-spacing: 0.01em;
   }
 
   p {
     @apply leading-relaxed;
   }
-
-  button {
-    @apply transition-all duration-300 ease-in-out;
-  }
-
-  /* Override font-serif to use Playfair Display */
-  .font-serif {
-    font-family:
-      var(--font-serif), "Playfair Display", Georgia, serif !important;
-  }
 }
 
-/* Japanese-inspired design elements */
-@layer utilities {
-  .texture-overlay {
-    background-image: url("/abc-texture.avif");
-    background-attachment: fixed;
-    background-size: auto;
+@layer components {
+  /* ---- Typography helpers ---------------------------------------------- */
+
+  .font-jp {
+    font-family: var(--font-noto-serif-jp), "Noto Serif JP", serif;
   }
 
-  .japanese-pattern {
-    background-image: repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 35px,
-      rgba(196, 164, 90, 0.05) 35px,
-      rgba(196, 164, 90, 0.05) 70px
-    );
+  /* The small uppercase eyebrow that opens nearly every section. */
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-family: var(--font-dm-sans), "DM Sans", sans-serif;
+    font-weight: 600;
+    color: var(--theme-accent);
+    transition: color 0.7s ease;
   }
 
-  .accent-line {
-    @apply relative;
-  }
-
-  .accent-line::after {
-    content: "";
-    @apply absolute bottom-0 left-0 h-1 bg-accent w-full;
-  }
-
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
+  /* Oversized kanji set behind a section at 4% opacity. */
+  .kanji-ghost {
+    font-family: var(--font-noto-serif-jp), "Noto Serif JP", serif;
+    color: var(--theme-accent);
+    opacity: 0.04;
+    pointer-events: none;
+    user-select: none;
+    line-height: 1;
+    letter-spacing: -0.02em;
   }
 
   .writing-vertical-rl {
@@ -241,228 +294,833 @@
     text-orientation: upright;
   }
 
-  /* Glassmorphism utilities */
-  .glass {
-    background: var(--glass-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--glass-border);
-    box-shadow: 0 8px 32px var(--glass-shadow);
+  /* ---- Themed surfaces -------------------------------------------------- */
+
+  .text-theme {
+    color: var(--theme-text);
+  }
+  .text-accent-theme {
+    color: var(--theme-accent);
+  }
+  .text-muted-theme {
+    color: var(--theme-muted-text);
+  }
+  .text-ivory {
+    color: var(--theme-ivory);
+  }
+  .text-gold {
+    color: var(--theme-gold);
+  }
+  .bg-theme {
+    background-color: var(--theme-bg);
+  }
+  .bg-theme-alt {
+    background-color: var(--theme-section-alt);
   }
 
-  .glass-light {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  .section-bg {
+    background-color: var(--theme-section-bg);
+    transition: background-color 0.7s ease;
   }
 
-  .glass-dark {
-    background: rgba(26, 26, 31, 0.8);
+  .section-bg-alt {
+    background-color: var(--theme-section-alt);
+    transition: background-color 0.7s ease;
+  }
+
+  .footer-bg {
+    background-color: var(--theme-footer-bg);
+    transition: background-color 0.7s ease;
+  }
+
+  .accent-border-top {
+    border-top: 2px solid var(--theme-accent);
+    transition: border-color 0.7s ease;
+  }
+
+  .hairline-v {
+    width: 1px;
+    background: var(--theme-border-light);
+  }
+
+  .hairline-h {
+    height: 1px;
+    background: var(--theme-border-light);
+  }
+
+  .hairline-h-dark {
+    height: 1px;
+    background: var(--theme-border-dark);
+  }
+
+  .stat-number {
+    color: var(--theme-stat-number);
+    transition: color 0.7s ease;
+  }
+
+  .stat-label {
+    color: var(--theme-stat-label);
+    transition: color 0.7s ease;
+  }
+
+  .timeline-line {
+    background-color: var(--theme-timeline-line);
+    transition: background-color 0.7s ease;
+  }
+
+  .wjc-input {
+    background: var(--theme-form-bg);
+    border: 1px solid var(--theme-form-border);
+    color: var(--theme-text);
+    transition:
+      border-color 0.3s ease,
+      background 0.7s ease;
+  }
+
+  .wjc-input:focus {
+    outline: none;
+    border-color: var(--theme-form-focus);
+    box-shadow: 0 0 0 3px var(--theme-form-focus);
+  }
+
+  .wjc-tag {
+    background: var(--theme-tag-bg);
+    color: var(--theme-tag-text);
+    transition:
+      background 0.7s ease,
+      color 0.7s ease;
+  }
+
+  .wjc-divider {
+    background-color: var(--theme-divider);
+    transition: background-color 0.7s ease;
+  }
+
+  .partner-cell {
+    background: var(--theme-partner-bg);
+    transition: background 0.3s ease;
+  }
+
+  .partner-cell:hover {
+    background: var(--theme-partner-hover);
+  }
+
+  .newsletter-bg {
+    background-color: var(--theme-newsletter-bg);
+    transition: background-color 0.7s ease;
+  }
+
+  /* Cross-fade applied while switching seasonal themes. */
+  .theme-transition {
+    transition:
+      background-color 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+      color 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+      border-color 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* ---- Glass / washi panels --------------------------------------------- */
+
+  .washi-glass {
+    background: var(--theme-glass-bg);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--theme-glass-border);
+    transition:
+      background 0.7s ease,
+      border-color 0.7s ease;
   }
 
-  .glass-card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+  .washi-glass-dark {
+    background: var(--theme-surface-dark);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--theme-border-dark);
+    transition:
+      background 0.7s ease,
+      border-color 0.7s ease;
   }
 
-  .matte-dark {
+  .glass-reflection {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .glass-reflection::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
     background: linear-gradient(
-      145deg,
-      rgba(26, 26, 31, 0.95),
-      rgba(35, 35, 42, 0.9)
+      105deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.04) 50%,
+      transparent 60%
     );
+    pointer-events: none;
+    transition: left 0.6s ease;
   }
 
-  .matte-charcoal {
-    background: linear-gradient(
-      145deg,
-      rgba(45, 45, 52, 0.95),
-      rgba(55, 55, 62, 0.9)
-    );
-  }
-}
-
-/* Smoke/Mist Animation Keyframes */
-@keyframes smoke-drift-1 {
-  0%,
-  100% {
-    transform: translateX(0) translateY(0) scale(1);
-    opacity: 0.4;
+  .glass-reflection:hover::before {
+    left: 150%;
   }
 
-  25% {
-    transform: translateX(5%) translateY(-5%) scale(1.05);
-    opacity: 0.3;
+  /* ---- Cards ------------------------------------------------------------ */
+
+  .wjc-card {
+    background: var(--theme-card-bg);
+    border: 1px solid var(--theme-card-border);
+    transition:
+      transform 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+      box-shadow 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+      border-color 0.32s ease,
+      background 0.7s ease;
   }
 
-  50% {
-    transform: translateX(-3%) translateY(-10%) scale(1.1);
-    opacity: 0.5;
+  .wjc-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 52px rgba(0, 0, 0, 0.45);
+    border-color: var(--theme-accent);
   }
 
-  75% {
-    transform: translateX(-8%) translateY(-5%) scale(1.02);
-    opacity: 0.35;
-  }
-}
-
-@keyframes smoke-drift-2 {
-  0%,
-  100% {
-    transform: translateX(-5%) translateY(0) scale(1.1);
-    opacity: 0.3;
+  .lantern-glow {
+    transition: box-shadow 0.45s ease;
   }
 
-  33% {
-    transform: translateX(10%) translateY(-8%) scale(1);
-    opacity: 0.45;
+  .lantern-glow:hover {
+    box-shadow:
+      0 0 28px var(--theme-accent),
+      0 0 56px rgba(0, 0, 0, 0.25);
   }
 
-  66% {
-    transform: translateX(5%) translateY(-15%) scale(1.15);
-    opacity: 0.25;
-  }
-}
+  /* ---- Buttons ---------------------------------------------------------- */
 
-@keyframes smoke-drift-3 {
-  0%,
-  100% {
-    transform: translateX(3%) scale(1);
-    opacity: 0.35;
+  .btn-accent {
+    background-color: var(--theme-btn-primary-bg);
+    color: var(--theme-btn-primary-text);
+    transition:
+      background-color 0.3s ease,
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
   }
 
-  50% {
-    transform: translateX(-5%) scale(1.08);
-    opacity: 0.5;
-  }
-}
-
-/* Tailwind animation utilities for smoke */
-@layer utilities {
-  .animate-smoke-drift-1 {
-    animation: smoke-drift-1 20s ease-in-out infinite;
+  .btn-accent:hover {
+    background-color: var(--theme-accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.4);
   }
 
-  .animate-smoke-drift-2 {
-    animation: smoke-drift-2 15s ease-in-out infinite;
+  .btn-outline {
+    border: 1px solid var(--theme-btn-outline-border);
+    color: var(--theme-btn-outline-text);
+    background: transparent;
+    transition:
+      border-color 0.3s ease,
+      color 0.3s ease,
+      transform 0.25s ease;
   }
 
-  .animate-smoke-drift-3 {
-    animation: smoke-drift-3 12s ease-in-out infinite;
-  }
-}
-
-/* Cloud drift animations - horizontal movement */
-@keyframes cloud-drift-1 {
-  0% {
-    transform: translateX(0);
+  .btn-outline:hover {
+    border-color: var(--theme-accent);
+    color: var(--theme-accent);
+    transform: translateY(-2px);
   }
 
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-@keyframes cloud-drift-2 {
-  0% {
-    transform: translateX(0);
+  .btn-lift {
+    transition:
+      transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+      box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  100% {
-    transform: translateX(-55%);
-  }
-}
-
-@keyframes cloud-drift-3 {
-  0% {
-    transform: translateX(0);
+  .btn-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.4);
   }
 
-  100% {
-    transform: translateX(-33%);
-  }
-}
+  /* ---- Navigation ------------------------------------------------------- */
 
-/* Tailwind animation utilities for clouds */
-@layer utilities {
-  .animate-cloud-drift-1 {
-    animation: cloud-drift-1 60s linear infinite;
+  .nav-link-underline {
+    position: relative;
+    text-decoration: none;
   }
 
-  .animate-cloud-drift-2 {
-    animation: cloud-drift-2 45s linear infinite;
+  .nav-link-underline::after {
+    content: "";
+    position: absolute;
+    bottom: -3px;
+    left: 14px;
+    right: 14px;
+    width: 0;
+    height: 1.5px;
+    background-color: var(--theme-accent);
+    transition:
+      width 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+      background-color 0.7s ease;
+    transform-origin: left center;
   }
 
-  .animate-cloud-drift-3 {
-    animation: cloud-drift-3 30s linear infinite;
-  }
-}
-
-/* Sakura petal falling animation */
-@keyframes sakura-fall {
-  0% {
-    transform: translateY(0) translateX(0) rotate(0deg);
-    opacity: 0;
+  .nav-link-underline:hover::after,
+  .nav-link-underline.active::after {
+    width: calc(100% - 28px);
   }
 
-  10% {
+  /* ---- Media ------------------------------------------------------------ */
+
+  .image-hover-zoom {
+    overflow: hidden;
+  }
+
+  .image-hover-zoom img {
+    transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .image-hover-zoom:hover img {
+    transform: scale(1.04);
+  }
+
+  .partner-logo {
+    filter: grayscale(100%) brightness(0.65);
+    transition:
+      filter 0.45s ease,
+      opacity 0.45s ease;
+    opacity: 0.55;
+  }
+
+  .partner-logo:hover {
+    filter: grayscale(0) brightness(1);
     opacity: 1;
   }
 
-  90% {
+  /* ---- Timeline / FAQ --------------------------------------------------- */
+
+  .timeline-node {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--theme-accent);
+    border: 2px solid var(--theme-bg);
+    flex-shrink: 0;
+    transition:
+      background-color 0.7s ease,
+      border-color 0.7s ease;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--theme-faq-border);
+    transition:
+      border-color 0.3s ease,
+      background-color 0.3s ease;
+  }
+
+  .faq-item.active {
+    border-bottom-color: var(--theme-accent);
+    background-color: var(--theme-faq-active);
+  }
+
+  /* ---- Layout ----------------------------------------------------------- */
+
+  .max-w-content {
+    max-width: 1440px;
+  }
+
+  /* Masonry gallery — CSS columns, reveal caption on hover/focus. */
+  .masonry-gallery {
+    column-count: 1;
+    column-gap: 16px;
+  }
+
+  @media (min-width: 640px) {
+    .masonry-gallery {
+      column-count: 2;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .masonry-gallery {
+      column-count: 3;
+    }
+  }
+
+  .masonry-item:hover .gallery-overlay,
+  .masonry-item:focus-visible .gallery-overlay {
     opacity: 1;
   }
+}
 
-  100% {
-    transform: translateY(100vh) translateX(100px) rotate(720deg);
+/* ==========================================================================
+   Scroll-reveal — .fade-up starts hidden, JS adds .is-visible on intersect.
+   ========================================================================== */
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.72s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.72s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* !important is required: sections set inline `opacity: 0` on .fade-up so the
+   element is hidden before hydration, and an inline style would otherwise
+   beat this rule and leave the content permanently invisible. */
+.fade-up.is-visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.fade-up-delay-1 {
+  transition-delay: 0.1s;
+}
+.fade-up-delay-2 {
+  transition-delay: 0.2s;
+}
+.fade-up-delay-3 {
+  transition-delay: 0.3s;
+}
+.fade-up-delay-4 {
+  transition-delay: 0.4s;
+}
+.fade-up-delay-5 {
+  transition-delay: 0.5s;
+}
+
+/* ==========================================================================
+   風鈴 — hanging character chimes in the hero, between the backdrop and the
+   gate. The gate PNG's transparent archway is what makes them visible.
+   ========================================================================== */
+
+/* ==========================================================================
+   Hero parallax. The gate layer and the chime host share --wjc-gate-shift so
+   the strands stay registered inside the archway at any scroll position; the
+   backdrop drifts at its own slower rate.
+   ========================================================================== */
+
+/* 100vh is unstable on mobile — it jumps as the browser chrome shows and
+   hides, which made the hero resize mid-scroll and rebuilt the chimes each
+   time. svh is the settled height. */
+.wjc-hero {
+  height: 100vh;
+  height: 100svh;
+  min-height: 640px;
+}
+
+@media (min-width: 721px) {
+  .wjc-hero {
+    min-height: 720px;
+  }
+}
+
+/* Hero content box. The stats bar is absolutely pinned to the bottom, so the
+   content has to reserve exactly as much room as the bar actually occupies —
+   on mobile the bar wraps to 2x2 and is roughly twice as tall, which is what
+   was overlapping the copy. */
+.wjc-hero-content {
+  padding: 96px 24px 240px;
+}
+
+.wjc-hero-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media (min-width: 721px) {
+  .wjc-hero-content {
+    padding: 72px 130px 110px 0;
+  }
+  .wjc-hero-inner {
+    padding: 0 52px;
+  }
+}
+
+/* Stats bar — 2x2 on mobile, single row from tablet up. */
+.wjc-hero-stats {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.wjc-hero-stat {
+  height: 76px;
+  padding: 0 10px;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+  transition: border-color 0.7s ease;
+}
+
+/* The seasonal switcher floats bottom-right over this bar on mobile; keep
+   the last cell's text clear of it. */
+.wjc-hero-stat:last-child {
+  padding-right: 60px;
+}
+
+/* Right-hand column and bottom row have no neighbour to divide from. */
+.wjc-hero-stat:nth-child(2n) {
+  border-right: none;
+}
+.wjc-hero-stat:nth-last-child(-n + 2) {
+  border-bottom: none;
+}
+
+@media (min-width: 721px) {
+  .wjc-hero-stats {
+    padding: 0 52px;
+  }
+  .wjc-hero-stat {
+    height: 84px;
+    padding: 0 18px;
+    border-bottom: none;
+  }
+  .wjc-hero-stat:nth-child(2n) {
+    border-right: 1px solid;
+  }
+  .wjc-hero-stat:last-child {
+    border-right: none;
+    padding-right: 18px;
+  }
+}
+
+.wjc-parallax-bg {
+  transform: translate3d(0, var(--wjc-bg-shift, 0px), 0);
+  will-change: transform;
+  transition: transform 80ms linear;
+}
+
+/* Near plate. Inset from the top so the gate roof clears the navigation, and
+   contained rather than cropped so the whole gate reads. */
+.wjc-gate-layer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 84px;
+  bottom: 0;
+  transform: translate3d(0, var(--wjc-gate-shift, 0px), 0);
+  will-change: transform;
+  transition: transform 80ms linear;
+}
+
+@media (max-width: 720px) {
+  .wjc-gate-layer {
+    top: 64px;
+  }
+  /* Contain leaves the gate as a thin strip on a tall portrait screen.
+     Cover keeps it filling the frame with the archway centred. */
+  .wjc-gate-layer .wjc-hero-plate-front {
+    object-fit: cover !important;
+    object-position: center 62% !important;
+  }
+}
+
+/* Hero plates fade in on paint. Gating this on an <img> onLoad handler is
+   unreliable — an image already cached when React hydrates never fires it,
+   which leaves the hero blank. */
+.wjc-hero-plate {
+  animation: wjcPlateIn 0.9s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.wjc-hero-plate-front {
+  animation-delay: 0.12s;
+}
+
+@keyframes wjcPlateIn {
+  from {
     opacity: 0;
   }
-}
-
-@layer utilities {
-  .animate-sakura-fall {
-    animation: sakura-fall linear infinite;
+  to {
+    opacity: 1;
   }
 }
 
-/* Fade in animation for rotating greetings */
-@keyframes fade-in {
+/* Spans the hero so the cover maths matches the plates. Transparent to
+   pointers — only the archway stage inside it is interactive. */
+.wjc-chime-host {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 84px;
+  bottom: 0;
+  z-index: 1;
+  pointer-events: none;
+  transform: translate3d(0, var(--wjc-gate-shift, 0px), 0);
+  will-change: transform;
+}
+
+/* The archway renders about 80px wide on a phone: the glyphs are illegible
+   and there is nothing meaningful to sweep. Cheaper and calmer to drop the
+   layer than to ship a broken version of it. */
+@media (max-width: 720px) {
+  .wjc-chime-host {
+    display: none;
+  }
+}
+
+/* Clipped to the gate's archway; JS sizes and places it. */
+.wjc-chime-stage {
+  position: absolute;
+  cursor: crosshair;
+  overflow: hidden;
+  pointer-events: auto;
+  /* Let vertical swipes scroll the page; only horizontal movement drives the
+     chimes. Without this the stage ate scroll gestures on touch devices. */
+  touch-action: pan-y;
+  /* Contain layout/paint so glyph writes never invalidate the whole hero. */
+  contain: layout paint;
+}
+
+.wjc-chime-glow {
+  display: none;
+}
+
+.wjc-strand {
+  position: absolute;
+  transform-origin: 50% 0;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-family: var(--font-noto-sans-jp), "Noto Sans JP", sans-serif;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  will-change: transform;
+  pointer-events: none;
+}
+
+.wjc-strand .wjc-string {
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    rgba(238, 48, 42, 0.6),
+    transparent
+  );
+}
+
+.wjc-strand b {
+  display: inline-block;
+  font-weight: 600;
+  transform-origin: 50% 50%;
+  color: #EE302A;
+  text-shadow: none;
+}
+
+/* The clapper — a small weight at the foot of each strand. */
+.wjc-tail {
+  display: block;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #EE302A;
+  opacity: 0.6;
+}
+
+.wjc-chime-ring {
+  position: absolute;
+  border: 1px solid #EE302A;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* Hero: pulsing scroll cue and click ripples. */
+@keyframes wjcScrollPulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scaleY(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+@keyframes wjcWaterRipple {
   0% {
-    opacity: 0;
-    transform: translateY(10px);
+    width: 6px;
+    height: 6px;
+    opacity: 0.9;
   }
-
   100% {
+    width: 130px;
+    height: 130px;
+    opacity: 0;
+  }
+}
+
+@keyframes wjcFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-@layer utilities {
-  .animate-fade-in {
-    animation: fade-in 0.5s ease-out forwards;
+.scroll-loader-line {
+  width: 1px;
+  height: 0;
+  background: linear-gradient(to bottom, var(--theme-accent), transparent);
+  animation: wjcScrollLine 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes wjcScrollLine {
+  from {
+    height: 0;
+    opacity: 0;
+  }
+  to {
+    height: 60px;
+    opacity: 1;
   }
 }
 
-/* Sharp Glass Sweep Animation */
-@keyframes glass-sweep {
-  0% { transform: translateX(-150%) skewX(-30deg); opacity: 0; }
-  20% { opacity: 0.5; }
-  50% { opacity: 0.8; }
-  80% { opacity: 0.5; }
-  100% { transform: translateX(150%) skewX(-30deg); opacity: 0; }
+/* Shoji-screen slide used by the mobile nav panel. */
+.shoji-enter {
+  animation: wjcShojiReveal 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-@layer utilities {
-  .animate-glass-sweep {
-    animation: glass-sweep 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+@keyframes wjcShojiReveal {
+  from {
+    opacity: 0;
+    transform: translateX(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ==========================================================================
+   Loading screen — 1px rule, 52px kanji, 1px rule, label. Fades at 2.2s.
+   ========================================================================== */
+
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: #232323;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  animation: wjcLoadingFadeOut 0.6s cubic-bezier(0.4, 0, 0.2, 1) 2.2s forwards;
+}
+
+@keyframes wjcLoadingFadeOut {
+  to {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.loading-scroll-top {
+  width: 1px;
+  height: 0;
+  background: linear-gradient(to bottom, transparent, var(--theme-accent));
+  animation: wjcScrollTop 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+}
+
+@keyframes wjcScrollTop {
+  to {
+    height: 60px;
+  }
+}
+
+.loading-kanji {
+  font-family: var(--font-noto-serif-jp), "Noto Serif JP", serif;
+  font-size: 52px;
+  font-weight: 300;
+  color: var(--theme-accent);
+  opacity: 0;
+  animation: wjcKanjiReveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+  padding: 16px 0;
+}
+
+@keyframes wjcKanjiReveal {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.loading-scroll-bottom {
+  width: 1px;
+  height: 0;
+  background: linear-gradient(to bottom, var(--theme-accent), transparent);
+  animation: wjcScrollBottom 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.9s forwards;
+}
+
+@keyframes wjcScrollBottom {
+  to {
+    height: 60px;
+  }
+}
+
+.loading-text {
+  font-family: var(--font-dm-sans), "DM Sans", sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--theme-muted-text);
+  opacity: 0;
+  margin-top: 24px;
+  animation: wjcLoadingText 0.5s ease 1.2s forwards;
+}
+
+@keyframes wjcLoadingText {
+  to {
+    opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   Reduced motion — reveal everything immediately, drop decorative animation.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  /* Same inline-style override problem as .is-visible — see above. */
+  .fade-up {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .loading-screen,
+  .loading-scroll-top,
+  .loading-kanji,
+  .loading-scroll-bottom,
+  .loading-text,
+  .shoji-enter {
+    animation-duration: 0.01ms;
+    animation-delay: 0ms;
+  }
+
+  .btn-accent:hover,
+  .btn-outline:hover,
+  .btn-lift:hover,
+  .wjc-card:hover {
+    transform: none;
+  }
+}
+
+/* The seasonal switcher is pinned bottom-right; on mobile the hero stats bar
+   is two rows tall and was sitting underneath it. */
+@media (max-width: 720px) {
+  [aria-label="Seasonal theme switcher"],
+  [aria-label="季節のテーマ切り替え"] {
+    bottom: 1rem;
+    right: 1rem;
   }
 }

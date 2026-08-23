@@ -1,0 +1,1100 @@
+- generic [active] [ref=e1]:
+  - status [ref=e2]:
+    - generic [ref=e3]: 絆
+    - generic [ref=e4]: Woxsen Japan Centre
+  - banner [ref=e5]:
+    - generic [ref=e6]:
+      - link "Essence of Japan, Within Reach. — Home" [ref=e7] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e10]:
+          - generic [ref=e11]: Woxsen
+          - generic [ref=e12]: JAPAN CENTRE
+      - navigation "Primary" [ref=e13]:
+        - link "Home" [ref=e14] [cursor=pointer]:
+          - /url: /
+        - link "About Us" [ref=e15] [cursor=pointer]:
+          - /url: /about
+        - link "Events" [ref=e16] [cursor=pointer]:
+          - /url: /events
+        - link "Gallery" [ref=e17] [cursor=pointer]:
+          - /url: /gallery
+        - link "Team" [ref=e18] [cursor=pointer]:
+          - /url: /team
+        - link "JLPT" [ref=e19] [cursor=pointer]:
+          - /url: /jlpt
+        - link "Programs" [ref=e20] [cursor=pointer]:
+          - /url: /programs
+        - link "Join Us" [ref=e21] [cursor=pointer]:
+          - /url: /join-us
+      - link "日本語に切り替える" [ref=e23] [cursor=pointer]:
+        - /url: /ja
+        - generic [ref=e24]: 日本語
+  - main [ref=e28]:
+    - region "Woxsen Japan Centre" [ref=e29]:
+      - img "Temple courtyard set among mist-covered mountains" [ref=e31]
+      - generic [ref=e33]:
+        - generic:
+          - generic: 古
+          - generic: き
+          - generic: 山
+          - generic: 寺
+          - generic: の
+          - generic: 鐘
+          - generic: は
+          - generic: 静
+          - generic: か
+          - generic: に
+          - generic: 響
+          - generic: き
+          - generic: 、
+        - generic:
+          - generic: 深
+          - generic: い
+          - generic: 森
+          - generic: を
+          - generic: 渡
+          - generic: る
+          - generic: 風
+          - generic: は
+          - generic: 四
+          - generic: 季
+          - generic: の
+          - generic: 香
+          - generic: り
+          - generic: を
+          - generic: 運
+          - generic: ぶ
+          - generic: 。
+          - generic: 月
+          - generic: は
+          - generic: 雲
+          - generic: 間
+          - generic: よ
+          - generic: り
+          - generic: 柔
+          - generic: ら
+          - generic: か
+          - generic: な
+        - generic:
+          - generic: 人
+          - generic: は
+          - generic: 花
+          - generic: 鳥
+          - generic: 風
+          - generic: 月
+          - generic: の
+          - generic: 美
+          - generic: を
+          - generic: 静
+          - generic: か
+          - generic: に
+          - generic: 愛
+          - generic: で
+          - generic: る
+        - generic:
+          - generic: 古
+          - generic: き
+          - generic: 山
+          - generic: 寺
+          - generic: の
+          - generic: 鐘
+          - generic: は
+          - generic: 静
+          - generic: か
+          - generic: に
+          - generic: 響
+          - generic: き
+          - generic: 、
+          - generic: 深
+          - generic: い
+          - generic: 森
+          - generic: を
+          - generic: 渡
+          - generic: る
+          - generic: 風
+          - generic: は
+        - generic:
+          - generic: 四
+          - generic: 季
+          - generic: の
+          - generic: 香
+          - generic: り
+          - generic: を
+          - generic: 運
+          - generic: ぶ
+          - generic: 。
+          - generic: 月
+          - generic: は
+          - generic: 雲
+          - generic: 間
+          - generic: よ
+          - generic: り
+          - generic: 柔
+          - generic: ら
+          - generic: か
+          - generic: な
+          - generic: 光
+        - generic:
+          - generic: 人
+          - generic: は
+          - generic: 花
+          - generic: 鳥
+          - generic: 風
+          - generic: 月
+          - generic: の
+          - generic: 美
+          - generic: を
+          - generic: 静
+          - generic: か
+          - generic: に
+          - generic: 愛
+          - generic: で
+          - generic: る
+          - generic: 。
+          - generic: 古
+          - generic: き
+          - generic: 山
+          - generic: 寺
+          - generic: の
+        - generic:
+          - generic: 深
+          - generic: い
+          - generic: 森
+          - generic: を
+          - generic: 渡
+          - generic: る
+          - generic: 風
+          - generic: は
+          - generic: 四
+          - generic: 季
+          - generic: の
+          - generic: 香
+          - generic: り
+          - generic: を
+          - generic: 運
+          - generic: ぶ
+          - generic: 。
+          - generic: 月
+          - generic: は
+          - generic: 雲
+          - generic: 間
+          - generic: よ
+          - generic: り
+        - generic:
+          - generic: 柔
+          - generic: ら
+          - generic: か
+          - generic: な
+          - generic: 光
+          - generic: を
+          - generic: 注
+          - generic: ぎ
+          - generic: 、
+          - generic: 人
+          - generic: は
+          - generic: 花
+          - generic: 鳥
+          - generic: 風
+          - generic: 月
+          - generic: の
+          - generic: 美
+        - generic:
+          - generic: 静
+          - generic: か
+          - generic: に
+          - generic: 愛
+          - generic: で
+          - generic: る
+          - generic: 。
+          - generic: 古
+          - generic: き
+          - generic: 山
+          - generic: 寺
+          - generic: の
+          - generic: 鐘
+          - generic: は
+          - generic: 静
+          - generic: か
+          - generic: に
+          - generic: 響
+          - generic: き
+          - generic: 、
+          - generic: 深
+          - generic: い
+          - generic: 森
+          - generic: を
+        - generic:
+          - generic: 四
+          - generic: 季
+          - generic: の
+          - generic: 香
+          - generic: り
+          - generic: を
+          - generic: 運
+          - generic: ぶ
+          - generic: 。
+          - generic: 月
+          - generic: は
+          - generic: 雲
+          - generic: 間
+          - generic: よ
+          - generic: り
+          - generic: 柔
+          - generic: ら
+          - generic: か
+          - generic: な
+          - generic: 光
+          - generic: を
+        - generic:
+          - generic: 人
+          - generic: は
+          - generic: 花
+          - generic: 鳥
+          - generic: 風
+          - generic: 月
+          - generic: の
+          - generic: 美
+          - generic: を
+          - generic: 静
+          - generic: か
+          - generic: に
+          - generic: 愛
+          - generic: で
+          - generic: る
+        - generic:
+          - generic: 古
+          - generic: き
+          - generic: 山
+          - generic: 寺
+          - generic: の
+          - generic: 鐘
+          - generic: は
+          - generic: 静
+          - generic: か
+          - generic: に
+          - generic: 響
+          - generic: き
+          - generic: 、
+          - generic: 深
+          - generic: い
+          - generic: 森
+          - generic: を
+        - generic:
+          - generic: 四
+          - generic: 季
+          - generic: の
+          - generic: 香
+          - generic: り
+          - generic: を
+          - generic: 運
+          - generic: ぶ
+          - generic: 。
+          - generic: 月
+          - generic: は
+          - generic: 雲
+          - generic: 間
+          - generic: よ
+          - generic: り
+          - generic: 柔
+          - generic: ら
+          - generic: か
+          - generic: な
+          - generic: 光
+          - generic: を
+          - generic: 注
+          - generic: ぎ
+          - generic: 、
+        - generic:
+          - generic: 人
+          - generic: は
+          - generic: 花
+          - generic: 鳥
+          - generic: 風
+          - generic: 月
+          - generic: の
+          - generic: 美
+          - generic: を
+          - generic: 静
+          - generic: か
+          - generic: に
+          - generic: 愛
+          - generic: で
+          - generic: る
+        - generic:
+          - generic: 古
+          - generic: き
+          - generic: 山
+          - generic: 寺
+          - generic: の
+          - generic: 鐘
+          - generic: は
+          - generic: 静
+          - generic: か
+          - generic: に
+          - generic: 響
+          - generic: き
+          - generic: 、
+          - generic: 深
+          - generic: い
+          - generic: 森
+          - generic: を
+        - generic:
+          - generic: 四
+          - generic: 季
+          - generic: の
+          - generic: 香
+          - generic: り
+          - generic: を
+          - generic: 運
+          - generic: ぶ
+          - generic: 。
+          - generic: 月
+          - generic: は
+          - generic: 雲
+          - generic: 間
+          - generic: よ
+          - generic: り
+          - generic: 柔
+          - generic: ら
+          - generic: か
+          - generic: な
+          - generic: 光
+        - generic:
+          - generic: 人
+          - generic: は
+          - generic: 花
+          - generic: 鳥
+          - generic: 風
+          - generic: 月
+          - generic: の
+          - generic: 美
+          - generic: を
+          - generic: 静
+          - generic: か
+          - generic: に
+          - generic: 愛
+          - generic: で
+          - generic: る
+          - generic: 。
+          - generic: 古
+          - generic: き
+          - generic: 山
+          - generic: 寺
+          - generic: の
+          - generic: 鐘
+          - generic: は
+          - generic: 静
+          - generic: か
+          - generic: に
+          - generic: 響
+        - generic:
+          - generic: 深
+          - generic: い
+          - generic: 森
+          - generic: を
+          - generic: 渡
+          - generic: る
+          - generic: 風
+          - generic: は
+          - generic: 四
+          - generic: 季
+          - generic: の
+          - generic: 香
+          - generic: り
+          - generic: を
+          - generic: 運
+          - generic: ぶ
+          - generic: 。
+          - generic: 月
+          - generic: は
+          - generic: 雲
+        - generic:
+          - generic: 柔
+          - generic: ら
+          - generic: か
+          - generic: な
+          - generic: 光
+          - generic: を
+          - generic: 注
+          - generic: ぎ
+          - generic: 、
+          - generic: 人
+          - generic: は
+          - generic: 花
+          - generic: 鳥
+          - generic: 風
+          - generic: 月
+          - generic: の
+          - generic: 美
+          - generic: を
+          - generic: 静
+          - generic: か
+          - generic: に
+          - generic: 愛
+          - generic: で
+        - generic:
+          - generic: 古
+          - generic: き
+          - generic: 山
+          - generic: 寺
+          - generic: の
+          - generic: 鐘
+          - generic: は
+          - generic: 静
+          - generic: か
+          - generic: に
+          - generic: 響
+          - generic: き
+          - generic: 、
+          - generic: 深
+          - generic: い
+          - generic: 森
+          - generic: を
+          - generic: 渡
+          - generic: る
+        - generic:
+          - generic: 四
+          - generic: 季
+          - generic: の
+          - generic: 香
+          - generic: り
+          - generic: を
+          - generic: 運
+          - generic: ぶ
+          - generic: 。
+          - generic: 月
+          - generic: は
+          - generic: 雲
+          - generic: 間
+          - generic: よ
+          - generic: り
+          - generic: 柔
+          - generic: ら
+          - generic: か
+          - generic: な
+          - generic: 光
+          - generic: を
+          - generic: 注
+          - generic: ぎ
+          - generic: 、
+        - generic:
+          - generic: 人
+          - generic: は
+          - generic: 花
+          - generic: 鳥
+          - generic: 風
+          - generic: 月
+          - generic: の
+          - generic: 美
+          - generic: を
+          - generic: 静
+          - generic: か
+          - generic: に
+          - generic: 愛
+          - generic: で
+          - generic: る
+          - generic: 。
+          - generic: 古
+          - generic: き
+          - generic: 山
+          - generic: 寺
+          - generic: の
+          - generic: 鐘
+        - generic:
+          - generic: 深
+          - generic: い
+          - generic: 森
+          - generic: を
+          - generic: 渡
+          - generic: る
+          - generic: 風
+          - generic: は
+          - generic: 四
+          - generic: 季
+          - generic: の
+          - generic: 香
+          - generic: り
+          - generic: を
+          - generic: 運
+          - generic: ぶ
+          - generic: 。
+          - generic: 月
+          - generic: は
+          - generic: 雲
+          - generic: 間
+          - generic: よ
+          - generic: り
+        - generic:
+          - generic: 柔
+          - generic: ら
+          - generic: か
+          - generic: な
+          - generic: 光
+          - generic: を
+          - generic: 注
+          - generic: ぎ
+          - generic: 、
+          - generic: 人
+          - generic: は
+          - generic: 花
+          - generic: 鳥
+          - generic: 風
+          - generic: 月
+          - generic: の
+          - generic: 美
+          - generic: を
+          - generic: 静
+          - generic: か
+          - generic: に
+          - generic: 愛
+        - generic:
+          - generic: 古
+          - generic: き
+          - generic: 山
+          - generic: 寺
+          - generic: の
+          - generic: 鐘
+          - generic: は
+          - generic: 静
+          - generic: か
+          - generic: に
+          - generic: 響
+          - generic: き
+          - generic: 、
+          - generic: 深
+          - generic: い
+          - generic: 森
+          - generic: を
+          - generic: 渡
+          - generic: る
+          - generic: 風
+          - generic: は
+          - generic: 四
+          - generic: 季
+          - generic: の
+          - generic: 香
+          - generic: り
+        - generic:
+          - generic: 月
+          - generic: は
+          - generic: 雲
+          - generic: 間
+          - generic: よ
+          - generic: り
+          - generic: 柔
+          - generic: ら
+          - generic: か
+          - generic: な
+          - generic: 光
+          - generic: を
+          - generic: 注
+          - generic: ぎ
+          - generic: 、
+          - generic: 人
+          - generic: は
+          - generic: 花
+          - generic: 鳥
+          - generic: 風
+          - generic: 月
+          - generic: の
+          - generic: 美
+          - generic: を
+        - generic:
+          - generic: 静
+          - generic: か
+          - generic: に
+          - generic: 愛
+          - generic: で
+          - generic: る
+          - generic: 。
+          - generic: 古
+          - generic: き
+          - generic: 山
+          - generic: 寺
+          - generic: の
+          - generic: 鐘
+          - generic: は
+          - generic: 静
+          - generic: か
+          - generic: に
+          - generic: 響
+          - generic: き
+          - generic: 、
+        - generic:
+          - generic: 深
+          - generic: い
+          - generic: 森
+          - generic: を
+          - generic: 渡
+          - generic: る
+          - generic: 風
+          - generic: は
+          - generic: 四
+          - generic: 季
+          - generic: の
+          - generic: 香
+          - generic: り
+          - generic: を
+          - generic: 運
+          - generic: ぶ
+          - generic: 。
+          - generic: 月
+          - generic: は
+          - generic: 雲
+          - generic: 間
+          - generic: よ
+          - generic: り
+          - generic: 柔
+          - generic: ら
+          - generic: か
+          - generic: な
+          - generic: 光
+        - generic:
+          - generic: 人
+          - generic: は
+          - generic: 花
+          - generic: 鳥
+          - generic: 風
+          - generic: 月
+          - generic: の
+          - generic: 美
+          - generic: を
+          - generic: 静
+          - generic: か
+          - generic: に
+          - generic: 愛
+          - generic: で
+          - generic: る
+          - generic: 。
+          - generic: 古
+          - generic: き
+          - generic: 山
+          - generic: 寺
+          - generic: の
+          - generic: 鐘
+          - generic: は
+          - generic: 静
+          - generic: か
+          - generic: に
+        - generic:
+          - generic: 深
+          - generic: い
+          - generic: 森
+          - generic: を
+          - generic: 渡
+          - generic: る
+          - generic: 風
+          - generic: は
+          - generic: 四
+          - generic: 季
+          - generic: の
+          - generic: 香
+          - generic: り
+          - generic: を
+          - generic: 運
+          - generic: ぶ
+          - generic: 。
+          - generic: 月
+          - generic: は
+          - generic: 雲
+          - generic: 間
+          - generic: よ
+        - generic:
+          - generic: 柔
+          - generic: ら
+          - generic: か
+          - generic: な
+          - generic: 光
+          - generic: を
+          - generic: 注
+          - generic: ぎ
+          - generic: 、
+          - generic: 人
+          - generic: は
+          - generic: 花
+          - generic: 鳥
+          - generic: 風
+          - generic: 月
+          - generic: の
+          - generic: 美
+          - generic: を
+          - generic: 静
+          - generic: か
+          - generic: に
+          - generic: 愛
+          - generic: で
+          - generic: る
+          - generic: 。
+          - generic: 古
+          - generic: き
+          - generic: 山
+      - generic [ref=e34]:
+        - button "Chime off" [ref=e35] [cursor=pointer]
+        - button "Send a gust" [ref=e36] [cursor=pointer]
+      - generic:
+        - generic:
+          - generic: 和
+          - generic: 敬
+          - generic: 清
+          - generic: 寂
+          - generic: WJC
+        - generic: 絆
+      - generic [ref=e39]:
+        - generic [ref=e40]: Woxsen University · Japan Centre
+        - heading "Essence of Japan," [level=1] [ref=e43]
+        - heading "Within Reach" [level=1] [ref=e44]
+        - paragraph [ref=e46]: Bridging cultures, inspiring minds, and creating opportunities through education, collaboration, and cultural exchange.
+        - generic [ref=e47]:
+          - link "Explore JLPT" [ref=e48] [cursor=pointer]:
+            - /url: /jlpt
+          - link "Our Story" [ref=e51] [cursor=pointer]:
+            - /url: /about
+      - generic [ref=e53]:
+        - generic [ref=e58]:
+          - generic [ref=e59]: 0+
+          - generic [ref=e61]: Partner Institutions
+        - generic [ref=e66]:
+          - generic [ref=e67]: 0+
+          - generic [ref=e69]: Students Engaged
+        - generic [ref=e74]:
+          - generic [ref=e75]: "0"
+          - generic [ref=e76]: Annual Programs
+        - generic [ref=e81]:
+          - generic [ref=e82]: "0"
+          - generic [ref=e83]: Established
+      - generic [ref=e84]: Scroll
+    - region [ref=e88]:
+      - generic [ref=e90]:
+        - generic [ref=e91]:
+          - generic [ref=e92]: "01"
+          - generic [ref=e93]: About the Centre
+          - heading "A Bridge Between Two Worlds" [level=2] [ref=e95]: A Bridge BetweenTwo Worlds
+          - paragraph [ref=e96]: The Woxsen Japan Centre supports Japanese language education, cultural initiatives, academic collaboration, and international partnerships — creating opportunities for students and faculty to engage with Japan's traditions, values, and contemporary practices.
+          - paragraph [ref=e97]: Through interdisciplinary participation and experiential learning, we foster global awareness, cross-cultural understanding, and meaningful international exposure within the university community.
+          - generic [ref=e98]:
+            - generic [ref=e99]:
+              - paragraph [ref=e100]: "2025"
+              - paragraph [ref=e101]: Inaugurated
+            - generic [ref=e102]:
+              - paragraph [ref=e103]: "3"
+              - paragraph [ref=e104]: Core Partners
+            - generic [ref=e105]:
+              - paragraph [ref=e106]: 500+
+              - paragraph [ref=e107]: Students
+            - generic [ref=e108]:
+              - paragraph [ref=e109]: JLPT
+              - paragraph [ref=e110]: Certified
+          - link "About the Centre →" [ref=e112] [cursor=pointer]:
+            - /url: /about
+            - text: About the Centre
+            - generic [ref=e113]: →
+        - generic "Images from the Woxsen Japan Centre" [ref=e114]:
+          - generic [ref=e115]:
+            - img "Kizuna Matsuri at the Woxsen Japan Centre" [ref=e117]
+            - generic [ref=e118]:
+              - img "Konnichiwa Woxsen student community launch" [ref=e120]
+              - generic [ref=e121]:
+                - paragraph [ref=e122]: “Together we are, Together we will”
+                - paragraph [ref=e123]: Dr. Brundaban MishraDirector, WJC
+    - region "Our Impact" [ref=e124]:
+      - generic [ref=e125]:
+        - generic [ref=e126]: Our Impact
+        - generic [ref=e127]:
+          - generic [ref=e128]:
+            - paragraph [ref=e129]: "0"
+            - paragraph [ref=e130]: Year Established
+          - generic [ref=e132]:
+            - paragraph [ref=e133]: 0+
+            - paragraph [ref=e134]: Community Members
+          - generic [ref=e136]:
+            - paragraph [ref=e137]: "0"
+            - paragraph [ref=e138]: Strategic Partners
+          - generic [ref=e140]:
+            - paragraph [ref=e141]: ¥0T
+            - paragraph [ref=e142]: India-Japan Investment Target
+    - region [ref=e143]:
+      - generic [ref=e144]:
+        - generic [ref=e145]:
+          - generic [ref=e146]:
+            - generic [ref=e147]: Our Partners
+            - heading "Built on Strategic Alliances" [level=2] [ref=e149]
+          - paragraph [ref=e150]: Three institutions united by a shared commitment to deepening India–Japan relations.
+        - generic [ref=e151]:
+          - generic [ref=e152]:
+            - generic [ref=e153]: WU
+            - heading "Woxsen University" [level=3] [ref=e155]
+            - paragraph [ref=e156]: Hyderabad, India
+            - paragraph [ref=e158]: Academic Framework & Leadership · Global Engagement Programs · Interdisciplinary Learning
+            - generic [ref=e159]:
+              - generic [ref=e160]: Academic
+              - generic [ref=e161]: Leadership
+              - generic [ref=e162]: Research
+          - generic [ref=e163]:
+            - generic [ref=e164]: IB
+            - heading "Indobox Inc." [level=3] [ref=e166]
+            - paragraph [ref=e167]: Hyderabad, India
+            - paragraph [ref=e169]: Language Immersion Sessions · Career Guidance & Mentorship · Cultural Experiences
+            - generic [ref=e170]:
+              - generic [ref=e171]: Language
+              - generic [ref=e172]: Career
+              - generic [ref=e173]: Culture
+          - generic [ref=e174]:
+            - generic [ref=e175]: NJC
+            - heading "Nara Japan Centre" [level=3] [ref=e177]
+            - paragraph [ref=e178]: Nara, Japan
+            - paragraph [ref=e180]: Cultural Collaborations · Academic Exchanges · Long-term Relationship Building
+            - generic [ref=e181]:
+              - generic [ref=e182]: Cultural
+              - generic [ref=e183]: Exchange
+              - generic [ref=e184]: Partnership
+    - region [ref=e185]:
+      - generic [ref=e187]:
+        - generic [ref=e188]:
+          - generic [ref=e189]:
+            - generic [ref=e190]: Events & Activities
+            - heading "Where Culture Comes Alive" [level=2] [ref=e192]: Where CultureComes Alive
+          - link "All Events →" [ref=e194] [cursor=pointer]:
+            - /url: /events
+        - generic [ref=e195]:
+          - article [ref=e196]:
+            - generic [ref=e197]:
+              - generic [ref=e198]:
+                - paragraph [ref=e199]: FEB 2026
+                - paragraph [ref=e200]: "27"
+              - generic [ref=e201]: FLAGSHIP
+            - heading "Kizuna Matsuri" [level=3] [ref=e203]
+            - paragraph [ref=e204]: The flagship annual event of the Woxsen Japan Centre celebrating Indo-Japanese ties through cultural dialogue, workshops, and performances featuring dignitaries from Japan Foundation, Toshiba, and leading Japanese institutions.
+            - link "View Details — Kizuna Matsuri" [ref=e205] [cursor=pointer]:
+              - /url: /events/kizuna-matsuri
+              - text: View Details →
+          - article [ref=e206]:
+            - generic [ref=e207]:
+              - generic [ref=e208]:
+                - paragraph [ref=e209]: OCT 2025
+                - paragraph [ref=e210]: "25"
+              - generic [ref=e211]: FESTIVAL
+            - heading "Woxsen Japan Fest" [level=3] [ref=e213]
+            - paragraph [ref=e214]: Woxsen Japan Centre at the 30th Hyderabad Japan Festival, connecting with dignitaries from Japan Foundation, JETRO, and the Consulate General of Japan.
+            - link "View Details — Woxsen Japan Fest" [ref=e215] [cursor=pointer]:
+              - /url: /events/woxsen-japan-fest
+              - text: View Details →
+          - article [ref=e216]:
+            - generic [ref=e217]:
+              - generic [ref=e218]:
+                - paragraph [ref=e219]: SEP 2025
+                - paragraph [ref=e220]: "18"
+              - generic [ref=e221]: CULTURAL
+            - heading "Konnichiwa Woxsen" [level=3] [ref=e223]
+            - paragraph [ref=e224]: A vibrant celebration marking the launch of the Woxsen Japan Centre's Student Community with traditional crafts, Origami, Chopstick Challenge, and interactive gaming zones.
+            - link "View Details — Konnichiwa Woxsen" [ref=e225] [cursor=pointer]:
+              - /url: /events/konnichiwa-woxsen
+              - text: View Details →
+    - region [ref=e227]:
+      - generic [ref=e228]:
+        - generic [ref=e229]:
+          - generic [ref=e230]: Membership
+          - heading "Become Part of Something Meaningful" [level=2] [ref=e232]
+          - paragraph [ref=e233]: Join students, faculty, and professionals who are building bridges between India and Japan.
+        - generic [ref=e234]:
+          - generic [ref=e235]:
+            - generic [ref=e236]: Most Popular
+            - generic [ref=e237]:
+              - paragraph [ref=e238]: For enrolled students
+              - heading "Student Member" [level=3] [ref=e239]
+              - generic [ref=e240]:
+                - paragraph [ref=e241]: Free
+                - paragraph [ref=e242]: No cost, ever
+            - list [ref=e243]:
+              - listitem [ref=e244]: Japanese language classes access
+              - listitem [ref=e246]: Cultural events & festivals
+              - listitem [ref=e248]: Monthly newsletter
+              - listitem [ref=e250]: JLPT study groups
+            - link "Join the Centre" [ref=e252] [cursor=pointer]:
+              - /url: /join-us
+          - generic [ref=e253]:
+            - generic [ref=e254]:
+              - paragraph [ref=e255]: For educators & researchers
+              - heading "Faculty Member" [level=3] [ref=e256]
+              - generic [ref=e257]:
+                - paragraph [ref=e258]: Free
+                - paragraph [ref=e259]: Institutional membership
+            - list [ref=e260]:
+              - listitem [ref=e261]: Research collaboration network
+              - listitem [ref=e263]: Academic exchange programs
+              - listitem [ref=e265]: Faculty workshops & seminars
+              - listitem [ref=e267]: Publication opportunities
+            - link "Join the Centre" [ref=e269] [cursor=pointer]:
+              - /url: /join-us
+          - generic [ref=e270]:
+            - generic [ref=e271]:
+              - paragraph [ref=e272]: For industry professionals
+              - heading "Professional Member" [level=3] [ref=e273]
+              - generic [ref=e274]:
+                - paragraph [ref=e275]: ₹2,000
+                - paragraph [ref=e276]: Per year
+            - list [ref=e277]:
+              - listitem [ref=e278]: Industry networking events
+              - listitem [ref=e280]: Japan business insights
+              - listitem [ref=e282]: Exclusive delegation meets
+              - listitem [ref=e284]: Corporate partnership access
+            - link "Join the Centre" [ref=e286] [cursor=pointer]:
+              - /url: /join-us
+    - region [ref=e287]:
+      - generic [ref=e288]:
+        - generic [ref=e289]:
+          - generic [ref=e290]: Testimonials
+          - heading "Voices from Our Community" [level=2] [ref=e292]
+        - generic [ref=e293]:
+          - article [ref=e294]:
+            - paragraph [ref=e295]: “
+            - blockquote [ref=e296]:
+              - paragraph [ref=e297]: I feel that these classes have gotten me closer to the unique culture and language of Japan.
+              - generic [ref=e299]:
+                - paragraph [ref=e300]: Arjun Pal
+                - paragraph [ref=e301]: BCA — SOT
+          - article [ref=e302]:
+            - paragraph [ref=e303]: “
+            - blockquote [ref=e304]:
+              - paragraph [ref=e305]: I joined the Japanese course to learn the language, but they soon became the best part of my day. Each session is engaging and helps us learn not just the language, but also the culture in a clear and easy way. I get to learn something new every day without ever feeling overwhelmed.
+              - generic [ref=e307]:
+                - paragraph [ref=e308]: Sasha Kishore
+                - paragraph [ref=e309]: BSc
+          - article [ref=e310]:
+            - paragraph [ref=e311]: “
+            - blockquote [ref=e312]:
+              - paragraph [ref=e313]: Japanese classes at Woxsen have been the most fun language course I've taken. Maki sensei is very fun, relatable and takes her time helping us learn Japanese. Not only that but we cover a lot of aspects and is amazing.
+              - generic [ref=e315]:
+                - paragraph [ref=e316]: Hassini
+                - paragraph [ref=e317]: BBA, SOB
+    - region [ref=e318]:
+      - generic [ref=e320]:
+        - generic [ref=e321]:
+          - generic [ref=e322]: FAQ
+          - heading "Frequently Asked Questions" [level=2] [ref=e324]
+          - paragraph [ref=e325]: Everything you need to know about the Woxsen Japan Centre and how to get involved.
+          - link "japan.centre@woxsen.edu.in →" [ref=e327] [cursor=pointer]:
+            - /url: mailto:japan.centre@woxsen.edu.in
+        - generic [ref=e329]:
+          - generic [ref=e330]:
+            - heading [level=3] [ref=e331]:
+              - button "Who can join the Woxsen Japan Centre?" [ref=e332] [cursor=pointer]
+            - region "Who can join the Woxsen Japan Centre?":
+              - paragraph [ref=e336]: The Centre is open to all Woxsen University students, faculty, staff, and external professionals. We welcome anyone with a genuine interest in Japanese language, culture, or academic and industry collaboration.
+          - generic [ref=e337]:
+            - heading [level=3] [ref=e338]:
+              - button "What Japanese language levels are offered?" [ref=e339] [cursor=pointer]
+            - region "What Japanese language levels are offered?":
+              - paragraph [ref=e343]: We currently offer JLPT N5 (beginner) and N4 (elementary) preparation courses led by qualified instructors. We have plans to expand to N3 and beyond based on community demand.
+          - generic [ref=e344]:
+            - heading [level=3] [ref=e345]:
+              - button "Are there opportunities to visit Japan?" [ref=e346] [cursor=pointer]
+            - region "Are there opportunities to visit Japan?":
+              - paragraph [ref=e350]: Yes. Through our partnerships with Indobox Inc. and Nara Japan Centre, we facilitate student exchanges, internships, and study tours to Japan. These opportunities are announced throughout the academic year.
+          - generic [ref=e351]:
+            - heading [level=3] [ref=e352]:
+              - button "How often are cultural events held?" [ref=e353] [cursor=pointer]
+            - region "How often are cultural events held?":
+              - paragraph [ref=e357]: We host monthly cultural events, seasonal festivals aligned with the Japanese calendar, and an annual Indo-Japan Academic Summit. Our programming spans language workshops, film screenings, culinary experiences, and traditional arts.
+          - generic [ref=e358]:
+            - heading [level=3] [ref=e359]:
+              - button "Is membership free for students?" [ref=e360] [cursor=pointer]
+            - region "Is membership free for students?":
+              - paragraph [ref=e364]: Student membership is completely free of charge. Simply register using your Woxsen University email address. There are no hidden fees for language classes, cultural events, or community activities.
+          - generic [ref=e365]:
+            - heading [level=3] [ref=e366]:
+              - button "How can Japanese companies collaborate with the Centre?" [ref=e367] [cursor=pointer]
+            - region "How can Japanese companies collaborate with the Centre?":
+              - paragraph [ref=e371]: We warmly welcome industry partnerships, internship programs, and corporate collaborations. Please contact us at japan.centre@woxsen.edu.in with your collaboration proposal. With 1,400+ Japanese companies operating in India, we are positioned to create meaningful connections.
+    - region [ref=e372]:
+      - generic [ref=e374]:
+        - generic [ref=e375]:
+          - generic [ref=e376]: Stay Connected
+          - heading "The Japan Centre Dispatch" [level=2] [ref=e378]: The Japan CentreDispatch
+          - paragraph [ref=e379]: Monthly updates on events, cultural programs, JLPT enrolment windows, and opportunities for Indo-Japanese collaboration.
+        - generic [ref=e381]:
+          - generic [ref=e382]:
+            - generic [ref=e383]: Email Address
+            - textbox "Email Address" [ref=e384]:
+              - /placeholder: your@email.com
+          - button "Subscribe" [ref=e385] [cursor=pointer]
+    - region "Begin Your Journey" [ref=e386]:
+      - img "A Woxsen Japan Centre gathering" [ref=e389]
+      - generic [ref=e391]:
+        - generic [ref=e392]: Begin Your Journey
+        - heading [level=2] [ref=e394]:
+          - text: Japan is closer than
+          - emphasis [ref=e395]: you think.
+        - paragraph [ref=e396]: Join hundreds of students, faculty, and professionals building meaningful connections with Japan — through language, culture, and collaboration.
+        - generic [ref=e397]:
+          - link "Join the Community" [ref=e398] [cursor=pointer]:
+            - /url: /join-us
+          - link "Enrol in JLPT" [ref=e399] [cursor=pointer]:
+            - /url: /jlpt
+  - contentinfo [ref=e400]:
+    - generic [ref=e402]:
+      - generic [ref=e403]:
+        - generic [ref=e404]:
+          - generic [ref=e405]:
+            - generic [ref=e409]:
+              - paragraph [ref=e410]: WJC
+              - paragraph [ref=e411]: ウォクセン日本センター
+            - paragraph [ref=e412]: Essence of Japan, Within Reach.Woxsen University, Hyderabad.
+          - generic [ref=e414]:
+            - link "japan.centre@woxsen.edu.in" [ref=e415] [cursor=pointer]:
+              - /url: mailto:japan.centre@woxsen.edu.in
+            - paragraph [ref=e416]: Woxsen University, Hyderabad, Telangana 502345
+        - generic [ref=e417]:
+          - generic [ref=e418]:
+            - paragraph [ref=e419]: Explore
+            - generic [ref=e420]:
+              - link "About Us" [ref=e421] [cursor=pointer]:
+                - /url: /about
+              - link "Events" [ref=e422] [cursor=pointer]:
+                - /url: /events
+              - link "Gallery" [ref=e423] [cursor=pointer]:
+                - /url: /gallery
+              - link "Team" [ref=e424] [cursor=pointer]:
+                - /url: /team
+          - generic [ref=e425]:
+            - paragraph [ref=e426]: Programs
+            - generic [ref=e427]:
+              - link "JLPT N5" [ref=e428] [cursor=pointer]:
+                - /url: /jlpt
+              - link "JLPT N4" [ref=e429] [cursor=pointer]:
+                - /url: /jlpt
+              - link "Cultural Exchange" [ref=e430] [cursor=pointer]:
+                - /url: /programs
+              - link "Academic" [ref=e431] [cursor=pointer]:
+                - /url: /programs
+          - generic [ref=e432]:
+            - paragraph [ref=e433]: Community
+            - generic [ref=e434]:
+              - link "Join Us" [ref=e435] [cursor=pointer]:
+                - /url: /join-us
+              - link "Newsletter" [ref=e436] [cursor=pointer]:
+                - /url: /#newsletter
+              - link "Gallery" [ref=e437] [cursor=pointer]:
+                - /url: /gallery
+          - generic [ref=e438]:
+            - paragraph [ref=e439]: Connect
+            - generic [ref=e440]:
+              - link "Contact" [ref=e441] [cursor=pointer]:
+                - /url: mailto:japan.centre@woxsen.edu.in
+              - link "Partnerships" [ref=e442] [cursor=pointer]:
+                - /url: /about
+              - link "Delegations" [ref=e443] [cursor=pointer]:
+                - /url: /events
+              - link "JLPT Enrol" [ref=e444] [cursor=pointer]:
+                - /url: /jlpt
+      - generic [ref=e445]:
+        - paragraph [ref=e446]: © 2026 Woxsen Japan Centre. All rights reserved.
+        - generic [ref=e447]:
+          - link "Privacy" [ref=e448] [cursor=pointer]:
+            - /url: /privacy
+          - link "Terms" [ref=e449] [cursor=pointer]:
+            - /url: /terms
+          - generic [ref=e450]: 和敬清寂
+  - region "Seasonal theme switcher" [ref=e451]:
+    - button "Open theme switcher" [ref=e452] [cursor=pointer]:
+      - generic [ref=e453]: 絆
+  - alert [ref=e454]
