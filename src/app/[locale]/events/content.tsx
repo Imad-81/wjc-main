@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 
 import AppImage from "@/components/wjc/app-image"
 import { useReveal } from "@/components/wjc/use-reveal"
@@ -117,6 +117,48 @@ function TabsSection({ locale, dict }: SectionProps) {
     [],
   )
 
+  /*
+    `useReveal` observes the section once and then unobserves it, so it can
+    only ever stamp `.is-visible` on the cards that exist at that moment —
+    the default tab's. Every panel opened afterwards mounts fresh, keeps its
+    inline `opacity: 0`, and renders blank. Re-stamp on each tab change.
+
+    The first run is skipped deliberately: on mount the observer still owns
+    the reveal, and stamping here too would fire the animation before the
+    section has been scrolled into view.
+  */
+  const panelRef = useRef<HTMLDivElement>(null)
+  const isFirstRun = useRef(true)
+
+  /*
+    Deep link: `/events#next` (used by the home-page honours poster) opens
+    that tab. The hash names a tab rather than an element, so nothing scrolls
+    on its own — do it here. Reading it in an effect keeps the server and
+    first client render identical.
+  */
+  useEffect(() => {
+    const hash = window.location.hash.slice(1)
+    const tabs: ActiveTab[] = ["culture", "delegations", "outreach", "next"]
+    if (!tabs.includes(hash as ActiveTab)) return
+
+    setActive(hash as ActiveTab)
+    ref.current?.scrollIntoView({ behavior: "smooth", block: "start" })
+  }, [ref])
+
+  useEffect(() => {
+    if (isFirstRun.current) {
+      isFirstRun.current = false
+      return
+    }
+    const el = panelRef.current
+    if (!el) return
+
+    const timers = Array.from(el.querySelectorAll(".fade-up")).map((child, i) =>
+      setTimeout(() => child.classList.add("is-visible"), i * 80),
+    )
+    return () => timers.forEach(clearTimeout)
+  }, [active])
+
   const TABS: { id: ActiveTab; label: string; blurb: string }[] = [
     {
       id: "culture",
@@ -205,6 +247,7 @@ function TabsSection({ locale, dict }: SectionProps) {
           </p>
         </div>
 
+        <div ref={panelRef}>
         {/* ── Culture & Festivals tab ── */}
         {active === "culture" && (
           <>
@@ -556,11 +599,10 @@ function TabsSection({ locale, dict }: SectionProps) {
         )}
 
         {/* ── What's Next tab ── */}
+        {/* No outer frame on the grid: with a single entry a bordered grid
+            would leave an empty framed half. Each card carries its own. */}
         {active === "next" && (
-          <div
-            className="grid grid-cols-1 gap-px md:grid-cols-2"
-            style={{ border: "1px solid rgba(35,35,35,0.12)" }}
-          >
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {upcomingEvents.map((event, i) => (
               <div
                 key={event.title.en}
@@ -573,6 +615,26 @@ function TabsSection({ locale, dict }: SectionProps) {
                   backgroundColor: "rgba(248,247,244,0.45)",
                 }}
               >
+                {event.poster && (
+                  <div
+                    className="image-hover-zoom"
+                    style={{
+                      display: "inline-block",
+                      overflow: "hidden",
+                      marginBottom: "24px",
+                      border: "1px solid rgba(35,35,35,0.12)",
+                    }}
+                  >
+                    <AppImage
+                      src={event.poster.src}
+                      alt={event.poster.alt[locale]}
+                      width={162}
+                      height={216}
+                      sizes="162px"
+                      style={{ display: "block", width: "162px", height: "auto" }}
+                    />
+                  </div>
+                )}
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px", gap: "12px" }}>
                   <span style={{ fontSize: "10px", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--theme-accent)" }}>
                     {event.category[locale]}
@@ -587,6 +649,8 @@ function TabsSection({ locale, dict }: SectionProps) {
                 <p style={{ fontSize: "14px", lineHeight: 1.75, fontWeight: 300, color: "#5B5B5B", marginBottom: "20px" }}>
                   {event.description[locale]}
                 </p>
+                {/* A bespoke `status` is always something worth noticing, so
+                    it takes the accent treatment like an open registration. */}
                 <span
                   style={{
                     display: "inline-block",
@@ -595,16 +659,27 @@ function TabsSection({ locale, dict }: SectionProps) {
                     textTransform: "uppercase",
                     padding: "5px 14px",
                     border: "1px solid",
-                    borderColor: event.registrationOpen ? "var(--theme-accent)" : "rgba(35,35,35,0.2)",
-                    color: event.registrationOpen ? "var(--theme-accent)" : "#5B5B5B",
+                    borderColor:
+                      event.status || event.registrationOpen
+                        ? "var(--theme-accent)"
+                        : "rgba(35,35,35,0.2)",
+                    color:
+                      event.status || event.registrationOpen
+                        ? "var(--theme-accent)"
+                        : "#5B5B5B",
                   }}
                 >
-                  {event.registrationOpen ? dict.events.upcoming.open : dict.events.upcoming.soon}
+                  {event.status
+                    ? event.status[locale]
+                    : event.registrationOpen
+                      ? dict.events.upcoming.open
+                      : dict.events.upcoming.soon}
                 </span>
               </div>
             ))}
           </div>
         )}
+        </div>
       </div>
     </section>
   )

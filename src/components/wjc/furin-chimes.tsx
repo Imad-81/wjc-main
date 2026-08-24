@@ -29,6 +29,10 @@ const CLAUSES = [
   "柔らかな光を注ぎ、",
   "人は花鳥風月の美を",
   "静かに愛でる。",
+  "朝霧は湖面に漂い、",
+  "鳥居は水辺に佇む。",
+  "遠き峰に雪は残り、",
+  "春はまた巡り来る。",
 ]
 
 const STEPS = 16
@@ -93,29 +97,59 @@ function buildPalette(_accent: string, _highlight: string) {
 }
 
 /**
- * The gate's transparent archway, measured from the alpha channel of
- * hero-banner-front.webp (source 1536×1024). The chimes are clipped to this
- * rectangle so they hang inside the gateway and nowhere else.
+ * The torii's open span, measured from the alpha channel of foreground.webp
+ * (source 1536×1024). The chimes are clipped to this rectangle so they hang
+ * inside the gateway and nowhere else.
  */
 export interface Aperture {
   /** Natural size of the plate the rect was measured against. */
   image: { w: number; h: number }
   /** Archway rect in source pixels. */
   rect: { x: number; y: number; w: number; h: number }
-  /** Matches the plate's object-fit so the maths tracks the art exactly. */
+  /** Fallback fit, used only if the plate cannot be read from the DOM. */
   fit: "cover" | "contain"
-  /** The plate's object-position Y, 0..1. */
+  /** Fallback object-position X, 0..1. Same caveat. */
+  objectPositionX: number
+  /** Fallback object-position Y, 0..1. Same caveat. */
   objectPositionY: number
 }
 
+/** Class of the gate plate this layer registers against. */
+const PLATE_SELECTOR = ".wjc-hero-plate-front"
+
+/**
+ * Resolves one `object-position` component to a 0..1 fraction. Computed
+ * style hands back percentages in every current engine, but keywords are
+ * cheap to accept and a px value has no meaningful fraction without knowing
+ * the overflow, so that falls back to the configured value.
+ */
+function parsePosition(value: string, axis: "x" | "y", fallback: number) {
+  if (value.endsWith("%")) {
+    const n = Number.parseFloat(value)
+    return Number.isFinite(n) ? n / 100 : fallback
+  }
+  if (value === "center") return 0.5
+  if (axis === "x") {
+    if (value === "left") return 0
+    if (value === "right") return 1
+  } else {
+    if (value === "top") return 0
+    if (value === "bottom") return 1
+  }
+  return fallback
+}
+
 export const GATE_APERTURE: Aperture = {
-  // Raised above the doorway's top edge so the strands read as hanging from
-  // deep inside the gateway. The rect is allowed to overshoot the arch's
-  // curve — the gate plate sits above this layer and masks the overflow, so
-  // the strands simply emerge from behind the stonework.
-  image: { w: 1536, h: 1024 },
-  rect: { x: 605, y: 398, w: 323, h: 484 },
+  // The top edge is tucked up into the lower crossbeam (nuki, y 332–392) so
+  // the strands read as hanging from behind it rather than starting in mid
+  // air — the gate plate sits above this layer and masks the overlap. The
+  // pillars splay outward as they descend (inner edges 479→459 left,
+  // 1056→1070 right), so the rect stays inside the narrowest part of the span.
+  image: { w: 1536, h: 998 },
+  rect: { x: 487, y: 356, w: 562, h: 524 },
   fit: "contain",
+  objectPositionX: 1,
+  // Mirrors the plate's `object-position: right bottom`.
   objectPositionY: 1,
 }
 
@@ -171,34 +205,59 @@ export default function FurinChimes({
   }, [])
 
   /**
-   * Places the stage over the gate's archway.
+   * Places the stage over the gate's open span.
    *
-   * The plates are drawn with `object-fit: cover`, so the aperture's screen
-   * position depends on how the browser cropped them. This repeats that
-   * calculation rather than guessing with percentages, which would drift the
-   * moment the hero's aspect ratio changed.
+   * The plate is letterboxed or cropped depending on the breakpoint, so the
+   * aperture's screen position depends on how the browser fitted it. This
+   * repeats that calculation rather than guessing with percentages, which
+   * would drift the moment the hero's aspect ratio changed.
+   *
+   * Everything is measured off the plate element itself — its own box, its
+   * computed `object-fit` and `object-position`. Mirroring those in CSS on
+   * this layer instead is how the two drifted apart before: the host and the
+   * gate layer disagreed about their top inset below 720px, and the plate
+   * switched to `cover` there while this maths still assumed `contain`.
    */
   const positionStage = useCallback(() => {
     const host = hostRef.current
     const stage = stageRef.current
     if (!host || !stage) return false
 
-    const W = host.clientWidth
-    const H = host.clientHeight
+    const plate = document.querySelector<HTMLImageElement>(PLATE_SELECTOR)
+    const box = (plate ?? host).getBoundingClientRect()
+    const W = box.width
+    const H = box.height
     if (!W || !H) return false
 
-    const { image, rect, fit, objectPositionY } = aperture
+    const { image, rect } = aperture
+    const style = plate ? getComputedStyle(plate) : null
+    const fit =
+      style?.objectFit === "cover" || style?.objectFit === "contain"
+        ? style.objectFit
+        : aperture.fit
+    const axes = style ? style.objectPosition.split(/\s+/) : []
+    const positionX = style
+      ? parsePosition(axes[0] ?? "", "x", aperture.objectPositionX)
+      : aperture.objectPositionX
+    const positionY = style
+      ? parsePosition(axes[1] ?? "", "y", aperture.objectPositionY)
+      : aperture.objectPositionY
+
     const scale =
       fit === "contain"
         ? Math.min(W / image.w, H / image.h)
         : Math.max(W / image.w, H / image.h)
-    const renderedW = image.w * scale
-    const renderedH = image.h * scale
-    const offsetX = (W - renderedW) * 0.5
-    const offsetY = (H - renderedH) * objectPositionY
+    // Signed either way: letterboxed plates have slack to distribute,
+    // cropped ones have overflow to pull back, and the same product works.
+    const offsetX = (W - image.w * scale) * positionX
+    const offsetY = (H - image.h * scale) * positionY
 
-    stage.style.left = `${offsetX + rect.x * scale}px`
-    stage.style.top = `${offsetY + rect.y * scale}px`
+    // Both layers carry the same parallax transform, so the difference
+    // between their client rects is pure layout offset.
+    const hostBox = host.getBoundingClientRect()
+
+    stage.style.left = `${box.left - hostBox.left + offsetX + rect.x * scale}px`
+    stage.style.top = `${box.top - hostBox.top + offsetY + rect.y * scale}px`
     stage.style.width = `${rect.w * scale}px`
     stage.style.height = `${rect.h * scale}px`
     return true

@@ -6,6 +6,13 @@ import { useReveal } from "../use-reveal"
 import { localizePath, type Locale } from "@/i18n/config"
 import type { Dictionary } from "@/i18n/types"
 
+/** The three pictured at the Centre's inauguration, left to right. */
+const ATTENDEES = [
+  "Mr. Tetsuya Yamada",
+  "Dr. Brundaban Mishra",
+  "Mr. Daisuke Tanji",
+]
+
 export default function AboutSection({
   locale,
   dict,
@@ -65,7 +72,7 @@ export default function AboutSection({
                 fontSize: "17px",
                 lineHeight: 1.8,
                 maxWidth: "540px",
-                marginBottom: "20px",
+                marginBottom: dict.home.about.body2 ? "20px" : "44px",
                 fontWeight: 300,
                 color: "#5B5B5B",
                 opacity: 0,
@@ -74,20 +81,22 @@ export default function AboutSection({
               {dict.home.about.body}
             </p>
 
-            <p
-              className="fade-up"
-              style={{
-                fontSize: "17px",
-                lineHeight: 1.8,
-                maxWidth: "540px",
-                marginBottom: "44px",
-                fontWeight: 300,
-                color: "#5B5B5B",
-                opacity: 0,
-              }}
-            >
-              {dict.home.about.body2}
-            </p>
+            {dict.home.about.body2 ? (
+              <p
+                className="fade-up"
+                style={{
+                  fontSize: "17px",
+                  lineHeight: 1.8,
+                  maxWidth: "540px",
+                  marginBottom: "44px",
+                  fontWeight: 300,
+                  color: "#5B5B5B",
+                  opacity: 0,
+                }}
+              >
+                {dict.home.about.body2}
+              </p>
+            ) : null}
 
 
 
@@ -109,85 +118,45 @@ export default function AboutSection({
             </div>
           </div>
 
-          {/* Right — asymmetric image grid */}
-          <div
-            className="fade-up relative"
-            style={{ opacity: 0 }}
-            aria-label={
-              locale === "ja"
-                ? "ウォクセン日本センターの活動写真"
-                : "Images from the Woxsen Japan Centre"
-            }
-          >
-            <div className="grid grid-cols-5 gap-4" style={{ height: "560px" }}>
+          {/* Right — inauguration photograph */}
+          <div className="fade-up relative" style={{ opacity: 0 }}>
+            <div className="image-hover-zoom relative aspect-[4/3] overflow-hidden">
+              <AppImage
+                src="/images/others/woxsen-japan-center.jpg"
+                alt={
+                  locale === "ja"
+                    ? "ウォクセン日本センター開設式"
+                    : "The inauguration of the Woxsen Japan Centre"
+                }
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover"
+              />
+
+              {/* Names of those pictured. The scrim starts well above the text
+                  so it fades into the photograph rather than banding across it. */}
               <div
-                className="image-hover-zoom col-span-3"
-                style={{ overflow: "hidden", height: "100%" }}
+                className="absolute inset-x-0 bottom-0"
+                style={{
+                  padding: "80px 24px 22px",
+                  background:
+                    "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.42) 45%, transparent 100%)",
+                }}
               >
-                <AppImage
-                  src="/images/events/kizuna-matsuri/DSC09428-compressed-compressed-compressed.jpg"
-                  alt={
-                    locale === "ja"
-                      ? "絆祭りの様子"
-                      : "Kizuna Matsuri at the Woxsen Japan Centre"
-                  }
-                  width={480}
-                  height={560}
-                  className="h-full w-full object-cover"
-                  style={{ objectPosition: "center" }}
-                />
-              </div>
-
-              <div className="col-span-2 flex flex-col gap-4">
-                <div className="image-hover-zoom flex-1" style={{ overflow: "hidden" }}>
-                  <AppImage
-                    src="/images/events/konnichiwa-woxsen/event5.jpeg"
-                    alt={
-                      locale === "ja"
-                        ? "こんにちはウォクセンの様子"
-                        : "Konnichiwa Woxsen student community launch"
-                    }
-                    width={300}
-                    height={270}
-                    className="h-full w-full object-cover"
-                    style={{ objectPosition: "center" }}
-                  />
-                </div>
-
-                {/* Director quote card */}
-                <div
-                  style={{
-                    flex: "0 0 auto",
-                    padding: "24px",
-                    backgroundColor: "#232323",
-                    border: "1px solid var(--theme-border-dark)",
-                  }}
-                >
-                  <p
-                    className="font-serif"
-                    style={{
-                      fontSize: "15px",
-                      color: "#F8F7F4",
-                      lineHeight: 1.6,
-                      fontStyle: "italic",
-                      fontWeight: 300,
-                      marginBottom: "12px",
-                    }}
-                  >
-                    &ldquo;{dict.home.about.quote}&rdquo;
-                  </p>
-                  <p
-                    style={{
-                      fontSize: "11px",
-                      color: "rgba(248,247,244,0.50)",
-                      letterSpacing: "0.1em",
-                      textTransform: "uppercase",
-                    }}
-                  >
-                    {dict.home.about.quoteAuthor}
-                    <br />
-                    {dict.home.about.quoteRole}
-                  </p>
+                <div className="flex flex-wrap gap-x-6 gap-y-2">
+                  {ATTENDEES.map((name) => (
+                    <span
+                      key={name}
+                      style={{
+                        fontSize: "14px",
+                        letterSpacing: "0.03em",
+                        color: "rgba(255,255,255,0.90)",
+                        fontFamily: "var(--font-dm-sans)",
+                      }}
+                    >
+                      {name}
+                    </span>
+                  ))}
                 </div>
               </div>
             </div>

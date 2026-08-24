@@ -6,67 +6,46 @@ export interface UpcomingEvent {
   category: L
   description: L
   registrationOpen: boolean
+  /**
+   * Overrides the registration pill. Use for events where "Registration Open"
+   * and "Coming Soon" both read wrong — a ceremony nobody signs up for, or an
+   * event happening today. Change it by hand as the date passes.
+   */
+  status?: L
+  /** Optional poster. Rendered as a thumbnail at the head of the card. */
+  poster?: { src: string; alt: L }
 }
 
 /**
- * "What's Coming" — reproduced from the approved prototype.
+ * "What's Next" — the Centre's confirmed upcoming events.
  *
- * ⚠️ These events are not in the Centre's own records; they came from the
- * prototype. Confirm dates and confirm each event is actually planned
- * before publishing.
+ * The prototype's four placeholder entries (Natsu Matsuri, JLPT N5 Batch 2,
+ * Tea Ceremony, Setsubun) were removed: none was in the Centre's records and
+ * all four had drifted into the past.
  */
 export const upcomingEvents: UpcomingEvent[] = [
   {
+    // The honours poster carried in the home-page hero. Details are taken
+    // from the poster artwork itself (toshiba-honours.webp).
     title: {
-      en: "Natsu Matsuri — Summer Festival",
-      ja: "夏祭り — サマーフェスティバル",
+      en: "Woxsen Leadership Distinction Award 2026",
+      ja: "ウォクセン・リーダーシップ・ディスティンクション賞 2026",
     },
-    date: { en: "August 2025", ja: "2025年8月" },
-    category: { en: "Festival", ja: "祭り" },
+    date: { en: "24 August 2026", ja: "2026年8月24日" },
+    category: { en: "Honours", ja: "顕彰" },
     description: {
-      en: "An immersive summer festival celebrating Japanese traditions with food, games, performances, and cultural activities.",
-      ja: "食、遊び、公演、文化体験を通じて日本の伝統を祝う、没入型の夏祭りです。",
-    },
-    registrationOpen: true,
-  },
-  {
-    title: {
-      en: "JLPT N5 Batch 2 — Orientation",
-      ja: "JLPT N5 第2期 — オリエンテーション",
-    },
-    date: { en: "September 2025", ja: "2025年9月" },
-    category: { en: "Academic", ja: "学術" },
-    description: {
-      en: "Orientation session for the second cohort of JLPT N5 students. Meet your instructors and fellow learners.",
-      ja: "JLPT N5 第2期生のためのオリエンテーションです。講師や仲間と顔を合わせる機会です。",
-    },
-    registrationOpen: true,
-  },
-  {
-    title: {
-      en: "Japanese Tea Ceremony Workshop",
-      ja: "茶道ワークショップ",
-    },
-    date: { en: "October 2025", ja: "2025年10月" },
-    category: { en: "Workshop", ja: "ワークショップ" },
-    description: {
-      en: "An intimate workshop exploring the philosophy and practice of Chado — the Japanese way of tea.",
-      ja: "茶道 — 日本の茶の湯 — の哲学と作法を少人数で学ぶワークショップです。",
+      en: "Woxsen University confers the Woxsen Leadership Distinction Award 2026 on Mr. Hiroshi Furuta, Chairman & Managing Director of Toshiba Transmission & Distribution Systems (India) Pvt. Ltd., in recognition of his leadership in Indo-Japanese industrial partnership.",
+      ja: "ウォクセン大学は、東芝トランスミッション＆ディストリビューションシステムズ（インド）会長兼マネージングディレクターの古田博氏に、日印の産業連携における指導的役割を称え、ウォクセン・リーダーシップ・ディスティンクション賞2026を授与いたします。",
     },
     registrationOpen: false,
-  },
-  {
-    title: {
-      en: "Setsubun — Bean Throwing Festival",
-      ja: "節分 — 豆まきの行事",
+    status: { en: "Happening Today", ja: "本日開催" },
+    poster: {
+      src: "/images/hero-banner/toshiba-honours.webp",
+      alt: {
+        en: "Woxsen University Honours — Mr. Hiroshi Furuta, Chairman & Managing Director, Toshiba Transmission & Distribution Systems (India) Pvt. Ltd., recipient of the Woxsen Leadership Distinction Award 2026.",
+        ja: "ウォクセン大学栄誉 — 東芝トランスミッション＆ディストリビューションシステムズ（インド）会長兼マネージングディレクター、古田博氏。ウォクセン・リーダーシップ・ディスティンクション賞2026受賞。",
+      },
     },
-    date: { en: "February 2026", ja: "2026年2月" },
-    category: { en: "Festival", ja: "祭り" },
-    description: {
-      en: "Celebrate the traditional Japanese spring festival with bean throwing, oni masks, and seasonal foods.",
-      ja: "豆まき、鬼のお面、季節の食を通じて、日本の伝統的な春の行事を祝います。",
-    },
-    registrationOpen: false,
   },
 ]
 

@@ -125,7 +125,7 @@ Kizuna Matsuri brought together delegates, artists, and the university community
         isoDate: "2025-09-11",
         displayDate: { en: "September 11, 2025", ja: "2025年9月11日" },
         category: { en: "CULTURAL | ACADEMICS", ja: "文化 | 学術" },
-        tab: "outreach",
+        tab: "culture",
         title: {
             en: "Japanese Cultural Immersion",
             ja: "ジャパニーズ・カルチュラル・イマージョン",
@@ -211,8 +211,11 @@ Kizuna Matsuri brought together delegates, artists, and the university community
         filter: "festival",
         isoDate: "2025-10-25",
         displayDate: { en: "October 25 & 26, 2025", ja: "2025年10月25日・26日" },
+        // The Delegations tab renders from `events-extra.delegations`, not from
+        // `pastEvents`, so this has to sit on `culture` to appear at all — which
+        // is where a festival belongs anyway.
         category: { en: "FESTIVAL | CULTURAL", ja: "祭り | 文化" },
-        tab: "delegations",
+        tab: "culture",
         title: { en: "Woxsen Japan Fest", ja: "ウォクセン・ジャパン・フェスト" },
         description: {
             en: "Woxsen Japan Centre at the 30th Hyderabad Japan Festival, connecting with dignitaries from Japan Foundation, JETRO, and the Consulate General of Japan.",

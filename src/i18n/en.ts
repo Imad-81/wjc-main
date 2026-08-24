@@ -88,11 +88,10 @@ export const en = {
 
     about: {
       label: "About the Centre",
-      title: "A Bridge Between",
-      titleEmphasis: "Two Worlds",
-      body: "The Woxsen Japan Centre supports Japanese language education, cultural initiatives, academic collaboration, and international partnerships — creating opportunities for students and faculty to engage with Japan's traditions, values, and contemporary practices.",
-      body2:
-        "Through interdisciplinary participation and experiential learning, we foster global awareness, cross-cultural understanding, and meaningful international exposure within the university community.",
+      title: "Bridging Cultures,",
+      titleEmphasis: "Building Futures",
+      body: "The Woxsen Japan Centre is a university-led initiative that aims to promote intercultural understanding and strengthen the India–Japan relationship through academic collaboration, cultural exchange, and professional engagement. The Centre was inaugurated on 2nd April 2025 by Mr. Muneo Takahashi, Consul-General of Japan in Chennai, and established with the active support and guidance of Mr. Tetsuya Yamada of Sanwa Kogyo Holdings Inc. (Japan). Located at Woxsen University’s Hyderabad campus, the Centre serves as a platform for students and faculty to engage with Japan’s culture, industries, and contemporary society.",
+      body2: "",
       /** Inline stat row beneath the About copy, as in the prototype. */
       inlineStats: [
         { value: "2025", label: "Inaugurated" },

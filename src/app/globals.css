@@ -715,7 +715,7 @@
    on mobile the bar wraps to 2x2 and is roughly twice as tall, which is what
    was overlapping the copy. */
 .wjc-hero-content {
-  padding: 96px 24px 240px;
+  padding: 96px 24px 186px;
 }
 
 .wjc-hero-inner {
@@ -725,8 +725,12 @@
 }
 
 @media (min-width: 721px) {
+  /* The column is bottom-aligned (justify-end), so this padding is what sets
+     how far above the stats bar the CTAs land. 100px puts them 16px clear of
+     the 84px bar — as low as the stack can sit — and every pixel taken off
+     here is a pixel the poster above the headline gets back. */
   .wjc-hero-content {
-    padding: 72px 130px 110px 0;
+    padding: 72px 130px 88px 0;
   }
   .wjc-hero-inner {
     padding: 0 52px;
@@ -786,13 +790,16 @@
   transition: transform 80ms linear;
 }
 
-/* Near plate. Inset from the top so the gate roof clears the navigation, and
-   contained rather than cropped so the whole gate reads. */
+/* Near plate. Contained rather than cropped so the whole gate reads. The top
+   inset is what sets its size: `contain` is height-bound on any landscape
+   hero, so the plate fills this box's height exactly — pushing the inset down
+   shortens the gate and drops it into the lower band of the hero in one move.
+   Keep .wjc-chime-host on the same inset. */
 .wjc-gate-layer {
   position: absolute;
   left: 0;
   right: 0;
-  top: 84px;
+  top: 32%;
   bottom: 0;
   transform: translate3d(0, var(--wjc-gate-shift, 0px), 0);
   will-change: transform;
@@ -802,12 +809,6 @@
 @media (max-width: 720px) {
   .wjc-gate-layer {
     top: 64px;
-  }
-  /* Contain leaves the gate as a thin strip on a tall portrait screen.
-     Cover keeps it filling the frame with the archway centred. */
-  .wjc-gate-layer .wjc-hero-plate-front {
-    object-fit: cover !important;
-    object-position: center 62% !important;
   }
 }
 
@@ -837,20 +838,65 @@
   position: absolute;
   left: 0;
   right: 0;
-  top: 84px;
+  /* Must match .wjc-gate-layer exactly: the stage maps the gate's archway
+     from this box, so changing the inset would rescale the aperture. To move
+     the chimes alone, use --wjc-chime-lift below (negative = up). */
+  top: 32%;
   bottom: 0;
   z-index: 1;
   pointer-events: none;
-  transform: translate3d(0, var(--wjc-gate-shift, 0px), 0);
+  --wjc-chime-lift: -26px;
+  transform: translate3d(
+    0,
+    calc(var(--wjc-gate-shift, 0px) + var(--wjc-chime-lift)),
+    0
+  );
   will-change: transform;
 }
 
-/* The archway renders about 80px wide on a phone: the glyphs are illegible
-   and there is nothing meaningful to sweep. Cheaper and calmer to drop the
-   layer than to ship a broken version of it. */
+/* Honours card in the hero's right-hand space. Sized to overlap the gate
+   deliberately — it reads as pinned in front of the scene rather than
+   tucked into a gap. It still has to clear the 560px copy column, which is
+   what the upper clamp and the 1280 floor between them buy: below that the
+   card would reach the headline, so it drops out instead. */
+/* Height-driven: the card sits in the copy column above the headline, where
+   its 3:4 would otherwise push the CTAs off the bottom of a short hero.
+
+   Tiered by viewport height rather than clamped once, because the rest of the
+   column is a near-fixed ~326px of type — so the room left over for the
+   poster grows much faster than the viewport does. A single value big enough
+   for a 1440px-tall screen buries the headline under the nav at 720px, and a
+   single value safe at 720px wastes half the screen at 1440px.
+
+   Each tier is set so the top of the stack still clears the 84px nav at the
+   shortest viewport in its band. Width follows from the poster's own ratio. */
+.wjc-hero-honours img {
+  height: clamp(158px, 28vh, 211px);
+  width: auto;
+}
+
+@media (min-height: 760px) {
+  /* 38, not 40: the wider gap under the poster can push the tagline to a
+     fifth line, and this band has the least headroom to absorb it. */
+  .wjc-hero-honours img {
+    height: clamp(229px, 33vh, 422px);
+  }
+}
+
+@media (min-height: 880px) {
+  .wjc-hero-honours img {
+    /* The cap is the copy column: 700px tall is 527px wide against a 560px
+       column, so this is the last size that still reads as a lede above the
+       text rather than a stray image the headline hangs off. */
+    height: clamp(334px, 41vh, 616px);
+  }
+}
+
+/* Matches the gate layer's inset at every breakpoint. They drifted apart
+   once — a 20px disagreement here hangs the strands 20px off the beam. */
 @media (max-width: 720px) {
   .wjc-chime-host {
-    display: none;
+    top: 64px;
   }
 }
 
