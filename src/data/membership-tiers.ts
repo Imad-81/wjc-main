@@ -109,7 +109,7 @@ export const impactStats: ImpactStat[] = [
   {
     prefix: "",
     value: 18,
-    suffix: "",
+    suffix: "+",
    label: { en: "Student Leaders", ja: "学生リーダー" },
   },
   {

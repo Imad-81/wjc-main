@@ -29,12 +29,12 @@ export const centreFaqs: Faq[] = [
   },
   {
     question: {
-      en: "Are there opportunities to visit Japan?",
-      ja: "日本を訪れる機会はありますか?",
+      en: "Does the Japan Center collaborate with Japanese companies?",
+      ja: "日本センターは日本企業と連携していますか?",
     },
     answer: {
-      en: "Yes. Through our partnerships with Indobox Inc. and Nara Japan Centre, we facilitate student exchanges, internships, and study tours to Japan. These opportunities are announced throughout the academic year.",
-      ja: "はい。インドボックス株式会社および奈良ジャパンセンターとの提携を通じて、学生交換、インターンシップ、日本へのスタディツアーを実施しています。これらの機会は学年を通じてご案内します。",
+      en: "Yes, the center works to build industry linkages with Japanese organizations for internships, research, and innovation projects.",
+      ja: "はい。当センターは、インターンシップ、研究、イノベーションプロジェクトに向けて、日本の組織との産業連携の構築に取り組んでいます。",
     },
   },
   {
@@ -43,8 +43,8 @@ export const centreFaqs: Faq[] = [
       ja: "文化行事はどのくらいの頻度で開催されますか?",
     },
     answer: {
-      en: "We host monthly cultural events, seasonal festivals aligned with the Japanese calendar, and an annual Indo-Japan Academic Summit. Our programming spans language workshops, film screenings, culinary experiences, and traditional arts.",
-      ja: "毎月の文化行事、日本の暦に合わせた季節の祭り、そして年次の日印学術サミットを開催しています。語学ワークショップ、映画上映、食体験、伝統芸術まで幅広く企画しています。",
+      en: "Our events and cultural initiatives are organized throughout the year, with programs generally held every two months, depending on the academic and cultural calendar. We also regularly welcome delegations and facilitate opportunities for meaningful Indo-Japan cultural and academic exchange.",
+      ja: "当センターのイベントや文化的な取り組みは年間を通じて開催され、学術・文化カレンダーに応じて通常2か月ごとにプログラムが実施されます。また、定期的に代表団をお迎えし、有意義な日印文化・学術交流の機会を創出しています。",
     },
   },
   {
@@ -53,8 +53,8 @@ export const centreFaqs: Faq[] = [
       ja: "学生のメンバーシップは無料ですか?",
     },
     answer: {
-      en: "Student membership is completely free of charge. Simply register using your Woxsen University email address. There are no hidden fees for language classes, cultural events, or community activities.",
-      ja: "学生メンバーシップは完全に無料です。ウォクセン大学のメールアドレスでご登録いただくだけです。語学クラス、文化行事、コミュニティ活動に追加費用は一切かかりません。",
+      en: "Joining the Woxsen Japan Center student community is completely free of charge. Interested students are required to go through a brief interview process as part of the membership and selection process. While student community participation is free, our Japanese Language Courses, offered across different proficiency levels, are available at an additional fee, inclusive of applicable GST.",
+      ja: "ウォクセン日本センターの学生コミュニティへの参加は完全無料です。メンバーシップおよび選考プロセスの一環として、希望する学生には簡単な面談を受けていただきます。学生コミュニティへの参加は無料ですが、各レベルに応じた日本語コースは所定の税（GST）を含む受講料が別途必要となります。",
     },
   },
   {
@@ -63,8 +63,8 @@ export const centreFaqs: Faq[] = [
       ja: "日本企業はどのように連携できますか?",
     },
     answer: {
-      en: "We warmly welcome industry partnerships, internship programs, and corporate collaborations. Please contact us at japan.centre@woxsen.edu.in with your collaboration proposal. With 1,400+ Japanese companies operating in India, we are positioned to create meaningful connections.",
-      ja: "産業連携、インターンシップ制度、企業との協働を心より歓迎します。ご提案は japan.centre@woxsen.edu.in までお寄せください。インドで事業を展開する1,400社以上の日本企業とのあいだに、意義あるつながりを築いてまいります。",
+      en: "We warmly welcome industry partnerships, internship programs, and corporate collaborations. Please contact us at japan.centre@woxsen.edu.in with your collaboration proposal.",
+      ja: "産業連携、インターンシップ制度、企業との協働を心より歓迎します。ご提案は japan.centre@woxsen.edu.in までお寄せください。",
     },
   },
 ]

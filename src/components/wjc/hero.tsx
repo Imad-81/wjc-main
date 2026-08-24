@@ -40,7 +40,7 @@ interface SeasonVisuals {
 const VISUALS: Record<SeasonId, SeasonVisuals> = {
   original: {
     overlay:
-      "linear-gradient(108deg, rgba(5,3,2,0.94) 0%, rgba(5,3,2,0.80) 30%, rgba(5,3,2,0.40) 58%, rgba(5,3,2,0.06) 100%)",
+      "linear-gradient(108deg, rgba(5,3,2,0.68) 0%, rgba(5,3,2,0.58) 30%, rgba(5,3,2,0.28) 58%, rgba(5,3,2,0.04) 100%)",
     accent: "#C0392B",
     statsBarBg: "rgba(8,5,3,0.92)",
     statsBarBorder: "rgba(192,57,43,0.20)",
@@ -53,7 +53,7 @@ const VISUALS: Record<SeasonId, SeasonVisuals> = {
   },
   natsu: {
     overlay:
-      "linear-gradient(108deg, rgba(3,5,14,0.95) 0%, rgba(3,5,14,0.82) 30%, rgba(3,5,14,0.40) 58%, rgba(3,5,14,0.06) 100%)",
+      "linear-gradient(108deg, rgba(3,5,14,0.68) 0%, rgba(3,5,14,0.59) 30%, rgba(3,5,14,0.28) 58%, rgba(3,5,14,0.04) 100%)",
     accent: "#E85D04",
     statsBarBg: "rgba(3,5,14,0.93)",
     statsBarBorder: "rgba(232,93,4,0.20)",
@@ -66,7 +66,7 @@ const VISUALS: Record<SeasonId, SeasonVisuals> = {
   },
   tanabata: {
     overlay:
-      "linear-gradient(108deg, rgba(2,2,14,0.96) 0%, rgba(2,2,14,0.84) 30%, rgba(2,2,14,0.44) 58%, rgba(2,2,14,0.08) 100%)",
+      "linear-gradient(108deg, rgba(2,2,14,0.69) 0%, rgba(2,2,14,0.60) 30%, rgba(2,2,14,0.31) 58%, rgba(2,2,14,0.05) 100%)",
     accent: "#9B59B6",
     statsBarBg: "rgba(2,2,14,0.93)",
     statsBarBorder: "rgba(155,89,182,0.20)",
@@ -79,7 +79,7 @@ const VISUALS: Record<SeasonId, SeasonVisuals> = {
   },
   setsubun: {
     overlay:
-      "linear-gradient(108deg, rgba(16,7,3,0.95) 0%, rgba(16,7,3,0.82) 30%, rgba(16,7,3,0.42) 58%, rgba(16,7,3,0.08) 100%)",
+      "linear-gradient(108deg, rgba(16,7,3,0.68) 0%, rgba(16,7,3,0.59) 30%, rgba(16,7,3,0.30) 58%, rgba(16,7,3,0.05) 100%)",
     accent: "#C45A1A",
     statsBarBg: "rgba(16,7,3,0.93)",
     statsBarBorder: "rgba(196,90,26,0.20)",
@@ -92,7 +92,7 @@ const VISUALS: Record<SeasonId, SeasonVisuals> = {
   },
   hikari: {
     overlay:
-      "linear-gradient(108deg, rgba(2,2,2,0.96) 0%, rgba(2,2,2,0.84) 30%, rgba(2,2,2,0.44) 58%, rgba(2,2,2,0.08) 100%)",
+      "linear-gradient(108deg, rgba(2,2,2,0.69) 0%, rgba(2,2,2,0.60) 30%, rgba(2,2,2,0.31) 58%, rgba(2,2,2,0.05) 100%)",
     accent: "#C9A84C",
     statsBarBg: "rgba(2,2,2,0.93)",
     statsBarBorder: "rgba(201,168,76,0.20)",
@@ -655,11 +655,11 @@ export default function Hero({
             stay in register, which next/image complicates. */}
         <img
           className="wjc-hero-plate"
-          src="/images/hero-banner/hero-banner-bg.webp"
+          src="/images/hero-banner/background.webp"
           alt={
             locale === "ja"
-              ? "山々に囲まれた寺院の境内"
-              : "Temple courtyard set among mist-covered mountains"
+              ? "湾を望む展望台から見た富士山"
+              : "Mount Fuji seen across the bay from a hilltop lookout"
           }
           style={{
             position: "absolute",
@@ -667,7 +667,9 @@ export default function Hero({
             width: "100%",
             height: "100%",
             objectFit: "cover",
-            objectPosition: "center 45%",
+            // Y past 50% pulls the plate upward through the crop, lifting the
+            // peak and letting more of the near shoreline into the frame.
+            objectPosition: "right 60%",
           }}
         />
       </div>
@@ -690,7 +692,7 @@ export default function Hero({
         {/* eslint-disable-next-line @next/next/no-img-element -- see above */}
         <img
           className="wjc-hero-plate wjc-hero-plate-front"
-          src="/images/hero-banner/hero-banner-front.webp"
+          src="/images/hero-banner/foreground.webp"
           alt=""
           style={{
             position: "absolute",
@@ -698,7 +700,14 @@ export default function Hero({
             width: "100%",
             height: "100%",
             objectFit: "contain",
-            objectPosition: "center bottom",
+            // X parks the gate on the right edge, clearing the copy column.
+            // Y pins its base to the floor of the box, which is the floor of
+            // the hero. Landscape is height-bound so the plate already fills
+            // the box and Y is a no-op; it only bites on portrait, where
+            // `contain` is width-bound and the gate would otherwise float.
+            //
+            // FurinChimes reads both off this element — see GATE_APERTURE.
+            objectPosition: "right bottom",
           }}
         />
       </div>
@@ -712,14 +721,14 @@ export default function Hero({
           style={{
             height: "260px",
             background:
-              "linear-gradient(to top, rgba(0,0,0,0.86) 0%, transparent 100%)",
+              "linear-gradient(to top, rgba(0,0,0,0.60) 0%, transparent 100%)",
           }}
         />
         <div
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(ellipse at 70% 50%, transparent 40%, rgba(0,0,0,0.35) 100%)",
+              "radial-gradient(ellipse at 70% 50%, transparent 40%, rgba(0,0,0,0.18) 100%)",
           }}
         />
       </div>
@@ -769,18 +778,53 @@ export default function Hero({
       <div
         // Transparent to pointers so the chimes behind the gate stay
         // reachable; the inner block takes events back for its own links.
-        className="wjc-hero-content pointer-events-none relative z-20 flex h-full flex-col justify-center"
+        className="wjc-hero-content pointer-events-none relative z-20 flex h-full flex-col justify-end"
       >
         <div
           className="wjc-hero-inner"
         >
           <div className="pointer-events-auto" style={{ maxWidth: "560px" }}>
-
+            {/*
+              Honours card, sitting above the headline in the copy column.
+              Sized by height so its 3:4 cannot push the headline off a short
+              hero — see .wjc-hero-honours.
+            */}
+            <div
+              className="wjc-hero-honours fade-up is-visible"
+              style={{ marginBottom: "20px", transitionDelay: "0.1s" }}
+            >
+              {/* `#next` opens the What's Next tab, where this award has its
+                  own entry — see the hash handler in events/content.tsx. */}
+              <Link
+                href={`${localizePath("/events", locale)}#next`}
+                className="btn-lift"
+                style={{ display: "inline-block" }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element -- sized
+                    by height here, which next/image fights. */}
+                <img
+                  src="/images/hero-banner/toshiba-honours.webp"
+                  alt={
+                    locale === "ja"
+                      ? "ウォクセン大学栄誉 — 東芝トランスミッション＆ディストリビューションシステムズ（インド）会長兼マネージングディレクター、古田博氏。ウォクセン・リーダーシップ・ディスティンクション賞2026受賞。詳細を見る。"
+                      : "Woxsen University Honours — Mr. Hiroshi Furuta, Chairman & Managing Director, Toshiba Transmission & Distribution Systems (India) Pvt. Ltd., recipient of the Woxsen Leadership Distinction Award 2026. View details."
+                  }
+                  style={{
+                    display: "block",
+                    borderRadius: "2px",
+                    // The poster is cream on a dark hero, so it needs no scrim —
+                    // just a hairline to stop it floating and a soft drop.
+                    border: "1px solid rgba(255,255,255,0.12)",
+                    boxShadow: "0 24px 64px rgba(0,0,0,0.48)",
+                  }}
+                />
+              </Link>
+            </div>
 
             <h1
               className="fade-up is-visible font-serif"
               style={{
-                fontSize: "clamp(32px, 5.4vw, 68px)",
+                fontSize: "clamp(28px, 4.2vw, 54px)",
                 fontWeight: 300,
                 lineHeight: 1.06,
                 letterSpacing: "-0.018em",
@@ -794,13 +838,13 @@ export default function Hero({
             <h1
               className="fade-up is-visible font-serif"
               style={{
-                fontSize: "clamp(32px, 5.4vw, 68px)",
+                fontSize: "clamp(28px, 4.2vw, 54px)",
                 fontWeight: 300,
                 lineHeight: 1.06,
                 letterSpacing: "-0.018em",
                 color: cfg.accent,
                 transitionDelay: "0.26s",
-                marginBottom: "16px",
+                marginBottom: "12px",
                 transition: "color 0.7s ease",
               }}
             >
@@ -813,84 +857,98 @@ export default function Hero({
                 width: "44px",
                 height: "1.5px",
                 backgroundColor: cfg.accent,
-                marginBottom: "30px",
+                marginBottom: "20px",
                 transitionDelay: "0.32s",
                 transition: "background-color 0.7s ease",
               }}
               aria-hidden="true"
             />
 
-            <p
-              className="fade-up is-visible"
-              style={{
-                fontSize: "15px",
-                lineHeight: 1.85,
-                maxWidth: "400px",
-                color: "rgba(245,242,238,0.76)",
-                transitionDelay: "0.38s",
-                marginBottom: "48px",
-                fontWeight: 300,
-                letterSpacing: "0.01em",
-              }}
-            >
-              {dict.home.heroTaglines[seasonId]}
-            </p>
-
-            <div
-              className="fade-up is-visible flex flex-wrap gap-4"
-              style={{ transitionDelay: "0.46s" }}
-            >
-              <Link
-                href={localizePath("/jlpt", locale)}
-                className="btn-lift inline-flex items-center gap-3"
+            {/*
+              Tagline and CTAs share a row so the pair costs one block of
+              height instead of two — that reclaimed space goes to the poster
+              above. Wraps back to stacked below ~560px of column, which is
+              what mobile gets.
+            */}
+            <div className="flex flex-wrap items-end gap-x-10 gap-y-6">
+              <p
+                className="fade-up is-visible"
                 style={{
-                  backgroundColor: cfg.accent,
-                  color: "#FFFFFF",
-                  padding: "15px 36px",
-                  fontSize: "12px",
-                  fontWeight: 600,
-                  letterSpacing: "0.08em",
-                  textTransform: "uppercase",
-                  textDecoration: "none",
-                  transition:
-                    "transform 0.25s ease, box-shadow 0.25s ease, background-color 0.7s ease",
+                  fontSize: "15px",
+                  lineHeight: 1.7,
+                  flex: "1 1 200px",
+                  maxWidth: "340px",
+                  color: "rgba(245,242,238,0.76)",
+                  transitionDelay: "0.38s",
+                  marginBottom: 0,
+                  fontWeight: 300,
+                  letterSpacing: "0.01em",
                 }}
               >
-                {dict.home.heroCtaPrimary}
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
+                {dict.home.heroTaglines[seasonId]}
+              </p>
+
+              {/* One line. The labels are short enough that a trimmed
+                  horizontal padding gets the pair under ~300px, which is what
+                  lets them sit beside the tagline in a 560px column. */}
+              <div
+                className="fade-up is-visible flex flex-nowrap items-center gap-3"
+                style={{ transitionDelay: "0.46s", flex: "0 0 auto" }}
+              >
+                <Link
+                  href={localizePath("/jlpt", locale)}
+                  className="btn-lift inline-flex items-center gap-3"
+                  style={{
+                    backgroundColor: cfg.accent,
+                    color: "#FFFFFF",
+                    padding: "15px 28px",
+                    fontSize: "12px",
+                    fontWeight: 600,
+                    letterSpacing: "0.08em",
+                    textTransform: "uppercase",
+                    textDecoration: "none",
+                    whiteSpace: "nowrap",
+                    transition:
+                      "transform 0.25s ease, box-shadow 0.25s ease, background-color 0.7s ease",
+                  }}
                 >
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                  <polyline points="12 5 19 12 12 19" />
-                </svg>
-              </Link>
+                  {dict.home.heroCtaPrimary}
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </svg>
+                </Link>
 
-              <Link
-                href={localizePath("/about", locale)}
-                className="btn-lift inline-flex items-center gap-3"
-                style={{
-                  border: "1px solid rgba(245,242,238,0.40)",
-                  color: "rgba(245,242,238,0.86)",
-                  padding: "15px 36px",
-                  fontSize: "12px",
-                  fontWeight: 500,
-                  letterSpacing: "0.08em",
-                  textTransform: "uppercase",
-                  backgroundColor: "transparent",
-                  textDecoration: "none",
-                  transition: "transform 0.25s ease, border-color 0.25s ease",
-                }}
-              >
-                {dict.home.heroCtaSecondary}
-              </Link>
+                <Link
+                  href={localizePath("/about", locale)}
+                  className="btn-lift inline-flex items-center gap-3"
+                  style={{
+                    border: "1px solid rgba(245,242,238,0.40)",
+                    color: "rgba(245,242,238,0.86)",
+                    padding: "15px 28px",
+                    fontSize: "12px",
+                    fontWeight: 500,
+                    letterSpacing: "0.08em",
+                    textTransform: "uppercase",
+                    backgroundColor: "transparent",
+                    textDecoration: "none",
+                    whiteSpace: "nowrap",
+                    transition: "transform 0.25s ease, border-color 0.25s ease",
+                  }}
+                >
+                  {dict.home.heroCtaSecondary}
+                </Link>
+              </div>
             </div>
           </div>
         </div>
