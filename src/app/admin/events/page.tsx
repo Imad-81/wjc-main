@@ -2,20 +2,13 @@
 
 import { useState, useEffect } from "react"
 import {
-  Calendar,
   Plus,
   Search,
   Edit3,
   Trash2,
   X,
-  Check,
   Loader2,
   ExternalLink,
-  Globe,
-  Tag,
-  Clock,
-  MapPin,
-  Sparkles,
 } from "lucide-react"
 import MediaPicker from "@/components/admin/media-picker"
 

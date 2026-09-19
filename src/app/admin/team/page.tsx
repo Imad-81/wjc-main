@@ -3,16 +3,11 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import {
-  Users,
   Plus,
   Edit3,
   Trash2,
   X,
-  Check,
   Loader2,
-  ExternalLink,
-  GraduationCap,
-  Sparkles,
 } from "lucide-react"
 import MediaPicker from "@/components/admin/media-picker"
 

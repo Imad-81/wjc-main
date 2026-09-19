@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
-import { Shield, ArrowRight, Loader2, Lock, Mail, KeyRound } from "lucide-react"
+import { ArrowRight, Loader2, Lock, Mail, KeyRound } from "lucide-react"
 import { signIn } from "@/lib/auth-client"
 
 export default function LoginForm({ hasUsers }: { hasUsers: boolean }) {

@@ -5,7 +5,6 @@ import { useCallback, useEffect, useMemo, useState } from "react"
 import AppImage from "@/components/wjc/app-image"
 import { useReveal } from "@/components/wjc/use-reveal"
 import {
-  galleryCategories,
   galleryImages,
   type GalleryCategory,
   type GalleryItem,
@@ -23,7 +22,7 @@ export default function GalleryGrid({
   items?: GalleryItem[]
 }) {
   const sectionRef = useReveal<HTMLElement>(60, 0.05)
-  const [active, setActive] = useState<"all" | GalleryCategory>("all")
+  const [active] = useState<"all" | GalleryCategory>("all")
   const [lightbox, setLightbox] = useState<number | null>(null)
 
   const imageList = items && items.length > 0 ? items : galleryImages

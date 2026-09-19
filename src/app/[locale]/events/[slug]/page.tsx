@@ -55,7 +55,8 @@ export default async function EventDetailPage({
   const event = await getDbEventBySlug(slug)
   if (!event) notFound()
 
-  const [hero, ...rest] = event.images
+  const hero = event.images?.[0] || "/images/events/kizuna-matsuri/1.webp"
+  const rest = (event.images || []).slice(1)
 
   const meta = [
     { icon: Calendar, label: dict.events.detail.date, value: event.displayDate[locale] },

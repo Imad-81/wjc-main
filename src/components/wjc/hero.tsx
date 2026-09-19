@@ -10,7 +10,6 @@ import {
   type MouseEvent,
 } from "react"
 
-import CountUp from "@/components/ui/count-up"
 import { localizePath, type Locale } from "@/i18n/config"
 import type { Dictionary } from "@/i18n/types"
 import type { SeasonId } from "@/lib/themes"
@@ -118,7 +117,7 @@ interface Particle {
   wobbleSpeed: number
 }
 
-function StatIcon({ type, color }: { type: string; color: string }) {
+function _StatIcon({ type, color }: { type: string; color: string }) {
   const s: CSSProperties & { stroke: string } = {
     width: 18,
     height: 18,
@@ -629,7 +628,7 @@ export default function Hero({
   }, [])
 
   /** Hero stats bar. Figures reproduced from the approved prototype. */
-  const stats = [
+  const _stats = [
     {
       icon: "building",
       value: "12+",

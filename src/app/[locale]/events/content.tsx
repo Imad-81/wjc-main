@@ -267,7 +267,7 @@ function TabsSection({ locale, dict, events }: SectionProps) {
                 }}
               >
                 <AppImage
-                  src={featured.images[0]}
+                  src={featured.images?.[0] || "/images/events/kizuna-matsuri/1.webp"}
                   alt={featured.title[locale]}
                   fill
                   sizes="(max-width: 768px) 100vw, 58vw"
@@ -404,7 +404,7 @@ function TabsSection({ locale, dict, events }: SectionProps) {
                 }}
               >
                 <AppImage
-                  src={event.images[0]}
+                  src={event.images?.[0] || "/images/events/kizuna-matsuri/1.webp"}
                   alt={event.title[locale]}
                   fill
                   sizes="(max-width: 768px) 100vw, 33vw"
@@ -572,7 +572,7 @@ function TabsSection({ locale, dict, events }: SectionProps) {
                     style={{ position: "relative", aspectRatio: "16/9", overflow: "hidden" }}
                   >
                     <AppImage
-                      src={event.images[0]}
+                      src={event.images?.[0] || "/images/events/kizuna-matsuri/1.webp"}
                       alt={event.title[locale]}
                       fill
                       sizes="(max-width: 768px) 100vw, 33vw"
@@ -689,265 +689,6 @@ function TabsSection({ locale, dict, events }: SectionProps) {
 
 function _REMOVED_DelegationsSection() { return null }
 function _REMOVED_UpcomingSection() { return null }
-
-function ImpactNumbers({ locale, dict }: SectionProps) {
-  const ref = useReveal<HTMLElement>(100, 0.2)
-
-  return (
-    <section
-      ref={ref}
-      style={{ backgroundColor: "#232323", padding: "120px 0" }}
-      aria-labelledby="impact-numbers-heading"
-    >
-      <div className="max-w-content mx-auto px-8">
-        <div className="mb-16">
-          <div className="fade-up" style={{ opacity: 0 }}>
-            <span
-              className="section-label"
-              style={{
-                color: "var(--theme-accent)",
-                display: "block",
-                marginBottom: "20px",
-              }}
-            >
-              {dict.events.delegations.label}
-            </span>
-          </div>
-          <h2
-            id="delegations-heading"
-            className="fade-up font-serif"
-            style={{
-              fontSize: "clamp(32px, 3.5vw, 48px)",
-              fontWeight: 300,
-              lineHeight: 1.1,
-              color: "var(--theme-ivory)",
-              letterSpacing: "-0.01em",
-              opacity: 0,
-            }}
-          >
-            {dict.events.delegations.title}
-          </h2>
-        </div>
-
-        <div className="flex flex-col">
-          {delegations.map((d, i) => (
-            <div
-              key={d.org.en}
-              className="fade-up grid grid-cols-1 gap-8 lg:grid-cols-12"
-              style={{
-                opacity: 0,
-                transitionDelay: `${i * 0.1}s`,
-                padding: "36px 0",
-                borderTop: "1px solid rgba(255,255,255,0.06)",
-                borderBottom:
-                  i === delegations.length - 1
-                    ? "1px solid rgba(255,255,255,0.06)"
-                    : "none",
-              }}
-            >
-              <div className="lg:col-span-3">
-                <div
-                  className="font-serif"
-                  style={{
-                    fontSize: "22px",
-                    fontWeight: 400,
-                    color: "var(--theme-ivory)",
-                    marginBottom: "4px",
-                  }}
-                >
-                  {d.org[locale]}
-                </div>
-                <div
-                  style={{
-                    fontSize: "12px",
-                    color: "rgba(247,245,240,0.4)",
-                    lineHeight: 1.5,
-                  }}
-                >
-                  {d.fullName[locale]}
-                </div>
-              </div>
-              <div className="lg:col-span-2">
-                <div
-                  className="font-mono"
-                  style={{
-                    fontSize: "12px",
-                    color: "var(--theme-accent)",
-                    letterSpacing: "0.06em",
-                  }}
-                >
-                  {d.date[locale]}
-                </div>
-              </div>
-              <div className="lg:col-span-4">
-                <div
-                  style={{
-                    fontSize: "14px",
-                    color: "rgba(247,245,240,0.6)",
-                    lineHeight: 1.7,
-                    fontWeight: 300,
-                  }}
-                >
-                  {d.purpose[locale]}
-                </div>
-              </div>
-              <div className="lg:col-span-3">
-                <div
-                  style={{
-                    fontSize: "13px",
-                    color: "rgba(247,245,240,0.45)",
-                    lineHeight: 1.7,
-                    fontWeight: 300,
-                    fontStyle: "italic",
-                  }}
-                >
-                  {d.outcome[locale]}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-function UpcomingSection({ locale, dict }: SectionProps) {
-  const ref = useReveal<HTMLElement>(100, 0.1)
-
-  return (
-    <section
-      ref={ref}
-      style={{
-        backgroundColor: "#E8E2D7",
-        padding: "140px 0",
-      }}
-      aria-labelledby="upcoming-heading"
-    >
-      <div className="max-w-content mx-auto px-8">
-        <div className="mb-16">
-          <div className="fade-up" style={{ opacity: 0 }}>
-            <span
-              className="section-label"
-              style={{
-                display: "block",
-                marginBottom: "20px",
-                color: "var(--theme-accent)",
-              }}
-            >
-              {dict.events.upcoming.label}
-            </span>
-          </div>
-          <h2
-            id="upcoming-heading"
-            className="fade-up font-serif"
-            style={{
-              fontSize: "clamp(32px, 3.5vw, 48px)",
-              fontWeight: 300,
-              lineHeight: 1.1,
-              letterSpacing: "-0.01em",
-              color: "#232323",
-              opacity: 0,
-            }}
-          >
-            {dict.events.upcoming.title}
-          </h2>
-        </div>
-
-        <div
-          className="grid grid-cols-1 gap-px md:grid-cols-2"
-          style={{ border: "1px solid rgba(35,35,35,0.12)" }}
-        >
-          {upcomingEvents.map((event, i) => (
-            <div
-              key={event.title.en}
-              className="fade-up"
-              style={{
-                opacity: 0,
-                transitionDelay: `${i * 0.08}s`,
-                padding: "40px 36px",
-                border: "1px solid rgba(35,35,35,0.12)",
-                backgroundColor: "rgba(248,247,244,0.45)",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  marginBottom: "16px",
-                  gap: "12px",
-                }}
-              >
-                <span
-                  style={{
-                    fontSize: "10px",
-                    letterSpacing: "0.12em",
-                    textTransform: "uppercase",
-                    color: "var(--theme-accent)",
-                  }}
-                >
-                  {event.category[locale]}
-                </span>
-                <span
-                  className="font-mono"
-                  style={{ fontSize: "11px", color: "#5B5B5B" }}
-                >
-                  {event.date[locale]}
-                </span>
-              </div>
-
-              <h3
-                className="font-serif"
-                style={{
-                  fontSize: "22px",
-                  fontWeight: 400,
-                  lineHeight: 1.3,
-                  marginBottom: "12px",
-                  color: "#232323",
-                }}
-              >
-                {event.title[locale]}
-              </h3>
-              <p
-                style={{
-                  fontSize: "14px",
-                  lineHeight: 1.75,
-                  fontWeight: 300,
-                  color: "#5B5B5B",
-                  marginBottom: "20px",
-                }}
-              >
-                {event.description[locale]}
-              </p>
-
-              <span
-                style={{
-                  display: "inline-block",
-                  fontSize: "10px",
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
-                  padding: "5px 14px",
-                  border: "1px solid",
-                  borderColor: event.registrationOpen
-                    ? "var(--theme-accent)"
-                    : "rgba(35,35,35,0.2)",
-                  color: event.registrationOpen
-                    ? "var(--theme-accent)"
-                    : "#5B5B5B",
-                }}
-              >
-                {event.registrationOpen
-                  ? dict.events.upcoming.open
-                  : dict.events.upcoming.soon}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
 
 function ImpactNumbers_IMPL({ locale, dict }: SectionProps) {
   const ref = useReveal<HTMLElement>(100, 0.2)

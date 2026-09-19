@@ -3,14 +3,12 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import {
-  FolderOpen,
   Upload,
   Search,
   Copy,
   Check,
   Loader2,
   ExternalLink,
-  Folder,
 } from "lucide-react"
 
 interface MediaItem {
@@ -46,7 +44,24 @@ export default function AdminMediaPage() {
   }
 
   useEffect(() => {
-    fetchMedia()
+    let active = true
+    const init = async () => {
+      try {
+        const res = await fetch("/api/admin/media")
+        const data = await res.json()
+        if (active && data.success) {
+          setMedia(data.items || [])
+        }
+      } catch (err) {
+        console.error(err)
+      } finally {
+        if (active) setLoading(false)
+      }
+    }
+    init()
+    return () => {
+      active = false
+    }
   }, [])
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,17 +71,30 @@ export default function AdminMediaPage() {
     setUploading(true)
     try {
       for (let i = 0; i < files.length; i++) {
-        const formData = new FormData()
-        formData.append("file", files[i])
-        formData.append("folder", targetFolder)
+        const file = files[i]
+        const reader = new FileReader()
+        const base64Promise = new Promise<string>((resolve, reject) => {
+          reader.onload = () => resolve(reader.result as string)
+          reader.onerror = () => reject(new Error("Failed to read file"))
+          reader.readAsDataURL(file)
+        })
+
+        const base64Data = await base64Promise
 
         const res = await fetch("/api/admin/upload", {
           method: "POST",
-          body: formData,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: file.name,
+            base64: base64Data,
+            folder: targetFolder,
+          }),
         })
         const data = await res.json()
         if (!data.success) {
-          alert(`Failed to upload ${files[i].name}: ${data.error}`)
+          alert(`Failed to upload ${file.name}: ${data.error}`)
         }
       }
       fetchMedia()
@@ -74,6 +102,7 @@ export default function AdminMediaPage() {
       alert((err as Error).message || "Upload failed")
     } finally {
       setUploading(false)
+      e.target.value = ""
     }
   }
 

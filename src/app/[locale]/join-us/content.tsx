@@ -12,7 +12,7 @@ import {
 } from "@/data/membership"
 import { testimonials } from "@/data/testimonials"
 import { joinFaqs } from "@/data/faqs"
-import { localizePath, type Locale } from "@/i18n/config"
+import type { Locale } from "@/i18n/config"
 import type { Dictionary } from "@/i18n/types"
 
 interface SectionProps {

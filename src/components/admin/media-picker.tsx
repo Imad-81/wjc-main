@@ -34,17 +34,25 @@ export default function MediaPicker({
 
   // Load archive on open
   useEffect(() => {
-    if (open && tab === "archive" && archive.length === 0) {
+    if (!open || tab !== "archive" || archive.length > 0) return
+    let active = true
+    const loadArchive = async () => {
       setLoadingArchive(true)
-      fetch("/api/admin/media")
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.success) {
-            setArchive(data.items || [])
-          }
-        })
-        .catch(console.error)
-        .finally(() => setLoadingArchive(false))
+      try {
+        const res = await fetch("/api/admin/media")
+        const data = await res.json()
+        if (active && data.success) {
+          setArchive(data.items || [])
+        }
+      } catch (err) {
+        console.error("Failed to load media archive:", err)
+      } finally {
+        if (active) setLoadingArchive(false)
+      }
+    }
+    loadArchive()
+    return () => {
+      active = false
     }
   }, [open, tab, archive.length])
 
@@ -53,26 +61,42 @@ export default function MediaPicker({
     if (!file) return
 
     setUploading(true)
-    const formData = new FormData()
-    formData.append("file", file)
-    formData.append("folder", folder)
-
     try {
+      // Read file as base64 data URL for rock-solid cross-browser transmission
+      const reader = new FileReader()
+      const base64Promise = new Promise<string>((resolve, reject) => {
+        reader.onload = () => resolve(reader.result as string)
+        reader.onerror = () => reject(new Error("Failed to read file"))
+        reader.readAsDataURL(file)
+      })
+
+      const base64Data = await base64Promise
+
       const res = await fetch("/api/admin/upload", {
         method: "POST",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: file.name,
+          base64: base64Data,
+          folder,
+        }),
       })
+
       const data = await res.json()
       if (data.success && data.url) {
         onChange(data.url)
         setOpen(false)
       } else {
-        alert(data.error || "Upload failed")
+        alert(data.error || "Upload failed. Please try another image.")
       }
     } catch (err: unknown) {
       alert((err as Error).message || "Upload failed")
     } finally {
       setUploading(false)
+      // Reset input value so the same file can be selected again if needed
+      e.target.value = ""
     }
   }
 

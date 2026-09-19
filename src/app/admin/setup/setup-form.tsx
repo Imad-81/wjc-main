@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { Shield, Sparkles, ArrowRight, Loader2, Lock, Mail, User } from "lucide-react"
+import { ArrowRight, Loader2, Lock, Mail, User } from "lucide-react"
 import { signUp } from "@/lib/auth-client"
 
 export default function SetupForm() {

@@ -13,8 +13,6 @@ import {
   LogOut,
   Menu,
   X,
-  Sparkles,
-  Shield,
 } from "lucide-react"
 import { signOut, useSession } from "@/lib/auth-client"
 

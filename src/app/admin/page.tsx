@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma"
 import Link from "next/link"
-import { Calendar, Image as ImageIcon, Users, FolderOpen, ArrowUpRight, Sparkles, Database, ShieldCheck, CheckCircle2 } from "lucide-react"
+import { Calendar, Image as ImageIcon, Users, FolderOpen, ArrowUpRight } from "lucide-react"
 import SyncArchiveButton from "./sync-archive-button"
 
 export const metadata = {
