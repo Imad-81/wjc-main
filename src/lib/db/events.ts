@@ -4,7 +4,11 @@ import { pastEvents, type Event, type EventFilter, type EventTab } from "@/data/
 export async function getEvents(): Promise<Event[]> {
   try {
     const dbEvents = await prisma.event.findMany({
-      orderBy: [{ isoDate: "desc" }, { displayOrder: "asc" }],
+      orderBy: [
+        { isFeatured: "desc" },
+        { displayOrder: "asc" },
+        { isoDate: "desc" },
+      ],
     })
 
     if (dbEvents.length === 0) {
@@ -26,6 +30,8 @@ export async function getEvents(): Promise<Event[]> {
         ? { en: e.locationEn, ja: e.locationJa || e.locationEn }
         : undefined,
       time: e.timeEn ? { en: e.timeEn, ja: e.timeJa || e.timeEn } : undefined,
+      isFeatured: e.isFeatured,
+      displayOrder: e.displayOrder,
     }))
   } catch (err) {
     console.error("Error fetching events from DB, falling back to static data:", err)
@@ -55,6 +61,8 @@ export async function getEventBySlug(slug: string): Promise<Event | undefined> {
           ? { en: e.locationEn, ja: e.locationJa || e.locationEn }
           : undefined,
         time: e.timeEn ? { en: e.timeEn, ja: e.timeJa || e.timeEn } : undefined,
+        isFeatured: e.isFeatured,
+        displayOrder: e.displayOrder,
       }
     }
   } catch (err) {

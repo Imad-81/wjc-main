@@ -31,7 +31,8 @@ async function main() {
     timeEn: e.time?.en || null,
     timeJa: e.time?.ja || null,
     isUpcoming: false,
-    displayOrder: i,
+    isFeatured: e.slug === "kizuna-matsuri",
+    displayOrder: i + 1,
   }))
 
   const upcomingData = upcomingEvents.map((ue, i) => ({

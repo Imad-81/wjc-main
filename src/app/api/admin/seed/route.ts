@@ -29,7 +29,8 @@ export async function POST() {
       timeEn: e.time?.en || null,
       timeJa: e.time?.ja || null,
       isUpcoming: false,
-      displayOrder: i,
+      isFeatured: e.slug === "kizuna-matsuri",
+      displayOrder: i + 1,
     }))
 
     // 2. Seed Upcoming Events

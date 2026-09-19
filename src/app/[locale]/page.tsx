@@ -15,6 +15,8 @@ import FaqSection from "@/components/wjc/sections/faq-section"
 import NewsletterSection from "@/components/wjc/sections/newsletter-section"
 import FinalCtaSection from "@/components/wjc/sections/final-cta-section"
 
+import { getEvents } from "@/lib/db/events"
+
 export async function generateMetadata({
   params,
 }: {
@@ -34,6 +36,7 @@ export default async function HomePage({
   if (!isLocale(raw)) notFound()
   const locale = raw as Locale
   const dict = getDictionary(locale)
+  const events = await getEvents()
 
   return (
     <>
@@ -41,7 +44,7 @@ export default async function HomePage({
       <AboutSection locale={locale} dict={dict} />
       <StatsSection locale={locale} dict={dict} />
       <PartnersSection locale={locale} dict={dict} />
-      <EventsSection locale={locale} dict={dict} />
+      <EventsSection locale={locale} dict={dict} items={events} />
       <TestimonialsSection locale={locale} dict={dict} />
       <FaqSection locale={locale} dict={dict} />
       <NewsletterSection locale={locale} dict={dict} />

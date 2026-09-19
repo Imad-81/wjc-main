@@ -5,7 +5,11 @@ import { prisma } from "@/lib/prisma"
 export async function GET() {
   try {
     const events = await prisma.event.findMany({
-      orderBy: [{ isoDate: "desc" }, { displayOrder: "asc" }],
+      orderBy: [
+        { isFeatured: "desc" },
+        { displayOrder: "asc" },
+        { isoDate: "desc" },
+      ],
     })
     return NextResponse.json({ success: true, events })
   } catch (error: unknown) {
@@ -39,6 +43,7 @@ export async function POST(request: NextRequest) {
       timeJa,
       isUpcoming,
       registrationOpen,
+      isFeatured,
       statusEn,
       statusJa,
       posterSrc,
@@ -75,6 +80,7 @@ export async function POST(request: NextRequest) {
         timeJa: timeJa || timeEn || null,
         isUpcoming: Boolean(isUpcoming),
         registrationOpen: Boolean(registrationOpen),
+        isFeatured: Boolean(isFeatured),
         statusEn: statusEn || null,
         statusJa: statusJa || null,
         posterSrc: posterSrc || null,

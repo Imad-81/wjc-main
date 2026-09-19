@@ -24,6 +24,8 @@ export interface Event {
     images: string[]
     location?: L
     time?: L
+    isFeatured?: boolean
+    displayOrder?: number
 }
 
 export const pastEvents: Event[] = [
@@ -34,6 +36,8 @@ export const pastEvents: Event[] = [
         displayDate: { en: "February 27, 2026", ja: "2026年2月27日" },
         category: { en: "FLAGSHIP | CULTURAL", ja: "旗艦行事 | 文化" },
         tab: "culture",
+        isFeatured: true,
+        displayOrder: 1,
         title: { en: "Kizuna Matsuri", ja: "絆祭り" },
         description: {
             en: "The flagship annual event of the Woxsen Japan Centre celebrating Indo-Japanese ties through cultural dialogue, workshops, and performances featuring dignitaries from Japan Foundation, Toshiba, and leading Japanese institutions.",

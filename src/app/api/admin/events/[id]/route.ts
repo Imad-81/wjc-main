@@ -34,6 +34,7 @@ export async function PUT(
         timeJa: body.timeJa,
         isUpcoming: typeof body.isUpcoming === "boolean" ? body.isUpcoming : undefined,
         registrationOpen: typeof body.registrationOpen === "boolean" ? body.registrationOpen : undefined,
+        isFeatured: typeof body.isFeatured === "boolean" ? body.isFeatured : undefined,
         statusEn: body.statusEn,
         statusJa: body.statusJa,
         posterSrc: body.posterSrc,
@@ -46,6 +47,9 @@ export async function PUT(
     revalidatePath(`/[locale]/events/${updated.slug}`, "page")
     revalidatePath("/events")
     revalidatePath("/ja/events")
+    revalidatePath("/[locale]", "page")
+    revalidatePath("/")
+    revalidatePath("/ja")
 
     return NextResponse.json({ success: true, event: updated })
   } catch (error: unknown) {

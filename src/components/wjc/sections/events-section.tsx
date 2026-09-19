@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useReveal } from "../use-reveal"
-import { pastEvents } from "@/data/events"
+import { pastEvents, type Event } from "@/data/events"
 import { localizePath, type Locale } from "@/i18n/config"
 import type { Dictionary } from "@/i18n/types"
 
@@ -15,16 +15,17 @@ const MONTHS_EN = [
 export default function EventsSection({
   locale,
   dict,
+  items,
 }: {
   locale: Locale
   dict: Dictionary
+  items?: Event[]
 }) {
   const sectionRef = useReveal<HTMLElement>(120, 0.1)
 
-  // The three most recent real events, newest first.
-  const events = [...pastEvents]
-    .sort((a, b) => b.isoDate.localeCompare(a.isoDate))
-    .slice(0, 3)
+  // Take the top prioritized events (e.g. Hero #1 + top cards)
+  const sourceEvents = items && items.length > 0 ? items : pastEvents
+  const events = sourceEvents.slice(0, 3)
 
   return (
     <section

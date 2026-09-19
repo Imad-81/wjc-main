@@ -96,6 +96,7 @@ model Event {
   timeJa            String?
   isUpcoming        Boolean  @default(false)
   registrationOpen  Boolean  @default(false)
+  isFeatured        Boolean  @default(false)
   statusEn          String?
   statusJa          String?
   posterSrc         String?
