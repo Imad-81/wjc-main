@@ -9,6 +9,7 @@ import {
   Check,
   Loader2,
   ExternalLink,
+  Trash2,
 } from "lucide-react"
 
 interface MediaItem {
@@ -110,6 +111,28 @@ export default function AdminMediaPage() {
     navigator.clipboard.writeText(url)
     setCopiedUrl(url)
     setTimeout(() => setCopiedUrl(null), 2500)
+  }
+
+  const handleDelete = async (url: string) => {
+    if (!confirm(`Are you sure you want to delete "${url}"? This cannot be undone.`)) {
+      return
+    }
+
+    try {
+      const res = await fetch("/api/admin/media", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url }),
+      })
+      const data = await res.json()
+      if (data.success) {
+        setMedia((prev) => prev.filter((item) => item.url !== url))
+      } else {
+        alert(data.error || "Failed to delete file")
+      }
+    } catch (err: unknown) {
+      alert((err as Error).message || "Delete failed")
+    }
   }
 
   const filteredMedia = media.filter((item) => {
@@ -235,6 +258,13 @@ export default function AdminMediaPage() {
                   >
                     <ExternalLink size={14} />
                   </a>
+                  <button
+                    onClick={() => handleDelete(item.url)}
+                    className="p-2 rounded bg-black/80 text-rose-400 hover:text-rose-300 border border-rose-900/40 hover:border-rose-700/60 transition-colors cursor-pointer"
+                    title="Delete file from server"
+                  >
+                    <Trash2 size={14} />
+                  </button>
                 </div>
               </div>
 

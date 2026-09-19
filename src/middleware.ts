@@ -12,7 +12,21 @@ import { DEFAULT_LOCALE, LOCALES } from "@/i18n/config"
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  // 1. API routes and static files are untouched
+  // 1. Admin API routes protection
+  if (pathname.startsWith("/api/admin")) {
+    const sessionCookie =
+      request.cookies.get("better-auth.session_token") ||
+      request.cookies.get("__Secure-better-auth.session_token")
+
+    if (!sessionCookie) {
+      return NextResponse.json(
+        { error: "Unauthorized: Administrator session required" },
+        { status: 401 }
+      )
+    }
+  }
+
+  // API routes and static files are untouched
   if (pathname.startsWith("/api")) {
     return NextResponse.next()
   }

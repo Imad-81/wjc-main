@@ -32,6 +32,10 @@ export async function getEvents(): Promise<Event[]> {
       time: e.timeEn ? { en: e.timeEn, ja: e.timeJa || e.timeEn } : undefined,
       isFeatured: e.isFeatured,
       displayOrder: e.displayOrder,
+      isUpcoming: e.isUpcoming,
+      registrationOpen: e.registrationOpen,
+      status: e.statusEn ? { en: e.statusEn, ja: e.statusJa || e.statusEn } : undefined,
+      posterSrc: e.posterSrc || undefined,
     }))
   } catch (err) {
     console.error("Error fetching events from DB, falling back to static data:", err)
@@ -63,6 +67,10 @@ export async function getEventBySlug(slug: string): Promise<Event | undefined> {
         time: e.timeEn ? { en: e.timeEn, ja: e.timeJa || e.timeEn } : undefined,
         isFeatured: e.isFeatured,
         displayOrder: e.displayOrder,
+        isUpcoming: e.isUpcoming,
+        registrationOpen: e.registrationOpen,
+        status: e.statusEn ? { en: e.statusEn, ja: e.statusJa || e.statusEn } : undefined,
+        posterSrc: e.posterSrc || undefined,
       }
     }
   } catch (err) {

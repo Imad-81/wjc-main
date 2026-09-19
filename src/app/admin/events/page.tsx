@@ -96,6 +96,7 @@ export default function AdminEventsPage() {
   const [formLang, setFormLang] = useState<"en" | "ja">("en")
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [showAddGalleryPicker, setShowAddGalleryPicker] = useState(false)
 
   const fetchEvents = async () => {
     try {
@@ -184,8 +185,31 @@ export default function AdminEventsPage() {
     setSaving(true)
     setError(null)
 
+    // Auto-generate display dates from isoDate if left empty
+    let displayDateEn = form.displayDateEn
+    let displayDateJa = form.displayDateJa
+    if (!displayDateEn && form.isoDate) {
+      try {
+        const [y, m, d] = form.isoDate.split("-").map(Number)
+        const dateObj = new Date(y, m - 1, d)
+        displayDateEn = dateObj.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })
+      } catch {
+        displayDateEn = form.isoDate
+      }
+    }
+    if (!displayDateJa && form.isoDate) {
+      try {
+        const [y, m, d] = form.isoDate.split("-").map(Number)
+        displayDateJa = `${y}年${m}月${d}日`
+      } catch {
+        displayDateJa = form.isoDate
+      }
+    }
+
     const payload = {
       ...form,
+      displayDateEn,
+      displayDateJa,
       displayOrder: Number(form.displayOrder) || 1,
       isFeatured: Boolean(form.isFeatured),
     }
@@ -917,9 +941,27 @@ export default function AdminEventsPage() {
               {/* General Core Settings */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-[11px] font-mono text-neutral-400 uppercase mb-1">
-                    URL Slug *
-                  </label>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="block text-[11px] font-mono text-neutral-400 uppercase">
+                      URL Slug *
+                    </label>
+                    {form.titleEn && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const generated = form.titleEn
+                            .toLowerCase()
+                            .replace(/[^\w\s-]/g, "")
+                            .trim()
+                            .replace(/\s+/g, "-")
+                          setForm({ ...form, slug: generated })
+                        }}
+                        className="text-[10px] font-mono text-[#C9A84C] hover:underline cursor-pointer"
+                      >
+                        Auto from Title
+                      </button>
+                    )}
+                  </div>
                   <input
                     type="text"
                     required
@@ -1076,14 +1118,97 @@ export default function AdminEventsPage() {
                 />
               </div>
 
-              {/* Media Picker */}
-              <div className="pt-2 border-t border-white/[0.08]">
+              {/* Multi-Image Section: Primary Cover + Detail Gallery Photos */}
+              <div className="pt-4 border-t border-white/[0.08] space-y-4">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-xs font-mono text-[#C9A84C] uppercase tracking-wider">Visual Assets</span>
+                  <span className="text-neutral-500">•</span>
+                  <span className="text-xs font-serif text-neutral-400 font-jp">画像設定</span>
+                </div>
+
+                {/* Primary Cover Image */}
                 <MediaPicker
-                  label="Primary Event Photograph"
+                  label="Primary Event Cover Photograph (Spotlight & Grid Hero)"
                   folder="events"
                   value={form.images[0] || ""}
-                  onChange={(url) => setForm({ ...form, images: [url] })}
+                  onChange={(url) => {
+                    const rest = form.images.slice(1)
+                    setForm({ ...form, images: url ? [url, ...rest] : rest })
+                  }}
                 />
+
+                {/* Additional Detail Gallery Photos */}
+                <div className="p-4 rounded-lg bg-[#0E0E0E] border border-white/[0.06] space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <label className="block text-[11px] font-mono text-neutral-300 uppercase font-semibold">
+                        Detail Page Photo Gallery ({Math.max(0, form.images.length - 1)} additional photos)
+                      </label>
+                      <p className="text-[10px] text-neutral-500 font-mono">
+                        Secondary photos displayed in the narrative gallery on /events/[slug].
+                      </p>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => setShowAddGalleryPicker(!showAddGalleryPicker)}
+                      className="px-3 py-1.5 rounded bg-white/[0.05] hover:bg-[#C9A84C]/15 border border-white/10 hover:border-[#C9A84C]/40 text-[#F7F5F0] text-xs font-mono transition-colors cursor-pointer"
+                    >
+                      {showAddGalleryPicker ? "Cancel" : "+ Add Gallery Photo"}
+                    </button>
+                  </div>
+
+                  {showAddGalleryPicker && (
+                    <div className="p-3 rounded bg-[#141414] border border-[#C9A84C]/30">
+                      <MediaPicker
+                        label="Choose photo to append to gallery"
+                        folder="events"
+                        value=""
+                        onChange={(url) => {
+                          if (url) {
+                            setForm({ ...form, images: [...form.images, url] })
+                            setShowAddGalleryPicker(false)
+                          }
+                        }}
+                      />
+                    </div>
+                  )}
+
+                  {form.images.length > 1 ? (
+                    <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2 pt-2">
+                      {form.images.slice(1).map((imgUrl, idx) => {
+                        const actualIdx = idx + 1
+                        return (
+                          <div
+                            key={`${imgUrl}-${idx}`}
+                            className="group relative aspect-video rounded overflow-hidden border border-white/10 bg-[#0A0A0A]"
+                          >
+                            <Image src={imgUrl} alt={`Gallery ${idx + 1}`} fill unoptimized className="object-cover" />
+                            <div className="absolute top-1 left-1 px-1.5 py-0.5 rounded bg-black/80 text-[9px] font-mono text-[#C9A84C]">
+                              #{idx + 1}
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const updated = [...form.images]
+                                updated.splice(actualIdx, 1)
+                                setForm({ ...form, images: updated })
+                              }}
+                              className="absolute top-1 right-1 p-1 rounded bg-black/80 hover:bg-rose-950 text-neutral-300 hover:text-rose-400 opacity-0 group-hover:opacity-100 transition-opacity"
+                              title="Remove photo"
+                            >
+                              <X size={12} />
+                            </button>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  ) : (
+                    <p className="text-[11px] font-mono text-neutral-600 italic">
+                      No secondary gallery photos. Click &quot;+ Add Gallery Photo&quot; to append detail shots.
+                    </p>
+                  )}
+                </div>
               </div>
 
               {/* Upcoming Event Details */}

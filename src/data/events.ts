@@ -26,6 +26,10 @@ export interface Event {
     time?: L
     isFeatured?: boolean
     displayOrder?: number
+    isUpcoming?: boolean
+    registrationOpen?: boolean
+    status?: L
+    posterSrc?: string | null
 }
 
 export const pastEvents: Event[] = [

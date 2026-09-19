@@ -8,6 +8,9 @@ import {
   Trash2,
   X,
   Loader2,
+  ArrowUp,
+  ArrowDown,
+  CheckCircle2,
 } from "lucide-react"
 import MediaPicker from "@/components/admin/media-picker"
 
@@ -49,6 +52,7 @@ export default function AdminGalleryPage() {
   const [form, setForm] = useState(BLANK_ITEM)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [reorderToast, setReorderToast] = useState(false)
 
   const fetchItems = async () => {
     setLoading(true)
@@ -71,7 +75,11 @@ export default function AdminGalleryPage() {
 
   const handleOpenCreate = () => {
     setEditingId(null)
-    setForm(BLANK_ITEM)
+    setForm({
+      ...BLANK_ITEM,
+      category: categoryFilter === "all" ? "festivals" : categoryFilter,
+      displayOrder: items.length + 1,
+    })
     setError(null)
     setModalOpen(true)
   }
@@ -141,6 +149,46 @@ export default function AdminGalleryPage() {
     }
   }
 
+  const handleMove = async (item: AdminGalleryItem, direction: "up" | "down") => {
+    const list = [...items]
+    const currentIndex = list.findIndex((i) => i.id === item.id)
+    if (currentIndex === -1) return
+
+    const targetIndex = direction === "up" ? currentIndex - 1 : currentIndex + 1
+    if (targetIndex < 0 || targetIndex >= list.length) return
+
+    const targetItem = list[targetIndex]
+    list[currentIndex] = targetItem
+    list[targetIndex] = item
+
+    const payload = list.map((it, idx) => ({
+      id: it.id,
+      displayOrder: idx + 1,
+    }))
+
+    setItems((prev) =>
+      prev.map((it) => {
+        const found = payload.find((p) => p.id === it.id)
+        return found ? { ...it, displayOrder: found.displayOrder } : it
+      })
+    )
+
+    try {
+      const res = await fetch("/api/admin/gallery/reorder", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ items: payload }),
+      })
+      const data = await res.json()
+      if (data.success) {
+        setReorderToast(true)
+        setTimeout(() => setReorderToast(false), 3000)
+      }
+    } catch (err) {
+      console.error("Failed to reorder gallery:", err)
+    }
+  }
+
   const filteredItems = items.filter((item) => {
     return categoryFilter === "all" || item.category === categoryFilter
   })
@@ -207,7 +255,7 @@ export default function AdminGalleryPage() {
         </div>
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-          {filteredItems.map((item) => (
+          {filteredItems.map((item, index) => (
             <div
               key={item.id}
               className="group relative rounded-lg bg-[#141414] border border-white/[0.08] hover:border-[#C9A84C]/50 overflow-hidden flex flex-col transition-all duration-300 shadow-md"
@@ -221,8 +269,13 @@ export default function AdminGalleryPage() {
                   unoptimized
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute top-2 left-2 px-1.5 py-0.5 rounded bg-black/75 backdrop-blur-xs text-[10px] font-mono text-[#C9A84C] capitalize border border-white/10">
-                  {item.span}
+                <div className="absolute top-2 left-2 flex items-center gap-1.5">
+                  <span className="px-1.5 py-0.5 rounded bg-black/85 backdrop-blur-xs text-[10px] font-mono text-[#C9A84C] font-semibold border border-[#C9A84C]/30">
+                    #{index + 1}
+                  </span>
+                  <span className="px-1.5 py-0.5 rounded bg-black/75 backdrop-blur-xs text-[10px] font-mono text-neutral-300 capitalize border border-white/10">
+                    {item.span}
+                  </span>
                 </div>
               </div>
 
@@ -238,9 +291,28 @@ export default function AdminGalleryPage() {
                 </div>
 
                 <div className="flex items-center justify-between pt-2 border-t border-white/[0.06]">
-                  <span className="text-[9px] font-mono text-neutral-600 truncate max-w-[100px]">
-                    {item.src.split("/").pop()}
-                  </span>
+                  {/* Reorder Buttons */}
+                  <div className="flex items-center gap-1">
+                    <button
+                      type="button"
+                      disabled={index === 0}
+                      onClick={() => handleMove(item, "up")}
+                      className="p-1 rounded hover:bg-white/10 text-neutral-400 hover:text-white disabled:opacity-20 cursor-pointer transition-colors"
+                      title="Move Earlier in Gallery"
+                    >
+                      <ArrowUp size={13} />
+                    </button>
+                    <button
+                      type="button"
+                      disabled={index === filteredItems.length - 1}
+                      onClick={() => handleMove(item, "down")}
+                      className="p-1 rounded hover:bg-white/10 text-neutral-400 hover:text-white disabled:opacity-20 cursor-pointer transition-colors"
+                      title="Move Later in Gallery"
+                    >
+                      <ArrowDown size={13} />
+                    </button>
+                  </div>
+
                   <div className="flex items-center gap-1.5">
                     <button
                       onClick={() => handleOpenEdit(item)}
@@ -420,6 +492,13 @@ export default function AdminGalleryPage() {
               </div>
             </form>
           </div>
+        </div>
+      )}
+      {/* Toast Notification */}
+      {reorderToast && (
+        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-4 py-2.5 rounded-lg bg-emerald-950 border border-emerald-500/50 text-emerald-200 text-xs font-mono shadow-2xl">
+          <CheckCircle2 size={16} className="text-emerald-400" />
+          <span>Gallery order synchronized with live website!</span>
         </div>
       )}
     </div>

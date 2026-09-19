@@ -118,6 +118,25 @@ function TabsSection({ locale, dict, events }: SectionProps) {
     () => eventList.filter((e) => e.tab === "outreach"),
     [eventList],
   )
+  const nextEvents = useMemo(() => {
+    const fromDb = eventList.filter((e) => e.tab === "next" || e.isUpcoming)
+    if (fromDb.length > 0) {
+      return fromDb.map((e) => ({
+        title: e.title,
+        date: e.displayDate,
+        category: e.category,
+        description: e.description,
+        registrationOpen: e.registrationOpen || false,
+        status: e.status,
+        poster: e.posterSrc
+          ? { src: e.posterSrc, alt: e.title }
+          : e.images && e.images[0]
+            ? { src: e.images[0], alt: e.title }
+            : undefined,
+      }))
+    }
+    return upcomingEvents
+  }, [eventList])
 
   /*
     `useReveal` observes the section once and then unobserves it, so it can
@@ -605,7 +624,7 @@ function TabsSection({ locale, dict, events }: SectionProps) {
             would leave an empty framed half. Each card carries its own. */}
         {active === "next" && (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            {upcomingEvents.map((event, i) => (
+            {nextEvents.map((event, i) => (
               <div
                 key={event.title.en}
                 className="fade-up"

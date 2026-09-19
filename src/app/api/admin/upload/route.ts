@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from "next/server"
 import { writeFile, mkdir } from "fs/promises"
 import path from "path"
+import { requireAdminSession } from "@/lib/auth-guard"
 
 export const dynamic = "force-dynamic"
 
-const ALLOWED_EXTENSIONS = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif", ".svg", ".gif"])
+const ALLOWED_EXTENSIONS = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif", ".gif"])
 const MAX_FILE_SIZE = 15 * 1024 * 1024 // 15MB
 
 function sanitizeFileName(name: string, ext: string): string {
@@ -18,6 +19,9 @@ function sanitizeFileName(name: string, ext: string): string {
 
 export async function POST(request: NextRequest) {
   try {
+    const { error: authError } = await requireAdminSession()
+    if (authError) return authError
+
     const contentType = request.headers.get("content-type") || ""
     let fileBuffer: Buffer
     let fileName: string

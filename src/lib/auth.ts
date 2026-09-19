@@ -9,6 +9,21 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
+  databaseHooks: {
+    user: {
+      create: {
+        before: async (user) => {
+          const userCount = await prisma.user.count()
+          if (userCount > 0) {
+            throw new Error(
+              "Admin registration is closed. Additional accounts can only be provisioned by existing administrators."
+            )
+          }
+          return { data: user }
+        },
+      },
+    },
+  },
   session: {
     expiresIn: 60 * 60 * 24 * 7, // 7 days
     updateAge: 60 * 60 * 24, // 1 day

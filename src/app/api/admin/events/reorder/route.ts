@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { revalidatePath } from "next/cache"
 import { prisma } from "@/lib/prisma"
+import { requireAdminSession } from "@/lib/auth-guard"
 
 export const dynamic = "force-dynamic"
 
@@ -12,6 +13,9 @@ interface ReorderItem {
 
 export async function POST(request: NextRequest) {
   try {
+    const { error: authError } = await requireAdminSession()
+    if (authError) return authError
+
     const body = await request.json()
     const items: ReorderItem[] = body.items
 

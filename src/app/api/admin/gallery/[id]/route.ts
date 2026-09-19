@@ -1,12 +1,16 @@
 import { NextRequest, NextResponse } from "next/server"
 import { revalidatePath } from "next/cache"
 import { prisma } from "@/lib/prisma"
+import { requireAdminSession } from "@/lib/auth-guard"
 
 export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { error: authError } = await requireAdminSession()
+    if (authError) return authError
+
     const { id } = await params
     const body = await request.json()
 
@@ -42,6 +46,9 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { error: authError } = await requireAdminSession()
+    if (authError) return authError
+
     const { id } = await params
     const deleted = await prisma.galleryItem.delete({
       where: { id },

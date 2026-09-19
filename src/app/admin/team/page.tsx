@@ -8,6 +8,9 @@ import {
   Trash2,
   X,
   Loader2,
+  ArrowUp,
+  ArrowDown,
+  CheckCircle2,
 } from "lucide-react"
 import MediaPicker from "@/components/admin/media-picker"
 
@@ -57,6 +60,7 @@ export default function AdminTeamPage() {
   const [formLang, setFormLang] = useState<"en" | "ja">("en")
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [reorderToast, setReorderToast] = useState(false)
 
   const fetchMembers = async () => {
     setLoading(true)
@@ -79,7 +83,12 @@ export default function AdminTeamPage() {
 
   const handleOpenCreate = () => {
     setEditingId(null)
-    setForm({ ...BLANK_MEMBER, category: categoryTab })
+    const currentCategoryCount = members.filter((m) => m.category === categoryTab).length
+    setForm({
+      ...BLANK_MEMBER,
+      category: categoryTab,
+      displayOrder: currentCategoryCount + 1,
+    })
     setError(null)
     setModalOpen(true)
   }
@@ -153,7 +162,53 @@ export default function AdminTeamPage() {
     }
   }
 
-  const filteredMembers = members.filter((m) => m.category === categoryTab)
+  const handleMove = async (member: AdminTeamMember, direction: "up" | "down") => {
+    const tabMembers = members
+      .filter((m) => m.category === member.category)
+      .sort((a, b) => a.displayOrder - b.displayOrder)
+
+    const currentIndex = tabMembers.findIndex((m) => m.id === member.id)
+    if (currentIndex === -1) return
+
+    const targetIndex = direction === "up" ? currentIndex - 1 : currentIndex + 1
+    if (targetIndex < 0 || targetIndex >= tabMembers.length) return
+
+    const targetMember = tabMembers[targetIndex]
+    const reordered = [...tabMembers]
+    reordered[currentIndex] = targetMember
+    reordered[targetIndex] = member
+
+    const payload = reordered.map((m, idx) => ({
+      id: m.id,
+      displayOrder: idx + 1,
+    }))
+
+    setMembers((prev) =>
+      prev.map((m) => {
+        const found = payload.find((p) => p.id === m.id)
+        return found ? { ...m, displayOrder: found.displayOrder } : m
+      })
+    )
+
+    try {
+      const res = await fetch("/api/admin/team/reorder", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ items: payload }),
+      })
+      const data = await res.json()
+      if (data.success) {
+        setReorderToast(true)
+        setTimeout(() => setReorderToast(false), 3000)
+      }
+    } catch (err) {
+      console.error("Failed to reorder team:", err)
+    }
+  }
+
+  const filteredMembers = members
+    .filter((m) => m.category === categoryTab)
+    .sort((a, b) => a.displayOrder - b.displayOrder)
 
   return (
     <div className="space-y-6">
@@ -219,7 +274,7 @@ export default function AdminTeamPage() {
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {filteredMembers.map((m) => (
+          {filteredMembers.map((m, index) => (
             <div
               key={m.id}
               className="group relative rounded-lg bg-[#141414] border border-white/[0.08] hover:border-[#C9A84C]/50 overflow-hidden flex flex-col transition-all duration-300 shadow-md"
@@ -239,6 +294,9 @@ export default function AdminTeamPage() {
                     {m.name.charAt(0)}
                   </div>
                 )}
+                <div className="absolute top-2 right-2 px-2 py-0.5 rounded bg-black/85 backdrop-blur-xs text-[10px] font-mono font-semibold text-[#C9A84C] border border-[#C9A84C]/30 shadow">
+                  Rank #{index + 1}
+                </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                 <div className="absolute bottom-3 left-3 right-3">
                   <span className="inline-block px-2 py-0.5 rounded bg-[#C9A84C]/90 text-black text-[10px] font-mono font-bold uppercase tracking-wider mb-1">
@@ -264,9 +322,28 @@ export default function AdminTeamPage() {
                 )}
 
                 <div className="flex items-center justify-between pt-2 border-t border-white/[0.06]">
-                  <span className="text-[10px] font-serif text-neutral-400 font-jp">
-                    {m.roleJa}
-                  </span>
+                  {/* Reorder Buttons */}
+                  <div className="flex items-center gap-1">
+                    <button
+                      type="button"
+                      disabled={index === 0}
+                      onClick={() => handleMove(m, "up")}
+                      className="p-1 rounded hover:bg-white/10 text-neutral-400 hover:text-white disabled:opacity-20 cursor-pointer transition-colors"
+                      title="Move Higher in Hierarchy"
+                    >
+                      <ArrowUp size={13} />
+                    </button>
+                    <button
+                      type="button"
+                      disabled={index === filteredMembers.length - 1}
+                      onClick={() => handleMove(m, "down")}
+                      className="p-1 rounded hover:bg-white/10 text-neutral-400 hover:text-white disabled:opacity-20 cursor-pointer transition-colors"
+                      title="Move Lower in Hierarchy"
+                    >
+                      <ArrowDown size={13} />
+                    </button>
+                  </div>
+
                   <div className="flex items-center gap-1.5">
                     <button
                       onClick={() => handleOpenEdit(m)}
@@ -278,7 +355,7 @@ export default function AdminTeamPage() {
                     <button
                       onClick={() => handleDelete(m.id, m.name)}
                       className="p-1.5 rounded hover:bg-rose-950/40 text-rose-400 hover:text-rose-300 transition-colors cursor-pointer"
-                      title="Delete member"
+                      title="Remove member"
                     >
                       <Trash2 size={14} />
                     </button>
@@ -444,14 +521,32 @@ export default function AdminTeamPage() {
 
               {/* Advanced Crop Positioning (Optional) */}
               <div className="p-3 rounded bg-[#0A0A0A] border border-white/[0.05] space-y-2">
-                <span className="block text-[10px] font-mono text-neutral-400 uppercase">
-                  Framing & Object Alignment (CSS):
-                </span>
+                <div className="flex items-center justify-between">
+                  <span className="block text-[10px] font-mono text-neutral-400 uppercase">
+                    Framing & Object Alignment:
+                  </span>
+                  <div className="flex items-center gap-1">
+                    {["object-top", "object-center", "object-bottom"].map((p) => (
+                      <button
+                        key={p}
+                        type="button"
+                        onClick={() => setForm({ ...form, position: p })}
+                        className={`px-1.5 py-0.5 rounded text-[9px] font-mono transition-colors cursor-pointer ${
+                          form.position === p
+                            ? "bg-[#C9A84C] text-black font-bold"
+                            : "bg-white/5 text-neutral-400 hover:text-white"
+                        }`}
+                      >
+                        {p.replace("object-", "")}
+                      </button>
+                    ))}
+                  </div>
+                </div>
                 <input
                   type="text"
                   value={form.position || ""}
                   onChange={(e) => setForm({ ...form, position: e.target.value })}
-                  placeholder="e.g. object-top or object-[20%_30%]"
+                  placeholder="e.g. object-top or object-[center_20%]"
                   className="w-full px-3 py-1.5 text-xs rounded bg-[#141414] border border-white/10 text-neutral-300 font-mono"
                 />
               </div>
@@ -475,6 +570,13 @@ export default function AdminTeamPage() {
               </div>
             </form>
           </div>
+        </div>
+      )}
+      {/* Toast Notification */}
+      {reorderToast && (
+        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-4 py-2.5 rounded-lg bg-emerald-950 border border-emerald-500/50 text-emerald-200 text-xs font-mono shadow-2xl">
+          <CheckCircle2 size={16} className="text-emerald-400" />
+          <span>Team hierarchy updated live!</span>
         </div>
       )}
     </div>

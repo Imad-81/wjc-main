@@ -1,11 +1,15 @@
 import { NextRequest, NextResponse } from "next/server"
-import { readdir, stat } from "fs/promises"
+import { readdir, stat, unlink } from "fs/promises"
 import path from "path"
+import { requireAdminSession } from "@/lib/auth-guard"
 
-const ALLOWED_EXTENSIONS = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif", ".svg"])
+const ALLOWED_EXTENSIONS = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif"])
 
 export async function GET(request: NextRequest) {
   try {
+    const { error: authError } = await requireAdminSession()
+    if (authError) return authError
+
     const { searchParams } = new URL(request.url)
     const folder = searchParams.get("folder") || ""
 
@@ -69,6 +73,38 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ success: true, items: mediaList })
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : "Failed to scan media"
+    return NextResponse.json({ error: message }, { status: 500 })
+  }
+}
+
+export async function DELETE(request: NextRequest) {
+  try {
+    const { error: authError } = await requireAdminSession()
+    if (authError) return authError
+
+    const body = await request.json()
+    const url = body.url as string | undefined
+
+    if (!url || !url.startsWith("/images/")) {
+      return NextResponse.json({ error: "Invalid image URL" }, { status: 400 })
+    }
+
+    const basePublicDir = path.resolve(process.cwd(), "public", "images")
+    // Safe relative path extraction
+    const relativeParts = url.replace(/^\/images\//, "").split("/").filter(Boolean)
+    const targetFilePath = path.resolve(basePublicDir, ...relativeParts)
+
+    // Strictly ensure targetFilePath is within basePublicDir
+    if (!targetFilePath.startsWith(basePublicDir)) {
+      return NextResponse.json({ error: "Forbidden: Access denied" }, { status: 403 })
+    }
+
+    await unlink(targetFilePath)
+
+    return NextResponse.json({ success: true, message: "File deleted successfully" })
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to delete file"
+    console.error("Media delete error:", error)
     return NextResponse.json({ error: message }, { status: 500 })
   }
 }

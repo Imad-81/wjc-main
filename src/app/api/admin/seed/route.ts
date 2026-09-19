@@ -4,9 +4,13 @@ import { pastEvents } from "@/data/events"
 import { upcomingEvents } from "@/data/events-extra"
 import { galleryImages } from "@/data/gallery"
 import { faculty, studentLeadership } from "@/data/team"
+import { requireAdminSession } from "@/lib/auth-guard"
 
 export async function POST() {
   try {
+    const { error: authError } = await requireAdminSession()
+    if (authError) return authError
+
     // 1. Seed Flagship / Past Events
     const eventsData = pastEvents.map((e, i) => ({
       slug: e.slug,
