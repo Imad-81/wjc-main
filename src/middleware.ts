@@ -12,7 +12,32 @@ import { DEFAULT_LOCALE, LOCALES } from "@/i18n/config"
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  // Already locale-prefixed — serve as-is.
+  // 1. API routes and static files are untouched
+  if (pathname.startsWith("/api")) {
+    return NextResponse.next()
+  }
+
+  // 2. Admin routes protection and bypassing locale rewrites
+  if (pathname === "/admin" || pathname.startsWith("/admin/")) {
+    const isAuthPage = pathname === "/admin/login" || pathname === "/admin/setup"
+    const sessionCookie =
+      request.cookies.get("better-auth.session_token") ||
+      request.cookies.get("__Secure-better-auth.session_token")
+
+    if (!isAuthPage && !sessionCookie) {
+      const loginUrl = new URL("/admin/login", request.url)
+      loginUrl.searchParams.set("returnUrl", pathname)
+      return NextResponse.redirect(loginUrl)
+    }
+
+    if (isAuthPage && sessionCookie && pathname === "/admin/login") {
+      return NextResponse.redirect(new URL("/admin", request.url))
+    }
+
+    return NextResponse.next()
+  }
+
+  // 3. Already locale-prefixed — serve as-is.
   const hasLocalePrefix = LOCALES.some(
     (locale) => pathname === `/${locale}` || pathname.startsWith(`/${locale}/`),
   )
@@ -24,6 +49,6 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // Skip Next internals, the API surface, and anything with a file extension.
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|.*\\..*).*)"],
+  // Skip Next internals and anything with a file extension.
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|.*\\..*).*)"],
 }

@@ -5,13 +5,15 @@ import { useState } from "react"
 
 import AppImage from "@/components/wjc/app-image"
 import { useReveal } from "@/components/wjc/use-reveal"
-import { faculty, studentLeadership } from "@/data/team"
+import { faculty, studentLeadership, type TeamMember } from "@/data/team"
 import { localizePath, type Locale } from "@/i18n/config"
 import type { Dictionary } from "@/i18n/types"
 
 interface SectionProps {
   locale: Locale
   dict: Dictionary
+  facultyList?: TeamMember[]
+  studentLeadershipList?: TeamMember[]
 }
 
 /** The Director card is drawn from the real faculty list. */
@@ -105,12 +107,13 @@ function HeroTeam({ locale, dict }: SectionProps) {
 }
 
 
-function FacultySection({ locale, dict }: SectionProps) {
+function FacultySection({ locale, dict, facultyList }: SectionProps) {
   const ref = useReveal<HTMLElement>(120, 0.1)
   const [hovered, setHovered] = useState<number | null>(null)
 
+  const activeFaculty = facultyList && facultyList.length > 0 ? facultyList : faculty
   // Everyone except the Director, who has their own feature above.
-  const instructors = faculty.filter((p) => p.id !== DIRECTOR_ID)
+  const instructors = activeFaculty.filter((p) => p.id !== DIRECTOR_ID)
 
   return (
     <section
@@ -253,8 +256,16 @@ function FacultySection({ locale, dict }: SectionProps) {
   )
 }
 
-function StudentLeadersSection({ locale, dict }: SectionProps) {
+function StudentLeadersSection({
+  locale,
+  dict,
+  studentLeadershipList,
+}: SectionProps) {
   const ref = useReveal<HTMLElement>(100, 0.1)
+  const activeStudents =
+    studentLeadershipList && studentLeadershipList.length > 0
+      ? studentLeadershipList
+      : studentLeadership
 
   return (
     <section
@@ -317,7 +328,7 @@ function StudentLeadersSection({ locale, dict }: SectionProps) {
         </div>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {studentLeadership.map((student, i) => (
+          {activeStudents.map((student, i) => (
             <div
               key={student.id}
               className="fade-up"
@@ -510,12 +521,21 @@ function TeamCta({ locale, dict }: SectionProps) {
   )
 }
 
-export default function TeamContent({ locale, dict }: SectionProps) {
+export default function TeamContent({
+  locale,
+  dict,
+  facultyList,
+  studentLeadershipList,
+}: SectionProps) {
   return (
     <>
       <HeroTeam locale={locale} dict={dict} />
-      <FacultySection locale={locale} dict={dict} />
-      <StudentLeadersSection locale={locale} dict={dict} />
+      <FacultySection locale={locale} dict={dict} facultyList={facultyList} />
+      <StudentLeadersSection
+        locale={locale}
+        dict={dict}
+        studentLeadershipList={studentLeadershipList}
+      />
       <TeamCta locale={locale} dict={dict} />
     </>
   )

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation"
 import { getDictionary } from "@/i18n"
 import { alternatesFor } from "@/i18n/metadata"
 import { isLocale, type Locale } from "@/i18n/config"
+import { getGalleryItems } from "@/lib/db/gallery"
 import GalleryHero from "./hero"
 import GalleryGrid from "./gallery-grid"
 
@@ -31,11 +32,12 @@ export default async function GalleryPage({
   if (!isLocale(raw)) notFound()
   const locale = raw as Locale
   const dict = getDictionary(locale)
+  const items = await getGalleryItems()
 
   return (
     <>
       <GalleryHero locale={locale} dict={dict} />
-      <GalleryGrid locale={locale} dict={dict} />
+      <GalleryGrid locale={locale} dict={dict} items={items} />
     </>
   )
 }

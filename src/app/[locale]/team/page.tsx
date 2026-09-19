@@ -4,6 +4,7 @@ import { notFound } from "next/navigation"
 import { getDictionary } from "@/i18n"
 import { alternatesFor } from "@/i18n/metadata"
 import { isLocale, type Locale } from "@/i18n/config"
+import { getTeamData } from "@/lib/db/team"
 import TeamContent from "./content"
 
 export async function generateMetadata({
@@ -29,6 +30,14 @@ export default async function TeamPage({
   const { locale: raw } = await params
   if (!isLocale(raw)) notFound()
   const locale = raw as Locale
+  const { faculty: facultyList, studentLeadership: studentLeadershipList } = await getTeamData()
 
-  return <TeamContent locale={locale} dict={getDictionary(locale)} />
+  return (
+    <TeamContent
+      locale={locale}
+      dict={getDictionary(locale)}
+      facultyList={facultyList}
+      studentLeadershipList={studentLeadershipList}
+    />
+  )
 }

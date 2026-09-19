@@ -1,0 +1,150 @@
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// -------------------------------------------------------------
+// Better Auth Core Models
+// -------------------------------------------------------------
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  emailVerified Boolean   @default(false)
+  image         String?
+  role          String    @default("admin")
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+
+  @@map("user")
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id @default(cuid())
+  userId                String
+  accountId             String
+  providerId            String
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id @default(cuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("verification")
+}
+
+// -------------------------------------------------------------
+// Website Content Models
+// -------------------------------------------------------------
+model Event {
+  id                String   @id @default(cuid())
+  slug              String   @unique
+  tab               String   @default("culture") // "culture" | "delegations" | "outreach" | "next"
+  filter            String   @default("cultural") // "cultural" | "academic" | "festival"
+  isoDate           String
+  displayDateEn     String
+  displayDateJa     String
+  categoryEn        String
+  categoryJa        String
+  titleEn           String
+  titleJa           String
+  descriptionEn     String
+  descriptionJa     String
+  fullDescriptionEn String   @db.Text
+  fullDescriptionJa String   @db.Text
+  images            String[] // Public paths: e.g. ["/images/events/..."]
+  locationEn        String?
+  locationJa        String?
+  timeEn            String?
+  timeJa            String?
+  isUpcoming        Boolean  @default(false)
+  registrationOpen  Boolean  @default(false)
+  statusEn          String?
+  statusJa          String?
+  posterSrc         String?
+  displayOrder      Int      @default(0)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@index([tab])
+  @@index([filter])
+  @@map("events")
+}
+
+model GalleryItem {
+  id           String   @id @default(cuid())
+  src          String   // Public path: e.g. "/images/gallery/...webp"
+  category     String   @default("festivals") // "festivals" | "cultural" | "academic"
+  titleEn      String
+  titleJa      String
+  dateEn       String
+  dateJa       String
+  altEn        String
+  altJa        String
+  span         String   @default("square") // "tall" | "wide" | "square"
+  displayOrder Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([category])
+  @@map("gallery_items")
+}
+
+model TeamMember {
+  id           String   @id @default(cuid())
+  name         String
+  roleEn       String
+  roleJa       String
+  subtitleEn   String
+  subtitleJa   String
+  image        String   // Public path: e.g. "/images/team/..."
+  bioEn        String?  @db.Text
+  bioJa        String?  @db.Text
+  category     String   @default("faculty") // "faculty" | "student"
+  displayOrder Int      @default(0)
+  scale        String?
+  hoverScale   String?
+  position     String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([category])
+  @@map("team_members")
+}

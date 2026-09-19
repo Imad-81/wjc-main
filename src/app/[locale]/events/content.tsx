@@ -5,7 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react"
 
 import AppImage from "@/components/wjc/app-image"
 import { useReveal } from "@/components/wjc/use-reveal"
-import { pastEvents } from "@/data/events"
+import { pastEvents, type Event } from "@/data/events"
 import { delegations, eventStats, upcomingEvents } from "@/data/events-extra"
 import { localizePath, type Locale } from "@/i18n/config"
 import type { Dictionary } from "@/i18n/types"
@@ -15,6 +15,7 @@ type ActiveTab = "culture" | "delegations" | "outreach" | "next"
 interface SectionProps {
   locale: Locale
   dict: Dictionary
+  events?: Event[]
 }
 
 function HeroEvents({ locale, dict }: SectionProps) {
@@ -104,17 +105,18 @@ function HeroEvents({ locale, dict }: SectionProps) {
   )
 }
 
-function TabsSection({ locale, dict }: SectionProps) {
+function TabsSection({ locale, dict, events }: SectionProps) {
   const ref = useReveal<HTMLElement>(80, 0.05)
   const [active, setActive] = useState<ActiveTab>("culture")
 
+  const eventList = events && events.length > 0 ? events : pastEvents
   const cultureEvents = useMemo(
-    () => pastEvents.filter((e) => e.tab === "culture"),
-    [],
+    () => eventList.filter((e) => e.tab === "culture"),
+    [eventList],
   )
   const outreachEvents = useMemo(
-    () => pastEvents.filter((e) => e.tab === "outreach"),
-    [],
+    () => eventList.filter((e) => e.tab === "outreach"),
+    [eventList],
   )
 
   /*
@@ -1140,11 +1142,11 @@ function EventsCta({ locale, dict }: SectionProps) {
   )
 }
 
-export default function EventsContent({ locale, dict }: SectionProps) {
+export default function EventsContent({ locale, dict, events }: SectionProps) {
   return (
     <>
       <HeroEvents locale={locale} dict={dict} />
-      <TabsSection locale={locale} dict={dict} />
+      <TabsSection locale={locale} dict={dict} events={events} />
       <ImpactNumbers_IMPL locale={locale} dict={dict} />
       <EventsCta locale={locale} dict={dict} />
     </>

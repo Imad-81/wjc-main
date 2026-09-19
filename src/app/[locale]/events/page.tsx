@@ -4,6 +4,7 @@ import { notFound } from "next/navigation"
 import { getDictionary } from "@/i18n"
 import { alternatesFor } from "@/i18n/metadata"
 import { isLocale, type Locale } from "@/i18n/config"
+import { getEvents } from "@/lib/db/events"
 import EventsContent from "./content"
 
 export async function generateMetadata({
@@ -29,6 +30,7 @@ export default async function EventsPage({
   const { locale: raw } = await params
   if (!isLocale(raw)) notFound()
   const locale = raw as Locale
+  const events = await getEvents()
 
-  return <EventsContent locale={locale} dict={getDictionary(locale)} />
+  return <EventsContent locale={locale} dict={getDictionary(locale)} events={events} />
 }

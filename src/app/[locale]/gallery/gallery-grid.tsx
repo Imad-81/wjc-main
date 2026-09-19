@@ -8,6 +8,7 @@ import {
   galleryCategories,
   galleryImages,
   type GalleryCategory,
+  type GalleryItem,
 } from "@/data/gallery"
 import type { Locale } from "@/i18n/config"
 import type { Dictionary } from "@/i18n/types"
@@ -15,20 +16,24 @@ import type { Dictionary } from "@/i18n/types"
 export default function GalleryGrid({
   locale,
   dict,
+  items,
 }: {
   locale: Locale
   dict: Dictionary
+  items?: GalleryItem[]
 }) {
   const sectionRef = useReveal<HTMLElement>(60, 0.05)
   const [active, setActive] = useState<"all" | GalleryCategory>("all")
   const [lightbox, setLightbox] = useState<number | null>(null)
 
+  const imageList = items && items.length > 0 ? items : galleryImages
+
   const filtered = useMemo(
     () =>
       active === "all"
-        ? galleryImages
-        : galleryImages.filter((item) => item.category === active),
-    [active],
+        ? imageList
+        : imageList.filter((item) => item.category === active),
+    [active, imageList],
   )
 
   const close = useCallback(() => setLightbox(null), [])

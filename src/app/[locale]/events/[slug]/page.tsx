@@ -7,7 +7,8 @@ import { ArrowLeft, Calendar, Clock, MapPin } from "lucide-react"
 import { getDictionary } from "@/i18n"
 import { alternatesFor } from "@/i18n/metadata"
 import { LOCALES, isLocale, localizePath, type Locale } from "@/i18n/config"
-import { getEventBySlug, pastEvents } from "@/data/events"
+import { getEventBySlug as getDbEventBySlug } from "@/lib/db/events"
+import { pastEvents } from "@/data/events"
 
 import FadeUp from "@/components/wjc/fade-up"
 import { KanjiGhost, SectionLabel } from "@/components/wjc/primitives"
@@ -26,7 +27,7 @@ export async function generateMetadata({
   const { locale, slug } = await params
   if (!isLocale(locale)) return {}
 
-  const event = getEventBySlug(slug)
+  const event = await getDbEventBySlug(slug)
   if (!event) return {}
 
   return {
@@ -51,7 +52,7 @@ export default async function EventDetailPage({
   const locale = raw as Locale
   const dict = getDictionary(locale)
 
-  const event = getEventBySlug(slug)
+  const event = await getDbEventBySlug(slug)
   if (!event) notFound()
 
   const [hero, ...rest] = event.images
