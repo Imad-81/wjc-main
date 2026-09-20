@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
-import { revalidatePath } from "next/cache"
 import { prisma } from "@/lib/prisma"
 import { requireAdminSession } from "@/lib/auth-guard"
+import { revalidateTeamCache } from "@/lib/cache"
 
 export async function PUT(
   request: NextRequest,
@@ -33,9 +33,8 @@ export async function PUT(
       },
     })
 
-    revalidatePath("/[locale]/team", "page")
-    revalidatePath("/team")
-    revalidatePath("/ja/team")
+    // Revalidate public cache and routes
+    await revalidateTeamCache()
 
     return NextResponse.json({ success: true, member: updated })
   } catch (error: unknown) {
@@ -57,9 +56,8 @@ export async function DELETE(
       where: { id },
     })
 
-    revalidatePath("/[locale]/team", "page")
-    revalidatePath("/team")
-    revalidatePath("/ja/team")
+    // Revalidate public cache and routes
+    await revalidateTeamCache()
 
     return NextResponse.json({ success: true, member: deleted })
   } catch (error: unknown) {

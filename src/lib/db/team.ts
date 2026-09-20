@@ -1,7 +1,12 @@
+import { unstable_cache } from "next/cache"
 import { prisma } from "@/lib/prisma"
 import { faculty as staticFaculty, studentLeadership as staticStudents, type TeamMember } from "@/data/team"
+import { CACHE_TAGS } from "@/lib/cache"
 
-export async function getTeamData(): Promise<{
+/**
+ * Raw DB query for team members.
+ */
+async function fetchTeamDataFromDb(): Promise<{
   faculty: TeamMember[]
   studentLeadership: TeamMember[]
 }> {
@@ -43,4 +48,23 @@ export async function getTeamData(): Promise<{
       studentLeadership: staticStudents,
     }
   }
+}
+
+/**
+ * Cached public team data (in-memory, TTL: 1 hr, purged on-demand via CACHE_TAGS.TEAM).
+ */
+const getCachedTeamData = unstable_cache(
+  fetchTeamDataFromDb,
+  ["public-team-data"],
+  {
+    tags: [CACHE_TAGS.TEAM],
+    revalidate: 3600,
+  }
+)
+
+export async function getTeamData(): Promise<{
+  faculty: TeamMember[]
+  studentLeadership: TeamMember[]
+}> {
+  return getCachedTeamData()
 }

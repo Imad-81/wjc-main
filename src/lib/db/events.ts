@@ -1,7 +1,12 @@
+import { unstable_cache } from "next/cache"
 import { prisma } from "@/lib/prisma"
 import { pastEvents, type Event, type EventFilter, type EventTab } from "@/data/events"
+import { CACHE_TAGS } from "@/lib/cache"
 
-export async function getEvents(): Promise<Event[]> {
+/**
+ * Raw DB query for public events list.
+ */
+async function fetchEventsFromDb(): Promise<Event[]> {
   try {
     const dbEvents = await prisma.event.findMany({
       orderBy: [
@@ -43,7 +48,26 @@ export async function getEvents(): Promise<Event[]> {
   }
 }
 
-export async function getEventBySlug(slug: string): Promise<Event | undefined> {
+/**
+ * Cached public events list (in-memory, TTL: 1 hr, purged on-demand via CACHE_TAGS.EVENTS).
+ */
+const getCachedEvents = unstable_cache(
+  fetchEventsFromDb,
+  ["public-events-list"],
+  {
+    tags: [CACHE_TAGS.EVENTS],
+    revalidate: 3600,
+  }
+)
+
+export async function getEvents(): Promise<Event[]> {
+  return getCachedEvents()
+}
+
+/**
+ * Raw DB query for single event by slug.
+ */
+async function fetchEventBySlugFromDb(slug: string): Promise<Event | undefined> {
   try {
     const e = await prisma.event.findUnique({
       where: { slug },
@@ -78,4 +102,20 @@ export async function getEventBySlug(slug: string): Promise<Event | undefined> {
   }
 
   return pastEvents.find((event) => event.slug === slug)
+}
+
+/**
+ * Cached event detail by slug (in-memory, TTL: 1 hr, purged on-demand).
+ */
+export async function getEventBySlug(slug: string): Promise<Event | undefined> {
+  const getCachedEvent = unstable_cache(
+    () => fetchEventBySlugFromDb(slug),
+    ["public-event-slug", slug],
+    {
+      tags: [CACHE_TAGS.EVENTS, `event-${slug}`],
+      revalidate: 3600,
+    }
+  )
+
+  return getCachedEvent()
 }

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
-import { revalidatePath } from "next/cache"
 import { prisma } from "@/lib/prisma"
 import { requireAdminSession } from "@/lib/auth-guard"
+import { revalidateEventsCache } from "@/lib/cache"
 
 export const dynamic = "force-dynamic"
 
@@ -36,13 +36,8 @@ export async function POST(request: NextRequest) {
       )
     )
 
-    // Revalidate public pages immediately so live site updates
-    revalidatePath("/[locale]/events", "page")
-    revalidatePath("/events")
-    revalidatePath("/ja/events")
-    revalidatePath("/[locale]", "page")
-    revalidatePath("/")
-    revalidatePath("/ja")
+    // Revalidate public cache and routes immediately
+    await revalidateEventsCache()
 
     return NextResponse.json({ success: true, count: items.length })
   } catch (error: unknown) {

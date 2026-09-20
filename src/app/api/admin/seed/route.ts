@@ -5,6 +5,7 @@ import { upcomingEvents } from "@/data/events-extra"
 import { galleryImages } from "@/data/gallery"
 import { faculty, studentLeadership } from "@/data/team"
 import { requireAdminSession } from "@/lib/auth-guard"
+import { revalidateAllCache } from "@/lib/cache"
 
 export async function POST() {
   try {
@@ -131,6 +132,9 @@ export async function POST() {
       gallery: await prisma.galleryItem.count(),
       team: await prisma.teamMember.count(),
     }
+
+    // Revalidate all public in-memory cache and routes
+    await revalidateAllCache()
 
     return NextResponse.json({
       success: true,

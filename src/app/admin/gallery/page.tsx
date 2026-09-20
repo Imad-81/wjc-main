@@ -13,6 +13,7 @@ import {
   CheckCircle2,
 } from "lucide-react"
 import MediaPicker from "@/components/admin/media-picker"
+import { getAdminCached, setAdminCached } from "@/lib/admin-cache"
 
 interface AdminGalleryItem {
   id: string
@@ -42,8 +43,9 @@ const BLANK_ITEM = {
 }
 
 export default function AdminGalleryPage() {
-  const [items, setItems] = useState<AdminGalleryItem[]>([])
-  const [loading, setLoading] = useState(true)
+  const cachedItems = getAdminCached<AdminGalleryItem[]>("admin-gallery")
+  const [items, setItems] = useState<AdminGalleryItem[]>(cachedItems || [])
+  const [loading, setLoading] = useState(!cachedItems)
   const [categoryFilter, setCategoryFilter] = useState("all")
 
   // Modal State
@@ -54,13 +56,16 @@ export default function AdminGalleryPage() {
   const [error, setError] = useState<string | null>(null)
   const [reorderToast, setReorderToast] = useState(false)
 
-  const fetchItems = async () => {
-    setLoading(true)
+  const fetchItems = async (silent?: boolean) => {
+    const hasCache = Boolean(getAdminCached("admin-gallery"))
+    const shouldBeSilent = silent ?? hasCache
+    if (!shouldBeSilent) setLoading(true)
     try {
       const res = await fetch("/api/admin/gallery")
       const data = await res.json()
       if (data.success) {
         setItems(data.items || [])
+        setAdminCached("admin-gallery", data.items || [])
       }
     } catch (err) {
       console.error(err)
@@ -111,7 +116,11 @@ export default function AdminGalleryPage() {
       const res = await fetch(`/api/admin/gallery/${id}`, { method: "DELETE" })
       const data = await res.json()
       if (data.success) {
-        setItems((prev) => prev.filter((i) => i.id !== id))
+        setItems((prev) => {
+          const next = prev.filter((i) => i.id !== id)
+          setAdminCached("admin-gallery", next)
+          return next
+        })
       } else {
         alert(data.error || "Failed to delete")
       }
@@ -166,12 +175,14 @@ export default function AdminGalleryPage() {
       displayOrder: idx + 1,
     }))
 
-    setItems((prev) =>
-      prev.map((it) => {
+    setItems((prev) => {
+      const next = prev.map((it) => {
         const found = payload.find((p) => p.id === it.id)
         return found ? { ...it, displayOrder: found.displayOrder } : it
       })
-    )
+      setAdminCached("admin-gallery", next)
+      return next
+    })
 
     try {
       const res = await fetch("/api/admin/gallery/reorder", {

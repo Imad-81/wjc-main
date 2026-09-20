@@ -18,6 +18,7 @@ import {
 } from "lucide-react"
 import Image from "next/image"
 import MediaPicker from "@/components/admin/media-picker"
+import { getAdminCached, setAdminCached } from "@/lib/admin-cache"
 
 interface AdminEvent {
   id: string
@@ -79,8 +80,9 @@ const BLANK_EVENT = {
 }
 
 export default function AdminEventsPage() {
-  const [events, setEvents] = useState<AdminEvent[]>([])
-  const [loading, setLoading] = useState(true)
+  const cachedEvents = getAdminCached<AdminEvent[]>("admin-events")
+  const [events, setEvents] = useState<AdminEvent[]>(cachedEvents || [])
+  const [loading, setLoading] = useState(!cachedEvents)
   const [search, setSearch] = useState("")
   const [tabFilter, setTabFilter] = useState("culture")
   const [viewMode, setViewMode] = useState<"priority" | "table">("priority")
@@ -98,12 +100,16 @@ export default function AdminEventsPage() {
   const [error, setError] = useState<string | null>(null)
   const [showAddGalleryPicker, setShowAddGalleryPicker] = useState(false)
 
-  const fetchEvents = async () => {
+  const fetchEvents = async (silent?: boolean) => {
+    const hasCache = Boolean(getAdminCached("admin-events"))
+    const shouldBeSilent = silent ?? hasCache
+    if (!shouldBeSilent) setLoading(true)
     try {
       const res = await fetch("/api/admin/events")
       const data = await res.json()
       if (data.success) {
         setEvents(data.events || [])
+        setAdminCached("admin-events", data.events || [])
       }
     } catch (err) {
       console.error(err)
@@ -171,7 +177,11 @@ export default function AdminEventsPage() {
       const res = await fetch(`/api/admin/events/${id}`, { method: "DELETE" })
       const data = await res.json()
       if (data.success) {
-        setEvents((prev) => prev.filter((item) => item.id !== id))
+        setEvents((prev) => {
+          const next = prev.filter((item) => item.id !== id)
+          setAdminCached("admin-events", next)
+          return next
+        })
       } else {
         alert(data.error || "Failed to delete")
       }
@@ -268,13 +278,15 @@ export default function AdminEventsPage() {
       isFeatured: ev.tab === "culture" ? idx === 0 : false,
     }))
 
-    // Optimistically update state
-    setEvents((prev) =>
-      prev.map((ev) => {
+    // Optimistically update state and client cache
+    setEvents((prev) => {
+      const next = prev.map((ev) => {
         const found = reorderPayload.find((p) => p.id === ev.id)
         return found ? { ...ev, displayOrder: found.displayOrder, isFeatured: found.isFeatured } : ev
       })
-    )
+      setAdminCached("admin-events", next)
+      return next
+    })
 
     // Persist to server
     setSavingReorder(true)
@@ -315,13 +327,15 @@ export default function AdminEventsPage() {
       isFeatured: idx === 0,
     }))
 
-    // Optimistically update
-    setEvents((prev) =>
-      prev.map((ev) => {
+    // Optimistically update and cache
+    setEvents((prev) => {
+      const next = prev.map((ev) => {
         const found = reorderPayload.find((p) => p.id === ev.id)
         return found ? { ...ev, displayOrder: found.displayOrder, isFeatured: found.isFeatured } : ev
       })
-    )
+      setAdminCached("admin-events", next)
+      return next
+    })
 
     setSavingReorder(true)
     try {

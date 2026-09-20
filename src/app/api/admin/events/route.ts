@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
-import { revalidatePath } from "next/cache"
 import { prisma } from "@/lib/prisma"
 import { requireAdminSession } from "@/lib/auth-guard"
+import { revalidateEventsCache } from "@/lib/cache"
 
 export async function GET() {
   try {
@@ -95,10 +95,8 @@ export async function POST(request: NextRequest) {
       },
     })
 
-    // Revalidate public routes
-    revalidatePath("/[locale]/events", "page")
-    revalidatePath("/events")
-    revalidatePath("/ja/events")
+    // Revalidate public cache and routes
+    await revalidateEventsCache(newEvent.slug)
 
     return NextResponse.json({ success: true, event: newEvent })
   } catch (error: unknown) {

@@ -1,7 +1,12 @@
+import { unstable_cache } from "next/cache"
 import { prisma } from "@/lib/prisma"
 import { galleryImages, type GalleryCategory, type GalleryItem } from "@/data/gallery"
+import { CACHE_TAGS } from "@/lib/cache"
 
-export async function getGalleryItems(): Promise<GalleryItem[]> {
+/**
+ * Raw DB query for public gallery items.
+ */
+async function fetchGalleryItemsFromDb(): Promise<GalleryItem[]> {
   try {
     const dbItems = await prisma.galleryItem.findMany({
       orderBy: [{ displayOrder: "asc" }, { createdAt: "desc" }],
@@ -24,4 +29,20 @@ export async function getGalleryItems(): Promise<GalleryItem[]> {
     console.error("Error fetching gallery from DB, falling back to static data:", err)
     return galleryImages
   }
+}
+
+/**
+ * Cached public gallery items (in-memory, TTL: 1 hr, purged on-demand via CACHE_TAGS.GALLERY).
+ */
+const getCachedGalleryItems = unstable_cache(
+  fetchGalleryItemsFromDb,
+  ["public-gallery-list"],
+  {
+    tags: [CACHE_TAGS.GALLERY],
+    revalidate: 3600,
+  }
+)
+
+export async function getGalleryItems(): Promise<GalleryItem[]> {
+  return getCachedGalleryItems()
 }

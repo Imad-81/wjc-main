@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
-import { revalidatePath } from "next/cache"
 import { prisma } from "@/lib/prisma"
 import { requireAdminSession } from "@/lib/auth-guard"
+import { revalidateEventsCache } from "@/lib/cache"
 
 export async function PUT(
   request: NextRequest,
@@ -46,14 +46,8 @@ export async function PUT(
       },
     })
 
-    // Revalidate public routes
-    revalidatePath("/[locale]/events", "page")
-    revalidatePath(`/[locale]/events/${updated.slug}`, "page")
-    revalidatePath("/events")
-    revalidatePath("/ja/events")
-    revalidatePath("/[locale]", "page")
-    revalidatePath("/")
-    revalidatePath("/ja")
+    // Revalidate public cache and routes
+    await revalidateEventsCache(updated.slug)
 
     return NextResponse.json({ success: true, event: updated })
   } catch (error: unknown) {
@@ -75,10 +69,8 @@ export async function DELETE(
       where: { id },
     })
 
-    // Revalidate public routes
-    revalidatePath("/[locale]/events", "page")
-    revalidatePath("/events")
-    revalidatePath("/ja/events")
+    // Revalidate public cache and routes
+    await revalidateEventsCache(deleted.slug)
 
     return NextResponse.json({ success: true, event: deleted })
   } catch (error: unknown) {

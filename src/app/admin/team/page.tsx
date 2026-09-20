@@ -13,6 +13,7 @@ import {
   CheckCircle2,
 } from "lucide-react"
 import MediaPicker from "@/components/admin/media-picker"
+import { getAdminCached, setAdminCached } from "@/lib/admin-cache"
 
 interface AdminTeamMember {
   id: string
@@ -49,8 +50,9 @@ const BLANK_MEMBER = {
 }
 
 export default function AdminTeamPage() {
-  const [members, setMembers] = useState<AdminTeamMember[]>([])
-  const [loading, setLoading] = useState(true)
+  const cachedMembers = getAdminCached<AdminTeamMember[]>("admin-team")
+  const [members, setMembers] = useState<AdminTeamMember[]>(cachedMembers || [])
+  const [loading, setLoading] = useState(!cachedMembers)
   const [categoryTab, setCategoryTab] = useState<"faculty" | "student">("faculty")
 
   // Modal State
@@ -62,13 +64,16 @@ export default function AdminTeamPage() {
   const [error, setError] = useState<string | null>(null)
   const [reorderToast, setReorderToast] = useState(false)
 
-  const fetchMembers = async () => {
-    setLoading(true)
+  const fetchMembers = async (silent?: boolean) => {
+    const hasCache = Boolean(getAdminCached("admin-team"))
+    const shouldBeSilent = silent ?? hasCache
+    if (!shouldBeSilent) setLoading(true)
     try {
       const res = await fetch("/api/admin/team")
       const data = await res.json()
       if (data.success) {
         setMembers(data.members || [])
+        setAdminCached("admin-team", data.members || [])
       }
     } catch (err) {
       console.error(err)
@@ -124,7 +129,11 @@ export default function AdminTeamPage() {
       const res = await fetch(`/api/admin/team/${id}`, { method: "DELETE" })
       const data = await res.json()
       if (data.success) {
-        setMembers((prev) => prev.filter((m) => m.id !== id))
+        setMembers((prev) => {
+          const next = prev.filter((m) => m.id !== id)
+          setAdminCached("admin-team", next)
+          return next
+        })
       } else {
         alert(data.error || "Failed to delete")
       }
@@ -183,12 +192,14 @@ export default function AdminTeamPage() {
       displayOrder: idx + 1,
     }))
 
-    setMembers((prev) =>
-      prev.map((m) => {
+    setMembers((prev) => {
+      const next = prev.map((m) => {
         const found = payload.find((p) => p.id === m.id)
         return found ? { ...m, displayOrder: found.displayOrder } : m
       })
-    )
+      setAdminCached("admin-team", next)
+      return next
+    })
 
     try {
       const res = await fetch("/api/admin/team/reorder", {

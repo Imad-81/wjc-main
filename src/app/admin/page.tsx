@@ -1,35 +1,46 @@
+import { unstable_cache } from "next/cache"
 import { prisma } from "@/lib/prisma"
 import Link from "next/link"
 import { Calendar, Image as ImageIcon, Users, FolderOpen, ArrowUpRight } from "lucide-react"
 import SyncArchiveButton from "./sync-archive-button"
+import { CACHE_TAGS } from "@/lib/cache"
 
 export const metadata = {
   title: "Dashboard | WJC Administration",
 }
 
-export default async function AdminDashboardPage() {
-  let counts = { events: 0, upcomingEvents: 0, gallery: 0, teamFaculty: 0, teamStudents: 0 }
+const getDashboardCounts = unstable_cache(
+  async () => {
+    try {
+      const [eventsTotal, upcomingTotal, galleryTotal, facultyTotal, studentsTotal] = await Promise.all([
+        prisma.event.count({ where: { isUpcoming: false } }),
+        prisma.event.count({ where: { isUpcoming: true } }),
+        prisma.galleryItem.count(),
+        prisma.teamMember.count({ where: { category: "faculty" } }),
+        prisma.teamMember.count({ where: { category: "student" } }),
+      ])
 
-  try {
-    const [eventsTotal, upcomingTotal, galleryTotal, facultyTotal, studentsTotal] = await Promise.all([
-      prisma.event.count({ where: { isUpcoming: false } }),
-      prisma.event.count({ where: { isUpcoming: true } }),
-      prisma.galleryItem.count(),
-      prisma.teamMember.count({ where: { category: "faculty" } }),
-      prisma.teamMember.count({ where: { category: "student" } }),
-    ])
-
-    counts = {
-      events: eventsTotal,
-      upcomingEvents: upcomingTotal,
-      gallery: galleryTotal,
-      teamFaculty: facultyTotal,
-      teamStudents: studentsTotal,
+      return {
+        events: eventsTotal,
+        upcomingEvents: upcomingTotal,
+        gallery: galleryTotal,
+        teamFaculty: facultyTotal,
+        teamStudents: studentsTotal,
+      }
+    } catch (err) {
+      console.error("Error loading dashboard counts:", err)
+      return { events: 0, upcomingEvents: 0, gallery: 0, teamFaculty: 0, teamStudents: 0 }
     }
-  } catch (err) {
-    console.error("Error loading dashboard counts:", err)
+  },
+  ["admin-dashboard-counts"],
+  {
+    tags: [CACHE_TAGS.DASHBOARD],
+    revalidate: 3600,
   }
+)
 
+export default async function AdminDashboardPage() {
+  const counts = await getDashboardCounts()
   const totalTeam = counts.teamFaculty + counts.teamStudents
   const totalEvents = counts.events + counts.upcomingEvents
 

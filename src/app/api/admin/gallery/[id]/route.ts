@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
-import { revalidatePath } from "next/cache"
 import { prisma } from "@/lib/prisma"
 import { requireAdminSession } from "@/lib/auth-guard"
+import { revalidateGalleryCache } from "@/lib/cache"
 
 export async function PUT(
   request: NextRequest,
@@ -30,9 +30,8 @@ export async function PUT(
       },
     })
 
-    revalidatePath("/[locale]/gallery", "page")
-    revalidatePath("/gallery")
-    revalidatePath("/ja/gallery")
+    // Revalidate public cache and routes
+    await revalidateGalleryCache()
 
     return NextResponse.json({ success: true, item: updated })
   } catch (error: unknown) {
@@ -54,9 +53,8 @@ export async function DELETE(
       where: { id },
     })
 
-    revalidatePath("/[locale]/gallery", "page")
-    revalidatePath("/gallery")
-    revalidatePath("/ja/gallery")
+    // Revalidate public cache and routes
+    await revalidateGalleryCache()
 
     return NextResponse.json({ success: true, item: deleted })
   } catch (error: unknown) {
