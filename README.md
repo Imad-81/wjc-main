@@ -2,7 +2,7 @@
 
 Official bilingual web platform and administrative content management system for the **Woxsen Japan Centre** at Woxsen University.
 
-Built with Next.js 16 (Turbopack), React 19, Tailwind CSS v4, Prisma ORM, Supabase PostgreSQL, and Better Auth. Features enterprise-grade, in-memory data caching providing sub-5ms public page responses and instant 0ms admin transitions across cross-continental infrastructure.
+Built with Next.js 16 (Turbopack), React 19, Tailwind CSS v4, Prisma ORM, Neon PostgreSQL, and Better Auth. Features enterprise-grade, in-memory data caching providing sub-5ms public page responses and instant 0ms admin transitions across cross-continental infrastructure.
 
 ---
 
@@ -43,7 +43,7 @@ Built with Next.js 16 (Turbopack), React 19, Tailwind CSS v4, Prisma ORM, Supaba
 | **UI Library** | [React 19](https://react.dev/) |
 | **Styling** | [Tailwind CSS v4](https://tailwindcss.com/) with custom Japanese aesthetics & animations |
 | **Icons** | [Lucide React](https://lucide.dev/) |
-| **Database** | [Supabase](https://supabase.com/) PostgreSQL |
+| **Database** | [Neon](https://neon.tech/) Serverless PostgreSQL |
 | **ORM** | [Prisma ORM 6](https://www.prisma.io/) |
 | **Authentication** | [Better Auth](https://www.better-auth.com/) with Prisma Adapter |
 | **Caching Engine** | Next.js `unstable_cache` + Client-side In-Memory Store |
@@ -108,14 +108,11 @@ woxsen-japan-center-wou/
 Create a `.env` file in the root directory:
 
 ```env
-# Supabase Configuration
-NEXT_PUBLIC_SUPABASE_URL="https://<project-ref>.supabase.co"
-NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY="sb_publishable_..."
-
-# PostgreSQL Connection Strings
-# Use connection pool tuning parameters for optimal latency and stability:
-DATABASE_URL="postgresql://postgres.<project-ref>:<password>@<pooler-host>:5432/postgres?connection_limit=3&pool_timeout=30&connect_timeout=15"
-DIRECT_URL="postgresql://postgres.<project-ref>:<password>@<pooler-host>:5432/postgres"
+# Neon Serverless PostgreSQL Configuration
+# Connection pooling endpoint for runtime queries
+DATABASE_URL="postgresql://<user>:<password>@<neon-pooler-host>/<dbname>?sslmode=require"
+# Direct endpoint for Prisma migrations and schema push
+DIRECT_URL="postgresql://<user>:<password>@<neon-direct-host>/<dbname>?sslmode=require"
 
 # Better Auth Security
 BETTER_AUTH_SECRET="<generate-random-secure-secret-string>"
@@ -176,7 +173,7 @@ npm start
 
 ## 🏎️ Performance & Caching Architecture
 
-Because databases may be hosted in distant cloud regions (e.g. Supabase Free Tier fixed in Sydney, Australia), this repository implements a multi-tier caching architecture:
+Because serverless databases may be hosted in distant cloud regions (e.g. AWS us-east-2), this repository implements a multi-tier caching architecture:
 
 ```mermaid
 flowchart TD
@@ -184,7 +181,7 @@ flowchart TD
     
     subgraph In-Memory Data Layer
         NextServer -->|Tag Hit (1-2ms)| MemoryCache[unstable_cache Store]
-        MemoryCache -.->|Cold Miss Only| RemoteDB[(Supabase PostgreSQL)]
+        MemoryCache -.->|Cold Miss Only| RemoteDB[(Neon PostgreSQL)]
     end
 
     subgraph Admin Mutations

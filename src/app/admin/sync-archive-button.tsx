@@ -11,7 +11,7 @@ export default function SyncArchiveButton() {
   const [error, setError] = useState<string | null>(null)
 
   const handleSync = async () => {
-    if (!confirm("Sync static archive data into Supabase? Any new entries will be inserted and existing entries updated.")) {
+    if (!confirm("Sync static archive data into Neon Database? Any new entries will be inserted and existing entries updated.")) {
       return
     }
 

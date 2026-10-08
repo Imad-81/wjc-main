@@ -98,7 +98,7 @@ export default function AdminLayoutClient({ children }: { children: React.ReactN
             <div className="mt-3 px-3 py-1.5 rounded bg-white/[0.03] border border-white/[0.05] flex items-center justify-between text-xs">
               <span className="text-neutral-400 font-mono text-[11px] flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                Supabase Connected
+                Neon Connected
               </span>
               <span className="text-[#C9A84C] font-serif text-xs font-jp">管理</span>
             </div>

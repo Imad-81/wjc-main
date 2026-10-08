@@ -62,7 +62,7 @@ export default async function AdminDashboardPage() {
         <div className="flex items-center gap-3">
           <div className="px-3.5 py-2 rounded bg-emerald-950/30 border border-emerald-800/40 text-emerald-400 text-xs font-mono flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span>Supabase Online</span>
+            <span>Neon Online</span>
           </div>
           <SyncArchiveButton />
         </div>

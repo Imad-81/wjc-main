@@ -484,7 +484,7 @@ export default function AdminEventsPage() {
       {loading ? (
         <div className="py-20 flex flex-col items-center justify-center text-neutral-400 text-xs font-mono gap-2">
           <Loader2 size={24} className="animate-spin text-[#C9A84C]" />
-          <span>Loading events from Supabase...</span>
+          <span>Loading events from Neon...</span>
         </div>
       ) : activeTabEvents.length === 0 ? (
         <div className="p-12 text-center rounded-lg bg-[#141414] border border-white/[0.08] text-neutral-400 font-mono text-xs">
