@@ -7,13 +7,18 @@ export const metadata = {
 }
 
 export default async function AdminSetupPage() {
+  let shouldRedirect = false
   try {
     const userCount = await prisma.user.count()
     if (userCount > 0) {
-      redirect("/admin/login")
+      shouldRedirect = true
     }
   } catch (err) {
     console.error("Error checking user count:", err)
+  }
+
+  if (shouldRedirect) {
+    redirect("/admin/login")
   }
 
   return <SetupForm />
