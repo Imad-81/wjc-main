@@ -14,29 +14,35 @@ export default function NewsletterSection({
 }) {
   const sectionRef = useReveal<HTMLElement>(120, 0.2)
   const [email, setEmail] = useState("")
+  const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
-  /**
-   * The prototype's form only flipped a local flag — a visitor's address went
-   * nowhere. There is no subscription backend, so this opens a pre-addressed
-   * email to the Centre instead. The address is really delivered.
-   */
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     if (!email) return
 
-    const subject = encodeURIComponent(
-      locale === "ja"
-        ? "ニュースレター購読希望"
-        : "Newsletter subscription request",
-    )
-    const body = encodeURIComponent(
-      locale === "ja"
-        ? `ニュースレターの購読を希望します。\n\nメールアドレス: ${email}`
-        : `Please subscribe me to the Japan Centre Dispatch.\n\nEmail: ${email}`,
-    )
-    window.location.href = `mailto:${dict.common.email}?subject=${subject}&body=${body}`
-    setSubmitted(true)
+    setSubmitting(true)
+    setErrorMessage(null)
+
+    try {
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, locale }),
+      })
+
+      const data = await res.json()
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || "Subscription failed. Please try again.")
+      }
+
+      setSubmitted(true)
+    } catch (err: unknown) {
+      setErrorMessage((err as Error).message || "An unexpected error occurred.")
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -128,12 +134,17 @@ export default function NewsletterSection({
                   }}
                 >
                   {locale === "ja"
-                    ? "メールソフトが開きます。送信いただければご登録します。"
-                    : "Your email app will open — send the message and we will add you."}
+                    ? "ご登録が完了いたしました。最新情報をお届けします。"
+                    : "You are subscribed to the Japan Centre Dispatch. Welcome."}
                 </p>
               </div>
             ) : (
               <form onSubmit={handleSubmit}>
+                {errorMessage && (
+                  <div className="mb-4 p-3 rounded bg-rose-900/10 border border-rose-600/30 text-rose-800 text-xs">
+                    {errorMessage}
+                  </div>
+                )}
                 <div style={{ marginBottom: "16px" }}>
                   <label
                     htmlFor="newsletter-email"
@@ -175,6 +186,7 @@ export default function NewsletterSection({
                 </div>
                 <button
                   type="submit"
+                  disabled={submitting}
                   className="btn-lift w-full"
                   style={{
                     backgroundColor: "var(--theme-accent)",
@@ -185,11 +197,16 @@ export default function NewsletterSection({
                     letterSpacing: "0.1em",
                     textTransform: "uppercase",
                     border: "none",
-                    cursor: "pointer",
+                    cursor: submitting ? "not-allowed" : "pointer",
+                    opacity: submitting ? 0.7 : 1,
                     fontFamily: "var(--font-dm-sans)",
                   }}
                 >
-                  {dict.home.newsletter.cta}
+                  {submitting
+                    ? locale === "ja"
+                      ? "登録中..."
+                      : "Subscribing..."
+                    : dict.home.newsletter.cta}
                 </button>
               </form>
             )}

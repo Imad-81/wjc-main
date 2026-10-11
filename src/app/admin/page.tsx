@@ -1,9 +1,19 @@
 import { unstable_cache } from "next/cache"
 import { prisma } from "@/lib/prisma"
 import Link from "next/link"
-import { Calendar, Image as ImageIcon, Users, FolderOpen, ArrowUpRight } from "lucide-react"
+import {
+  Calendar,
+  Image as ImageIcon,
+  Users,
+  FolderOpen,
+  ArrowUpRight,
+  Mail,
+  Download,
+  Ticket,
+} from "lucide-react"
 import SyncArchiveButton from "./sync-archive-button"
 import { CACHE_TAGS } from "@/lib/cache"
+import { isR2Configured } from "@/lib/r2"
 
 export const metadata = {
   title: "Dashboard | WJC Administration",
@@ -12,12 +22,22 @@ export const metadata = {
 const getDashboardCounts = unstable_cache(
   async () => {
     try {
-      const [eventsTotal, upcomingTotal, galleryTotal, facultyTotal, studentsTotal] = await Promise.all([
+      const [
+        eventsTotal,
+        upcomingTotal,
+        galleryTotal,
+        facultyTotal,
+        studentsTotal,
+        subscribersTotal,
+        registrationsTotal,
+      ] = await Promise.all([
         prisma.event.count({ where: { isUpcoming: false } }),
         prisma.event.count({ where: { isUpcoming: true } }),
         prisma.galleryItem.count(),
         prisma.teamMember.count({ where: { category: "faculty" } }),
         prisma.teamMember.count({ where: { category: "student" } }),
+        prisma.newsletterSubscriber.count(),
+        prisma.eventRegistration.count(),
       ])
 
       return {
@@ -26,10 +46,20 @@ const getDashboardCounts = unstable_cache(
         gallery: galleryTotal,
         teamFaculty: facultyTotal,
         teamStudents: studentsTotal,
+        subscribers: subscribersTotal,
+        registrations: registrationsTotal,
       }
     } catch (err) {
       console.error("Error loading dashboard counts:", err)
-      return { events: 0, upcomingEvents: 0, gallery: 0, teamFaculty: 0, teamStudents: 0 }
+      return {
+        events: 0,
+        upcomingEvents: 0,
+        gallery: 0,
+        teamFaculty: 0,
+        teamStudents: 0,
+        subscribers: 0,
+        registrations: 0,
+      }
     }
   },
   ["admin-dashboard-counts"],
@@ -148,15 +178,70 @@ export default async function AdminDashboardPage() {
             <ArrowUpRight size={18} className="text-neutral-500 group-hover:text-purple-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
           </div>
           <div className="mt-6">
-            <div className="text-3xl font-serif font-light text-[#F7F5F0] tracking-tight mb-1">
-              Local Storage
+            <div className="text-2xl font-serif font-light text-[#F7F5F0] tracking-tight mb-1">
+              {isR2Configured ? "Cloudflare R2" : "Local Disk"}
             </div>
-            <p className="text-xs font-mono text-neutral-400 uppercase tracking-wider">Public Media</p>
+            <p className="text-xs font-mono text-neutral-400 uppercase tracking-wider">Asset Storage</p>
             <p className="text-[11px] text-neutral-500 mt-1">
-              /public/images/ directory
+              {isR2Configured ? "wjc-main-website (Active)" : "/public/images/ fallback"}
             </p>
           </div>
         </Link>
+      </div>
+
+      {/* Lead Capture & Inquiries Module */}
+      <div className="p-6 rounded-lg bg-[#141414] border border-white/[0.08]">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 pb-4 border-b border-white/[0.06]">
+          <div>
+            <div className="flex items-center gap-2 mb-1">
+              <Mail size={16} className="text-[#C9A84C]" />
+              <h2 className="font-serif text-lg text-[#F7F5F0]">Audience & Registrations</h2>
+            </div>
+            <p className="text-xs text-neutral-400">
+              Visitor newsletter subscribers and upcoming event RSVPs collected from the website.
+            </p>
+          </div>
+          <div className="flex items-center gap-2.5">
+            <a
+              href="/api/admin/inquiries?format=csv&type=subscribers"
+              download
+              className="inline-flex items-center gap-2 px-3 py-2 rounded bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-neutral-200 text-xs font-mono transition-colors"
+            >
+              <Download size={13} />
+              <span>Subscribers CSV</span>
+            </a>
+            <a
+              href="/api/admin/inquiries?format=csv&type=registrations"
+              download
+              className="inline-flex items-center gap-2 px-3 py-2 rounded bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-neutral-200 text-xs font-mono transition-colors"
+            >
+              <Download size={13} />
+              <span>RSVPs CSV</span>
+            </a>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="p-4 rounded bg-[#0A0A0A] border border-white/[0.05] flex items-center justify-between">
+            <div>
+              <p className="text-xs font-mono text-neutral-400 uppercase">Newsletter Subscribers</p>
+              <div className="text-2xl font-serif text-[#F7F5F0] mt-1">{counts.subscribers}</div>
+            </div>
+            <div className="w-10 h-10 rounded-full bg-[#C9A84C]/10 border border-[#C9A84C]/30 flex items-center justify-center text-[#C9A84C]">
+              <Mail size={18} />
+            </div>
+          </div>
+
+          <div className="p-4 rounded bg-[#0A0A0A] border border-white/[0.05] flex items-center justify-between">
+            <div>
+              <p className="text-xs font-mono text-neutral-400 uppercase">Event Registrations</p>
+              <div className="text-2xl font-serif text-[#F7F5F0] mt-1">{counts.registrations}</div>
+            </div>
+            <div className="w-10 h-10 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+              <Ticket size={18} />
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Quick Navigation & Section Highlights */}
