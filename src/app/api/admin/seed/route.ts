@@ -150,6 +150,9 @@ export async function POST() {
 
 export async function GET() {
   try {
+    const { error: authError } = await requireAdminSession()
+    if (authError) return authError
+
     const eventsCount = await prisma.event.count()
     const galleryCount = await prisma.galleryItem.count()
     const teamCount = await prisma.teamMember.count()
@@ -158,6 +161,6 @@ export async function GET() {
       counts: { events: eventsCount, gallery: galleryCount, team: teamCount },
     })
   } catch (error: unknown) {
-    return NextResponse.json({ seeded: false, error: (error as Error).message })
+    return NextResponse.json({ seeded: false, error: (error as Error).message }, { status: 500 })
   }
 }

@@ -3,6 +3,7 @@ import { writeFile, mkdir } from "fs/promises"
 import path from "path"
 import { requireAdminSession } from "@/lib/auth-guard"
 import { uploadToR2, isR2Configured } from "@/lib/r2"
+import { checkRateLimit } from "@/lib/rate-limit"
 
 export const dynamic = "force-dynamic"
 
@@ -68,6 +69,18 @@ export async function POST(request: NextRequest) {
   try {
     const { error: authError } = await requireAdminSession()
     if (authError) return authError
+
+    const clientIp = request.headers.get("x-forwarded-for") || "unknown"
+    const limit = checkRateLimit(`upload:${clientIp}`, {
+      limit: 60,
+      windowMs: 60 * 1000,
+    })
+    if (!limit.allowed) {
+      return NextResponse.json(
+        { error: "Too many uploads in a short period. Please wait a minute." },
+        { status: 429 }
+      )
+    }
 
     const contentType = request.headers.get("content-type") || ""
     let fileBuffer: Buffer
