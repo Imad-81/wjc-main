@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
 import { requireAdminSession } from "@/lib/auth-guard"
 import { revalidateEventsCache } from "@/lib/cache"
+import { eventUpdateSchema } from "@/lib/validations"
+import { handleApiError } from "@/lib/api-errors"
 
 export async function PUT(
   request: NextRequest,
@@ -13,36 +15,37 @@ export async function PUT(
 
     const { id } = await params
     const body = await request.json()
+    const validated = eventUpdateSchema.parse(body)
 
     const updated = await prisma.event.update({
       where: { id },
       data: {
-        slug: body.slug ? body.slug.trim().toLowerCase() : undefined,
-        tab: body.tab,
-        filter: body.filter,
-        isoDate: body.isoDate,
-        displayDateEn: body.displayDateEn,
-        displayDateJa: body.displayDateJa,
-        categoryEn: body.categoryEn,
-        categoryJa: body.categoryJa,
-        titleEn: body.titleEn,
-        titleJa: body.titleJa,
-        descriptionEn: body.descriptionEn,
-        descriptionJa: body.descriptionJa,
-        fullDescriptionEn: body.fullDescriptionEn,
-        fullDescriptionJa: body.fullDescriptionJa,
-        images: Array.isArray(body.images) ? body.images : undefined,
-        locationEn: body.locationEn,
-        locationJa: body.locationJa,
-        timeEn: body.timeEn,
-        timeJa: body.timeJa,
-        isUpcoming: typeof body.isUpcoming === "boolean" ? body.isUpcoming : undefined,
-        registrationOpen: typeof body.registrationOpen === "boolean" ? body.registrationOpen : undefined,
-        isFeatured: typeof body.isFeatured === "boolean" ? body.isFeatured : undefined,
-        statusEn: body.statusEn,
-        statusJa: body.statusJa,
-        posterSrc: body.posterSrc,
-        displayOrder: typeof body.displayOrder === "number" ? body.displayOrder : undefined,
+        slug: validated.slug ? validated.slug.trim().toLowerCase() : undefined,
+        tab: validated.tab,
+        filter: validated.filter,
+        isoDate: validated.isoDate,
+        displayDateEn: validated.displayDateEn,
+        displayDateJa: validated.displayDateJa,
+        categoryEn: validated.categoryEn,
+        categoryJa: validated.categoryJa,
+        titleEn: validated.titleEn,
+        titleJa: validated.titleJa,
+        descriptionEn: validated.descriptionEn,
+        descriptionJa: validated.descriptionJa,
+        fullDescriptionEn: validated.fullDescriptionEn,
+        fullDescriptionJa: validated.fullDescriptionJa,
+        images: validated.images,
+        locationEn: validated.locationEn,
+        locationJa: validated.locationJa,
+        timeEn: validated.timeEn,
+        timeJa: validated.timeJa,
+        isUpcoming: validated.isUpcoming,
+        registrationOpen: validated.registrationOpen,
+        isFeatured: validated.isFeatured,
+        statusEn: validated.statusEn,
+        statusJa: validated.statusJa,
+        posterSrc: validated.posterSrc,
+        displayOrder: validated.displayOrder,
       },
     })
 
@@ -51,8 +54,7 @@ export async function PUT(
 
     return NextResponse.json({ success: true, event: updated })
   } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : "Failed to update event"
-    return NextResponse.json({ error: message }, { status: 500 })
+    return handleApiError(error, "Failed to update event")
   }
 }
 
@@ -74,7 +76,6 @@ export async function DELETE(
 
     return NextResponse.json({ success: true, event: deleted })
   } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : "Failed to delete event"
-    return NextResponse.json({ error: message }, { status: 500 })
+    return handleApiError(error, "Failed to delete event")
   }
 }

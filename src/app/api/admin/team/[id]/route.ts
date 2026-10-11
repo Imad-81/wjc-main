@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
 import { requireAdminSession } from "@/lib/auth-guard"
 import { revalidateTeamCache } from "@/lib/cache"
+import { teamUpdateSchema } from "@/lib/validations"
+import { handleApiError } from "@/lib/api-errors"
 
 export async function PUT(
   request: NextRequest,
@@ -13,23 +15,24 @@ export async function PUT(
 
     const { id } = await params
     const body = await request.json()
+    const validated = teamUpdateSchema.parse(body)
 
     const updated = await prisma.teamMember.update({
       where: { id },
       data: {
-        name: body.name,
-        roleEn: body.roleEn,
-        roleJa: body.roleJa,
-        subtitleEn: body.subtitleEn,
-        subtitleJa: body.subtitleJa,
-        image: body.image,
-        bioEn: body.bioEn,
-        bioJa: body.bioJa,
-        category: body.category,
-        scale: body.scale,
-        hoverScale: body.hoverScale,
-        position: body.position,
-        displayOrder: typeof body.displayOrder === "number" ? body.displayOrder : undefined,
+        name: validated.name?.trim(),
+        roleEn: validated.roleEn,
+        roleJa: validated.roleJa,
+        subtitleEn: validated.subtitleEn,
+        subtitleJa: validated.subtitleJa,
+        image: validated.image,
+        bioEn: validated.bioEn,
+        bioJa: validated.bioJa,
+        category: validated.category,
+        scale: validated.scale,
+        hoverScale: validated.hoverScale,
+        position: validated.position,
+        displayOrder: validated.displayOrder,
       },
     })
 
@@ -38,8 +41,7 @@ export async function PUT(
 
     return NextResponse.json({ success: true, member: updated })
   } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : "Failed to update team member"
-    return NextResponse.json({ error: message }, { status: 500 })
+    return handleApiError(error, "Failed to update team member")
   }
 }
 
@@ -61,7 +63,6 @@ export async function DELETE(
 
     return NextResponse.json({ success: true, member: deleted })
   } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : "Failed to delete team member"
-    return NextResponse.json({ error: message }, { status: 500 })
+    return handleApiError(error, "Failed to delete team member")
   }
 }

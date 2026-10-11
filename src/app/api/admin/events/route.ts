@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
 import { requireAdminSession } from "@/lib/auth-guard"
 import { revalidateEventsCache } from "@/lib/cache"
+import { eventCreateSchema } from "@/lib/validations"
+import { handleApiError } from "@/lib/api-errors"
 
 export async function GET() {
   try {
@@ -17,8 +19,7 @@ export async function GET() {
     })
     return NextResponse.json({ success: true, events })
   } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : "Failed to fetch events"
-    return NextResponse.json({ error: message }, { status: 500 })
+    return handleApiError(error, "Failed to fetch events")
   }
 }
 
@@ -28,70 +29,36 @@ export async function POST(request: NextRequest) {
     if (authError) return authError
 
     const body = await request.json()
-    const {
-      slug,
-      tab,
-      filter,
-      isoDate,
-      displayDateEn,
-      displayDateJa,
-      categoryEn,
-      categoryJa,
-      titleEn,
-      titleJa,
-      descriptionEn,
-      descriptionJa,
-      fullDescriptionEn,
-      fullDescriptionJa,
-      images,
-      locationEn,
-      locationJa,
-      timeEn,
-      timeJa,
-      isUpcoming,
-      registrationOpen,
-      isFeatured,
-      statusEn,
-      statusJa,
-      posterSrc,
-      displayOrder,
-    } = body
-
-    if (!slug || !titleEn || !isoDate) {
-      return NextResponse.json(
-        { error: "Slug, English Title, and Date are required" },
-        { status: 400 }
-      )
-    }
+    const validated = eventCreateSchema.parse(body)
 
     const newEvent = await prisma.event.create({
       data: {
-        slug: slug.trim().toLowerCase(),
-        tab: tab || "culture",
-        filter: filter || "cultural",
-        isoDate,
-        displayDateEn: displayDateEn || isoDate,
-        displayDateJa: displayDateJa || isoDate,
-        categoryEn: categoryEn || "Cultural",
-        categoryJa: categoryJa || "文化",
-        titleEn,
-        titleJa: titleJa || titleEn,
-        descriptionEn: descriptionEn || "",
-        descriptionJa: descriptionJa || descriptionEn || "",
-        fullDescriptionEn: fullDescriptionEn || descriptionEn || "",
-        fullDescriptionJa: fullDescriptionJa || descriptionJa || descriptionEn || "",
-        images: Array.isArray(images) ? images : images ? [images] : [],
-        locationEn: locationEn || null,
-        locationJa: locationJa || locationEn || null,
-        timeEn: timeEn || null,
-        timeJa: timeJa || timeEn || null,
-        isUpcoming: Boolean(isUpcoming),
-        registrationOpen: Boolean(registrationOpen),
-        isFeatured: Boolean(isFeatured),
-        statusEn: statusEn || null,
-        statusJa: statusJa || null,
-        posterSrc: posterSrc || null,
-        displayOrder: Number(displayOrder) || 0,
+        slug: validated.slug.trim().toLowerCase(),
+        tab: validated.tab,
+        filter: validated.filter,
+        isoDate: validated.isoDate,
+        displayDateEn: validated.displayDateEn || validated.isoDate,
+        displayDateJa: validated.displayDateJa || validated.isoDate,
+        categoryEn: validated.categoryEn,
+        categoryJa: validated.categoryJa,
+        titleEn: validated.titleEn,
+        titleJa: validated.titleJa || validated.titleEn,
+        descriptionEn: validated.descriptionEn,
+        descriptionJa: validated.descriptionJa || validated.descriptionEn,
+        fullDescriptionEn: validated.fullDescriptionEn || validated.descriptionEn,
+        fullDescriptionJa: validated.fullDescriptionJa || validated.descriptionJa || validated.descriptionEn,
+        images: validated.images,
+        locationEn: validated.locationEn || null,
+        locationJa: validated.locationJa || validated.locationEn || null,
+        timeEn: validated.timeEn || null,
+        timeJa: validated.timeJa || validated.timeEn || null,
+        isUpcoming: validated.isUpcoming,
+        registrationOpen: validated.registrationOpen,
+        isFeatured: validated.isFeatured,
+        statusEn: validated.statusEn || null,
+        statusJa: validated.statusJa || null,
+        posterSrc: validated.posterSrc || null,
+        displayOrder: validated.displayOrder,
       },
     })
 
@@ -100,7 +67,6 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ success: true, event: newEvent })
   } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : "Failed to create event"
-    return NextResponse.json({ error: message }, { status: 500 })
+    return handleApiError(error, "Failed to create event")
   }
 }
