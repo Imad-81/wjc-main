@@ -245,10 +245,10 @@ export default function MediaPicker({
                         {uploading ? <Loader2 size={24} className="animate-spin" /> : <Upload size={22} />}
                       </div>
                       <p className="text-sm font-medium text-neutral-200 mb-1">
-                        {uploading ? "Uploading to public folder..." : "Click or drag image to upload"}
+                        {uploading ? "Uploading directly to Cloudflare R2 CDN..." : "Click or drag image to upload"}
                       </p>
                       <p className="text-xs text-neutral-500 font-mono">
-                        Saved into: <span className="text-[#C9A84C]">/public/images/{folder}/</span>
+                        Stored in: <span className="text-[#C9A84C]">Cloudflare R2 CDN ({folder}/)</span>
                       </p>
                     </label>
                   </div>
@@ -306,6 +306,11 @@ export default function MediaPicker({
                               unoptimized
                               className="object-cover group-hover:scale-105 transition-transform duration-300"
                             />
+                            {item.url.includes("r2.dev") || item.url.startsWith("/api/media/") ? (
+                              <span className="absolute top-1 left-1 px-1 py-0.5 rounded text-[7px] font-mono bg-sky-950/80 text-sky-300 border border-sky-500/30">
+                                R2 CDN
+                              </span>
+                            ) : null}
                             {isSelected && (
                               <div className="absolute top-1.5 right-1.5 w-5 h-5 rounded-full bg-[#C9A84C] text-black flex items-center justify-center shadow">
                                 <Check size={12} className="stroke-[3]" />

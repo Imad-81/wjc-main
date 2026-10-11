@@ -10,6 +10,7 @@ import {
   Loader2,
   ExternalLink,
   Trash2,
+  RefreshCw,
 } from "lucide-react"
 
 interface MediaItem {
@@ -18,6 +19,7 @@ interface MediaItem {
   folder: string
   size: number
   mtime: number
+  source?: "r2" | "local"
 }
 
 export default function AdminMediaPage() {
@@ -27,6 +29,8 @@ export default function AdminMediaPage() {
   const [search, setSearch] = useState("")
   const [copiedUrl, setCopiedUrl] = useState<string | null>(null)
   const [uploading, setUploading] = useState(false)
+  const [syncing, setSyncing] = useState(false)
+  const [syncResult, setSyncResult] = useState<string | null>(null)
   const [targetFolder, setTargetFolder] = useState("uploads")
 
   const fetchMedia = async () => {
@@ -107,6 +111,26 @@ export default function AdminMediaPage() {
     }
   }
 
+  const handleSync = async () => {
+    if (syncing) return
+    setSyncing(true)
+    setSyncResult(null)
+    try {
+      const res = await fetch("/api/admin/media/sync", { method: "POST" })
+      const data = await res.json()
+      if (data.success) {
+        setSyncResult(data.message)
+        await fetchMedia()
+      } else {
+        alert(data.error || "Sync failed")
+      }
+    } catch (err: unknown) {
+      alert((err as Error).message || "Sync failed")
+    } finally {
+      setSyncing(false)
+    }
+  }
+
   const handleCopy = (url: string) => {
     navigator.clipboard.writeText(url)
     setCopiedUrl(url)
@@ -157,8 +181,19 @@ export default function AdminMediaPage() {
           <h1 className="font-serif text-3xl text-[#F7F5F0]">Public Media Library</h1>
         </div>
 
-        {/* Upload Control */}
-        <div className="flex items-center gap-3">
+        {/* Upload & Sync Controls */}
+        <div className="flex flex-wrap items-center gap-3">
+          <button
+            type="button"
+            onClick={handleSync}
+            disabled={syncing}
+            className="inline-flex items-center gap-2 px-3.5 py-2 rounded bg-sky-950/80 hover:bg-sky-900 text-sky-300 border border-sky-600/40 text-xs font-mono uppercase tracking-wider transition-colors disabled:opacity-50 cursor-pointer shadow-sm"
+            title="Upload any local images in public/images to Cloudflare R2 bucket"
+          >
+            <RefreshCw size={14} className={syncing ? "animate-spin" : ""} />
+            <span>{syncing ? "Syncing to R2..." : "Sync Local to R2"}</span>
+          </button>
+
           <select
             value={targetFolder}
             onChange={(e) => setTargetFolder(e.target.value)}
@@ -184,6 +219,18 @@ export default function AdminMediaPage() {
           </label>
         </div>
       </div>
+
+      {syncResult && (
+        <div className="rounded-lg border border-sky-500/30 bg-sky-950/40 px-4 py-3 text-xs font-mono text-sky-300 flex items-center justify-between">
+          <span>✓ {syncResult}</span>
+          <button
+            onClick={() => setSyncResult(null)}
+            className="text-sky-400 hover:text-sky-200 underline text-[11px] ml-4 cursor-pointer"
+          >
+            Dismiss
+          </button>
+        </div>
+      )}
 
       {/* Filter and Search Bar */}
       <div className="flex flex-col sm:flex-row gap-4 justify-between items-stretch sm:items-center">
@@ -241,6 +288,17 @@ export default function AdminMediaPage() {
                   unoptimized
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
                 />
+                <span
+                  className={`absolute top-2 left-2 z-10 px-1.5 py-0.5 rounded text-[8px] font-mono font-medium shadow-sm border ${
+                    item.source === "r2" || item.url.includes("r2.dev") || item.url.startsWith("/api/media/")
+                      ? "bg-sky-950/90 text-sky-300 border-sky-500/40"
+                      : "bg-amber-950/90 text-amber-300 border-amber-500/40"
+                  }`}
+                >
+                  {item.source === "r2" || item.url.includes("r2.dev") || item.url.startsWith("/api/media/")
+                    ? "R2 Cloud"
+                    : "Local Disk"}
+                </span>
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
                   <button
                     onClick={() => handleCopy(item.url)}

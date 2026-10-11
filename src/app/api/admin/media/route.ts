@@ -79,14 +79,20 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url)
     const folderFilter = searchParams.get("folder") || ""
 
-    const mediaMap = new Map<string, { url: string; name: string; folder: string; size: number; mtime: number }>()
+    const mediaMap = new Map<
+      string,
+      { url: string; name: string; folder: string; size: number; mtime: number; source: "r2" | "local" }
+    >()
 
     // 1. Fetch Cloudflare R2 objects if configured
     if (isR2Configured) {
       try {
         const r2Items = await listR2Objects(folderFilter || undefined)
         for (const item of r2Items) {
-          mediaMap.set(item.key, item)
+          mediaMap.set(item.key, {
+            ...item,
+            source: "r2",
+          })
         }
       } catch (r2Err) {
         console.error("Error reading R2 media:", r2Err)
@@ -115,6 +121,7 @@ export async function GET(request: NextRequest) {
                   folder: f,
                   size: fileStat.size,
                   mtime: fileStat.mtimeMs,
+                  source: "local",
                 })
               }
             }
@@ -136,6 +143,7 @@ export async function GET(request: NextRequest) {
                         folder: `${f}/${file.name}`,
                         size: fileStat.size,
                         mtime: fileStat.mtimeMs,
+                        source: "local",
                       })
                     }
                   }
