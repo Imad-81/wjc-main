@@ -15,10 +15,10 @@ export const CACHE_TAGS = {
  */
 export async function revalidateEventsCache(slug?: string) {
   try {
-    revalidateTag(CACHE_TAGS.EVENTS, "max")
-    revalidateTag(CACHE_TAGS.DASHBOARD, "max")
+    revalidateTag(CACHE_TAGS.EVENTS)
+    revalidateTag(CACHE_TAGS.DASHBOARD)
     if (slug) {
-      revalidateTag(`event-${slug}`, "max")
+      revalidateTag(`event-${slug}`)
     }
 
     revalidatePath("/[locale]/events", "page")
@@ -43,8 +43,8 @@ export async function revalidateEventsCache(slug?: string) {
  */
 export async function revalidateGalleryCache() {
   try {
-    revalidateTag(CACHE_TAGS.GALLERY, "max")
-    revalidateTag(CACHE_TAGS.DASHBOARD, "max")
+    revalidateTag(CACHE_TAGS.GALLERY)
+    revalidateTag(CACHE_TAGS.DASHBOARD)
 
     revalidatePath("/[locale]/gallery", "page")
     revalidatePath("/gallery")
@@ -60,8 +60,8 @@ export async function revalidateGalleryCache() {
  */
 export async function revalidateTeamCache() {
   try {
-    revalidateTag(CACHE_TAGS.TEAM, "max")
-    revalidateTag(CACHE_TAGS.DASHBOARD, "max")
+    revalidateTag(CACHE_TAGS.TEAM)
+    revalidateTag(CACHE_TAGS.DASHBOARD)
 
     revalidatePath("/[locale]/team", "page")
     revalidatePath("/team")
@@ -77,7 +77,7 @@ export async function revalidateTeamCache() {
  */
 export async function revalidateDashboardCache() {
   try {
-    revalidateTag(CACHE_TAGS.DASHBOARD, "max")
+    revalidateTag(CACHE_TAGS.DASHBOARD)
     revalidatePath("/admin")
   } catch (error) {
     console.error("Error revalidating dashboard cache:", error)

@@ -16,10 +16,6 @@ async function fetchEventsFromDb(): Promise<Event[]> {
       ],
     })
 
-    if (dbEvents.length === 0) {
-      return pastEvents
-    }
-
     return dbEvents.map((e) => ({
       slug: e.slug,
       isoDate: e.isoDate,
@@ -43,7 +39,7 @@ async function fetchEventsFromDb(): Promise<Event[]> {
       posterSrc: e.posterSrc || undefined,
     }))
   } catch (err) {
-    console.error("Error fetching events from DB, falling back to static data:", err)
+    console.error("Error fetching events from DB, falling back to static disaster-recovery data:", err)
     return pastEvents
   }
 }
@@ -97,11 +93,11 @@ async function fetchEventBySlugFromDb(slug: string): Promise<Event | undefined> 
         posterSrc: e.posterSrc || undefined,
       }
     }
+    return undefined
   } catch (err) {
-    console.error(`Error fetching event by slug "${slug}", falling back to static data:`, err)
+    console.error(`Error fetching event by slug "${slug}", falling back to static disaster-recovery data:`, err)
+    return pastEvents.find((event) => event.slug === slug)
   }
-
-  return pastEvents.find((event) => event.slug === slug)
 }
 
 /**

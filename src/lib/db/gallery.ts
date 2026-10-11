@@ -12,10 +12,6 @@ async function fetchGalleryItemsFromDb(): Promise<GalleryItem[]> {
       orderBy: [{ displayOrder: "asc" }, { createdAt: "desc" }],
     })
 
-    if (dbItems.length === 0) {
-      return galleryImages
-    }
-
     return dbItems.map((item) => ({
       id: item.id,
       src: item.src,
@@ -26,7 +22,7 @@ async function fetchGalleryItemsFromDb(): Promise<GalleryItem[]> {
       span: item.span as "tall" | "wide" | "square",
     }))
   } catch (err) {
-    console.error("Error fetching gallery from DB, falling back to static data:", err)
+    console.error("Error fetching gallery from DB, falling back to static disaster-recovery data:", err)
     return galleryImages
   }
 }

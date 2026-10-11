@@ -15,13 +15,6 @@ async function fetchTeamDataFromDb(): Promise<{
       orderBy: [{ displayOrder: "asc" }, { createdAt: "asc" }],
     })
 
-    if (dbMembers.length === 0) {
-      return {
-        faculty: staticFaculty,
-        studentLeadership: staticStudents,
-      }
-    }
-
     const mapMember = (m: (typeof dbMembers)[0]): TeamMember => ({
       id: m.id,
       name: m.name,
@@ -38,11 +31,11 @@ async function fetchTeamDataFromDb(): Promise<{
     const studentLeadership = dbMembers.filter((m) => m.category === "student").map(mapMember)
 
     return {
-      faculty: faculty.length > 0 ? faculty : staticFaculty,
-      studentLeadership: studentLeadership.length > 0 ? studentLeadership : staticStudents,
+      faculty,
+      studentLeadership,
     }
   } catch (err) {
-    console.error("Error fetching team from DB, falling back to static data:", err)
+    console.error("Error fetching team from DB, falling back to static disaster-recovery data:", err)
     return {
       faculty: staticFaculty,
       studentLeadership: staticStudents,

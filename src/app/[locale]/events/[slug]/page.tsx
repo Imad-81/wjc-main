@@ -13,10 +13,22 @@ import { pastEvents } from "@/data/events"
 import FadeUp from "@/components/wjc/fade-up"
 import { KanjiGhost, SectionLabel } from "@/components/wjc/primitives"
 
-export function generateStaticParams() {
-  return LOCALES.flatMap((locale) =>
-    pastEvents.map((event) => ({ locale, slug: event.slug })),
-  )
+import { prisma } from "@/lib/prisma"
+
+export async function generateStaticParams() {
+  try {
+    const dbEvents = await prisma.event.findMany({
+      select: { slug: true },
+    })
+    const slugs = dbEvents.length > 0 ? dbEvents.map((e) => e.slug) : pastEvents.map((e) => e.slug)
+    return LOCALES.flatMap((locale) =>
+      slugs.map((slug) => ({ locale, slug })),
+    )
+  } catch {
+    return LOCALES.flatMap((locale) =>
+      pastEvents.map((event) => ({ locale, slug: event.slug })),
+    )
+  }
 }
 
 export async function generateMetadata({
