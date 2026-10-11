@@ -37,6 +37,7 @@ model Session {
   updatedAt DateTime @updatedAt
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  @@index([userId])
   @@map("session")
 }
 
@@ -56,6 +57,7 @@ model Account {
   updatedAt             DateTime  @updatedAt
   user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  @@index([userId])
   @@map("account")
 }
 
@@ -89,7 +91,7 @@ model Event {
   descriptionJa     String
   fullDescriptionEn String   @db.Text
   fullDescriptionJa String   @db.Text
-  images            String[] // Public paths: e.g. ["/images/events/..."]
+  images            String[] // Public paths or R2 URLs
   locationEn        String?
   locationJa        String?
   timeEn            String?
@@ -106,12 +108,14 @@ model Event {
 
   @@index([tab])
   @@index([filter])
+  @@index([isFeatured, displayOrder, isoDate])
+  @@index([displayOrder])
   @@map("events")
 }
 
 model GalleryItem {
   id           String   @id @default(cuid())
-  src          String   // Public path: e.g. "/images/gallery/...webp"
+  src          String   // Public path or R2 URL
   category     String   @default("festivals") // "festivals" | "cultural" | "academic"
   titleEn      String
   titleJa      String
@@ -125,6 +129,8 @@ model GalleryItem {
   updatedAt    DateTime @updatedAt
 
   @@index([category])
+  @@index([displayOrder])
+  @@index([createdAt])
   @@map("gallery_items")
 }
 
@@ -135,7 +141,7 @@ model TeamMember {
   roleJa       String
   subtitleEn   String
   subtitleJa   String
-  image        String   // Public path: e.g. "/images/team/..."
+  image        String   // Public path or R2 URL
   bioEn        String?  @db.Text
   bioJa        String?  @db.Text
   category     String   @default("faculty") // "faculty" | "student"
@@ -147,5 +153,38 @@ model TeamMember {
   updatedAt    DateTime @updatedAt
 
   @@index([category])
+  @@index([displayOrder])
   @@map("team_members")
+}
+
+// -------------------------------------------------------------
+// Interactive & Lead Capture Models
+// -------------------------------------------------------------
+model NewsletterSubscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  locale    String   @default("en") // "en" | "ja"
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([email])
+  @@map("newsletter_subscribers")
+}
+
+model EventRegistration {
+  id        String   @id @default(cuid())
+  eventId   String
+  slug      String
+  name      String
+  email     String
+  phone     String?
+  locale    String   @default("en")
+  notes     String?  @db.Text
+  createdAt DateTime @default(now())
+
+  @@index([eventId])
+  @@index([slug])
+  @@index([email])
+  @@map("event_registrations")
 }

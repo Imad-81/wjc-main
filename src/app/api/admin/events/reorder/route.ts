@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
+import { Prisma } from "@prisma/client"
 import { requireAdminSession } from "@/lib/auth-guard"
 import { revalidateEventsCache } from "@/lib/cache"
 
@@ -23,18 +24,35 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Missing or invalid items array" }, { status: 400 })
     }
 
-    // Execute batch update in an atomic transaction
-    await prisma.$transaction(
-      items.map((item) =>
-        prisma.event.update({
-          where: { id: item.id },
-          data: {
-            displayOrder: Number(item.displayOrder) || 0,
-            ...(typeof item.isFeatured === "boolean" ? { isFeatured: item.isFeatured } : {}),
-          },
-        })
-      )
+    const idList = items.map((item) => item.id)
+
+    // Execute ultra-fast single roundtrip SQL batch update
+    const orderCases = Prisma.join(
+      items.map((i) => Prisma.sql`WHEN id = ${i.id} THEN ${Number(i.displayOrder) || 0}`)
     )
+
+    const hasFeatured = items.some((i) => typeof i.isFeatured === "boolean")
+    if (hasFeatured) {
+      const featuredCases = Prisma.join(
+        items.map((i) => Prisma.sql`WHEN id = ${i.id} THEN ${Boolean(i.isFeatured)}`)
+      )
+      await prisma.$executeRaw`
+        UPDATE events
+        SET
+          "displayOrder" = CASE ${orderCases} ELSE "displayOrder" END,
+          "isFeatured" = CASE ${featuredCases} ELSE "isFeatured" END,
+          "updatedAt" = NOW()
+        WHERE id IN (${Prisma.join(idList)})
+      `
+    } else {
+      await prisma.$executeRaw`
+        UPDATE events
+        SET
+          "displayOrder" = CASE ${orderCases} ELSE "displayOrder" END,
+          "updatedAt" = NOW()
+        WHERE id IN (${Prisma.join(idList)})
+      `
+    }
 
     // Revalidate public cache and routes immediately
     await revalidateEventsCache()

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
+import { Prisma } from "@prisma/client"
 import { requireAdminSession } from "@/lib/auth-guard"
 import { revalidateGalleryCache } from "@/lib/cache"
 
@@ -22,17 +23,20 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Missing or invalid items array" }, { status: 400 })
     }
 
-    // Execute atomic transaction to update sequential order
-    await prisma.$transaction(
-      items.map((item) =>
-        prisma.galleryItem.update({
-          where: { id: item.id },
-          data: {
-            displayOrder: Number(item.displayOrder) || 0,
-          },
-        })
-      )
+    const idList = items.map((item) => item.id)
+
+    // Execute single roundtrip SQL batch update
+    const orderCases = Prisma.join(
+      items.map((i) => Prisma.sql`WHEN id = ${i.id} THEN ${Number(i.displayOrder) || 0}`)
     )
+
+    await prisma.$executeRaw`
+      UPDATE gallery_items
+      SET
+        "displayOrder" = CASE ${orderCases} ELSE "displayOrder" END,
+        "updatedAt" = NOW()
+      WHERE id IN (${Prisma.join(idList)})
+    `
 
     // Revalidate public cache and routes
     await revalidateGalleryCache()

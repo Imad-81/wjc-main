@@ -30,12 +30,12 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Name, English Role, and Portrait Image are required" }, { status: 400 })
     }
 
-    const memberId = id ? id.trim().toLowerCase().replace(/[^a-z0-9_-]/g, "-") : name.trim().toLowerCase().replace(/[^a-z0-9_-]/g, "-")
+    const memberId = id?.trim() ? id.trim().toLowerCase().replace(/[^a-z0-9_-]/g, "-") : undefined
 
     const newMember = await prisma.teamMember.create({
       data: {
-        id: memberId,
-        name,
+        ...(memberId ? { id: memberId } : {}),
+        name: name.trim(),
         roleEn,
         roleJa: roleJa || roleEn,
         subtitleEn: subtitleEn || "Woxsen University",
