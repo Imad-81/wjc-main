@@ -23,9 +23,9 @@ export async function POST(request: NextRequest) {
 
     // Verify event exists and registration is open
     const event = await prisma.event.findFirst({
-      where: {
-        OR: [{ id: validated.eventId }, { slug: validated.slug }],
-      },
+      where: validated.eventId
+        ? { OR: [{ id: validated.eventId }, { slug: validated.slug }] }
+        : { slug: validated.slug },
     })
 
     if (!event) {
@@ -42,6 +42,34 @@ export async function POST(request: NextRequest) {
         },
         { status: 400 }
       )
+    }
+
+    // Check if user has already registered
+    const existing = await prisma.eventRegistration.findFirst({
+      where: {
+        eventId: event.id,
+        email: validated.email.toLowerCase().trim(),
+      },
+    })
+
+    if (existing) {
+      await prisma.eventRegistration.update({
+        where: { id: existing.id },
+        data: {
+          name: validated.name.trim(),
+          phone: validated.phone?.trim() || existing.phone,
+          notes: validated.notes?.trim() || existing.notes,
+        },
+      })
+      return NextResponse.json({
+        success: true,
+        alreadyRegistered: true,
+        registrationId: existing.id,
+        message:
+          validated.locale === "ja"
+            ? "すでにこのイベントに登録されています。最新の情報に更新いたしました。"
+            : `You are already registered for "${event.titleEn}"! Your contact details have been updated.`,
+      })
     }
 
     const registration = await prisma.eventRegistration.create({

@@ -12,6 +12,7 @@ import { pastEvents } from "@/data/events"
 
 import FadeUp from "@/components/wjc/fade-up"
 import { KanjiGhost, SectionLabel } from "@/components/wjc/primitives"
+import EventRsvpModal from "@/components/wjc/event-rsvp-modal"
 
 import { prisma } from "@/lib/prisma"
 
@@ -140,6 +141,16 @@ export default async function EventDetailPage({
               </div>
             ))}
           </dl>
+
+          {event.registrationOpen && (
+            <div className="mt-8">
+              <EventRsvpModal
+                slug={event.slug}
+                title={event.title[locale]}
+                locale={locale}
+              />
+            </div>
+          )}
         </div>
       </section>
 
@@ -163,6 +174,26 @@ export default async function EventDetailPage({
                   </p>
                 ))}
             </div>
+
+            {event.registrationOpen && (
+              <div className="mt-12 rounded-lg border border-[var(--theme-accent)]/30 bg-[#1e1b17]/80 p-6 md:p-8 backdrop-blur-sm">
+                <h3 className="font-serif text-xl text-[var(--theme-ivory)]">
+                  {locale === "ja" ? "イベントへの参加をお待ちしております" : "Reserve Your Spot Today"}
+                </h3>
+                <p className="mt-2 text-sm text-[var(--theme-muted-text)] leading-relaxed">
+                  {locale === "ja"
+                    ? "事前登録を受け付けております。定員になり次第締め切らせていただく場合がございます。"
+                    : "Registration is currently open for this event. Reserve your place now to secure attendance."}
+                </p>
+                <div className="mt-6">
+                  <EventRsvpModal
+                    slug={event.slug}
+                    title={event.title[locale]}
+                    locale={locale}
+                  />
+                </div>
+              </div>
+            )}
           </FadeUp>
         </div>
       </section>

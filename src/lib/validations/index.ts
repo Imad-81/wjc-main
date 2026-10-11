@@ -99,7 +99,7 @@ export const newsletterSubscribeSchema = z.object({
 })
 
 export const eventRegistrationSchema = z.object({
-  eventId: z.string().min(1, "Event ID is required"),
+  eventId: z.string().optional(),
   slug: z.string().min(1, "Event slug is required"),
   name: z.string().min(1, "Your full name is required"),
   email: z.string().email("Please provide a valid email address"),
