@@ -6,6 +6,20 @@ const nextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     qualities: [74, 75, 80, 82, 85],
     minimumCacheTTL: 60,
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**.r2.dev",
+      },
+      {
+        protocol: "https",
+        hostname: "pub-3169ddc1e37147b986b8da6eb591d5a6.r2.dev",
+      },
+      {
+        protocol: "https",
+        hostname: "**.cloudflarestorage.com",
+      },
+    ],
   },
   async redirects() {
     return [
