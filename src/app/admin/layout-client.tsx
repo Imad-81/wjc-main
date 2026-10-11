@@ -9,6 +9,8 @@ import {
   Image as ImageIcon,
   Users,
   FolderOpen,
+  Mail,
+  ShieldCheck,
   ExternalLink,
   LogOut,
   Menu,
@@ -22,6 +24,8 @@ const NAV_ITEMS = [
   { href: "/admin/gallery", label: "Gallery", kanji: "写真", icon: ImageIcon },
   { href: "/admin/team", label: "Team", kanji: "組織", icon: Users },
   { href: "/admin/media", label: "Media Library", kanji: "書庫", icon: FolderOpen },
+  { href: "/admin/inquiries", label: "Audience & Leads", kanji: "名簿", icon: Mail },
+  { href: "/admin/users", label: "Administrators", kanji: "権限", icon: ShieldCheck },
 ]
 
 export default function AdminLayoutClient({ children }: { children: React.ReactNode }) {
