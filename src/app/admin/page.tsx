@@ -84,7 +84,7 @@ export default async function AdminDashboardPage() {
             <span className="text-neutral-500">•</span>
             <span className="text-xs font-serif text-neutral-400 font-jp">管理総覧</span>
           </div>
-          <h1 className="font-serif text-3xl md:text-4xl font-light text-[#F7F5F0] tracking-tight">
+          <h1 className="font-serif text-3xl md:text-4xl font-semibold text-[#F7F5F0] tracking-tight">
             Centre Overview
           </h1>
         </div>
@@ -112,7 +112,7 @@ export default async function AdminDashboardPage() {
             <ArrowUpRight size={18} className="text-neutral-500 group-hover:text-[#C9A84C] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
           </div>
           <div className="mt-6">
-            <div className="text-3xl font-serif font-light text-[#F7F5F0] tracking-tight mb-1">
+            <div className="text-3xl font-serif font-semibold text-[#F7F5F0] tracking-tight mb-1">
               {totalEvents}
             </div>
             <p className="text-xs font-mono text-neutral-400 uppercase tracking-wider">Managed Events</p>
@@ -134,7 +134,7 @@ export default async function AdminDashboardPage() {
             <ArrowUpRight size={18} className="text-neutral-500 group-hover:text-blue-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
           </div>
           <div className="mt-6">
-            <div className="text-3xl font-serif font-light text-[#F7F5F0] tracking-tight mb-1">
+            <div className="text-3xl font-serif font-semibold text-[#F7F5F0] tracking-tight mb-1">
               {counts.gallery}
             </div>
             <p className="text-xs font-mono text-neutral-400 uppercase tracking-wider">Gallery Photographs</p>
@@ -156,7 +156,7 @@ export default async function AdminDashboardPage() {
             <ArrowUpRight size={18} className="text-neutral-500 group-hover:text-amber-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
           </div>
           <div className="mt-6">
-            <div className="text-3xl font-serif font-light text-[#F7F5F0] tracking-tight mb-1">
+            <div className="text-3xl font-serif font-semibold text-[#F7F5F0] tracking-tight mb-1">
               {totalTeam}
             </div>
             <p className="text-xs font-mono text-neutral-400 uppercase tracking-wider">Team Members</p>
@@ -178,7 +178,7 @@ export default async function AdminDashboardPage() {
             <ArrowUpRight size={18} className="text-neutral-500 group-hover:text-purple-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
           </div>
           <div className="mt-6">
-            <div className="text-2xl font-serif font-light text-[#F7F5F0] tracking-tight mb-1">
+            <div className="text-2xl font-serif font-semibold text-[#F7F5F0] tracking-tight mb-1">
               {isR2Configured ? "Cloudflare R2" : "Local Disk"}
             </div>
             <p className="text-xs font-mono text-neutral-400 uppercase tracking-wider">Asset Storage</p>

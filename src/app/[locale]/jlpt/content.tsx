@@ -70,7 +70,7 @@ function HeroJlpt({ locale, dict }: SectionProps) {
           className="fade-up font-serif"
           style={{
             fontSize: "clamp(48px, 5.5vw, 76px)",
-            fontWeight: 300,
+            fontWeight: 600,
             lineHeight: 1.04,
             color: "#F7F5F0",
             letterSpacing: "-0.015em",
@@ -81,7 +81,7 @@ function HeroJlpt({ locale, dict }: SectionProps) {
         >
           {dict.jlpt.heroTitle}
           <br />
-          <em style={{ fontStyle: "italic", fontWeight: 300 }}>
+          <em style={{ fontStyle: "italic", fontWeight: 600 }}>
             {dict.jlpt.heroTitleEmphasis}
           </em>
         </h1>
@@ -89,10 +89,10 @@ function HeroJlpt({ locale, dict }: SectionProps) {
           className="fade-up"
           style={{
             fontSize: "18px",
-            color: "rgba(247,245,240,0.55)",
+            color: "rgba(247,245,240,0.90)",
             lineHeight: 1.75,
             maxWidth: "520px",
-            fontWeight: 300,
+            fontWeight: 400,
             marginBottom: "48px",
             opacity: 0,
           }}
@@ -168,7 +168,7 @@ function WhySection({ locale, dict }: SectionProps) {
               className="fade-up font-serif"
               style={{
                 fontSize: "clamp(28px, 3vw, 40px)",
-                fontWeight: 300,
+                fontWeight: 600,
                 lineHeight: 1.15,
                 color: "#232323",
                 opacity: 0,
@@ -187,8 +187,8 @@ function WhySection({ locale, dict }: SectionProps) {
               style={{
                 fontSize: "16px",
                 lineHeight: 1.85,
-                color: "#5B5B5B",
-                fontWeight: 300,
+                color: "#333333",
+                fontWeight: 400,
                 opacity: 0,
               }}
             >
@@ -217,8 +217,8 @@ function WhySection({ locale, dict }: SectionProps) {
                 className="font-serif font-jp"
                 style={{
                   fontSize: "48px",
-                  fontWeight: 300,
-                  color: "rgba(166,58,43,0.25)",
+                  fontWeight: 400,
+                  color: "rgba(166,58,43,0.35)",
                   lineHeight: 1,
                   marginBottom: "24px",
                 }}
@@ -241,8 +241,8 @@ function WhySection({ locale, dict }: SectionProps) {
                 style={{
                   fontSize: "14px",
                   lineHeight: 1.8,
-                  color: "#5B5B5B",
-                  fontWeight: 300,
+                  color: "#333333",
+                  fontWeight: 400,
                 }}
               >
                 {item.description[locale]}
@@ -289,7 +289,7 @@ function CoursesSection({ locale, dict }: SectionProps) {
             className="fade-up font-serif"
             style={{
               fontSize: "clamp(32px, 3.5vw, 48px)",
-              fontWeight: 300,
+              fontWeight: 600,
               lineHeight: 1.1,
               color: "var(--theme-ivory)",
               letterSpacing: "-0.01em",
@@ -336,8 +336,8 @@ function CoursesSection({ locale, dict }: SectionProps) {
                   className="font-serif font-jp"
                   style={{
                     fontSize: "80px",
-                    fontWeight: 300,
-                    color: "rgba(255,255,255,0.03)",
+                    fontWeight: 400,
+                    color: "rgba(255,255,255,0.04)",
                     position: "absolute",
                     top: "16px",
                     right: "20px",
@@ -354,6 +354,7 @@ function CoursesSection({ locale, dict }: SectionProps) {
                     letterSpacing: "0.15em",
                     textTransform: "uppercase",
                     color: course.accent,
+                    fontWeight: 600,
                     marginBottom: "12px",
                   }}
                 >
@@ -363,7 +364,7 @@ function CoursesSection({ locale, dict }: SectionProps) {
                   className="font-serif"
                   style={{
                     fontSize: "28px",
-                    fontWeight: 300,
+                    fontWeight: 600,
                     color: "var(--theme-ivory)",
                     marginBottom: "4px",
                   }}
@@ -373,9 +374,10 @@ function CoursesSection({ locale, dict }: SectionProps) {
                 <p
                   style={{
                     fontSize: "13px",
-                    color: "rgba(247,245,240,0.4)",
+                    color: "rgba(247,245,240,0.78)",
                     marginBottom: "24px",
                     fontStyle: "italic",
+                    fontWeight: 500,
                   }}
                 >
                   {course.tagline[locale]}
@@ -387,8 +389,8 @@ function CoursesSection({ locale, dict }: SectionProps) {
                   style={{
                     fontSize: "14px",
                     lineHeight: 1.75,
-                    color: "rgba(247,245,240,0.5)",
-                    fontWeight: 300,
+                    color: "rgba(247,245,240,0.85)",
+                    fontWeight: 400,
                     marginBottom: "24px",
                   }}
                 >
@@ -544,7 +546,7 @@ function PathwaySection({ locale, dict }: SectionProps) {
             className="fade-up font-serif"
             style={{
               fontSize: "clamp(32px, 3.5vw, 48px)",
-              fontWeight: 300,
+              fontWeight: 600,
               lineHeight: 1.1,
               letterSpacing: "-0.01em",
               color: "#232323",
@@ -578,7 +580,7 @@ function PathwaySection({ locale, dict }: SectionProps) {
                 className="font-serif"
                 style={{
                   fontSize: "36px",
-                  fontWeight: 300,
+                  fontWeight: 400,
                   color: "rgba(166,58,43,0.35)",
                   lineHeight: 1,
                   marginBottom: "20px",
@@ -590,7 +592,7 @@ function PathwaySection({ locale, dict }: SectionProps) {
                 className="font-serif"
                 style={{
                   fontSize: "19px",
-                  fontWeight: 400,
+                  fontWeight: 600,
                   color: "#232323",
                   marginBottom: "10px",
                 }}
@@ -601,8 +603,8 @@ function PathwaySection({ locale, dict }: SectionProps) {
                 style={{
                   fontSize: "13px",
                   lineHeight: 1.75,
-                  color: "#5B5B5B",
-                  fontWeight: 300,
+                  color: "#333333",
+                  fontWeight: 400,
                 }}
               >
                 {step.description[locale]}
@@ -661,7 +663,7 @@ function ExperienceSection({ locale, dict }: SectionProps) {
             className="font-serif"
             style={{
               fontSize: "clamp(28px, 3vw, 40px)",
-              fontWeight: 300,
+              fontWeight: 600,
               lineHeight: 1.15,
               color: "#F8F7F4",
               marginBottom: "28px",
@@ -677,8 +679,8 @@ function ExperienceSection({ locale, dict }: SectionProps) {
             style={{
               fontSize: "16px",
               lineHeight: 1.85,
-              color: "rgba(248,247,244,0.55)",
-              fontWeight: 300,
+              color: "rgba(248,247,244,0.90)",
+              fontWeight: 400,
               marginBottom: "24px",
             }}
           >
@@ -688,8 +690,8 @@ function ExperienceSection({ locale, dict }: SectionProps) {
             style={{
               fontSize: "15px",
               lineHeight: 1.85,
-              color: "rgba(248,247,244,0.45)",
-              fontWeight: 300,
+              color: "rgba(248,247,244,0.82)",
+              fontWeight: 400,
               marginBottom: "40px",
             }}
           >
@@ -832,9 +834,9 @@ function JlptFaqSection({ locale, dict }: SectionProps) {
                     <p
                       style={{
                         fontSize: "16px",
-                        color: "#5B5B5B",
+                        color: "#333333",
                         lineHeight: 1.75,
-                        fontWeight: 300,
+                        fontWeight: 400,
                       }}
                     >
                       {faq.answer[locale]}
@@ -878,7 +880,7 @@ function JlptCta({ locale, dict }: SectionProps) {
           className="fade-up font-serif"
           style={{
             fontSize: "clamp(32px, 4vw, 56px)",
-            fontWeight: 300,
+            fontWeight: 600,
             lineHeight: 1.05,
             letterSpacing: "-0.015em",
             marginBottom: "24px",
@@ -897,8 +899,8 @@ function JlptCta({ locale, dict }: SectionProps) {
             lineHeight: 1.75,
             maxWidth: "480px",
             margin: "0 auto 48px",
-            fontWeight: 300,
-            color: "#5B5B5B",
+            fontWeight: 400,
+            color: "#333333",
             opacity: 0,
           }}
         >

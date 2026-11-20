@@ -53,7 +53,7 @@ export default function GalleryHero({
           <span
             className="section-label"
             style={{
-              color: "rgba(247,245,240,0.5)",
+              color: "rgba(247,245,240,0.80)",
               display: "block",
               marginBottom: "20px",
             }}
@@ -65,7 +65,7 @@ export default function GalleryHero({
           className="fade-up font-serif"
           style={{
             fontSize: "clamp(48px, 5.5vw, 72px)",
-            fontWeight: 300,
+            fontWeight: 600,
             lineHeight: 1.04,
             color: "#F7F5F0",
             letterSpacing: "-0.015em",
@@ -76,7 +76,7 @@ export default function GalleryHero({
         >
           {dict.gallery.heroTitle}
           <br />
-          <em style={{ fontStyle: "italic", fontWeight: 300 }}>
+          <em style={{ fontStyle: "italic", fontWeight: 600 }}>
             {dict.gallery.heroTitleEmphasis}
           </em>
         </h1>
@@ -84,10 +84,10 @@ export default function GalleryHero({
           className="fade-up"
           style={{
             fontSize: "17px",
-            color: "rgba(247,245,240,0.55)",
+            color: "rgba(247,245,240,0.90)",
             lineHeight: 1.75,
             maxWidth: "480px",
-            fontWeight: 300,
+            fontWeight: 400,
             opacity: 0,
           }}
         >

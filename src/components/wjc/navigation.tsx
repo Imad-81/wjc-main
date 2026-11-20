@@ -124,10 +124,10 @@ export default function Navigation({
               <span
                 style={{
                   fontFamily: "var(--font-dm-sans)",
-                  fontSize: "9px",
-                  fontWeight: 500,
+                  fontSize: "11px",
+                  fontWeight: 600,
                   letterSpacing: "0.12em",
-                  color: "rgba(255,255,255,0.45)",
+                  color: "rgba(255,255,255,0.75)",
                   textTransform: "uppercase",
                   lineHeight: 1.2,
                   marginTop: "2px",
@@ -154,10 +154,10 @@ export default function Navigation({
                   aria-current={active ? "page" : undefined}
                   style={
                     {
-                      fontSize: "12px",
-                      fontWeight: active ? 500 : 400,
+                      fontSize: "13px",
+                      fontWeight: active ? 600 : 500,
                       letterSpacing: "0.03em",
-                      color: active ? "#FFFFFF" : "rgba(255,255,255,0.60)",
+                      color: active ? "#FFFFFF" : "rgba(255,255,255,0.80)",
                       textDecoration: "none",
                       padding: "6px 14px",
                       fontFamily: "var(--font-dm-sans)",
@@ -172,7 +172,7 @@ export default function Navigation({
                   onMouseLeave={(e) => {
                     e.currentTarget.style.color = active
                       ? "#FFFFFF"
-                      : "rgba(255,255,255,0.60)"
+                      : "rgba(255,255,255,0.80)"
                   }}
                 >
                   {link.label}
@@ -191,11 +191,11 @@ export default function Navigation({
                 display: "flex",
                 alignItems: "center",
                 gap: "7px",
-                backgroundColor: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.12)",
-                color: "rgba(255,255,255,0.65)",
-                fontSize: "11px",
-                fontWeight: 500,
+                backgroundColor: "rgba(255,255,255,0.06)",
+                border: "1px solid rgba(255,255,255,0.20)",
+                color: "#FFFFFF",
+                fontSize: "12px",
+                fontWeight: 600,
                 letterSpacing: "0.05em",
                 padding: "7px 14px",
                 textDecoration: "none",
@@ -207,14 +207,14 @@ export default function Navigation({
                 locale === "en" ? "日本語に切り替える" : "Switch to English"
               }
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.08)"
+                e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.12)"
                 e.currentTarget.style.borderColor = accent
                 e.currentTarget.style.color = "#FFFFFF"
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.04)"
-                e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)"
-                e.currentTarget.style.color = "rgba(255,255,255,0.65)"
+                e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.06)"
+                e.currentTarget.style.borderColor = "rgba(255,255,255,0.20)"
+                e.currentTarget.style.color = "#FFFFFF"
               }}
             >
               <span
@@ -299,9 +299,9 @@ export default function Navigation({
               top: "80px",
               fontFamily: "var(--font-noto-serif-jp), 'Noto Serif JP', serif",
               fontSize: "120px",
-              fontWeight: 300,
+              fontWeight: 400,
               color: accent,
-              opacity: 0.04,
+              opacity: 0.05,
               lineHeight: 1,
               userSelect: "none",
               pointerEvents: "none",
@@ -326,11 +326,11 @@ export default function Navigation({
                     fontSize: "clamp(28px, 6vw, 40px)",
                     fontFamily:
                       "var(--font-cormorant), 'Cormorant Garamond', Georgia, serif",
-                    fontWeight: 300,
-                    color: active ? "#FFFFFF" : "rgba(255,255,255,0.45)",
+                    fontWeight: active ? 600 : 500,
+                    color: active ? "#FFFFFF" : "rgba(255,255,255,0.80)",
                     textDecoration: "none",
                     padding: "10px 0",
-                    borderBottom: "1px solid rgba(255,255,255,0.05)",
+                    borderBottom: "1px solid rgba(255,255,255,0.08)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
@@ -375,10 +375,11 @@ export default function Navigation({
           <div className="mt-auto px-8 pb-12">
             <p
               style={{
-                fontSize: "11px",
-                color: "rgba(255,255,255,0.25)",
+                fontSize: "12px",
+                color: "rgba(255,255,255,0.70)",
                 letterSpacing: "0.15em",
                 textTransform: "uppercase",
+                fontWeight: 500,
               }}
             >
               Woxsen Japan Centre · 和敬清寂

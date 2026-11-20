@@ -56,7 +56,7 @@ export default function PageHeader({
       <div className="max-w-content relative mx-auto w-full px-6 pb-20 pt-36 md:px-10 md:pb-24 md:pt-40">
         <p className="section-label">{label}</p>
 
-        <h1 className="mt-5 max-w-3xl font-serif text-4xl leading-[1.1] text-[var(--theme-ivory)] md:text-6xl">
+        <h1 className="mt-5 max-w-3xl font-serif text-4xl font-medium leading-[1.1] text-[var(--theme-ivory)] md:text-6xl md:font-semibold">
           {title}
           {titleEmphasis && (
             <span className="block italic">{titleEmphasis}</span>
@@ -64,7 +64,7 @@ export default function PageHeader({
         </h1>
 
         {subtitle && (
-          <p className="mt-7 max-w-xl text-sm leading-relaxed text-[rgba(248,247,244,0.72)] md:text-[15px]">
+          <p className="mt-7 max-w-xl text-sm font-normal leading-relaxed text-[rgba(248,247,244,0.92)] md:text-[15px] md:font-medium">
             {subtitle}
           </p>
         )}

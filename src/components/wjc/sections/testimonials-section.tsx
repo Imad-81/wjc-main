@@ -95,7 +95,7 @@ export default function TestimonialsSection({
                   style={{
                     fontSize: "18px",
                     fontStyle: "italic",
-                    fontWeight: 300,
+                    fontWeight: 400,
                     lineHeight: 1.75,
                     color: "#232323",
                     marginBottom: "32px",
@@ -117,7 +117,7 @@ export default function TestimonialsSection({
                   <p
                     style={{
                       fontSize: "15px",
-                      fontWeight: 500,
+                      fontWeight: 600,
                       color: "#232323",
                       marginBottom: "4px",
                     }}
@@ -126,10 +126,10 @@ export default function TestimonialsSection({
                   </p>
                   <p
                     style={{
-                      fontSize: "12px",
-                      color: "#5B5B5B",
+                      fontSize: "13px",
+                      color: "#383838",
                       letterSpacing: "0.06em",
-                      fontWeight: 400,
+                      fontWeight: 500,
                     }}
                   >
                     {t.affiliation[locale]}

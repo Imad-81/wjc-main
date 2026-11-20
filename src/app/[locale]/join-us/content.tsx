@@ -81,7 +81,7 @@ function HeroJoinUs({ locale, dict }: SectionProps) {
             className="fade-up font-serif"
             style={{
               fontSize: "clamp(44px, 5.5vw, 72px)",
-              fontWeight: 300,
+              fontWeight: 600,
               lineHeight: 1.05,
               color: "#F7F5F0",
               letterSpacing: "-0.01em",
@@ -91,7 +91,7 @@ function HeroJoinUs({ locale, dict }: SectionProps) {
           >
             {dict.joinUs.heroTitle}
             <br />
-            <em style={{ fontStyle: "italic" }}>
+            <em style={{ fontStyle: "italic", fontWeight: 600 }}>
               {dict.joinUs.heroTitleEmphasis}
             </em>
           </h1>
@@ -100,10 +100,10 @@ function HeroJoinUs({ locale, dict }: SectionProps) {
             className="fade-up"
             style={{
               fontSize: "18px",
-              color: "rgba(247,245,240,0.65)",
+              color: "rgba(247,245,240,0.90)",
               lineHeight: 1.75,
               maxWidth: "540px",
-              fontWeight: 300,
+              fontWeight: 400,
               marginBottom: "48px",
               opacity: 0,
             }}
@@ -202,9 +202,9 @@ function BenefitsSection({ locale, dict }: SectionProps) {
             <p
               style={{
                 fontSize: "17px",
-                color: "#5B5B5B",
+                color: "#333333",
                 lineHeight: 1.8,
-                fontWeight: 300,
+                fontWeight: 400,
                 paddingTop: "8px",
               }}
             >
@@ -250,7 +250,7 @@ function BenefitsSection({ locale, dict }: SectionProps) {
                 className="font-serif"
                 style={{
                   fontSize: "22px",
-                  fontWeight: 400,
+                  fontWeight: 600,
                   lineHeight: 1.25,
                   marginBottom: "12px",
                   color: "#232323",
@@ -261,9 +261,9 @@ function BenefitsSection({ locale, dict }: SectionProps) {
               <p
                 style={{
                   fontSize: "15px",
-                  color: "#5B5B5B",
+                  color: "#333333",
                   lineHeight: 1.7,
-                  fontWeight: 300,
+                  fontWeight: 400,
                 }}
               >
                 {benefit.description[locale]}
@@ -307,7 +307,7 @@ function TiersSection({ locale, dict }: SectionProps) {
             className="font-serif"
             style={{
               fontSize: "clamp(32px, 3.5vw, 48px)",
-              fontWeight: 300,
+              fontWeight: 600,
               color: "#F7F5F0",
               lineHeight: 1.15,
               letterSpacing: "0.01em",
@@ -323,11 +323,11 @@ function TiersSection({ locale, dict }: SectionProps) {
           <p
             style={{
               fontSize: "17px",
-              color: "rgba(247,245,240,0.45)",
+              color: "rgba(247,245,240,0.85)",
               lineHeight: 1.75,
               maxWidth: "560px",
               margin: "0 auto",
-              fontWeight: 300,
+              fontWeight: 400,
             }}
           >
             {dict.joinUs.tiers.subtitle}
@@ -356,9 +356,9 @@ function TiersSection({ locale, dict }: SectionProps) {
                 className="font-serif font-jp"
                 style={{
                   fontSize: "72px",
-                  fontWeight: 300,
+                  fontWeight: 400,
                   color: tier.color,
-                  opacity: 0.4,
+                  opacity: 0.5,
                   lineHeight: 1,
                   marginBottom: "24px",
                 }}
@@ -372,7 +372,7 @@ function TiersSection({ locale, dict }: SectionProps) {
                   display: "inline-block",
                   padding: "4px 12px",
                   border: `1px solid ${tier.color}`,
-                  fontSize: "10px",
+                  fontSize: "11px",
                   letterSpacing: "0.12em",
                   color: tier.color,
                   fontFamily: "var(--font-dm-sans)",
@@ -389,7 +389,7 @@ function TiersSection({ locale, dict }: SectionProps) {
                 className="font-serif"
                 style={{
                   fontSize: "24px",
-                  fontWeight: 400,
+                  fontWeight: 600,
                   color: "#F7F5F0",
                   lineHeight: 1.2,
                   marginBottom: "4px",
@@ -400,9 +400,10 @@ function TiersSection({ locale, dict }: SectionProps) {
               <p
                 style={{
                   fontSize: "13px",
-                  color: "rgba(247,245,240,0.4)",
+                  color: "rgba(247,245,240,0.85)",
                   marginBottom: "20px",
                   fontFamily: "var(--font-dm-sans)",
+                  fontWeight: 500,
                   letterSpacing: "0.04em",
                 }}
               >
@@ -412,10 +413,10 @@ function TiersSection({ locale, dict }: SectionProps) {
               <p
                 style={{
                   fontSize: "14px",
-                  color: "rgba(247,245,240,0.55)",
+                  color: "rgba(247,245,240,0.85)",
                   lineHeight: 1.7,
                   marginBottom: "28px",
-                  fontWeight: 300,
+                  fontWeight: 400,
                   flex: 1,
                 }}
               >
@@ -448,9 +449,10 @@ function TiersSection({ locale, dict }: SectionProps) {
                     <p
                       style={{
                         fontSize: "13px",
-                        color: "rgba(247,245,240,0.5)",
+                        color: "rgba(247,245,240,0.80)",
                         lineHeight: 1.5,
                         fontFamily: "var(--font-dm-sans)",
+                        fontWeight: 400,
                       }}
                     >
                       {perk}
@@ -464,16 +466,18 @@ function TiersSection({ locale, dict }: SectionProps) {
                   padding: "10px 16px",
                   border: "1px solid rgba(255,255,255,0.06)",
                   fontSize: "12px",
-                  color: "rgba(247,245,240,0.35)",
+                  color: "rgba(247,245,240,0.70)",
                   fontFamily: "var(--font-dm-sans)",
+                  fontWeight: 500,
                   lineHeight: 1.5,
                 }}
               >
                 <span
                   style={{
-                    color: "rgba(247,245,240,0.2)",
+                    color: "rgba(247,245,240,0.60)",
                     letterSpacing: "0.08em",
-                    fontSize: "10px",
+                    fontSize: "11px",
+                    fontWeight: 600,
                     display: "block",
                     marginBottom: "4px",
                     textTransform: "uppercase",
@@ -568,7 +572,7 @@ function MemberStoriesSection({ locale, dict }: SectionProps) {
                   color: "#232323",
                   lineHeight: 1.7,
                   fontStyle: "italic",
-                  fontWeight: 300,
+                  fontWeight: 400,
                   flex: 1,
                   marginBottom: "32px",
                 }}
@@ -617,7 +621,7 @@ function MemberStoriesSection({ locale, dict }: SectionProps) {
                     className="font-serif"
                     style={{
                       fontSize: "16px",
-                      fontWeight: 400,
+                      fontWeight: 600,
                       lineHeight: 1.2,
                       color: "#232323",
                     }}
@@ -626,9 +630,10 @@ function MemberStoriesSection({ locale, dict }: SectionProps) {
                   </p>
                   <p
                     style={{
-                      fontSize: "12px",
-                      color: "#5B5B5B",
+                      fontSize: "13px",
+                      color: "#383838",
                       fontFamily: "var(--font-dm-sans)",
+                      fontWeight: 500,
                       marginTop: "2px",
                     }}
                   >
@@ -663,9 +668,10 @@ function ApplicationSection({ locale, dict }: SectionProps) {
               <span
                 className="section-label"
                 style={{
-                  color: "rgba(247,245,240,0.4)",
+                  color: "rgba(247,245,240,0.80)",
                   display: "block",
                   marginBottom: "12px",
+                  fontWeight: 600,
                 }}
               >
                 {dict.joinUs.steps.label}
@@ -675,7 +681,7 @@ function ApplicationSection({ locale, dict }: SectionProps) {
                 className="font-serif"
                 style={{
                   fontSize: "clamp(28px, 2.5vw, 40px)",
-                  fontWeight: 300,
+                  fontWeight: 600,
                   color: "#F7F5F0",
                   lineHeight: 1.2,
                   letterSpacing: "0.01em",
@@ -747,7 +753,7 @@ function ApplicationSection({ locale, dict }: SectionProps) {
                       className="font-serif"
                       style={{
                         fontSize: "20px",
-                        fontWeight: 400,
+                        fontWeight: 600,
                         color: "#F7F5F0",
                         lineHeight: 1.2,
                         marginBottom: "8px",
@@ -758,9 +764,9 @@ function ApplicationSection({ locale, dict }: SectionProps) {
                     <p
                       style={{
                         fontSize: "15px",
-                        color: "rgba(247,245,240,0.45)",
+                        color: "rgba(247,245,240,0.80)",
                         lineHeight: 1.65,
-                        fontWeight: 300,
+                        fontWeight: 400,
                       }}
                     >
                       {step.description[locale]}
@@ -897,9 +903,9 @@ function JoinFaqSection({ locale, dict }: SectionProps) {
                     <p
                       style={{
                         fontSize: "16px",
-                        color: "#5B5B5B",
+                        color: "#333333",
                         lineHeight: 1.75,
-                        fontWeight: 300,
+                        fontWeight: 400,
                       }}
                     >
                       {faq.answer[locale]}

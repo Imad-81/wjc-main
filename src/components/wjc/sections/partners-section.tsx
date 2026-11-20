@@ -60,8 +60,8 @@ export default function PartnersSection({
               fontSize: "15px",
               lineHeight: 1.7,
               maxWidth: "360px",
-              fontWeight: 300,
-              color: "rgba(35,35,35,0.70)",
+              fontWeight: 400,
+              color: "#2E2E2E",
               opacity: 0,
             }}
           >
@@ -128,7 +128,7 @@ export default function PartnersSection({
                 className="font-serif"
                 style={{
                   fontSize: "22px",
-                  fontWeight: 400,
+                  fontWeight: 600,
                   lineHeight: 1.2,
                   marginBottom: "6px",
                   letterSpacing: "0.01em",
@@ -139,11 +139,11 @@ export default function PartnersSection({
               </h3>
               <p
                 style={{
-                  fontSize: "12px",
-                  color: "rgba(35,35,35,0.55)",
+                  fontSize: "13px",
+                  color: "#383838",
                   letterSpacing: "0.08em",
                   marginBottom: "20px",
-                  fontWeight: 400,
+                  fontWeight: 500,
                 }}
               >
                 {partner.location[locale]}
@@ -160,11 +160,11 @@ export default function PartnersSection({
 
               <p
                 style={{
-                  fontSize: "13.5px",
-                  color: "rgba(35,35,35,0.75)",
+                  fontSize: "14px",
+                  color: "#333333",
                   lineHeight: 1.75,
                   marginBottom: "20px",
-                  fontWeight: 300,
+                  fontWeight: 400,
                 }}
               >
                 {partner.description[locale]}

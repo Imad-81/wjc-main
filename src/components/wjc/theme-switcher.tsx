@@ -52,12 +52,12 @@ export default function ThemeSwitcher({ locale }: { locale: Locale }) {
         >
           <p
             style={{
-              fontSize: "9px",
+              fontSize: "11px",
               letterSpacing: "0.2em",
               textTransform: "uppercase",
-              color: "rgba(255,255,255,0.35)",
+              color: "rgba(255,255,255,0.75)",
               fontFamily: "var(--font-dm-sans)",
-              fontWeight: 500,
+              fontWeight: 600,
               marginBottom: "16px",
             }}
           >
@@ -128,8 +128,8 @@ export default function ThemeSwitcher({ locale }: { locale: Locale }) {
                     <p
                       style={{
                         fontSize: "13px",
-                        color: isActive ? "#FFFFFF" : "rgba(255,255,255,0.55)",
-                        fontWeight: isActive ? 500 : 400,
+                        color: isActive ? "#FFFFFF" : "rgba(255,255,255,0.85)",
+                        fontWeight: isActive ? 600 : 500,
                         fontFamily: "var(--font-dm-sans)",
                         lineHeight: 1.2,
                         transition: "color 0.2s ease",
@@ -140,8 +140,9 @@ export default function ThemeSwitcher({ locale }: { locale: Locale }) {
                     <p
                       className="font-jp"
                       style={{
-                        fontSize: "10px",
-                        color: isActive ? theme.accent : "rgba(255,255,255,0.3)",
+                        fontSize: "11px",
+                        color: isActive ? theme.accent : "rgba(255,255,255,0.65)",
+                        fontWeight: 500,
                         marginTop: "2px",
                         transition: "color 0.2s ease",
                       }}

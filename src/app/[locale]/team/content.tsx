@@ -28,7 +28,7 @@ function HeroTeam({ locale, dict }: SectionProps) {
     >
       <div className="absolute inset-0 z-0">
         <AppImage
-          src="/images/events/kizuna-matsuri/DSC09354-compressed-compressed-compressed.jpg"
+          src="/images/team/team-hero.jpg"
           alt={
             locale === "ja"
               ? "ウォクセン日本センターに集う学生と教員"
@@ -70,7 +70,7 @@ function HeroTeam({ locale, dict }: SectionProps) {
           className="fade-up font-serif"
           style={{
             fontSize: "clamp(48px, 5.5vw, 72px)",
-            fontWeight: 300,
+            fontWeight: 600,
             lineHeight: 1.04,
             color: "#F7F5F0",
             letterSpacing: "-0.015em",
@@ -81,7 +81,7 @@ function HeroTeam({ locale, dict }: SectionProps) {
         >
           {dict.team.heroTitle}
           <br />
-          <em style={{ fontStyle: "italic", fontWeight: 300 }}>
+          <em style={{ fontStyle: "italic", fontWeight: 600 }}>
             {dict.team.heroTitleEmphasis}
           </em>
         </h1>
@@ -89,10 +89,10 @@ function HeroTeam({ locale, dict }: SectionProps) {
           className="fade-up"
           style={{
             fontSize: "17px",
-            color: "rgba(247,245,240,0.55)",
+            color: "rgba(247,245,240,0.90)",
             lineHeight: 1.75,
             maxWidth: "480px",
-            fontWeight: 300,
+            fontWeight: 400,
             opacity: 0,
           }}
         >
@@ -136,7 +136,7 @@ function FacultySection({ locale, dict, facultyList }: SectionProps) {
             className="fade-up font-serif"
             style={{
               fontSize: "clamp(32px, 3.5vw, 48px)",
-              fontWeight: 300,
+              fontWeight: 600,
               lineHeight: 1.1,
               color: "var(--theme-ivory)",
               letterSpacing: "-0.01em",
@@ -293,7 +293,7 @@ function StudentLeadersSection({
               className="fade-up font-serif"
               style={{
                 fontSize: "clamp(28px, 3vw, 40px)",
-                fontWeight: 300,
+                fontWeight: 600,
                 lineHeight: 1.15,
                 letterSpacing: "-0.01em",
                 color: "#232323",
@@ -313,8 +313,8 @@ function StudentLeadersSection({
               style={{
                 fontSize: "16px",
                 lineHeight: 1.85,
-                fontWeight: 300,
-                color: "#5B5B5B",
+                fontWeight: 400,
+                color: "#333333",
                 opacity: 0,
               }}
             >
@@ -378,7 +378,7 @@ function StudentLeadersSection({
                     style={{
                       fontSize: "18px",
                       color: "var(--theme-accent)",
-                      fontWeight: 300,
+                      fontWeight: 500,
                     }}
                   >
                     和
@@ -389,10 +389,11 @@ function StudentLeadersSection({
               <div style={{ padding: "20px" }}>
                 <div
                   style={{
-                    fontSize: "10px",
+                    fontSize: "11px",
                     letterSpacing: "0.12em",
                     textTransform: "uppercase",
                     color: "var(--theme-accent)",
+                    fontWeight: 600,
                     marginBottom: "6px",
                   }}
                 >
@@ -448,7 +449,7 @@ function TeamCta({ locale, dict }: SectionProps) {
           className="fade-up font-serif"
           style={{
             fontSize: "clamp(32px, 4vw, 56px)",
-            fontWeight: 300,
+            fontWeight: 600,
             lineHeight: 1.05,
             letterSpacing: "-0.015em",
             marginBottom: "24px",
@@ -467,8 +468,8 @@ function TeamCta({ locale, dict }: SectionProps) {
             lineHeight: 1.75,
             maxWidth: "480px",
             margin: "0 auto 48px",
-            fontWeight: 300,
-            color: "#5B5B5B",
+            fontWeight: 400,
+            color: "#333333",
             opacity: 0,
           }}
         >

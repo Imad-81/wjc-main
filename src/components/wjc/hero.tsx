@@ -42,7 +42,7 @@ const VISUALS: Record<SeasonId, SeasonVisuals> = {
     statsBarBg: "rgba(8,5,3,0.92)",
     statsBarBorder: "rgba(192,57,43,0.20)",
     statsText: "#F5F0E8",
-    statsLabel: "rgba(245,240,232,0.48)",
+    statsLabel: "rgba(245,240,232,0.78)",
     particleType: "none",
     particleColor: "#C0392B",
   },
@@ -53,7 +53,7 @@ const VISUALS: Record<SeasonId, SeasonVisuals> = {
     statsBarBg: "rgba(3,5,14,0.93)",
     statsBarBorder: "rgba(232,93,4,0.20)",
     statsText: "#F5E6D3",
-    statsLabel: "rgba(245,230,211,0.48)",
+    statsLabel: "rgba(245,230,211,0.78)",
     particleType: "sparks",
     particleColor: "#FF8C42",
   },
@@ -64,7 +64,7 @@ const VISUALS: Record<SeasonId, SeasonVisuals> = {
     statsBarBg: "rgba(2,2,14,0.93)",
     statsBarBorder: "rgba(155,89,182,0.20)",
     statsText: "#E8E4F0",
-    statsLabel: "rgba(232,228,240,0.48)",
+    statsLabel: "rgba(232,228,240,0.78)",
     particleType: "fireflies",
     particleColor: "#C9B8E8",
   },
@@ -75,7 +75,7 @@ const VISUALS: Record<SeasonId, SeasonVisuals> = {
     statsBarBg: "rgba(16,7,3,0.93)",
     statsBarBorder: "rgba(196,90,26,0.20)",
     statsText: "#F5E8D4",
-    statsLabel: "rgba(245,232,212,0.48)",
+    statsLabel: "rgba(245,232,212,0.78)",
     particleType: "seeds",
     particleColor: "#D4A574",
   },
@@ -86,7 +86,7 @@ const VISUALS: Record<SeasonId, SeasonVisuals> = {
     statsBarBg: "rgba(2,2,2,0.93)",
     statsBarBorder: "rgba(201,168,76,0.20)",
     statsText: "#F5EED8",
-    statsLabel: "rgba(245,238,216,0.48)",
+    statsLabel: "rgba(245,238,216,0.78)",
     particleType: "lanterns",
     particleColor: "#C9A84C",
   },
@@ -625,7 +625,7 @@ export default function Hero({
               className="fade-up is-visible font-serif"
               style={{
                 fontSize: "clamp(28px, 4.2vw, 54px)",
-                fontWeight: 300,
+                fontWeight: 600,
                 lineHeight: 1.06,
                 letterSpacing: "-0.018em",
                 color: "#FFFFFF",
@@ -639,7 +639,7 @@ export default function Hero({
               className="fade-up is-visible font-serif"
               style={{
                 fontSize: "clamp(28px, 4.2vw, 54px)",
-                fontWeight: 300,
+                fontWeight: 600,
                 lineHeight: 1.06,
                 letterSpacing: "-0.018em",
                 color: cfg.accent,
@@ -678,10 +678,10 @@ export default function Hero({
                   lineHeight: 1.7,
                   flex: "1 1 200px",
                   maxWidth: "340px",
-                  color: "rgba(245,242,238,0.76)",
+                  color: "#F5F2EE",
                   transitionDelay: "0.38s",
                   marginBottom: 0,
-                  fontWeight: 300,
+                  fontWeight: 400,
                   letterSpacing: "0.01em",
                 }}
               >
@@ -733,11 +733,11 @@ export default function Hero({
                   href={localizePath("/about", locale)}
                   className="btn-lift inline-flex items-center gap-3"
                   style={{
-                    border: "1px solid rgba(245,242,238,0.40)",
-                    color: "rgba(245,242,238,0.86)",
+                    border: "1px solid rgba(245,242,238,0.65)",
+                    color: "#FFFFFF",
                     padding: "15px 28px",
                     fontSize: "12px",
-                    fontWeight: 500,
+                    fontWeight: 600,
                     letterSpacing: "0.08em",
                     textTransform: "uppercase",
                     backgroundColor: "transparent",
@@ -779,10 +779,11 @@ export default function Hero({
         >
           <span
             style={{
-              fontSize: "8px",
+              fontSize: "11px",
               letterSpacing: "0.22em",
-              color: "rgba(255,255,255,0.28)",
+              color: "rgba(255,255,255,0.70)",
               fontFamily: "var(--font-dm-sans)",
+              fontWeight: 500,
               textTransform: "uppercase",
             }}
           >

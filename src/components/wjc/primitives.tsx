@@ -56,7 +56,7 @@ export function AccentRule({ className }: { className?: string }) {
 }
 
 const BUTTON_BASE =
-  "inline-flex items-center justify-center gap-2 px-8 py-3.5 text-[11px] font-medium uppercase tracking-[0.18em]"
+  "inline-flex items-center justify-center gap-2 px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.16em]"
 
 type ButtonVariant = "accent" | "outline"
 

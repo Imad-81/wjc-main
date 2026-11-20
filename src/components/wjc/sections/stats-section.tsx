@@ -46,7 +46,7 @@ function StatItem({
         className="font-serif"
         style={{
           fontSize: "clamp(48px, 4.5vw, 68px)",
-          fontWeight: 300,
+          fontWeight: 600,
           color: "#232323",
           lineHeight: 1,
           letterSpacing: "-0.02em",
@@ -59,11 +59,11 @@ function StatItem({
       </p>
       <p
         style={{
-          fontSize: "12px",
+          fontSize: "13px",
           letterSpacing: "0.12em",
-          color: "#5B5B5B",
+          color: "#383838",
           textTransform: "uppercase",
-          fontWeight: 400,
+          fontWeight: 500,
           lineHeight: 1.5,
         }}
       >

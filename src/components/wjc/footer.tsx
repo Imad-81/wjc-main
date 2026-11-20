@@ -80,9 +80,10 @@ export default function Footer({
                   <p
                     className="font-jp"
                     style={{
-                      fontSize: "9px",
+                      fontSize: "11px",
                       color: "var(--theme-muted-text)",
                       letterSpacing: "0.10em",
+                      fontWeight: 500,
                       marginTop: "2px",
                       transition: "color 0.7s ease",
                     }}
@@ -97,7 +98,7 @@ export default function Footer({
                   fontSize: "14px",
                   color: "var(--theme-muted-text)",
                   lineHeight: 1.75,
-                  fontWeight: 300,
+                  fontWeight: 400,
                   transition: "color 0.7s ease",
                 }}
               >
@@ -112,7 +113,7 @@ export default function Footer({
                 width: "32px",
                 height: "1px",
                 backgroundColor: "var(--theme-accent)",
-                opacity: 0.5,
+                opacity: 0.6,
                 transition: "background-color 0.7s ease",
               }}
               aria-hidden="true"
@@ -127,6 +128,7 @@ export default function Footer({
                   transition: "color 0.3s ease",
                   display: "block",
                   marginBottom: "4px",
+                  fontWeight: 500,
                 }}
                 onMouseEnter={(e) =>
                   (e.currentTarget.style.color = "var(--theme-accent)")
@@ -141,7 +143,6 @@ export default function Footer({
                 style={{
                   fontSize: "12px",
                   color: "var(--theme-muted-text)",
-                  opacity: 0.6,
                   lineHeight: 1.6,
                   transition: "color 0.7s ease",
                 }}
@@ -156,8 +157,7 @@ export default function Footer({
             <p
               className="section-label"
               style={{
-                color: "var(--theme-muted-text)",
-                opacity: 0.5,
+                color: "var(--theme-accent)",
                 marginBottom: "18px",
               }}
             >
@@ -170,8 +170,8 @@ export default function Footer({
                   href={link.href}
                   style={{
                     fontSize: "14px",
-                    color: "var(--theme-muted-text)",
-                    fontWeight: 400,
+                    color: "rgba(248,247,244,0.85)",
+                    fontWeight: 500,
                     textDecoration: "none",
                     transition: "color 0.25s ease",
                   }}
@@ -179,7 +179,7 @@ export default function Footer({
                     (e.currentTarget.style.color = "var(--theme-ivory)")
                   }
                   onMouseLeave={(e) =>
-                    (e.currentTarget.style.color = "var(--theme-muted-text)")
+                    (e.currentTarget.style.color = "rgba(248,247,244,0.85)")
                   }
                 >
                   {link.label}
@@ -193,8 +193,7 @@ export default function Footer({
             <p
               className="section-label"
               style={{
-                color: "var(--theme-muted-text)",
-                opacity: 0.5,
+                color: "var(--theme-accent)",
                 marginBottom: "18px",
               }}
             >
@@ -269,7 +268,7 @@ export default function Footer({
             style={{
               fontSize: "12px",
               color: "var(--theme-muted-text)",
-              opacity: 0.5,
+              fontWeight: 400,
               transition: "color 0.7s ease",
             }}
           >
@@ -286,16 +285,14 @@ export default function Footer({
                 style={{
                   fontSize: "12px",
                   color: "var(--theme-muted-text)",
-                  opacity: 0.45,
+                  fontWeight: 500,
                   textDecoration: "none",
-                  transition: "opacity 0.25s ease, color 0.25s ease",
+                  transition: "color 0.25s ease",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.opacity = "1"
                   e.currentTarget.style.color = "var(--theme-ivory)"
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.opacity = "0.45"
                   e.currentTarget.style.color = "var(--theme-muted-text)"
                 }}
               >
@@ -305,9 +302,9 @@ export default function Footer({
             <span
               className="font-jp"
               style={{
-                fontSize: "11px",
+                fontSize: "12px",
                 color: "var(--theme-accent)",
-                opacity: 0.6,
+                fontWeight: 600,
                 transition: "color 0.7s ease",
               }}
             >

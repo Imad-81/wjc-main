@@ -19,11 +19,11 @@ const FIELD_STYLE = {
 
 const LABEL_STYLE = {
   display: "block",
-  fontSize: "11px",
+  fontSize: "12px",
   letterSpacing: "0.1em",
-  color: "rgba(247,245,240,0.4)",
+  color: "rgba(247,245,240,0.85)",
   fontFamily: "var(--font-dm-sans)",
-  fontWeight: 500,
+  fontWeight: 600,
   marginBottom: "8px",
   textTransform: "uppercase",
 } as const
@@ -111,7 +111,7 @@ export default function InterestForm({
             className="font-serif"
             style={{
               fontSize: "28px",
-              fontWeight: 300,
+              fontWeight: 600,
               color: "#F7F5F0",
               marginBottom: "16px",
             }}
@@ -121,9 +121,9 @@ export default function InterestForm({
           <p
             style={{
               fontSize: "16px",
-              color: "rgba(247,245,240,0.5)",
+              color: "rgba(247,245,240,0.88)",
               lineHeight: 1.7,
-              fontWeight: 300,
+              fontWeight: 400,
               marginBottom: "32px",
             }}
           >
@@ -160,7 +160,7 @@ export default function InterestForm({
         className="font-serif"
         style={{
           fontSize: "24px",
-          fontWeight: 300,
+          fontWeight: 600,
           color: "#F7F5F0",
           marginBottom: "8px",
         }}
@@ -170,9 +170,10 @@ export default function InterestForm({
       <p
         style={{
           fontSize: "14px",
-          color: "rgba(247,245,240,0.4)",
+          color: "rgba(247,245,240,0.78)",
           marginBottom: "40px",
           fontFamily: "var(--font-dm-sans)",
+          fontWeight: 400,
         }}
       >
         {t.subtitle}
@@ -221,7 +222,7 @@ export default function InterestForm({
             style={{
               ...FIELD_STYLE,
               backgroundColor: "#0F0F0F",
-              color: form.program ? "#F7F5F0" : "rgba(247,245,240,0.3)",
+              color: form.program ? "#F7F5F0" : "rgba(247,245,240,0.65)",
               cursor: "pointer",
             }}
           >

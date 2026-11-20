@@ -77,7 +77,7 @@ export default function NewsletterSection({
               className="fade-up font-serif"
               style={{
                 fontSize: "clamp(32px, 3vw, 44px)",
-                fontWeight: 400,
+                fontWeight: 600,
                 lineHeight: 1.15,
                 letterSpacing: "0.01em",
                 marginBottom: "20px",
@@ -95,8 +95,8 @@ export default function NewsletterSection({
                 fontSize: "16px",
                 lineHeight: 1.8,
                 maxWidth: "440px",
-                fontWeight: 300,
-                color: "#5B5B5B",
+                fontWeight: 400,
+                color: "#333333",
                 opacity: 0,
               }}
             >
@@ -152,7 +152,8 @@ export default function NewsletterSection({
                     style={{
                       display: "block",
                       marginBottom: "10px",
-                      color: "#5B5B5B",
+                      color: "#383838",
+                      fontWeight: 600,
                     }}
                   >
                     {locale === "ja" ? "メールアドレス" : "Email Address"}

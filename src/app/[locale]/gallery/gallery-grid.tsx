@@ -148,10 +148,11 @@ export default function GalleryGrid({
                 >
                   <div
                     style={{
-                      fontSize: "10px",
+                      fontSize: "11px",
                       letterSpacing: "0.12em",
                       textTransform: "uppercase",
                       color: "var(--theme-accent)",
+                      fontWeight: 600,
                       marginBottom: "4px",
                     }}
                   >
@@ -290,7 +291,7 @@ export default function GalleryGrid({
             </div>
             <div
               className="font-mono"
-              style={{ fontSize: "11px", color: "rgba(247,245,240,0.45)" }}
+              style={{ fontSize: "12px", color: "rgba(247,245,240,0.78)", fontWeight: 500 }}
             >
               {lightbox !== null ? lightbox + 1 : 0} / {filtered.length}
             </div>

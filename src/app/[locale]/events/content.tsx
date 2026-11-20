@@ -72,7 +72,7 @@ function HeroEvents({ locale, dict }: SectionProps) {
           className="fade-up font-serif"
           style={{
             fontSize: "clamp(48px, 5.5vw, 72px)",
-            fontWeight: 300,
+            fontWeight: 600,
             lineHeight: 1.04,
             color: "#F7F5F0",
             letterSpacing: "-0.015em",
@@ -83,7 +83,7 @@ function HeroEvents({ locale, dict }: SectionProps) {
         >
           {dict.events.heroTitle}
           <br />
-          <em style={{ fontStyle: "italic", fontWeight: 300 }}>
+          <em style={{ fontStyle: "italic", fontWeight: 600 }}>
             {dict.events.heroTitleEmphasis}
           </em>
         </h1>
@@ -91,10 +91,10 @@ function HeroEvents({ locale, dict }: SectionProps) {
           className="fade-up"
           style={{
             fontSize: "17px",
-            color: "rgba(247,245,240,0.55)",
+            color: "rgba(247,245,240,0.90)",
             lineHeight: 1.75,
             maxWidth: "500px",
-            fontWeight: 300,
+            fontWeight: 400,
             opacity: 0,
           }}
         >
@@ -258,8 +258,8 @@ function TabsSection({ locale, dict, events }: SectionProps) {
           <p
             style={{
               fontSize: "15px",
-              color: "#5B5B5B",
-              fontWeight: 300,
+              color: "#333333",
+              fontWeight: 400,
               lineHeight: 1.75,
               maxWidth: "560px",
             }}
@@ -316,7 +316,7 @@ function TabsSection({ locale, dict, events }: SectionProps) {
                     className="font-serif"
                     style={{
                       fontSize: "28px",
-                      fontWeight: 300,
+                      fontWeight: 600,
                       color: "#F8F7F4",
                       lineHeight: 1.2,
                     }}
@@ -336,6 +336,7 @@ function TabsSection({ locale, dict, events }: SectionProps) {
                     letterSpacing: "0.15em",
                     textTransform: "uppercase",
                     color: "var(--theme-accent)",
+                    fontWeight: 600,
                     marginBottom: "16px",
                   }}
                 >
@@ -345,7 +346,7 @@ function TabsSection({ locale, dict, events }: SectionProps) {
                   className="font-serif"
                   style={{
                     fontSize: "28px",
-                    fontWeight: 300,
+                    fontWeight: 600,
                     lineHeight: 1.2,
                     marginBottom: "20px",
                     color: "#232323",
@@ -357,9 +358,9 @@ function TabsSection({ locale, dict, events }: SectionProps) {
                   style={{
                     fontSize: "15px",
                     lineHeight: 1.8,
-                    fontWeight: 300,
+                    fontWeight: 400,
                     marginBottom: "24px",
-                    color: "#5B5B5B",
+                    color: "#333333",
                   }}
                 >
                   {featured.description[locale]}
@@ -473,8 +474,8 @@ function TabsSection({ locale, dict, events }: SectionProps) {
                   style={{
                     fontSize: "13px",
                     lineHeight: 1.7,
-                    fontWeight: 300,
-                    color: "#5B5B5B",
+                    fontWeight: 400,
+                    color: "#333333",
                   }}
                 >
                   {event.description[locale]}
@@ -541,9 +542,9 @@ function TabsSection({ locale, dict, events }: SectionProps) {
                   <div
                     style={{
                       fontSize: "14px",
-                      color: "#5B5B5B",
+                      color: "#333333",
                       lineHeight: 1.7,
-                      fontWeight: 300,
+                      fontWeight: 400,
                     }}
                   >
                     {d.purpose[locale]}
@@ -553,9 +554,9 @@ function TabsSection({ locale, dict, events }: SectionProps) {
                   <div
                     style={{
                       fontSize: "13px",
-                      color: "#8A8A8A",
+                      color: "#4A4A4A",
                       lineHeight: 1.7,
-                      fontWeight: 300,
+                      fontWeight: 500,
                       fontStyle: "italic",
                     }}
                   >
@@ -602,10 +603,10 @@ function TabsSection({ locale, dict, events }: SectionProps) {
                     <div style={{ fontSize: "10px", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--theme-accent)", marginBottom: "12px" }}>
                       {event.category[locale]} · {event.displayDate[locale]}
                     </div>
-                    <h3 className="font-serif" style={{ fontSize: "20px", fontWeight: 400, lineHeight: 1.3, marginBottom: "12px", color: "#232323" }}>
+                    <h3 className="font-serif" style={{ fontSize: "20px", fontWeight: 600, lineHeight: 1.3, marginBottom: "12px", color: "#232323" }}>
                       {event.title[locale]}
                     </h3>
-                    <p style={{ fontSize: "13px", lineHeight: 1.7, fontWeight: 300, color: "#5B5B5B" }}>
+                    <p style={{ fontSize: "13px", lineHeight: 1.7, fontWeight: 400, color: "#333333" }}>
                       {event.description[locale]}
                     </p>
                   </div>
@@ -613,7 +614,7 @@ function TabsSection({ locale, dict, events }: SectionProps) {
               ))}
             </div>
           ) : (
-            <p style={{ fontSize: "15px", color: "#5B5B5B", fontWeight: 300, fontStyle: "italic" }}>
+            <p style={{ fontSize: "15px", color: "#333333", fontWeight: 400, fontStyle: "italic" }}>
               {dict.events.noEvents}
             </p>
           )
@@ -664,10 +665,10 @@ function TabsSection({ locale, dict, events }: SectionProps) {
                     {event.date[locale]}
                   </span>
                 </div>
-                <h3 className="font-serif" style={{ fontSize: "22px", fontWeight: 400, lineHeight: 1.3, marginBottom: "12px", color: "#232323" }}>
+                <h3 className="font-serif" style={{ fontSize: "22px", fontWeight: 600, lineHeight: 1.3, marginBottom: "12px", color: "#232323" }}>
                   {event.title[locale]}
                 </h3>
-                <p style={{ fontSize: "14px", lineHeight: 1.75, fontWeight: 300, color: "#5B5B5B", marginBottom: "20px" }}>
+                <p style={{ fontSize: "14px", lineHeight: 1.75, fontWeight: 400, color: "#333333", marginBottom: "20px" }}>
                   {event.description[locale]}
                 </p>
                 {/* A bespoke `status` is always something worth noticing, so
@@ -737,7 +738,7 @@ function ImpactNumbers_IMPL({ locale, dict }: SectionProps) {
             className="fade-up font-serif"
             style={{
               fontSize: "clamp(28px, 3vw, 40px)",
-              fontWeight: 300,
+              fontWeight: 600,
               lineHeight: 1.15,
               color: "var(--theme-ivory)",
               opacity: 0,
@@ -768,7 +769,7 @@ function ImpactNumbers_IMPL({ locale, dict }: SectionProps) {
                 className="font-serif"
                 style={{
                   fontSize: "clamp(48px, 4.5vw, 68px)",
-                  fontWeight: 300,
+                  fontWeight: 600,
                   color: "var(--theme-ivory)",
                   lineHeight: 1,
                   letterSpacing: "-0.02em",
@@ -831,7 +832,7 @@ function EventsCta({ locale, dict }: SectionProps) {
           className="fade-up font-serif"
           style={{
             fontSize: "clamp(32px, 4vw, 56px)",
-            fontWeight: 300,
+            fontWeight: 600,
             lineHeight: 1.05,
             letterSpacing: "-0.015em",
             marginBottom: "24px",
@@ -852,8 +853,8 @@ function EventsCta({ locale, dict }: SectionProps) {
             lineHeight: 1.75,
             maxWidth: "480px",
             margin: "0 auto 48px",
-            fontWeight: 300,
-            color: "#5B5B5B",
+            fontWeight: 400,
+            color: "#333333",
             opacity: 0,
           }}
         >

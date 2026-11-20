@@ -149,7 +149,7 @@ export default function EventRsvpModal({
                     <h2 className="font-serif text-xl sm:text-2xl text-[#f2efe9] leading-snug">
                       {title}
                     </h2>
-                    <p className="mt-1 text-xs text-[#8c827a] leading-relaxed">
+                    <p className="mt-1 text-xs text-[#d4ccc3] leading-relaxed">
                       {isJa
                         ? "以下のフォームにご記入の上、送信してください。確認メールおよび詳細情報をお送りします。"
                         : "Complete the form below to reserve your place. We will keep you updated with event announcements."}
@@ -164,7 +164,7 @@ export default function EventRsvpModal({
 
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
-                      <label className="block text-[11px] font-medium uppercase tracking-[0.14em] text-[#a89e92] mb-1.5">
+                      <label className="block text-xs font-semibold uppercase tracking-[0.14em] text-[#d4ccc3] mb-1.5">
                         {isJa ? "氏名 *" : "Full Name *"}
                       </label>
                       <input
@@ -173,12 +173,12 @@ export default function EventRsvpModal({
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         placeholder={isJa ? "山田 太郎" : "Jane Doe"}
-                        className="w-full bg-[#100e0d] border border-[#2d2925] px-3.5 py-2.5 text-sm text-[#f2efe9] placeholder-[#57514a] focus:border-[#c59b27] focus:outline-none transition-colors"
+                        className="w-full bg-[#100e0d] border border-[#2d2925] px-3.5 py-2.5 text-sm text-[#f2efe9] placeholder-[#80786f] focus:border-[#c59b27] focus:outline-none transition-colors"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-[11px] font-medium uppercase tracking-[0.14em] text-[#a89e92] mb-1.5">
+                      <label className="block text-xs font-semibold uppercase tracking-[0.14em] text-[#d4ccc3] mb-1.5">
                         {isJa ? "メールアドレス *" : "Email Address *"}
                       </label>
                       <input
@@ -187,12 +187,12 @@ export default function EventRsvpModal({
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="you@domain.com"
-                        className="w-full bg-[#100e0d] border border-[#2d2925] px-3.5 py-2.5 text-sm text-[#f2efe9] placeholder-[#57514a] focus:border-[#c59b27] focus:outline-none transition-colors"
+                        className="w-full bg-[#100e0d] border border-[#2d2925] px-3.5 py-2.5 text-sm text-[#f2efe9] placeholder-[#80786f] focus:border-[#c59b27] focus:outline-none transition-colors"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-[11px] font-medium uppercase tracking-[0.14em] text-[#a89e92] mb-1.5">
+                      <label className="block text-xs font-semibold uppercase tracking-[0.14em] text-[#d4ccc3] mb-1.5">
                         {isJa ? "電話番号 (任意)" : "Phone Number (Optional)"}
                       </label>
                       <input
@@ -200,12 +200,12 @@ export default function EventRsvpModal({
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         placeholder="+91 / +81 ..."
-                        className="w-full bg-[#100e0d] border border-[#2d2925] px-3.5 py-2.5 text-sm text-[#f2efe9] placeholder-[#57514a] focus:border-[#c59b27] focus:outline-none transition-colors"
+                        className="w-full bg-[#100e0d] border border-[#2d2925] px-3.5 py-2.5 text-sm text-[#f2efe9] placeholder-[#80786f] focus:border-[#c59b27] focus:outline-none transition-colors"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-[11px] font-medium uppercase tracking-[0.14em] text-[#a89e92] mb-1.5">
+                      <label className="block text-xs font-semibold uppercase tracking-[0.14em] text-[#d4ccc3] mb-1.5">
                         {isJa ? "ご質問・特記事項 (任意)" : "Notes or Inquiries (Optional)"}
                       </label>
                       <textarea
@@ -213,7 +213,7 @@ export default function EventRsvpModal({
                         value={notes}
                         onChange={(e) => setNotes(e.target.value)}
                         placeholder={isJa ? "参加にあたっての要望など" : "Dietary restrictions, seating preferences..."}
-                        className="w-full bg-[#100e0d] border border-[#2d2925] px-3.5 py-2.5 text-sm text-[#f2efe9] placeholder-[#57514a] focus:border-[#c59b27] focus:outline-none transition-colors resize-none"
+                        className="w-full bg-[#100e0d] border border-[#2d2925] px-3.5 py-2.5 text-sm text-[#f2efe9] placeholder-[#80786f] focus:border-[#c59b27] focus:outline-none transition-colors resize-none"
                       />
                     </div>
 

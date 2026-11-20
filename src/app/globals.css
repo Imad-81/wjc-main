@@ -17,14 +17,14 @@
   --accent: #a63a2b;
   --accent-foreground: #f8f7f4;
   --muted: #e8e2d7;
-  --muted-foreground: #5b5b5b;
+  --muted-foreground: #383838;
   --card: #f8f7f4;
   --card-foreground: #232323;
   --popover: #f8f7f4;
   --popover-foreground: #232323;
   --destructive: #a63a2b;
   --destructive-foreground: #f8f7f4;
-  --border: rgba(35, 35, 35, 0.1);
+  --border: rgba(35, 35, 35, 0.14);
   --input: #e8e2d7;
   --ring: #a63a2b;
   --radius: 0px;
@@ -37,13 +37,13 @@
   --section-charcoal-alt: #1a1a1a;
 
   /* Text on light surfaces */
-  --warm-text: #232323;
-  --warm-text-muted: #5b5b5b;
-  --warm-border: rgba(35, 35, 35, 0.1);
-  --warm-border-strong: rgba(35, 35, 35, 0.18);
-  --wood-text: #232323;
-  --wood-text-muted: rgba(35, 35, 35, 0.65);
-  --wood-border: rgba(35, 35, 35, 0.15);
+  --warm-text: #1e1e1e;
+  --warm-text-muted: #383838;
+  --warm-border: rgba(35, 35, 35, 0.12);
+  --warm-border-strong: rgba(35, 35, 35, 0.22);
+  --wood-text: #1e1e1e;
+  --wood-text-muted: #3f3b36;
+  --wood-border: rgba(35, 35, 35, 0.18);
 
   /* ---- Seasonal theme layer: "Original" (default) ----
      Every themed surface reads from these. Overridden wholesale by
@@ -58,22 +58,22 @@
   --theme-surface: rgba(35, 35, 35, 0.88);
   --theme-surface-dark: rgba(20, 20, 20, 0.96);
   --theme-surface-card: rgba(35, 35, 35, 0.72);
-  --theme-border-light: rgba(248, 247, 244, 0.08);
-  --theme-border-dark: rgba(166, 58, 43, 0.2);
-  --theme-muted-text: rgba(248, 247, 244, 0.5);
+  --theme-border-light: rgba(248, 247, 244, 0.14);
+  --theme-border-dark: rgba(166, 58, 43, 0.24);
+  --theme-muted-text: rgba(248, 247, 244, 0.76);
   --theme-ivory: #f8f7f4;
   --theme-glass-bg: rgba(35, 35, 35, 0.72);
   --theme-glass-border: rgba(166, 58, 43, 0.22);
   --theme-btn-primary-bg: #a63a2b;
   --theme-btn-primary-text: #f8f7f4;
-  --theme-btn-outline-border: rgba(248, 247, 244, 0.25);
+  --theme-btn-outline-border: rgba(248, 247, 244, 0.35);
   --theme-btn-outline-text: #f8f7f4;
   --theme-section-bg: #232323;
   --theme-section-alt: #1a1a1a;
   --theme-card-bg: rgba(232, 226, 215, 0.6);
-  --theme-card-border: rgba(35, 35, 35, 0.1);
+  --theme-card-border: rgba(35, 35, 35, 0.12);
   --theme-stat-number: #f8f7f4;
-  --theme-stat-label: rgba(248, 247, 244, 0.55);
+  --theme-stat-label: rgba(248, 247, 244, 0.78);
   --theme-nav-active: #a63a2b;
   --theme-footer-bg: #1a1a1a;
   --theme-particle-color: #a63a2b;
@@ -251,7 +251,7 @@
   h3,
   h4 {
     font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
-    font-weight: 400;
+    font-weight: 600;
     letter-spacing: 0.01em;
   }
 
@@ -269,8 +269,8 @@
 
   /* The small uppercase eyebrow that opens nearly every section. */
   .section-label {
-    font-size: 10px;
-    letter-spacing: 0.22em;
+    font-size: 11px;
+    letter-spacing: 0.20em;
     text-transform: uppercase;
     font-family: var(--font-dm-sans), "DM Sans", sans-serif;
     font-weight: 600;
@@ -1124,10 +1124,11 @@
 
 .loading-text {
   font-family: var(--font-dm-sans), "DM Sans", sans-serif;
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--theme-muted-text);
+  font-weight: 500;
   opacity: 0;
   margin-top: 24px;
   animation: wjcLoadingText 0.5s ease 1.2s forwards;

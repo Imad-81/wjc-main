@@ -45,7 +45,7 @@ export default function Accordion({
                 onClick={() => setOpenIndex(isOpen ? null : index)}
                 className="flex w-full items-center justify-between gap-6 px-4 py-6 text-left"
               >
-                <span className="text-sm text-[var(--theme-text)] md:text-base">
+                <span className="text-sm font-medium text-[var(--theme-text)] md:text-base">
                   {item.question}
                 </span>
                 <Plus

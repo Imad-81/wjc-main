@@ -66,7 +66,7 @@ export default function FinalCtaSection({
           className="fade-up font-serif"
           style={{
             fontSize: "clamp(40px, 4.5vw, 64px)",
-            fontWeight: 300,
+            fontWeight: 600,
             lineHeight: 1.1,
             color: "#F7F5F0",
             letterSpacing: "-0.01em",
@@ -77,7 +77,7 @@ export default function FinalCtaSection({
         >
           {dict.home.finalCta.title}
           <br />
-          <em style={{ fontStyle: "italic", fontWeight: 300 }}>
+          <em style={{ fontStyle: "italic", fontWeight: 600 }}>
             {dict.home.finalCta.titleEmphasis}
           </em>
         </h2>
@@ -86,11 +86,11 @@ export default function FinalCtaSection({
           className="fade-up"
           style={{
             fontSize: "17px",
-            color: "rgba(247,245,240,0.65)",
+            color: "rgba(247,245,240,0.88)",
             lineHeight: 1.75,
             maxWidth: "480px",
             marginBottom: "44px",
-            fontWeight: 300,
+            fontWeight: 400,
             opacity: 0,
           }}
         >
@@ -118,11 +118,11 @@ export default function FinalCtaSection({
             href={localizePath("/jlpt", locale)}
             className="btn-lift inline-flex items-center"
             style={{
-              border: "1px solid rgba(247,245,240,0.4)",
+              border: "1px solid rgba(247,245,240,0.60)",
               color: "#F7F5F0",
               padding: "16px 40px",
               fontSize: "13px",
-              fontWeight: 500,
+              fontWeight: 600,
               letterSpacing: "0.1em",
               textTransform: "uppercase",
               backgroundColor: "transparent",

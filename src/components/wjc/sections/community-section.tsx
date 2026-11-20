@@ -46,7 +46,7 @@ export default function CommunitySection({
             className="fade-up font-serif"
             style={{
               fontSize: "clamp(32px, 3.5vw, 48px)",
-              fontWeight: 400,
+              fontWeight: 600,
               lineHeight: 1.15,
               letterSpacing: "0.01em",
               marginBottom: "20px",
@@ -62,8 +62,8 @@ export default function CommunitySection({
               fontSize: "17px",
               lineHeight: 1.7,
               maxWidth: "520px",
-              fontWeight: 300,
-              color: "#5B5B5B",
+              fontWeight: 400,
+              color: "#333333",
               opacity: 0,
             }}
           >
@@ -116,11 +116,11 @@ export default function CommunitySection({
               <div className="mb-8">
                 <p
                   style={{
-                    fontSize: "11px",
+                    fontSize: "12px",
                     letterSpacing: "0.15em",
-                    color: "#5B5B5B",
+                    color: "#383838",
                     textTransform: "uppercase",
-                    fontWeight: 500,
+                    fontWeight: 600,
                     marginBottom: "8px",
                   }}
                 >
@@ -130,7 +130,7 @@ export default function CommunitySection({
                   className="font-serif"
                   style={{
                     fontSize: "24px",
-                    fontWeight: 400,
+                    fontWeight: 600,
                     lineHeight: 1.2,
                     marginBottom: "20px",
                     color: "#232323",
@@ -148,7 +148,7 @@ export default function CommunitySection({
                     className="font-serif"
                     style={{
                       fontSize: "36px",
-                      fontWeight: 400,
+                      fontWeight: 600,
                       lineHeight: 1,
                       letterSpacing: "-0.02em",
                       color: "#232323",
@@ -158,10 +158,10 @@ export default function CommunitySection({
                   </p>
                   <p
                     style={{
-                      fontSize: "12px",
-                      color: "#5B5B5B",
+                      fontSize: "13px",
+                      color: "#4A4A4A",
                       marginTop: "6px",
-                      fontWeight: 400,
+                      fontWeight: 500,
                     }}
                   >
                     {tier.priceNote[locale]}
@@ -176,9 +176,9 @@ export default function CommunitySection({
                     className="flex items-start gap-3"
                     style={{
                       fontSize: "14px",
-                      color: "#5B5B5B",
+                      color: "#333333",
                       lineHeight: 1.5,
-                      fontWeight: 300,
+                      fontWeight: 400,
                     }}
                   >
                     <span

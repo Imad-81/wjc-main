@@ -126,10 +126,10 @@ export default function EventsSection({
                   <div>
                     <p
                       style={{
-                        fontSize: "10px",
+                        fontSize: "11px",
                         letterSpacing: "0.2em",
-                        color: "rgba(247,245,240,0.4)",
-                        fontWeight: 500,
+                        color: "rgba(247,245,240,0.80)",
+                        fontWeight: 600,
                         marginBottom: "4px",
                       }}
                     >
@@ -139,7 +139,7 @@ export default function EventsSection({
                       className="font-serif"
                       style={{
                         fontSize: "52px",
-                        fontWeight: 300,
+                        fontWeight: 600,
                         color: "var(--theme-ivory)",
                         lineHeight: 1,
                         letterSpacing: "-0.02em",
@@ -152,9 +152,9 @@ export default function EventsSection({
                   <span
                     className="wjc-tag"
                     style={{
-                      fontSize: "10px",
+                      fontSize: "11px",
                       letterSpacing: "0.12em",
-                      fontWeight: 500,
+                      fontWeight: 600,
                       padding: "5px 10px",
                       border: "1px solid var(--theme-border-dark)",
                       textTransform: "uppercase",
@@ -178,7 +178,7 @@ export default function EventsSection({
                   className="font-serif"
                   style={{
                     fontSize: "22px",
-                    fontWeight: 400,
+                    fontWeight: 500,
                     color: "var(--theme-ivory)",
                     lineHeight: 1.3,
                     marginBottom: "14px",
@@ -191,10 +191,10 @@ export default function EventsSection({
                 <p
                   style={{
                     fontSize: "14px",
-                    color: "rgba(247,245,240,0.45)",
+                    color: "rgba(247,245,240,0.82)",
                     lineHeight: 1.7,
                     marginBottom: "28px",
-                    fontWeight: 300,
+                    fontWeight: 400,
                     flex: 1,
                     display: "-webkit-box",
                     WebkitLineClamp: 3,
@@ -215,7 +215,7 @@ export default function EventsSection({
                     fontSize: "12px",
                     color: "var(--theme-gold)",
                     letterSpacing: "0.08em",
-                    fontWeight: 500,
+                    fontWeight: 600,
                     display: "inline-flex",
                     alignItems: "center",
                     gap: "6px",

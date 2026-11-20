@@ -53,7 +53,7 @@ export default function AboutSection({
               className="fade-up font-serif"
               style={{
                 fontSize: "clamp(32px, 3.5vw, 48px)",
-                fontWeight: 400,
+                fontWeight: 600,
                 lineHeight: 1.15,
                 letterSpacing: "0.01em",
                 marginBottom: "28px",
@@ -73,8 +73,8 @@ export default function AboutSection({
                 lineHeight: 1.8,
                 maxWidth: "540px",
                 marginBottom: dict.home.about.body2 ? "20px" : "44px",
-                fontWeight: 300,
-                color: "#5B5B5B",
+                fontWeight: 400,
+                color: "#333333",
                 opacity: 0,
               }}
             >
@@ -89,8 +89,8 @@ export default function AboutSection({
                   lineHeight: 1.8,
                   maxWidth: "540px",
                   marginBottom: "44px",
-                  fontWeight: 300,
-                  color: "#5B5B5B",
+                  fontWeight: 400,
+                  color: "#333333",
                   opacity: 0,
                 }}
               >
@@ -106,7 +106,7 @@ export default function AboutSection({
                 className="inline-flex items-center gap-2"
                 style={{
                   fontSize: "14px",
-                  fontWeight: 500,
+                  fontWeight: 600,
                   letterSpacing: "0.05em",
                   color: "var(--theme-accent)",
                   transition: "gap 0.3s ease",

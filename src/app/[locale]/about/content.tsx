@@ -70,7 +70,7 @@ function HeroAbout({ locale, dict }: SectionProps) {
           className="fade-up font-serif"
           style={{
             fontSize: "clamp(48px, 5.5vw, 76px)",
-            fontWeight: 300,
+            fontWeight: 600,
             lineHeight: 1.04,
             color: "#F7F5F0",
             letterSpacing: "-0.015em",
@@ -81,7 +81,7 @@ function HeroAbout({ locale, dict }: SectionProps) {
         >
           {dict.about.heroTitle}
           <br />
-          <em style={{ fontStyle: "italic", fontWeight: 300 }}>
+          <em style={{ fontStyle: "italic", fontWeight: 600 }}>
             {dict.about.heroTitleEmphasis}
           </em>
         </h1>
@@ -89,10 +89,10 @@ function HeroAbout({ locale, dict }: SectionProps) {
           className="fade-up"
           style={{
             fontSize: "18px",
-            color: "rgba(247,245,240,0.6)",
+            color: "rgba(247,245,240,0.90)",
             lineHeight: 1.75,
             maxWidth: "560px",
-            fontWeight: 300,
+            fontWeight: 400,
             opacity: 0,
           }}
         >
@@ -133,7 +133,7 @@ function AboutStory({ dict }: SectionProps) {
               className="fade-up font-serif"
               style={{
                 fontSize: "clamp(28px, 3vw, 40px)",
-                fontWeight: 300,
+                fontWeight: 600,
                 lineHeight: 1.15,
                 marginBottom: "28px",
                 color: "#232323",
@@ -172,8 +172,8 @@ function AboutStory({ dict }: SectionProps) {
                   fontSize: i === 0 ? "18px" : "17px",
                   lineHeight: 1.85,
                   marginBottom: i === 2 ? 0 : "28px",
-                  fontWeight: 300,
-                  color: "#5B5B5B",
+                  fontWeight: 400,
+                  color: "#333333",
                   opacity: 0,
                 }}
               >
@@ -222,7 +222,7 @@ function MissionVision({ dict }: SectionProps) {
                 className="font-serif font-jp"
                 style={{
                   fontSize: "80px",
-                  fontWeight: 300,
+                  fontWeight: 400,
                   color: "var(--theme-border-dark)",
                   lineHeight: 1,
                   marginBottom: "32px",
@@ -242,7 +242,7 @@ function MissionVision({ dict }: SectionProps) {
                 className="font-serif"
                 style={{
                   fontSize: "clamp(24px, 2.5vw, 36px)",
-                  fontWeight: 300,
+                  fontWeight: 600,
                   color: "var(--theme-ivory)",
                   lineHeight: 1.2,
                   marginBottom: "24px",
@@ -254,8 +254,8 @@ function MissionVision({ dict }: SectionProps) {
                 style={{
                   fontSize: "16px",
                   lineHeight: 1.85,
-                  color: "rgba(247,245,240,0.55)",
-                  fontWeight: 300,
+                  color: "rgba(247,245,240,0.85)",
+                  fontWeight: 400,
                 }}
               >
                 {panel.body}
@@ -301,7 +301,7 @@ function CoreActivitiesSection({ locale, dict }: SectionProps) {
             className="fade-up font-serif"
             style={{
               fontSize: "clamp(32px, 3.5vw, 48px)",
-              fontWeight: 300,
+              fontWeight: 600,
               lineHeight: 1.1,
               letterSpacing: "-0.01em",
               color: "#232323",
@@ -343,10 +343,10 @@ function CoreActivitiesSection({ locale, dict }: SectionProps) {
                   className="font-serif font-jp"
                   style={{
                     fontSize: "48px",
-                    fontWeight: 300,
+                    fontWeight: 400,
                     color: isHovered
                       ? "var(--theme-accent)"
-                      : "rgba(166,58,43,0.25)",
+                      : "rgba(166,58,43,0.35)",
                     lineHeight: 1,
                     marginBottom: "24px",
                     transition: "color 0.35s ease",
@@ -361,6 +361,7 @@ function CoreActivitiesSection({ locale, dict }: SectionProps) {
                     letterSpacing: "0.15em",
                     textTransform: "uppercase",
                     color: "var(--theme-accent)",
+                    fontWeight: 600,
                     marginBottom: "12px",
                   }}
                 >
@@ -382,8 +383,8 @@ function CoreActivitiesSection({ locale, dict }: SectionProps) {
                   style={{
                     fontSize: "14px",
                     lineHeight: 1.75,
-                    color: isHovered ? "rgba(248,247,244,0.60)" : "#5B5B5B",
-                    fontWeight: 300,
+                    color: isHovered ? "rgba(248,247,244,0.85)" : "#333333",
+                    fontWeight: 400,
                     transition: "color 0.35s ease",
                   }}
                 >
@@ -446,8 +447,8 @@ function DirectorMessage({ locale, dict }: SectionProps) {
               className="fade-up font-serif"
               style={{
                 fontSize: "80px",
-                fontWeight: 300,
-                color: "rgba(166,58,43,0.12)",
+                fontWeight: 400,
+                color: "rgba(166,58,43,0.18)",
                 lineHeight: 1,
                 marginBottom: "-20px",
                 opacity: 0,
@@ -461,7 +462,7 @@ function DirectorMessage({ locale, dict }: SectionProps) {
               className="fade-up font-serif"
               style={{
                 fontSize: "clamp(22px, 2.5vw, 32px)",
-                fontWeight: 300,
+                fontWeight: 500,
                 lineHeight: 1.5,
                 color: "var(--theme-ivory)",
                 fontStyle: "italic",
@@ -476,8 +477,8 @@ function DirectorMessage({ locale, dict }: SectionProps) {
               style={{
                 fontSize: "16px",
                 lineHeight: 1.85,
-                color: "rgba(247,245,240,0.5)",
-                fontWeight: 300,
+                color: "rgba(247,245,240,0.85)",
+                fontWeight: 400,
                 marginBottom: "36px",
                 opacity: 0,
               }}
@@ -504,7 +505,8 @@ function DirectorMessage({ locale, dict }: SectionProps) {
               <div
                 style={{
                   fontSize: "13px",
-                  color: "rgba(247,245,240,0.4)",
+                  color: "rgba(247,245,240,0.78)",
+                  fontWeight: 500,
                   marginTop: "4px",
                   letterSpacing: "0.04em",
                 }}
@@ -548,7 +550,7 @@ function LeadershipSection({ locale, dict }: SectionProps) {
             className="fade-up font-serif"
             style={{
               fontSize: "clamp(32px, 3.5vw, 48px)",
-              fontWeight: 300,
+              fontWeight: 600,
               lineHeight: 1.1,
               letterSpacing: "-0.01em",
               color: "#232323",
@@ -716,8 +718,8 @@ function OurPartnersSection({ locale, dict }: SectionProps) {
               fontSize: "15px",
               lineHeight: 1.7,
               maxWidth: "360px",
-              fontWeight: 300,
-              color: "rgba(35,35,35,0.70)",
+              fontWeight: 400,
+              color: "#2E2E2E",
               opacity: 0,
             }}
           >
@@ -817,10 +819,10 @@ function OurPartnersSection({ locale, dict }: SectionProps) {
               <p
                 style={{
                   fontSize: "13.5px",
-                  color: "rgba(35,35,35,0.75)",
+                  color: "#333333",
                   lineHeight: 1.75,
                   marginBottom: "20px",
-                  fontWeight: 300,
+                  fontWeight: 400,
                 }}
               >
                 {partner.description[locale]}

@@ -64,8 +64,8 @@ export default function FaqSection({
               style={{
                 fontSize: "15px",
                 lineHeight: 1.7,
-                fontWeight: 300,
-                color: "#5B5B5B",
+                fontWeight: 400,
+                color: "#383838",
                 opacity: 0,
               }}
             >
@@ -78,7 +78,7 @@ export default function FaqSection({
                   fontSize: "13px",
                   color: "var(--theme-accent)",
                   letterSpacing: "0.06em",
-                  fontWeight: 500,
+                  fontWeight: 600,
                 }}
               >
                 {dict.common.email} →
@@ -123,7 +123,7 @@ export default function FaqSection({
                           className="font-serif"
                           style={{
                             fontSize: "18px",
-                            fontWeight: 400,
+                            fontWeight: 600,
                             color: isOpen ? "var(--theme-accent)" : "#232323",
                             lineHeight: 1.3,
                             transition: "color 0.3s ease",
@@ -186,11 +186,11 @@ export default function FaqSection({
                       <p
                         style={{
                           fontSize: "15px",
-                          color: "#5B5B5B",
+                          color: "#333333",
                           lineHeight: 1.8,
                           paddingBottom: "24px",
                           paddingRight: "40px",
-                          fontWeight: 300,
+                          fontWeight: 400,
                         }}
                       >
                         {faq.answer[locale]}

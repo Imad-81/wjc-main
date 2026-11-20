@@ -63,7 +63,7 @@ function HeroPrograms({ locale, dict }: SectionProps) {
           className="fade-up text-ivory font-serif"
           style={{
             fontSize: "clamp(48px, 5.5vw, 72px)",
-            fontWeight: 300,
+            fontWeight: 600,
             lineHeight: 1.04,
             letterSpacing: "-0.015em",
             maxWidth: "700px",
@@ -73,7 +73,7 @@ function HeroPrograms({ locale, dict }: SectionProps) {
         >
           {dict.programs.heroTitle}
           <br />
-          <em style={{ fontStyle: "italic", fontWeight: 300 }}>
+          <em style={{ fontStyle: "italic", fontWeight: 600 }}>
             {dict.programs.heroTitleEmphasis}
           </em>
         </h1>
@@ -81,10 +81,10 @@ function HeroPrograms({ locale, dict }: SectionProps) {
           className="fade-up"
           style={{
             fontSize: "17px",
-            color: "rgba(247,245,240,0.55)",
+            color: "rgba(247,245,240,0.90)",
             lineHeight: 1.75,
             maxWidth: "500px",
-            fontWeight: 300,
+            fontWeight: 400,
             opacity: 0,
           }}
         >
@@ -123,7 +123,7 @@ function ProgramsList({ locale, dict }: SectionProps) {
             className="fade-up font-serif"
             style={{
               fontSize: "clamp(32px, 3.5vw, 48px)",
-              fontWeight: 300,
+              fontWeight: 600,
               lineHeight: 1.1,
               letterSpacing: "-0.01em",
               color: "#232323",
@@ -229,7 +229,7 @@ function ProgramsList({ locale, dict }: SectionProps) {
                     className="font-serif"
                     style={{
                       fontSize: "clamp(24px, 2.4vw, 32px)",
-                      fontWeight: 400,
+                      fontWeight: 600,
                       lineHeight: 1.2,
                       marginBottom: "16px",
                       color: "#232323",
@@ -242,8 +242,8 @@ function ProgramsList({ locale, dict }: SectionProps) {
                     style={{
                       fontSize: "15px",
                       lineHeight: 1.8,
-                      fontWeight: 300,
-                      color: "#5B5B5B",
+                      fontWeight: 400,
+                      color: "#333333",
                       marginBottom: "28px",
                     }}
                   >
@@ -272,10 +272,11 @@ function ProgramsList({ locale, dict }: SectionProps) {
                       <div key={fact.label}>
                         <div
                           style={{
-                            fontSize: "10px",
+                            fontSize: "11px",
                             letterSpacing: "0.12em",
                             textTransform: "uppercase",
-                            color: "rgba(35,35,35,0.45)",
+                            color: "#4A4A4A",
+                            fontWeight: 600,
                             marginBottom: "6px",
                           }}
                         >
@@ -285,6 +286,7 @@ function ProgramsList({ locale, dict }: SectionProps) {
                           style={{
                             fontSize: "13px",
                             color: "#232323",
+                            fontWeight: 500,
                             lineHeight: 1.6,
                           }}
                         >

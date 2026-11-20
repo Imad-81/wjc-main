@@ -45,7 +45,7 @@ export default function Tabs({
               aria-controls={`${baseId}-panel`}
               onClick={() => onChange(tab.id)}
               className={cn(
-                "border px-5 py-2.5 text-[10px] uppercase tracking-[0.18em] transition-colors",
+                "border px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.16em] transition-colors",
                 isActive
                   ? "border-[var(--theme-accent)] text-[var(--theme-accent)]"
                   : "border-[var(--theme-border-light)] text-[var(--theme-muted-text)] hover:border-[var(--theme-accent)] hover:text-[var(--theme-text)]",
