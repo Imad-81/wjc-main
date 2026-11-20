@@ -5,20 +5,15 @@ import { useCallback, useEffect, useRef } from "react"
 /**
  * 風鈴 — hanging character chimes.
  *
- * Each strand carries one clause of the poem, set vertically, and swings as a
- * single pendulum hinged at the beam. Sweeping the cursor across a strand
- * whips it and lights the glyphs.
+ * Each strand carries Japanese characters from poetry clauses hanging down
+ * from the Torii crossbeam. Every strand is modeled as a physics-based
+ * multi-node Verlet string with distance constraints, tension, gravity, and
+ * continuous traveling waves.
  *
- * Ported from a standalone page into a contained layer, with three changes
- * the page version did not need:
+ * Strands fluidly move along with the cursor when hovered or swept, parting
+ * around it like a bead curtain without sticking or dragging.
  *
- * · Positioned inside the host element rather than fixed to the viewport.
- * · The rAF loop stops when the hero scrolls out of view, so the rest of the
- *   page does not pay for animation nobody can see.
- * · Everything unwinds on unmount — the original assumed it owned the page.
- *
- * The prototype's bell synthesis is deliberately absent: the hero has no
- * audio control, and sound a visitor cannot silence is worse than none.
+ * Rendered using a hardware-accelerated Canvas 2D engine at 60-120 FPS.
  */
 
 const CLAUSES = [
@@ -37,70 +32,36 @@ const CLAUSES = [
 
 const STEPS = 16
 
-interface Glyph {
-  el: HTMLElement
-  d: number
-  e: number
-  tone: number
-  /** Lateral displacement from strand axis (chain physics). */
-  lx: number
-  /** Lateral velocity. */
-  lv: number
-  /** Last X written to DOM — dirty-check to skip redundant writes. */
-  wx: number
-  /** Last tilt written to DOM — dirty-check. */
-  wt: number
+interface StringNode {
+  x: number
+  y: number
+  px: number
+  py: number
+  char: string
+  energy: number
 }
 
 interface Strand {
-  el: HTMLDivElement
-  chars: Glyph[]
-  tail: HTMLSpanElement
-  len: number
+  nodes: StringNode[]
   pivotX: number
   pivotY: number
-  a: number
-  v: number
-  k: number
-  damp: number
+  spacing: number
+  totalLength: number
+  phase: number
+  naturalFreq: number
   windSens: number
-  contact: boolean
-  lastRing: number
   ring: number
-  /** Pre-stored build index — avoids O(n) indexOf every frame. */
+  lastRing: number
   idx: number
 }
 
-/**
- * Excitement ramp. Stays in the red family end to end — a resting glyph is a
- * deep, dim red and an excited one is a hot red, rather than travelling to
- * gold as the original did.
- */
-function buildPalette(_accent: string, _highlight: string) {
-  // Rich, bright reddish ramp from vibrant ruby-vermilion to luminous scarlet glow
-  const from: [number, number, number] = [238, 48, 42]   // bright Japanese vermilion
-  const mid: [number, number, number] = [255, 78, 65]    // radiant vivid red
-  const to: [number, number, number] = [255, 145, 120]   // luminous hot red glow
-  const out: string[] = []
-  for (let i = 0; i < STEPS; i++) {
-    const t = i / (STEPS - 1)
-    const a = t < 0.5 ? from : mid
-    const b = t < 0.5 ? mid : to
-    const u = t < 0.5 ? t / 0.5 : (t - 0.5) / 0.5
-    out.push(
-      `rgb(${Math.round(a[0] + (b[0] - a[0]) * u)},${Math.round(
-        a[1] + (b[1] - a[1]) * u,
-      )},${Math.round(a[2] + (b[2] - a[2]) * u)})`,
-    )
-  }
-  return out
+interface Ripple {
+  x: number
+  y: number
+  start: number
+  duration: number
 }
 
-/**
- * The torii's open span, measured from the alpha channel of foreground.webp
- * (source 1536×1024). The chimes are clipped to this rectangle so they hang
- * inside the gateway and nowhere else.
- */
 export interface Aperture {
   /** Natural size of the plate the rect was measured against. */
   image: { w: number; h: number }
@@ -117,12 +78,6 @@ export interface Aperture {
 /** Class of the gate plate this layer registers against. */
 const PLATE_SELECTOR = ".wjc-hero-plate-front"
 
-/**
- * Resolves one `object-position` component to a 0..1 fraction. Computed
- * style hands back percentages in every current engine, but keywords are
- * cheap to accept and a px value has no meaningful fraction without knowing
- * the overflow, so that falls back to the configured value.
- */
 function parsePosition(value: string, axis: "x" | "y", fallback: number) {
   if (value.endsWith("%")) {
     const n = Number.parseFloat(value)
@@ -140,17 +95,30 @@ function parsePosition(value: string, axis: "x" | "y", fallback: number) {
 }
 
 export const GATE_APERTURE: Aperture = {
-  // The top edge is tucked up into the lower crossbeam (nuki, y 332–392) so
-  // the strands read as hanging from behind it rather than starting in mid
-  // air — the gate plate sits above this layer and masks the overlap. The
-  // pillars splay outward as they descend (inner edges 479→459 left,
-  // 1056→1070 right), so the rect stays inside the narrowest part of the span.
   image: { w: 1536, h: 998 },
   rect: { x: 487, y: 356, w: 562, h: 524 },
   fit: "contain",
   objectPositionX: 1,
-  // Mirrors the plate's `object-position: right bottom`.
   objectPositionY: 1,
+}
+
+function buildPalette(_accent: string, _highlight: string) {
+  const from: [number, number, number] = [238, 48, 42]   // bright Japanese vermilion #EE302A
+  const mid: [number, number, number] = [255, 78, 65]    // radiant vivid red
+  const to: [number, number, number] = [255, 145, 120]   // luminous hot red glow
+  const out: string[] = []
+  for (let i = 0; i < STEPS; i++) {
+    const t = i / (STEPS - 1)
+    const a = t < 0.5 ? from : mid
+    const b = t < 0.5 ? mid : to
+    const u = t < 0.5 ? t / 0.5 : (t - 0.5) / 0.5
+    out.push(
+      `rgb(${Math.round(a[0] + (b[0] - a[0]) * u)},${Math.round(
+        a[1] + (b[1] - a[1]) * u,
+      )},${Math.round(a[2] + (b[2] - a[2]) * u)})`,
+    )
+  }
+  return out
 }
 
 export default function FurinChimes({
@@ -164,10 +132,19 @@ export default function FurinChimes({
 }) {
   const hostRef = useRef<HTMLDivElement>(null)
   const stageRef = useRef<HTMLDivElement>(null)
-  const glowRef = useRef<HTMLDivElement>(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
 
   const strandsRef = useRef<Strand[]>([])
-  const mouseRef = useRef({ x: -9999, y: -9999, px: -9999, vx: 0, active: false })
+  const ripplesRef = useRef<Ripple[]>([])
+  const mouseRef = useRef({
+    x: -9999,
+    y: -9999,
+    prevX: -9999,
+    prevY: -9999,
+    vx: 0,
+    vy: 0,
+    active: false,
+  })
   const scrollPhysRef = useRef({ prevY: 0, vel: 0, smoothVel: 0 })
   const rafRef = useRef(0)
   const visibleRef = useRef(true)
@@ -177,47 +154,6 @@ export default function FurinChimes({
     paletteRef.current = buildPalette(accent, highlight)
   }, [accent, highlight])
 
-  // ── Ripple on strike ────────────────────────────────────────────────────
-  const ripple = useCallback((x: number, y: number) => {
-    const stage = stageRef.current
-    if (!stage) return
-    const el = document.createElement("div")
-    el.className = "wjc-chime-ring"
-    el.style.left = `${x}px`
-    el.style.top = `${y}px`
-    el.style.width = el.style.height = "0px"
-    el.style.transform = "translate(-50%,-50%)"
-    stage.appendChild(el)
-
-    const start = performance.now()
-    const grow = (now: number) => {
-      const p = (now - start) / 900
-      if (p >= 1) {
-        el.remove()
-        return
-      }
-      const s = p * 260
-      el.style.width = el.style.height = `${s}px`
-      el.style.opacity = (0.45 * (1 - p)).toFixed(3)
-      requestAnimationFrame(grow)
-    }
-    requestAnimationFrame(grow)
-  }, [])
-
-  /**
-   * Places the stage over the gate's open span.
-   *
-   * The plate is letterboxed or cropped depending on the breakpoint, so the
-   * aperture's screen position depends on how the browser fitted it. This
-   * repeats that calculation rather than guessing with percentages, which
-   * would drift the moment the hero's aspect ratio changed.
-   *
-   * Everything is measured off the plate element itself — its own box, its
-   * computed `object-fit` and `object-position`. Mirroring those in CSS on
-   * this layer instead is how the two drifted apart before: the host and the
-   * gate layer disagreed about their top inset below 720px, and the plate
-   * switched to `cover` there while this maths still assumed `contain`.
-   */
   const positionStage = useCallback(() => {
     const host = hostRef.current
     const stage = stageRef.current
@@ -247,13 +183,9 @@ export default function FurinChimes({
       fit === "contain"
         ? Math.min(W / image.w, H / image.h)
         : Math.max(W / image.w, H / image.h)
-    // Signed either way: letterboxed plates have slack to distribute,
-    // cropped ones have overflow to pull back, and the same product works.
     const offsetX = (W - image.w * scale) * positionX
     const offsetY = (H - image.h * scale) * positionY
 
-    // Both layers carry the same parallax transform, so the difference
-    // between their client rects is pure layout offset.
     const hostBox = host.getBoundingClientRect()
 
     stage.style.left = `${box.left - hostBox.left + offsetX + rect.x * scale}px`
@@ -263,113 +195,88 @@ export default function FurinChimes({
     return true
   }, [aperture])
 
-  // ── Build + animate ─────────────────────────────────────────────────────
   useEffect(() => {
     const host = hostRef.current
     const stage = stageRef.current
-    if (!host || !stage) return
+    const canvas = canvasRef.current
+    if (!host || !stage || !canvas) return
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
 
     const build = () => {
       if (!positionStage()) return
 
-      stage.querySelectorAll(".wjc-strand").forEach((n) => n.remove())
-      strandsRef.current = []
-
       const W = stage.clientWidth
       const H = stage.clientHeight
       if (!W || !H) return
 
-      // Sized against the archway, not the viewport.
+      const dpr = Math.min(window.devicePixelRatio || 1, 2)
+      canvas.width = Math.round(W * dpr)
+      canvas.height = Math.round(H * dpr)
+
+      // Increased text density with smaller, more delicate typography
       const compact = W < 240
-      const size = compact ? 10 : 12
-      const gap = compact ? 15 : 18
-      // Hung from the top of the archway.
+      const size = compact ? 8 : 9.5
+      const gap = compact ? 10.5 : 13
       const top = 0
-      const usable = W - (compact ? 8 : 14)
-      const count = Math.max(4, Math.floor(usable / gap))
+      const usable = W - (compact ? 6 : 10)
+      const count = Math.max(5, Math.floor(usable / gap))
       const rightEdge = W - (W - (count - 1) * gap) / 2
 
-      const room = H * 1.15
-      const maxChars = Math.max(5, Math.floor(room / size))
+      const room = H * 0.98
+      const spacing = size * 1.12
+      const maxChars = Math.max(6, Math.floor(room / spacing))
 
       let cursor = 0
-      const frag = document.createDocumentFragment()
+      const newStrands: Strand[] = []
 
       for (let i = 0; i < count; i++) {
-        // Deterministic wobble keeps the layout stable across resizes.
         const rr = Math.abs((Math.sin(i * 12.9898) * 43758.5453) % 1)
-        const target = Math.max(5, Math.round(maxChars * (0.78 + rr * 0.22)))
+        const target = Math.max(6, Math.round(maxChars * (0.8 + rr * 0.2)))
 
         let text = ""
         while (text.length < target - 2) text += CLAUSES[cursor++ % CLAUSES.length]
-        text = text.slice(0, Math.max(target, 5))
+        text = text.slice(0, Math.max(target, 6))
 
         const pivotX = rightEdge - i * gap
+        const pivotY = top
+        const numNodes = text.length + 2 // 0: anchor, 1..len: chars, len+1: clapper bead
 
-        const el = document.createElement("div")
-        el.className = "wjc-strand"
-        el.style.fontSize = `${size}px`
-        el.style.left = `${pivotX}px`
-        el.style.top = `${top}px`
-        el.style.transform = "translateX(-50%) rotate(0rad)"
-
-        const string = document.createElement("span")
-        string.className = "wjc-string"
-        el.appendChild(string)
-
-        const chars: Glyph[] = []
-        for (const ch of text) {
-          const b = document.createElement("b")
-          b.textContent = ch
-          el.appendChild(b)
-          chars.push({ el: b, d: 0, e: 0, tone: -1, lx: 0, lv: 0, wx: 0, wt: 0 })
+        const nodes: StringNode[] = []
+        for (let k = 0; k < numNodes; k++) {
+          const char = k === 0 || k === numNodes - 1 ? "" : text[k - 1]
+          const y = pivotY + k * spacing
+          nodes.push({
+            x: pivotX,
+            y,
+            px: pivotX,
+            py: y,
+            char,
+            energy: 0,
+          })
         }
 
-        const tail = document.createElement("span")
-        tail.className = "wjc-tail"
-        el.appendChild(tail)
-
-        frag.appendChild(el)
-
-        const len = text.length * size
-        string.style.height = `${len}px`
-        tail.style.top = `${len + 7}px`
-
-        for (let c = 0; c < chars.length; c++) {
-          chars[c].d = (c + 0.5) * size + 4
-        }
-
-        const norm = len / room
-        strandsRef.current.push({
-          el,
-          chars,
-          tail,
-          len,
+        newStrands.push({
+          nodes,
           pivotX,
-          pivotY: top,
-          a: 0,
-          v: 0,
-          // Longer strand swings slower and rings lower.
-          k: 0.003 + (1 - norm) * 0.0042,
-          damp: 0.982,
-          windSens: 0.6 + rr * 0.9,
-          contact: false,
-          lastRing: 0,
+          pivotY,
+          spacing,
+          totalLength: (numNodes - 1) * spacing,
+          phase: i * 0.32 + rr * 1.2,
+          naturalFreq: 0.95 + rr * 0.25,
+          windSens: 0.8 + rr * 0.6,
           ring: 0,
+          lastRing: 0,
           idx: i,
         })
       }
 
-      stage.appendChild(frag)
+      strandsRef.current = newStrands
     }
 
     build()
-    // Japanese glyph metrics settle only once the webfont lands.
     void document.fonts?.ready.then(build)
 
-    // Pause entirely when the hero is off-screen.
     const io = new IntersectionObserver(
       ([entry]) => {
         visibleRef.current = entry.isIntersecting
@@ -390,148 +297,230 @@ export default function FurinChimes({
 
       const dt = Math.min(34, now - last) / 16.667
       last = now
-      windPhase += 0.0055 * dt
+      windPhase += 0.02 * dt
 
-      const gust =
-        Math.sin(windPhase) * 0.00048 +
-        Math.sin(windPhase * 0.41 + 1.7) * 0.00031 +
-        Math.sin(windPhase * 1.73 + 4.2) * 0.00014
-
-      const mouse = mouseRef.current
+      const m = mouseRef.current
       const palette = paletteRef.current
 
-      // ── Scroll-velocity physics ──────────────────────────────────────────
-      // vel is accumulated by the passive scroll listener below; we consume
-      // it here and reset so each rAF frame only sees its own delta.
+      // Inertial decay on mouse velocity
+      m.vx *= 0.88
+      m.vy *= 0.88
+
+      // Scroll velocity impulse
       const sp = scrollPhysRef.current
       sp.smoothVel += (sp.vel - sp.smoothVel) * 0.28
       sp.vel = 0
-      sp.smoothVel *= 0.82
+      sp.smoothVel *= 0.84
+      const scrollImpulse =
+        Math.abs(sp.smoothVel) > 0.8 ? sp.smoothVel * 0.00008 : 0
 
-      // Map smoothed velocity to an impulse magnitude.
-      // Threshold below which the chimes feel ambient (ignore micro-jitter).
-      const scrollImpulse = Math.abs(sp.smoothVel) > 1.2
-        ? sp.smoothVel * 0.000045
-        : 0
-
+      // Physics update for every strand
       for (const s of strandsRef.current) {
-        // Pendulum
-        s.v += -s.k * s.a * dt
-        if (!reduced) s.v += gust * s.windSens * dt
-        s.v *= Math.pow(s.damp, dt)
-        s.a += s.v * dt
+        const numNodes = s.nodes.length
+        s.ring *= Math.pow(0.97, dt)
 
-        // Scroll impulse — wave-phase offset per strand so they ripple rather
-        // than all lurching together. Faster scroll = larger kick.
-        if (scrollImpulse !== 0) {
-          const phase = Math.sin(s.idx * 0.55 + now * 0.0008)
-          const kick = scrollImpulse * (0.7 + 0.3 * phase)
-          s.v += kick * dt
-          // Light up glyphs proportional to scroll energy.
-          const energy = Math.min(1, Math.abs(scrollImpulse) / 0.005)
-          s.ring = Math.min(1, s.ring + energy * 0.35 * (0.5 + 0.5 * Math.abs(phase)))
-        }
+        for (let k = 1; k < numNodes; k++) {
+          const node = s.nodes[k]
+          const depth = k / (numNodes - 1)
 
-        // Cursor contact along the strand's swung line
-        let touching = false
-        if (mouse.active) {
-          const dy = mouse.y - s.pivotY
-          if (dy > -18 && dy < s.len + 22) {
-            const sx = s.pivotX + Math.sin(s.a) * dy
-            const dx = mouse.x - sx
-            if (Math.abs(dx) < 20) {
-              touching = true
-              const speed = Math.min(46, Math.abs(mouse.vx))
-              s.v += (mouse.vx * 0.00016 - Math.sign(dx) * 0.0016) * dt
-              if (!s.contact && now - s.lastRing > 120) {
+          // 1. Continuous sinusoidal S-wave dynamics:
+          // A full S-curve requires a ~2.2 * PI spatial frequency along the strand length (depth 0..1),
+          // with an upper lobe (0.1..0.45), an inflection point (~0.5), and a lower lobe (0.55..1.0).
+          const envelope = Math.pow(depth, 0.48) * (0.7 + 0.3 * depth)
+          const sWave1 = Math.sin(windPhase * 1.6 - depth * Math.PI * 2.2 + s.phase) * 0.32
+          const sWave2 = Math.sin(windPhase * 2.5 - depth * Math.PI * 3.8 + s.phase * 1.5) * 0.10
+          const windMag = reduced ? 0.01 : (sWave1 + sWave2) * envelope * s.windSens
+
+          // Lateral restoring tension towards vertical anchor line
+          const restoringX = -(node.x - s.pivotX) * 0.015 * (1 - depth * 0.25)
+
+          // Scroll impulse wave
+          const scrollForce =
+            scrollImpulse !== 0
+              ? scrollImpulse * 320 * Math.sin(s.idx * 0.45 - k * 0.22 + now * 0.003) * (0.25 + depth * 0.75)
+              : 0
+
+          // Cursor interaction: fluidly moves along with the cursor, parts around it, zero stickiness!
+          let cursorForceX = 0
+          if (m.active) {
+            const dx = node.x - m.x
+            const dy = node.y - m.y
+            const dist = Math.hypot(dx, dy)
+            const radius = 55
+            if (dist < radius) {
+              const proximity = 1 - dist / radius
+              const f = proximity * proximity // smooth quadratic falloff
+
+              // Repulsion AWAY from cursor (strings part around the cursor like beads)
+              const dirX = Math.abs(dx) > 1 ? dx / dist : (m.vx ? Math.sign(m.vx) : (node.x >= s.pivotX ? 1 : -1))
+              const repel = dirX * f * 3.4
+
+              // Wake force: carries the string in the direction the cursor is sweeping
+              const wake = m.vx * f * 0.38
+
+              cursorForceX = repel + wake
+
+              // Excitation glow
+              node.energy = Math.min(1, node.energy + f * 0.65)
+              s.ring = Math.min(1, s.ring + f * 0.4)
+              if (now - s.lastRing > 100) {
                 s.lastRing = now
-                s.ring = Math.min(1, 0.45 + speed / 46)
+              }
+            }
+          }
+
+          // Ambient excitement from wave motion
+          const motionGlow = Math.abs(windMag) * 2.2
+          node.energy = Math.min(1, node.energy * Math.pow(0.965, dt) + motionGlow * 0.04)
+
+          // Verlet integration
+          const vx = (node.x - node.px) * 0.945
+          const vy = (node.y - node.py) * 0.945
+          node.px = node.x
+          node.py = node.y
+
+          node.x += vx + (windMag + restoringX + scrollForce + cursorForceX) * dt
+          node.y += vy + 0.38 * dt // downward gravity maintains string tension
+        }
+
+        // Diffuse excitation glow to neighbor nodes
+        for (let k = 1; k < numNodes - 1; k++) {
+          const avg = (s.nodes[k - 1].energy + s.nodes[k + 1].energy) * 0.5
+          s.nodes[k].energy += (avg - s.nodes[k].energy) * 0.1 * dt
+        }
+
+        // Verlet distance constraints (Relaxation iterations to ensure rope inextensibility)
+        const stiffness = 0.94
+        for (let iter = 0; iter < 4; iter++) {
+          s.nodes[0].x = s.pivotX
+          s.nodes[0].y = s.pivotY
+
+          for (let k = 0; k < numNodes - 1; k++) {
+            const n1 = s.nodes[k]
+            const n2 = s.nodes[k + 1]
+            const dx = n2.x - n1.x
+            const dy = n2.y - n1.y
+            const dist = Math.hypot(dx, dy)
+            if (dist > 0.0001) {
+              const diff = (dist - s.spacing) / dist
+              if (k === 0) {
+                n2.x -= dx * diff * stiffness
+                n2.y -= dy * diff * stiffness
+              } else {
+                const half = diff * 0.5 * stiffness
+                n1.x += dx * half
+                n1.y += dy * half
+                n2.x -= dx * half
+                n2.y -= dy * half
               }
             }
           }
         }
-        s.contact = touching
 
-        s.ring *= Math.pow(0.975, dt)
-        const sway = Math.abs(s.v) * 55
-        const glow = Math.min(1, s.ring * 0.85 + sway)
+        // Gentle curvature damping (smooths sharp angles into organic string bends)
+        for (let k = 1; k < numNodes - 1; k++) {
+          const midX = (s.nodes[k - 1].x + s.nodes[k + 1].x) * 0.5
+          s.nodes[k].x += (midX - s.nodes[k].x) * 0.055 * dt
+        }
+      }
 
-        s.el.style.transform = `translateX(-50%) rotate(${s.a.toFixed(5)}rad)`
-        s.tail.style.opacity = (0.3 + glow * 0.65).toFixed(2)
+      // ── Canvas 2D Rendering ──────────────────────────────────────────────
+      const ctx = canvas.getContext("2d")
+      if (ctx) {
+        const W = stage.clientWidth
+        const H = stage.clientHeight
+        const dpr = Math.min(window.devicePixelRatio || 1, 2)
 
-        // ── Per-glyph chain physics + colour ────────────────────────────
-        // Sleeping optimisation: if the strand has settled and no external
-        // forces are active, skip the expensive per-char loop entirely.
-        const sleeping =
-          Math.abs(s.v) < 0.00004 &&
-          scrollImpulse === 0 &&
-          !mouse.active &&
-          s.ring < 0.01
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+        ctx.clearRect(0, 0, W, H)
 
-        if (!sleeping) {
-          const sa = Math.sin(s.a)
-          const ca = Math.cos(s.a)
-          const nChars = s.chars.length
-          for (let ci = 0; ci < nChars; ci++) {
-            const c = s.chars[ci]
+        const compact = W < 240
+        const fontSize = compact ? 8 : 9.5
 
-            // ── Lateral chain physics ────────────────────────────────────
-            const prevLx = ci === 0 ? 0 : s.chars[ci - 1].lx
-            const depth = (ci + 1) / nChars
+        ctx.font = `600 ${fontSize}px var(--font-noto-sans-jp), "Noto Sans JP", sans-serif`
+        ctx.textAlign = "center"
+        ctx.textBaseline = "middle"
 
-            c.lv -= (c.lx - prevLx * 0.8) * 0.022 * dt
-            c.lv -= c.lx * 0.005 * dt
-            c.lv += s.v * depth * depth * 22 * dt
+        // Draw each string strand
+        for (const s of strandsRef.current) {
+          const nodes = s.nodes
+          const numNodes = nodes.length
+          if (numNodes < 3) continue
 
-            if (scrollImpulse !== 0) {
-              const wavePhase = now * 0.0055 - ci * 0.38
-              const waveMag = scrollImpulse * 380 * (0.35 + depth * 0.65)
-              c.lv += waveMag * Math.sin(wavePhase) * dt
-            }
-
-            c.lv *= Math.pow(0.85 + depth * 0.07, dt)
-            c.lx += c.lv * dt
-            c.lx = Math.max(-14, Math.min(14, c.lx))
-
-            // ── Colour excitation (proximity + resonance) ────────────────
-            let e = glow * 0.55
-            if (mouse.active) {
-              const cx = s.pivotX + sa * c.d
-              const cy = s.pivotY + ca * c.d
-              const dx = mouse.x - cx
-              const dy = mouse.y - cy
-              const d2 = dx * dx + dy * dy
-              if (d2 < 16000) e = Math.max(e, Math.exp(-d2 / 5200))
-            }
-
-            c.e += (e - c.e) * Math.min(1, 0.22 * dt)
-            const exc = c.e
-
-            const tone = Math.min(STEPS - 1, Math.round(exc * (STEPS - 1)))
-            if (tone !== c.tone) {
-              c.tone = tone
-              c.el.style.color = palette[tone]
-            }
-
-            // ── Transform: dirty-check before writing ────────────────────
-            // Skip the DOM write if the value hasn't changed enough to be
-            // visible (~0.1 px / 0.1 deg) — saves the bulk of style recalcs
-            // when the strand has nearly settled.
-            const tiltDeg = c.lv * 4
-            const excShift = exc > 0.004 ? exc * 3 : 0
-            const totalX = c.lx + excShift
-            const dX = Math.abs(totalX - c.wx)
-            const dT = Math.abs(tiltDeg - c.wt)
-            if (dX > 0.1 || dT > 0.1) {
-              if (Math.abs(totalX) > 0.05 || Math.abs(tiltDeg) > 0.05) {
-                c.el.style.transform = `translateX(${totalX.toFixed(2)}px) rotate(${tiltDeg.toFixed(2)}deg)`
-              } else if (c.el.style.transform) {
-                c.el.style.transform = ''
-              }
-              c.wx = totalX
-              c.wt = tiltDeg
-            }
+          // 1. Draw smooth continuous spline string cord
+          ctx.beginPath()
+          ctx.moveTo(nodes[0].x, nodes[0].y)
+          for (let k = 1; k < numNodes - 1; k++) {
+            const xc = (nodes[k].x + nodes[k + 1].x) * 0.5
+            const yc = (nodes[k].y + nodes[k + 1].y) * 0.5
+            ctx.quadraticCurveTo(nodes[k].x, nodes[k].y, xc, yc)
           }
+          ctx.lineTo(nodes[numNodes - 1].x, nodes[numNodes - 1].y)
+          ctx.lineWidth = 0.8
+          ctx.strokeStyle = `rgba(238, 48, 42, ${(0.32 + s.ring * 0.35).toFixed(2)})`
+          ctx.stroke()
+
+          // 2. Draw Japanese glyphs along the string curve
+          for (let k = 1; k < numNodes - 1; k++) {
+            const n = nodes[k]
+            if (!n.char) continue
+
+            const prev = nodes[k - 1]
+            const next = nodes[k + 1]
+            const dx = next.x - prev.x
+            const dy = next.y - prev.y
+            // Counter-clockwise rotation aligns glyph vertical axis with string
+            const angle = -Math.atan2(dx, dy)
+            const clampedAngle = Math.max(-0.4, Math.min(0.4, angle))
+
+            ctx.save()
+            ctx.translate(n.x, n.y)
+            ctx.rotate(clampedAngle)
+
+            const tone = Math.min(STEPS - 1, Math.round(n.energy * (STEPS - 1)))
+            ctx.fillStyle = palette[tone]
+
+            if (n.energy > 0.22) {
+              ctx.shadowColor = palette[tone]
+              ctx.shadowBlur = n.energy * 6
+            }
+
+            ctx.fillText(n.char, 0, 0)
+            ctx.restore()
+          }
+
+          // 3. Draw clapper weight / bead at the bottom
+          const tail = nodes[numNodes - 1]
+          ctx.save()
+          ctx.beginPath()
+          ctx.arc(tail.x, tail.y, 2.0, 0, Math.PI * 2)
+          ctx.fillStyle = palette[Math.min(STEPS - 1, Math.round(s.ring * (STEPS - 1)))]
+          if (s.ring > 0.2) {
+            ctx.shadowColor = palette[STEPS - 1]
+            ctx.shadowBlur = s.ring * 6
+          }
+          ctx.fill()
+          ctx.restore()
+        }
+
+        // Draw interactive click ripples
+        const ripples = ripplesRef.current
+        for (let r = ripples.length - 1; r >= 0; r--) {
+          const rip = ripples[r]
+          const p = (now - rip.start) / rip.duration
+          if (p >= 1) {
+            ripples.splice(r, 1)
+            continue
+          }
+          const radius = p * 110
+          const alpha = (1 - p) * 0.5
+          ctx.save()
+          ctx.beginPath()
+          ctx.arc(rip.x, rip.y, radius, 0, Math.PI * 2)
+          ctx.strokeStyle = `rgba(238, 48, 42, ${alpha.toFixed(3)})`
+          ctx.lineWidth = 1.0
+          ctx.stroke()
+          ctx.restore()
         }
       }
     }
@@ -540,8 +529,6 @@ export default function FurinChimes({
 
     let resizeTimer = 0
     const onResize = () => {
-      // Reposition immediately so the stage never lags the art, then rebuild
-      // once the resize settles.
       positionStage()
       window.clearTimeout(resizeTimer)
       resizeTimer = window.setTimeout(build, 180)
@@ -551,97 +538,105 @@ export default function FurinChimes({
     const ro = new ResizeObserver(onResize)
     ro.observe(host)
 
-    // Accumulate scroll delta in a passive listener so rAF never needs to
-    // read window.scrollY — avoids a potential layout read on the main thread.
+    // Global pointer move listener ensures uninterrupted tracking across the archway
+    const onWindowPointerMove = (e: PointerEvent) => {
+      const stageEl = stageRef.current
+      if (!stageEl || !visibleRef.current) return
+      const rect = stageEl.getBoundingClientRect()
+      const x = e.clientX - rect.left
+      const y = e.clientY - rect.top
+      const m = mouseRef.current
+      // Track within archway and surrounding margin
+      if (x >= -40 && x <= rect.width + 40 && y >= -20 && y <= rect.height + 40) {
+        if (m.x < -1000) {
+          m.prevX = x
+          m.prevY = y
+        } else {
+          m.prevX = m.x
+          m.prevY = m.y
+        }
+        m.vx = x - m.prevX
+        m.vy = y - m.prevY
+        m.x = x
+        m.y = y
+        m.active = true
+      } else {
+        m.active = false
+        m.x = -9999
+        m.y = -9999
+      }
+    }
+    window.addEventListener("pointermove", onWindowPointerMove, { passive: true })
+
     const onScrollPhys = () => {
       const sp = scrollPhysRef.current
       const y = window.scrollY
       sp.vel += y - sp.prevY
       sp.prevY = y
     }
-    // Initialise prevY to current position so first scroll gives correct delta.
     scrollPhysRef.current.prevY = window.scrollY
-    window.addEventListener('scroll', onScrollPhys, { passive: true })
+    window.addEventListener("scroll", onScrollPhys, { passive: true })
 
     return () => {
       cancelAnimationFrame(rafRef.current)
       window.clearTimeout(resizeTimer)
-      window.removeEventListener('resize', onResize)
-      window.removeEventListener('scroll', onScrollPhys)
+      window.removeEventListener("resize", onResize)
+      window.removeEventListener("scroll", onScrollPhys)
+      window.removeEventListener("pointermove", onWindowPointerMove)
       ro.disconnect()
       io.disconnect()
       strandsRef.current = []
+      ripplesRef.current = []
     }
   }, [positionStage])
 
-  // ── Pointer ─────────────────────────────────────────────────────────────
-  const handleMove = useCallback(
-    (e: React.PointerEvent<HTMLDivElement>) => {
-      const rect = e.currentTarget.getBoundingClientRect()
-      const x = e.clientX - rect.left
-      const y = e.clientY - rect.top
-      const m = mouseRef.current
-      if (m.px < -1000) m.px = x
-      m.vx = x - m.px
-      m.px = x
-      m.x = x
-      m.y = y
-      m.active = true
+  // ── Pointer Interaction ──────────────────────────────────────────────────
+  const handleDown = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    const cx = e.clientX - rect.left
+    const cy = e.clientY - rect.top
 
-      if (glowRef.current) {
-        glowRef.current.style.transform = `translate(${x}px,${y}px)`
-        glowRef.current.style.opacity = "1"
-      }
-    },
-    [],
-  )
+    // Add visual ripple
+    ripplesRef.current.push({
+      x: cx,
+      y: cy,
+      start: performance.now(),
+      duration: 750,
+    })
 
-  const handleLeave = useCallback(() => {
-    const m = mouseRef.current
-    m.active = false
-    m.x = m.y = -9999
-    if (glowRef.current) glowRef.current.style.opacity = "0"
-  }, [])
-
-  const handleDown = useCallback(
-    (e: React.PointerEvent<HTMLDivElement>) => {
-      handleMove(e)
-      const rect = e.currentTarget.getBoundingClientRect()
-      const cx = e.clientX - rect.left
-      const cy = e.clientY - rect.top
-      ripple(cx, cy)
-
-      const now = performance.now()
-      for (const s of strandsRef.current) {
-        const dx = s.pivotX - cx
-        const dist = Math.abs(dx)
-        if (dist >= 220) continue
-        const push = 1 - dist / 220
-        s.v += (dx > 0 ? 1 : -1) * 0.01 * push
-        s.ring = Math.min(1, s.ring + push)
-        if (now - s.lastRing > 90) {
-          s.lastRing = now
+    // Send radial shockwave pulse to nearby strings (velocity impulse)
+    const now = performance.now()
+    for (const s of strandsRef.current) {
+      for (let k = 1; k < s.nodes.length; k++) {
+        const node = s.nodes[k]
+        const dx = node.x - cx
+        const dy = node.y - cy
+        const dist = Math.hypot(dx, dy)
+        if (dist < 150) {
+          const push = (1 - dist / 150) * 2.4
+          node.px -= Math.sign(dx || 1) * push
+          node.energy = Math.min(1, node.energy + (1 - dist / 150) * 0.8)
+          s.ring = Math.min(1, s.ring + (1 - dist / 150) * 0.5)
         }
       }
-    },
-    [handleMove, ripple],
-  )
+      if (now - s.lastRing > 90) {
+        s.lastRing = now
+      }
+    }
+  }, [])
 
   return (
-    <>
-      {/* Host spans the hero so the cover maths has the same box the plates
-          do; the stage inside is clipped to the archway. */}
-      <div ref={hostRef} className="wjc-chime-host" aria-hidden="true">
-        <div
-          ref={stageRef}
-          className="wjc-chime-stage"
-          onPointerMove={handleMove}
-          onPointerLeave={handleLeave}
-          onPointerDown={handleDown}
-        >
-        </div>
+    <div ref={hostRef} className="wjc-chime-host" aria-hidden="true">
+      <div
+        ref={stageRef}
+        className="wjc-chime-stage"
+        onPointerDown={handleDown}
+      >
+        <canvas
+          ref={canvasRef}
+          className="wjc-chime-canvas"
+        />
       </div>
-
-    </>
+    </div>
   )
 }
