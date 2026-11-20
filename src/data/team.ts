@@ -40,6 +40,13 @@ export const faculty: TeamMember[] = [
     },
   },
   {
+    id: "priyanka-banik",
+    name: "Ms. Priyanka Banik",
+    role: { en: "Vice-Chairperson", ja: "副会長" },
+    subtitle: { en: "Woxsen University", ja: "ウォクセン大学" },
+    image: "/images/team/faculty-leadership/ms-priyanka-baynik.jpeg",
+  },
+  {
     id: "brundaban-mishra",
     name: "Dr. Brundaban Mishra",
     role: { en: "Director", ja: "所長" },
@@ -51,13 +58,6 @@ export const faculty: TeamMember[] = [
     },
   },
   {
-    id: "priyanka-banik",
-    name: "Ms. Priyanka Banik",
-    role: { en: "Vice-Chairperson", ja: "副会長" },
-    subtitle: { en: "Woxsen University", ja: "ウォクセン大学" },
-    image: "/images/team/faculty-leadership/ms-priyanka-baynik.jpeg",
-  },
-  {
     id: "daisuke-tanji",
     name: "Mr. Tanji Daisuke",
     role: { en: "Deputy Director", ja: "副所長" },
@@ -67,13 +67,6 @@ export const faculty: TeamMember[] = [
       en: "Deputy Director of the Centre and Chief Executive of Indobox Inc., connecting the Centre's programming with Japanese industry.",
       ja: "センター副所長、そしてインドボックス株式会社の最高経営責任者として、センターの活動と日本の産業界をつないでいます。",
     },
-  },
-  {
-    id: "nistha-jain",
-    name: "Ms. Nistha Jain",
-    role: { en: "Manager", ja: "マネージャー" },
-    subtitle: { en: "Woxsen University", ja: "ウォクセン大学" },
-    image: "/images/team/faculty-leadership/ms-nishta-jain.jpeg",
   },
   {
     id: "hemachandran-kannan",

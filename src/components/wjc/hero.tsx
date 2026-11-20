@@ -27,8 +27,6 @@ interface SeasonVisuals {
   statsLabel: string
   particleType: ParticleType
   particleColor: string
-  shojiPanelBg: string
-  shojiBorder: string
 }
 
 /**
@@ -47,8 +45,6 @@ const VISUALS: Record<SeasonId, SeasonVisuals> = {
     statsLabel: "rgba(245,240,232,0.48)",
     particleType: "none",
     particleColor: "#C0392B",
-    shojiPanelBg: "rgba(18,10,6,0.52)",
-    shojiBorder: "rgba(192,57,43,0.30)",
   },
   natsu: {
     overlay:
@@ -60,8 +56,6 @@ const VISUALS: Record<SeasonId, SeasonVisuals> = {
     statsLabel: "rgba(245,230,211,0.48)",
     particleType: "sparks",
     particleColor: "#FF8C42",
-    shojiPanelBg: "rgba(3,5,14,0.52)",
-    shojiBorder: "rgba(232,93,4,0.30)",
   },
   tanabata: {
     overlay:
@@ -73,8 +67,6 @@ const VISUALS: Record<SeasonId, SeasonVisuals> = {
     statsLabel: "rgba(232,228,240,0.48)",
     particleType: "fireflies",
     particleColor: "#C9B8E8",
-    shojiPanelBg: "rgba(2,2,14,0.52)",
-    shojiBorder: "rgba(155,89,182,0.30)",
   },
   setsubun: {
     overlay:
@@ -86,8 +78,6 @@ const VISUALS: Record<SeasonId, SeasonVisuals> = {
     statsLabel: "rgba(245,232,212,0.48)",
     particleType: "seeds",
     particleColor: "#D4A574",
-    shojiPanelBg: "rgba(16,7,3,0.52)",
-    shojiBorder: "rgba(196,90,26,0.30)",
   },
   hikari: {
     overlay:
@@ -99,8 +89,6 @@ const VISUALS: Record<SeasonId, SeasonVisuals> = {
     statsLabel: "rgba(245,238,216,0.48)",
     particleType: "lanterns",
     particleColor: "#C9A84C",
-    shojiPanelBg: "rgba(2,2,2,0.52)",
-    shojiBorder: "rgba(201,168,76,0.30)",
   },
 }
 
@@ -157,186 +145,6 @@ function _StatIcon({ type, color }: { type: string; color: string }) {
   )
 }
 
-/** Right-hand shoji screen. Identical structure across every season. */
-function ShojiPanel({
-  accentColor,
-  panelBg,
-  borderColor,
-  kanjiLabel,
-}: {
-  accentColor: string
-  panelBg: string
-  borderColor: string
-  kanjiLabel: string
-}) {
-  return (
-    <div
-      className="absolute bottom-0 right-0 top-0 z-10 hidden lg:block"
-      style={{ width: "110px", pointerEvents: "none" }}
-      aria-hidden="true"
-    >
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          backgroundColor: panelBg,
-          backdropFilter: "blur(6px)",
-          WebkitBackdropFilter: "blur(6px)",
-          borderLeft: `1px solid ${borderColor}`,
-          transition: "background-color 0.7s ease, border-color 0.7s ease",
-        }}
-      />
-
-      {[25, 50, 75].map((pct) => (
-        <div
-          key={`v-${pct}`}
-          style={{
-            position: "absolute",
-            top: 0,
-            bottom: 0,
-            left: `${pct}%`,
-            width: "1px",
-            backgroundColor: borderColor,
-            opacity: 0.5,
-            transition: "background-color 0.7s ease",
-          }}
-        />
-      ))}
-
-      {[12, 24, 36, 48, 60, 72, 84].map((pct) => (
-        <div
-          key={`h-${pct}`}
-          style={{
-            position: "absolute",
-            left: 0,
-            right: 0,
-            top: `${pct}%`,
-            height: "1px",
-            backgroundColor: borderColor,
-            opacity: 0.3,
-            transition: "background-color 0.7s ease",
-          }}
-        />
-      ))}
-
-      {/* Washi paper cell texture */}
-      {[0, 1, 2].map((col) =>
-        [0, 1, 2, 3, 4, 5, 6].map((row) => (
-          <div
-            key={`${col}-${row}`}
-            style={{
-              position: "absolute",
-              left: `${col * 25 + 3}%`,
-              top: `${row * 12 + 1.5}%`,
-              width: "19%",
-              height: "9%",
-              backgroundColor: "rgba(255,255,255,0.025)",
-              borderRadius: "1px",
-            }}
-          />
-        )),
-      )}
-
-      {/* Vertical 和敬清寂 */}
-      <div
-        style={{
-          position: "absolute",
-          right: "14px",
-          top: "50%",
-          transform: "translateY(-50%)",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "6px",
-        }}
-      >
-        {["和", "敬", "清", "寂"].map((char) => (
-          <span
-            key={char}
-            className="font-jp"
-            style={{
-              fontSize: "20px",
-              fontWeight: 400,
-              color: accentColor,
-              lineHeight: 1,
-              writingMode: "vertical-rl",
-              textOrientation: "upright",
-              opacity: 0.8,
-              letterSpacing: "3px",
-              transition: "color 0.7s ease",
-            }}
-          >
-            {char}
-          </span>
-        ))}
-
-        <div
-          style={{
-            marginTop: "12px",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: "4px",
-          }}
-        >
-          <div
-            style={{
-              width: "1px",
-              height: "18px",
-              backgroundColor: accentColor,
-              opacity: 0.45,
-              transition: "background-color 0.7s ease",
-            }}
-          />
-          <span
-            style={{
-              fontFamily: "var(--font-dm-sans)",
-              fontSize: "8px",
-              fontWeight: 700,
-              letterSpacing: "0.18em",
-              color: accentColor,
-              opacity: 0.65,
-              transition: "color 0.7s ease",
-            }}
-          >
-            WJC
-          </span>
-        </div>
-      </div>
-
-      {/* Season badge */}
-      <div
-        style={{
-          position: "absolute",
-          top: "32px",
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: "40px",
-          height: "40px",
-          borderRadius: "50%",
-          border: `1px solid ${borderColor}`,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: "rgba(0,0,0,0.3)",
-          transition: "border-color 0.7s ease",
-        }}
-      >
-        <span
-          className="font-jp"
-          style={{
-            fontSize: kanjiLabel.length > 1 ? "10px" : "16px",
-            color: accentColor,
-            lineHeight: 1,
-            transition: "color 0.7s ease",
-          }}
-        >
-          {kanjiLabel}
-        </span>
-      </div>
-    </div>
-  )
-}
 
 /**
  * Canvas particle field. Each season has its own behaviour — fireflies drift,
@@ -765,13 +573,6 @@ export default function Hero({
           ))}
         </div>
       ))}
-
-      <ShojiPanel
-        accentColor={cfg.accent}
-        panelBg={cfg.shojiPanelBg}
-        borderColor={cfg.shojiBorder}
-        kanjiLabel={season.kanji}
-      />
 
       {/* Content */}
       <div

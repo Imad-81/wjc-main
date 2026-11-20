@@ -16,9 +16,6 @@ interface SectionProps {
   studentLeadershipList?: TeamMember[]
 }
 
-/** The Director card is drawn from the real faculty list. */
-const DIRECTOR_ID = "brundaban-mishra"
-
 function HeroTeam({ locale, dict }: SectionProps) {
   const ref = useReveal<HTMLElement>(100, 0.1)
 
@@ -112,8 +109,7 @@ function FacultySection({ locale, dict, facultyList }: SectionProps) {
   const [hovered, setHovered] = useState<number | null>(null)
 
   const activeFaculty = facultyList && facultyList.length > 0 ? facultyList : faculty
-  // Everyone except the Director, who has their own feature above.
-  const instructors = activeFaculty.filter((p) => p.id !== DIRECTOR_ID)
+  const instructors = activeFaculty
 
   return (
     <section

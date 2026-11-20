@@ -730,7 +730,7 @@
      the 84px bar — as low as the stack can sit — and every pixel taken off
      here is a pixel the poster above the headline gets back. */
   .wjc-hero-content {
-    padding: 72px 130px 88px 0;
+    padding: 72px 0 88px 0;
   }
   .wjc-hero-inner {
     padding: 0 52px;

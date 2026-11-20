@@ -48,7 +48,7 @@ async function fetchTeamDataFromDb(): Promise<{
  */
 const getCachedTeamData = unstable_cache(
   fetchTeamDataFromDb,
-  ["public-team-data"],
+  ["public-team-data-v2"],
   {
     tags: [CACHE_TAGS.TEAM],
     revalidate: 3600,

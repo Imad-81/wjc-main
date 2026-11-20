@@ -22,7 +22,7 @@ const cormorant = Cormorant_Garamond({
 const notoSerifJp = Noto_Serif_JP({
   subsets: ["latin"],
   variable: "--font-noto-serif-jp",
-  weight: ["300", "400", "500"],
+  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 })
 
