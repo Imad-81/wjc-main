@@ -799,7 +799,7 @@
   position: absolute;
   left: 0;
   right: 0;
-  top: 32%;
+  top: 10%;
   bottom: 0;
   transform: translate3d(0, var(--wjc-gate-shift, 0px), 0);
   will-change: transform;
@@ -808,7 +808,7 @@
 
 @media (max-width: 720px) {
   .wjc-gate-layer {
-    top: 64px;
+    top: 48px;
   }
 }
 
@@ -841,7 +841,7 @@
   /* Must match .wjc-gate-layer exactly: the stage maps the gate's archway
      from this box, so changing the inset would rescale the aperture. To move
      the chimes alone, use --wjc-chime-lift below (negative = up). */
-  top: 32%;
+  top: 10%;
   bottom: 0;
   z-index: 1;
   pointer-events: none;
@@ -896,7 +896,7 @@
    once — a 20px disagreement here hangs the strands 20px off the beam. */
 @media (max-width: 720px) {
   .wjc-chime-host {
-    top: 64px;
+    top: 48px;
   }
 }
 

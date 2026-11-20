@@ -215,18 +215,18 @@ export default function FurinChimes({
       canvas.width = Math.round(W * dpr)
       canvas.height = Math.round(H * dpr)
 
-      // Optimized density & sizing: visually dense and delicate, computationally light
-      const compact = W < 240
-      const size = compact ? 8.5 : 10
-      const gap = compact ? 12 : 16
+      // Scaled proportionally to fit the enlarged Torii gate archway
+      const compact = W < 260
+      const size = compact ? 9.5 : 12
+      const gap = compact ? 13 : 17
       const top = 0
-      const usable = W - (compact ? 6 : 12)
+      const usable = W - (compact ? 6 : 14)
       const count = Math.max(4, Math.floor(usable / gap))
       const rightEdge = W - (W - (count - 1) * gap) / 2
 
       const room = H * 0.96
       const spacing = size * 1.15
-      const maxChars = Math.max(5, Math.min(26, Math.floor(room / spacing)))
+      const maxChars = Math.max(6, Math.min(32, Math.floor(room / spacing)))
 
       let cursor = 0
       const newStrands: Strand[] = []
@@ -449,18 +449,19 @@ export default function FurinChimes({
           }
           ctx.lineTo(nodes[numNodes - 1].x, nodes[numNodes - 1].y)
         }
-        ctx.lineWidth = 0.8
+        ctx.lineWidth = W < 260 ? 0.8 : 1.0
         ctx.strokeStyle = "rgba(238, 48, 42, 0.38)"
         ctx.stroke()
 
         // 2. Batch all clapper beads into a single GPU fill call
         ctx.beginPath()
+        const beadRadius = W < 260 ? 2.0 : 2.5
         for (const s of strandsRef.current) {
           const nodes = s.nodes
           const tail = nodes[nodes.length - 1]
           if (tail) {
-            ctx.moveTo(tail.x + 2, tail.y)
-            ctx.arc(tail.x, tail.y, 2.0, 0, Math.PI * 2)
+            ctx.moveTo(tail.x + beadRadius, tail.y)
+            ctx.arc(tail.x, tail.y, beadRadius, 0, Math.PI * 2)
           }
         }
         ctx.fillStyle = palette[0]
@@ -468,8 +469,8 @@ export default function FurinChimes({
 
         // 3. Render Japanese glyphs with direct affine matrix transforms
         // Bypasses all save/restore state stack overhead and trigonometric calls
-        const compact = W < 240
-        const fontSize = compact ? 8.5 : 10
+        const compact = W < 260
+        const fontSize = compact ? 9.5 : 12
 
         ctx.font = `600 ${fontSize}px var(--font-noto-sans-jp), "Noto Sans JP", sans-serif`
         ctx.textAlign = "center"
